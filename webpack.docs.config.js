@@ -10,6 +10,7 @@ module.exports = {
   ],
   output: {
     path: path.join(__dirname, 'docs/lib'),
+    publicPath: '/static/',
     filename: 'bundle.js'
   },
   plugins: [
