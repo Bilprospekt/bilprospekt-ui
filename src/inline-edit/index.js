@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import classNames           from 'classnames';
 
 // Components
-import BuiInputField from './_bui_input_field_component';
+import BuiInputField from '../input-field';
 
 const BuiInlineEdit = React.createClass({
 	propTypes: {
