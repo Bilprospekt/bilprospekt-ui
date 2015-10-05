@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import classNames           from 'classnames';
 
 // Components
-import BuiInputField   from './_bui_input_field_component';
-import BuiFormElement  from './_bui_form_element_component';
-import BuiActionButton from './_bui_action_button_component';
+import BuiInputField   from '../input-field';
+import BuiFormElement  from '../form-element';
+import BuiActionButton from '../action-button';
 
 const BuiSearchAdder = React.createClass({
 	getInitialState() {

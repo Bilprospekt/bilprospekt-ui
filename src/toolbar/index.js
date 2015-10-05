@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import classNames           from 'classnames';
 
 // Components
-import BuiFormElement from './_bui_form_element_component';
+import BuiFormElement from '../form-element';
 
 const BuiToolbarDropdownElement = React.createClass({
 	propTypes: {
