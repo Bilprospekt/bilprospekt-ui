@@ -1,1 +1,3 @@
-export * from './action-button';
+import ActionButton from './action-button';
+
+export {ActionButton};

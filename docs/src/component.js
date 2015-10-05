@@ -1,14 +1,11 @@
 import React from 'react';
-import BUI from '../../lib/index.js';
-console.log('o2k!');
-
-const ActionButton = BUI.ActionButton;
+import {ActionButton} from '../../lib/index.js';
 
 const BilprospektUiComponent = React.createClass({
   render: function() {
     return (
       <div>
-        <ActionButton primary label='Primary Action Button' />
+      This is sparta
       </div>
     );
   }
