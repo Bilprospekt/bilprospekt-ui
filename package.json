@@ -1,0 +1,33 @@
+{
+  "name": "bilprospekt-ui",
+  "version": "0.0.1",
+  "description": "Bilprospekt UI",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Bilprospekt/bilprospekt-ui.git"
+  },
+  "author": "Viktor Silfverström <viktor@silfverstrom.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Bilprospekt/bilprospekt-ui/issues"
+  },
+  "homepage": "https://github.com/Bilprospekt/bilprospekt-ui#readme",
+  "dependencies": {
+    "classnames": "^2.1.5",
+    "react": "^0.13.3",
+    "underscore": "^1.8.3"
+  },
+  "devDependencies": {
+    "babel-core": "^5.8.25",
+    "babel-loader": "^5.3.2",
+    "css-loader": "^0.19.0",
+    "react-hot-loader": "^1.3.0",
+    "style-loader": "^0.12.4",
+    "webpack": "^1.12.2",
+    "webpack-dev-server": "^1.12.0"
+  }
+}
