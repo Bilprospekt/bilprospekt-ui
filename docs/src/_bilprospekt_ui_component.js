@@ -1,14 +1,24 @@
 import React, { Component } from 'react';
 
-import {
-  IconMenu,
-  Toolbar,
+import * as BUI from '../../lib/index.js';
+const {
+  IconMenu: IconMenu,
+  Toolbar: Toolbar,
   ActionButton: BuiActionButton,
   FormElement: BuiFormElement,
   InlineEdit: BuiInlineEdit,
   InputField: BuiInputField,
   SearchAdder: BuiSearchAdder,
-} from '../../lib/index.js';
+} = BUI;
+
+/*
+const {
+  BuiToolbarButton,
+  BuiToolbarMainHolder,
+  BuiToolbarDropdownHolder,
+  BuiToolbarDropdownElement,
+} = BUI;
+*/
 
 var CodeSegment = React.createClass({
     render() {
@@ -130,47 +140,6 @@ var BilprospektUiComponent = React.createClass({
                     <tbody>
                         <tr>
                             <td><BuiInlineEdit string='Editable string' /></td>
-                            <td><p className='code-type type-component'>Component</p></td>
-                        </tr>
-                    </tbody>
-                </table>
-                <p className='table-header-label'>Toolbar</p>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Element</th>
-                            <th>Type</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-                                <BuiToolbarMainHolder>
-                                    <BuiToolbarButton label='Skapa affär' icon='fa-plus' />
-                                    <BuiToolbarButton label='Kommentera' icon='fa-comment' disabled={true} />
-                                    <BuiToolbarDropdownHolder label='Filter' icon='fa-filter'>
-                                        <BuiToolbarDropdownElement label='Knapp 1' />
-                                        <BuiToolbarDropdownElement label='Knapp 2' />
-                                        <BuiToolbarDropdownElement label='Knapp 3' disabled={true} />
-                                    </BuiToolbarDropdownHolder>
-                                    <BuiToolbarDropdownHolder label='Inställningar' icon='fa-gear'>
-                                        <BuiToolbarDropdownElement label='Knapp 1' checkbox={true} />
-                                        <BuiToolbarDropdownElement label='Knapp 2' checkbox={true} />
-                                        <BuiToolbarDropdownElement label='Knapp 3' checkbox={true} checkboxChecked={true} />
-                                        <BuiToolbarDropdownElement label='Knapp 5' checkbox={true} disabled={true} />
-                                        <BuiToolbarDropdownElement label='Knapp 6' checkbox={true} />
-                                        <BuiToolbarDropdownElement label='Knapp 7' checkbox={true} />
-                                        <BuiToolbarDropdownElement label='Knapp 8' checkbox={true} />
-                                        <BuiToolbarDropdownElement label='Knapp 9' checkbox={true} />
-                                        <BuiToolbarDropdownElement label='Knapp 0' checkbox={true} />
-                                    </BuiToolbarDropdownHolder>
-                                    <BuiToolbarDropdownHolder label='Överblick' icon='fa-eye' disabled={true}>
-                                        <BuiToolbarDropdownElement label='Knapp 1' checkbox={true} />
-                                        <BuiToolbarDropdownElement label='Knapp 2' checkbox={true} />
-                                        <BuiToolbarDropdownElement label='Knapp 3' checkbox={true} />
-                                    </BuiToolbarDropdownHolder>
-                                </BuiToolbarMainHolder>
-                            </td>
                             <td><p className='code-type type-component'>Component</p></td>
                         </tr>
                     </tbody>
