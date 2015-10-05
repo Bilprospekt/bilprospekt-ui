@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import classNames           from 'classnames';
 
-var BuiActionButton = React.createClass({
+var ActionButton = React.createClass({
     propTypes: {
         label:   React.PropTypes.string.isRequired,
         primary: React.PropTypes.bool,
@@ -35,4 +35,4 @@ var BuiActionButton = React.createClass({
     }
 });
 
-module.exports = BuiActionButton;
+export default ActionButton;
