@@ -30,3 +30,4 @@ lib
 *.swo
 *.swp
 .tern-port
+.sass-cache

@@ -1,0 +1,54 @@
+/*
+ *
+ * BUI: INLINE EDIT COMPONENT
+ *
+ */
+
+$inlineEditIconSize: 14px 
+
+.bui-inline-edit-component
+  position: relative
+  display: inline-block
+  cursor: pointer
+  p
+    display: inline-block
+    margin: 7px 0
+  .bui-input-field
+    input
+      padding-right: 40px
+  .inline-edit-hover-icon
+    display: inline-block
+    margin-left: 15px
+    color: $BuiPassive
+    &:hover
+      color: $BuiActive
+  .inline-edit-buttons-holder
+    @extend .clear-after
+    display: none
+    position: absolute
+    z-index: 2
+    top: 7px
+    right: -20px
+    @include transition( left .25s ease )
+    .inline-edit-button
+      float: left
+      width: 14px
+      line-height: 14px
+      padding: 1px
+      color: $BuiPassive
+      cursor: pointer
+      &:first-of-type
+        margin-right: 5px
+      &:hover
+        color: $BuiActive
+  &:hover
+    .inline-edit-hover-icon
+      opacity: 0
+    .inline-edit-buttons-holder
+      display: block
+  &.is-editing
+    .inline-edit-hover-icon
+      display: none
+    .inline-edit-buttons-holder
+      display: block
+      right: 0

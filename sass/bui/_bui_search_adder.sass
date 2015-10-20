@@ -1,0 +1,59 @@
+/*
+ *
+ * BUI: SEARCH ADDER
+ *
+ */
+
+$fieldWidth:  200px
+$fieldHeight: 30px
+
+.bui-search-adder-holder
+	position: relative
+	input
+		padding-right: 18px
+	.search-adder-dropdown-indicator-icon
+		position: absolute
+		left: calc(#{$fieldWidth} - 8px)
+		top: 8px
+		color: $BuiPassive
+		font-size: 14px
+	.search-adder-dropdown-holder
+		position: absolute
+		z-index: 1
+		left: -20px
+		top: -15px
+		padding-top: calc(#{$fieldHeight} + 20px)
+		min-width: 240px
+		background-color: white
+		border-radius: 4px
+		box-shadow: 0 2px 8px rgba(0,0,0,0.2)
+		height: 0
+		overflow: hidden
+		@include transition ( all 1.175s cubic-bezier(.23, 1, .32, 1) 0ms )
+		.search-adder-dropdown-head
+			@extend .clear-after
+			padding: 20px
+			border-bottom: 1px solid $BuiPopupLine
+			& *:not(:last-child)
+				margin-right: 20px
+		.search-adder-dropdown-body
+			padding: 15px 20px
+			max-height: 400px
+			overflow: hidden
+			overflow-y: auto
+			.bui-form-element
+				padding: 8px 0
+		.search-adder-dropdown-footer
+			@extend .clear-after
+			padding: 10px
+			border-top: 1px solid $BuiPopupLine
+			& *
+				float: right
+			& *:not(:last-child)
+				margin-left: 10px
+	&.is-expanded
+		.bui-input-field,
+		.search-adder-dropdown-indicator-icon
+			z-index: 2
+		.search-adder-dropdown-holder
+			height: 492px

@@ -2439,6 +2439,16 @@ h3 {
   height: 492px;
 }
 
+/* line 2, ../sass/bui/_bui_tooltip.sass */
+.bui-tooltip .bui-tooltip-text {
+  background-color: black;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  color: white;
+  padding: 10px;
+}
+
 /*
  * OBJECTIVE PAPER STYLING
  *

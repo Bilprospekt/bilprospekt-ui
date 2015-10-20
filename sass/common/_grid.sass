@@ -1,0 +1,79 @@
+/*
+ *
+ * GRID SETTINGS
+ *
+ */
+
+.row-wrapper
+  &:after
+    content: ''
+    display: table
+    clear: both
+  @include bp-m
+    &:after
+      content: none
+    &:last-child
+      .grid-4:last-child
+        margin-bottom: 20px
+
+.row-size-2
+  width: 50%
+  float: left
+  @include bp-s
+    width: 100%
+    float: none
+  @include bp-m
+    width: 100%
+    float: none
+
+[class*='grid-']
+  float: left
+
+.grid-1
+  width: calc(8.33333333% - 10px)
+  
+.grid-2
+  width: calc(16.66666666% - 10px)
+  
+.grid-3
+  width: calc(25% - 10px)
+  
+.grid-4
+  width: calc(33.33333333% - 10px)
+  @include bp-m
+    width: calc(50% - 10px)
+  @include bp-s
+    width: 100%
+    float: none
+  
+.grid-5
+  width: calc(41.66666666% - 10px)
+  
+.grid-6
+  width: calc(50% - 10px)
+  @include bp-m
+    width: calc(100% - 10px)
+    float: none
+  @include bp-s
+    width: 100%
+  
+.grid-7
+  width: calc(58.33333333% - 10px)
+    
+.grid-8
+  width: calc(66.66666666% - 10px)
+    
+.grid-9
+  width: calc(75% - 10px)
+    
+.grid-10
+  width: calc(83.33333333% - 10px)
+
+.grid-11
+  width: calc(91.66666666% - 10px)
+    
+.grid-12
+  width: calc(100% - 10px)
+  float: none
+  @include bp-s
+    width: 100%

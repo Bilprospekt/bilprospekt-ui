@@ -1,0 +1,12 @@
+/*
+ *
+ * Medium Screen Media Query (975)px
+ *
+ */
+
+@media screen and (min-width: $mWidth)
+  #content
+    #content-wrapper
+      width: calc(#{$mWidth} - 15px - #{$navigationWidth}) !important
+      .content-header
+        color: $orange-400 !important
