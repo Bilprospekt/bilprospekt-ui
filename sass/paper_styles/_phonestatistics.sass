@@ -1,0 +1,129 @@
+/*
+ *
+ * PHONESTATISTICS PAPER STYLING
+ *
+ */
+
+$tableDataWidth: 40px
+$tableDotWidth:  8px
+$tableTextWidth: 140px
+
+#phonestatistics
+  @extend .clear-after
+  display: block
+  text-align: left
+  .statistics-row-holder
+    @extend .clear-after
+    .statistics-holder
+      @extend .bread-font-size
+      margin-right: 40px
+      float: left
+      @include bp-s
+        width: 100%
+        float: none
+        margin-bottom: 20px
+      .row-head
+        @extend .clear-after
+        color: $lightGrey
+        border-bottom: 2px solid black
+        margin-bottom: 8px
+        padding-bottom: 5px
+        .title
+          float: left
+          width: calc(#{$tableDotWidth} + #{$tableTextWidth})
+        .data
+          float: right
+          text-align: right
+          width: $tableDataWidth
+      .row
+        @extend .clear-after
+        margin-top: 5px
+        color: black
+        .dot
+          margin-top: 2px
+          float: left
+          width: $tableDotWidth
+          height: $tableDotWidth
+        .text
+          float: left
+          width: $tableTextWidth
+          padding-left: 10px
+        .numbers
+          float: right
+          text-align: right
+          width: $tableDataWidth
+        &:nth-child(2)
+          .dot
+            background-color: $green-400
+        &:nth-child(3)
+          .dot
+            background-color: $light-green-400
+        &:nth-child(4)
+          .dot
+            background-color: $orange-400
+        &:nth-child(5)
+          .dot
+            background-color: $red-400
+    #phone-chart-one, #phone-chart-two
+      float: left
+      @include bp-s
+        width: 100%
+        float: none
+  .two-set-info-holder
+    @extend .clear-after
+    margin: 25px 0
+    .data-holder
+      float: left
+      width: 50%
+      text-align: center
+      padding: 10px 0
+      border: 1px solid $lineGrey
+      &:last-child
+        border-left: none
+      .data
+        display: inline-block
+        @extend .bread-font-size
+        text-align: left
+        .desc
+          color: $lightGrey
+        .big
+          display: inline-block
+          @extend .big-font-size
+          color: black
+          margin-right: 5px
+        .small
+          display: inline-block
+          color: $lightGrey
+  .phone-columns-holder
+    @extend .clear-after
+    margin-top: 35px
+    .phone-data-column
+      float: left
+      margin: 0 20px
+      &:first-child
+        margin-left: 0
+      &:last-child
+        margin-right: 0
+      @include bp-l
+        margin: 0 10px
+      @include bp-m
+        margin: 0 30px
+      @include bp-s
+        margin: 0
+        width: 50%
+        &:nth-child(1), &:nth-child(2)
+          margin-bottom: 20px
+      .data-title
+        @extend .bread-font-size
+        color: $lightGrey
+      .data-desc
+        cursor: pointer
+        .big
+          @extend .big-font-size
+          color: black
+          display: inline-block
+          margin-right: 5px
+        .small
+          @extend .header-font-size
+          color: $lightGrey
+          display: inline-block

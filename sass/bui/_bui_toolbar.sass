@@ -1,0 +1,94 @@
+/*
+ *
+ * BUI: TOOLBAR
+ *
+ */
+
+$toolbarHeight: 40px
+$toolbarBackgroundColor: $grey-50
+$iconSpace: 5px
+
+$dropdownElementPadding: 13px
+$dropdownElementLineHeight: 14px
+$dropdownElementHeight: 40px 
+
+%toolbar-button-base
+  float: left
+  position: relative
+  &.is-disabled
+    color: $BuiDisabled
+    &:hover
+      .toolbar-button-label,
+      .toolbar-dropdown-holder-label
+        background-color: $toolbarBackgroundColor
+        cursor: default
+
+%toolbar-label-base
+  padding: 0 10px
+  cursor: pointer
+  &:hover
+    background-color: $grey-300
+
+.bui-toolbar
+  @extend .clear-after
+  width: 100%
+  height: $toolbarHeight
+  padding: 0 15px
+  background-color: $toolbarBackgroundColor
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2)
+  .toolbar-icon
+    margin-right: $iconSpace
+  .toolbar-caret
+    margin-left: $iconSpace
+  .toolbar-text-label
+    @extend %bui-font-options
+    line-height: $toolbarHeight
+  .toolbar-button
+    @extend %toolbar-button-base
+    .toolbar-button-label
+      @extend %toolbar-label-base
+  .toolbar-dropdown-holder
+    @extend %toolbar-button-base
+    .toolbar-dropdown-holder-label
+      @extend %toolbar-label-base
+    &.is-open
+      .toolbar-dropdown-holder-label
+        background-color: $BuiPassive
+        color: white
+      .toolbar-dropdown-elements-holder
+        opacity: 1
+        top: $toolbarHeight
+        box-shadow: 0 2px 8px rgba(0,0,0,0.2)
+        max-height: calc(10px + (#{$dropdownElementHeight} * 6) - (#{$dropdownElementHeight} / 2))
+        padding: 10px 0
+    .toolbar-dropdown-elements-holder
+      position: absolute
+      top: calc(#{$toolbarHeight} / 2)
+      left: 0
+      padding: 0
+      max-height: 0
+      min-width: 170px
+      overflow-y: auto
+      background-color: white
+      opacity: 0
+      box-shadow: 0 0 0 rgba(0,0,0,0)
+      @include transition( opacity .225s ease, box-shadow .25s ease, top .25s ease, padding .2s ease )
+      .dropdown-element
+        @extend %bui-font-options
+        line-height: $dropdownElementLineHeight
+        color: $BuiActive
+        cursor: pointer
+        .bui-form-element,
+        .dropdown-label
+          padding: $dropdownElementPadding 40px $dropdownElementPadding 15px
+        &:hover
+          background-color: $grey-100
+        &.is-disabled
+          color: $BuiDisabled
+          cursor: default
+          &:hover
+            background-color: white
+
+
+
+

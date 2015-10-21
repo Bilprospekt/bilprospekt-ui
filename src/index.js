@@ -9,6 +9,7 @@ import InlineEdit from './inline-edit';
 import InputField from './input-field';
 import SearchAdder from './search-adder';
 import Toolbar from './toolbar';
+import Tooltip from './tooltip';
 
 export {
   ActionButton,
@@ -17,5 +18,6 @@ export {
   InlineEdit,
   InputField,
   SearchAdder,
-  Toolbar
+  Toolbar,
+  Tooltip,
 };

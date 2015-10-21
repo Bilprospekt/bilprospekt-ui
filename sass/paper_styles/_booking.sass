@@ -1,0 +1,44 @@
+/*
+ *
+ * BOOKING PAPER STYLING
+ *
+ */
+
+#booking
+  @extend .clear-after
+  display: block
+  text-align: left
+  .booking-data-column
+    float: left
+    margin: 0 20px
+    &:first-child
+      margin-left: 0
+    &:last-child
+      margin-right: 0
+    @include bp-s
+      margin: 0 15px
+    @include bp-xs
+      width: 100%
+      margin: 0
+      margin-bottom: 10px
+      &:last-child
+        margin-bottom: 0
+      .data-title, .data-desc
+        display: inline-block
+      .data-title
+        width: 55%
+        font-size: 100%
+    .data-title
+      @extend .bread-font-size
+      color: $lightGrey
+    .data-desc
+      cursor: pointer
+      .big
+        @extend .big-font-size
+        color: black
+        display: inline-block
+        margin-right: 5px
+      .small
+        @extend .header-font-size
+        color: $lightGrey
+        display: inline-block
