@@ -1,0 +1,14 @@
+/*
+ *
+ * Large Screen Media Query (1145)px
+ *
+ */
+
+// min-width: calc(#{$xxlScreenWidth} - 1)
+
+@media screen and (min-width: $lWidth)
+  #content
+    #content-wrapper
+      width: calc(#{$lWidth} - 15px - #{$navigationWidth}) !important
+      .content-header
+        color: $yellow-400 !important

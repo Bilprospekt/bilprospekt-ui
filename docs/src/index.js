@@ -1,6 +1,7 @@
 var React = require('react');
+var ReactDOM = require('react-dom');
 var BilprospektUiComponent = require('./_bilprospekt_ui_component.js');
 
-React.render(
+ReactDOM.render(
   React.createElement(BilprospektUiComponent), document.getElementById('bilpui')
 );

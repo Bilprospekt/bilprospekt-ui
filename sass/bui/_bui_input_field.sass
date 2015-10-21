@@ -1,0 +1,126 @@
+/*
+ *
+ * BUI: INPUT FIELD
+ *
+ */
+
+$inputFieldWidth:         200px
+$inputFieldHeight:        30px
+
+$BuiActive:   $grey-800
+$BuiPassive:     $grey-500
+$BuiDisabled: $grey-300
+$BuiError:    $red-400
+
+.bui-input-field
+  position: relative
+  width: $inputFieldWidth
+  height: $inputFieldHeight
+  font-family: Roboto
+  font-size: 14px
+  font-weight: $normalWeight
+
+  .input-text-value
+    position: relative
+    z-index: 2
+    width: inherit
+    height: inherit
+    input[type=text],
+    input[type=password]
+      width: $inputFieldWidth
+      height: inherit
+      outline: none
+      border-radius: 2px
+      background-color: rgba(255,255,255,0)
+      border: none
+      color: $BuiActive
+      font-family: inherit
+      font-size: inherit
+
+      &:focus
+        outline: none
+
+  .input-underlines
+    position: relative
+    .input-underline-blur
+      position: absolute
+      left: 0
+      width: 100%
+      border-bottom: 1px solid $BuiPassive
+    .input-underline-focus
+      position: absolute
+      left: 0
+      width: 0%
+      border-bottom: 2px solid $highlightColor
+      @include transition( width .2s ease )
+
+  .input-icon-holder
+    position: absolute
+    left: 0
+    .input-icon
+      color: $BuiPassive
+      line-height: 29px
+
+  .input-text-hint
+    position: absolute
+    padding-left: 0
+    top: 7px
+    left: 0
+    color: $BuiPassive
+    @include transition( opacity .3s ease, padding-left .2s ease )
+
+  .input-text-error
+    position: absolute
+    bottom: -17px
+    font-size: 12px
+    color: $BuiError
+
+  .input-disable-overlay
+    position: absolute
+    z-index: 3
+    left: 0
+    top: 0
+    width: 0
+    height: $inputFieldHeight
+
+  // Input has icon
+  &.input-has-icon
+    .input-text-value
+      input
+        padding-left: 20px
+    .input-text-hint
+      left: 20px
+
+  // Input has value
+  &.input-has-value
+    .input-text-hint
+      opacity: 0
+      padding-left: 10px
+
+  // Input is focused
+  &.input-is-focused
+    .input-underline-focus
+      width: 100%
+    .input-icon
+      color: $highlightColor
+
+  // Input has error
+  &.input-has-error
+    .input-icon
+      color: $BuiError
+    .input-underline-focus
+      width: 100%
+      border-color: $BuiError
+
+  // Input is disabled
+  &.input-is-disabled
+    .input-disable-overlay
+      width: 100%
+    .input-icon
+      color: $BuiDisabled
+    .input-text-value
+      input
+        color: $BuiDisabled
+    .input-underline-blur
+      border-color: $BuiDisabled
+      

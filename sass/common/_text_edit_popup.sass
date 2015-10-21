@@ -1,0 +1,52 @@
+/*
+ *
+ * TEXT EDIT POPUP STYLING
+ *
+ */
+
+.text-edit-popup-holder
+  display: inline-block
+  position: relative
+  .text-edit-popup-field
+    @extend .clear-after
+    position: absolute
+    z-index: 5
+    bottom: -5px
+    left: -5px
+    padding: 5px
+    min-width: 200%
+    max-width: 120px
+    background-color: white
+    border-radius: 4px
+    box-shadow: 0 2px 4px rgba(0,0,0,0.4)
+    display: none
+
+    input[type=text]
+      font-family: Roboto
+      float: left
+      position: relative
+      font-size: 100%
+      border: none
+      background-color: white
+      max-width: calc(100% - 20px)
+      color: $lightGrey
+      &:focus
+        outline: 0
+        color: $heavyGrey
+
+    .edit-button
+      float: right
+      font-size: 14px
+      margin: 0 3px
+      color: $heavyGrey
+      cursor: pointer
+      &.save-button
+        &:hover
+          color: $green-400
+      &.cancel-button
+        &:hover
+          color: $red-400
+
+    &.field-is-visible
+      display: block
+

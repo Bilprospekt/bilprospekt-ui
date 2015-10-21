@@ -1,0 +1,84 @@
+/*
+ *
+ * GARAGE PAPER STYLING
+ */
+
+$barColor: #{$grey-400}
+
+.garage
+  display: block
+  text-align: left
+  .ranks-label
+    margin-bottom: 3px
+    @extend .bread-font-size
+    color: $lightGrey
+  .ranks-row
+    @extend .clear-after
+    margin-bottom: 20px
+    .ranks-column
+      float: left
+      width: 47%
+      &:first-child .rank-box
+        background-color: $highlightColor
+      .rank-box
+        float: left
+        padding: 4px 8px
+        @extend .bread-font-size
+        text-align: center
+        border-radius: 4px
+        color: white
+        font-weight: $mediumWeight
+        margin-right: 5px
+        background-color: $heavyGrey
+        .fa
+          @extend .header-font-size
+          margin-right: 4px
+      .rank-label
+        float: left
+        @extend .bread-font-size
+        color: $lightGrey
+        line-height: 23px
+  .garage-data-holder
+    @extend .clear-after
+    border-bottom: 1px solid #eee
+    padding: 5px 0
+    &:nth-child(3)
+      padding-top: 0
+    &:last-child
+      border-bottom: none
+      padding-bottom: 0
+    .left-data-column
+      float: left
+      width: 47%
+    .middle-data-column
+      float: left
+      width: 30%
+    .gdc
+      .top-text
+        @extend .bread-font-size
+        color: $lightGrey
+      .big-text
+        @extend .big-font-size
+        margin-right: 5px
+        display: inline-block
+        color: black
+        &.positive
+          color: $green-400
+        &.negative
+          color: $red-400
+      .desc-text
+        @extend .bread-font-size
+        color: $lightGrey
+        display: inline-block
+    .right-data-column
+      float: right
+      text-align: center
+      width: 23%
+      p
+        @extend .bread-font-size
+        color: $lightGrey
+      .fa
+        @extend .big-font-size
+        color: $grey-300
+        &.done
+          color: $green-400
