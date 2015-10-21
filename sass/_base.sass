@@ -1,0 +1,53 @@
+/*
+ *
+ * BASE STYLING
+ *
+ */
+
+.clear-after
+  &:after
+    content: ''
+    display: block
+    clear: both
+
+.ellipsis
+  overflow: hidden
+  text-overflow: ellipsis
+  white-space: nowrap
+
+// Event Classes
+.event
+  text-decoration: none
+  color: $eventColor
+  cursor: pointer
+  &:hover
+    color: $eventHoverColor
+
+// Highlight Classes
+.highlight, .highlight-no-hover
+  text-decoration: none
+  color: $highlightColor
+.highlight
+  cursor: pointer
+  &:hover
+    color: $highlightHoverColor
+
+*
+  margin: 0
+  padding: 0
+  box-sizing: border-box
+  text-decoration: none
+
+body
+  background-color: $grey-100
+  font-family: 'Roboto', sans-serif
+  font-weight: $normalWeight
+  text-rendering: auto
+  -webkit-font-smoothing: antialiased
+  overflow: hidden
+  @extend .clear-after
+
+ul
+  list-style-type: none
+  li
+    list-style-type: none

@@ -1,0 +1,35 @@
+/*
+ *
+ * BREAKPOINTS MIXIN
+ *
+ */
+
+// Blue
+@mixin bp-xs
+  @media screen and (max-device-width: $xsWidth)
+    @content
+
+// Purple
+@mixin bp-s
+  @media screen and (max-device-width: $sWidth)
+    @content
+
+// Red
+@mixin bp-m
+  @media screen and (max-width: $mWidthBP)
+    @content
+
+// Orange
+@mixin bp-l
+  @media screen and (max-width: $lWidthBP)
+    @content
+
+// Yellow
+@mixin bp-xl
+  @media screen and (min-width: $lWidth)
+    @content
+
+// Green
+@mixin bp-xxl
+  @media screen and (min-width: $xlWidth)
+    @content

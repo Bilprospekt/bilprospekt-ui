@@ -20,6 +20,9 @@ const {
 } = BUI;
 */
 
+//Docs components
+import BilprospektTooltipDoc from './_bilprospekt_tooltip_component.js';
+
 var CodeSegment = React.createClass({
     render() {
         var classRender;
@@ -77,6 +80,7 @@ var BilprospektUiComponent = React.createClass({
         return (
             <div id='bilprospekt-ui-styling-holder'>
                 <p className='master-header'>Bilprospekt 2.0 Style Guide</p>
+                <BilprospektTooltipDoc />
                 <p className='table-header-label'>Action Buttons</p>
                 <table>
                     <thead>
