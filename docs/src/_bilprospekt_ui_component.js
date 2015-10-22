@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import * as BUI from '../../lib/index.js';
+import * as BUI from 'bilprospekt-ui';
 const {
   IconMenu: IconMenu,
   Toolbar: Toolbar,

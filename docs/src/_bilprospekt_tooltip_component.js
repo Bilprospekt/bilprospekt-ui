@@ -1,5 +1,5 @@
 import React from 'react';
-import {Tooltip} from '../../lib/index.js';
+import {Tooltip} from 'bilprospekt-ui';
 
 const BilprospektTooltipComponent = React.createClass({
 

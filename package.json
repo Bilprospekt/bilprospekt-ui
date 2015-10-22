@@ -4,7 +4,6 @@
   "description": "Bilprospekt UI",
   "main": "./lib/index.js",
   "scripts": {
-    "server": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --config webpack.config.js",
     "prebuild": "rm -rf lib",
