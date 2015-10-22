@@ -4,8 +4,11 @@
   "description": "Bilprospekt UI",
   "main": "lib/index.js",
   "scripts": {
-    "start": "node server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "server": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --config webpack.config.js",
+    "prebuild": "rm -rf lib",
+    "prepublish": "npm run build"
   },
   "repository": {
     "type": "git",
