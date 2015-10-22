@@ -31,3 +31,4 @@ lib
 *.swp
 .tern-port
 .sass-cache
+.DS_Store
