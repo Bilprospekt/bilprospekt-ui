@@ -15,17 +15,17 @@
  * STANDARD CLASSES
  *
  */
-/* line 8, ../sass/lib/_classes.sass */
+/* line 8, ../sass/library/_classes.sass */
 .big-font-size, .content-header .left-header-part .text .big, .content-header .middle-header-part .current-goal-holder .goal-top-part .number, #objective .objective-columns-holder .objective-column .objective-mid-row, #timereport .timereport-columns-holder .timereport-data-column .data-desc .big, #booking .booking-data-column .data-desc .big, #phonestatistics .two-set-info-holder .data-holder .data .big, #phonestatistics .phone-columns-holder .phone-data-column .data-desc .big, #summary .summary-info-row .row-icon, #summary .summary-info-row .row-arrow, #summary .summary-info-row .row-text .big, .garage .garage-data-holder .gdc .big-text, .garage .garage-data-holder .right-data-column .fa {
   font-size: 26px;
 }
 
-/* line 10, ../sass/lib/_classes.sass */
+/* line 10, ../sass/library/_classes.sass */
 .header-font-size, .content-header .middle-header-part .current-goal-holder .goal-bot-part, .content-header .middle-header-part .list-toggle-filter-holder, .paper .paper-header, #popup-holder .popup-wrapper .popup-content .content-title, #popup-holder .popup-wrapper .popup-content .content-body .date-picker-wrapper .picker-button, #popup-holder .popup-wrapper .popup-content .content-footer .popup-footer-button, #main-list-holder #main-table tbody tr td, #timereport .timereport-columns-holder .timereport-data-column .data-desc .small, #booking .booking-data-column .data-desc .small, #phonestatistics .phone-columns-holder .phone-data-column .data-desc .small, .garage .ranks-row .ranks-column .rank-box .fa {
   font-size: 14px;
 }
 
-/* line 12, ../sass/lib/_classes.sass */
+/* line 12, ../sass/library/_classes.sass */
 .bread-font-size, #header-wrapper .header-options .header-datepicker-button .date-info .date-left, .content-header .left-header-part .text .small, .content-header .middle-header-part .current-goal-holder .goal-top-part .desc, #popup-holder .popup-wrapper .popup-content .content-body, #main-list-holder #main-table thead tr th, #main-list-holder #main-table thead tr .th-filter .list-column-filter-button .list-filter-dropdown .filter-header, #main-list-holder #main-table thead tr .th-filter .list-column-filter-button .list-filter-dropdown .search-box-holder .search-box, #main-list-holder #main-table tbody tr td .desc, #main-list-holder #main-table tbody tr td .small, #objective .objective-columns-holder .objective-column .objective-top-row, #objective .objective-columns-holder .objective-column .objective-bot-row, #timereport .timereport-columns-holder .timereport-data-column .data-title, #booking .booking-data-column .data-title, #phonestatistics .statistics-row-holder .statistics-holder, #phonestatistics .two-set-info-holder .data-holder .data, #phonestatistics .phone-columns-holder .phone-data-column .data-title, #summary .summary-info-row .row-text .desc, #summary .summary-info-row .row-text .small, .garage .ranks-label, .garage .ranks-row .ranks-column .rank-box, .garage .ranks-row .ranks-column .rank-label, .garage .garage-data-holder .gdc .top-text, .garage .garage-data-holder .gdc .desc-text, .garage .garage-data-holder .right-data-column p {
   font-size: 12px;
 }
@@ -2437,6 +2437,19 @@ h3 {
 /* line 58, ../sass/bui/_bui_search_adder.sass */
 .bui-search-adder-holder.is-expanded .search-adder-dropdown-holder {
   height: 492px;
+}
+
+/* line 2, ../sass/bui/_bui_tooltip.sass */
+.bui-tooltip .bui-tooltip-text {
+  background-color: #212121;
+  text-transform: uppercase;
+  font-size: 10px;
+  font-weight: 500;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  color: white;
+  padding: 10px;
 }
 
 /*

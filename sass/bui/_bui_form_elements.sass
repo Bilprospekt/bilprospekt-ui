@@ -1,0 +1,101 @@
+/*
+ *
+ * BUI: FORM ELEMENTS
+ *
+ */
+
+$elementBoxSize: 14px
+
+%label-base
+  display: block
+  float: left
+  margin: 1px
+  margin-right: 10px
+  width: 12px
+  height: 12px
+  border: 1px solid $BuiPassive
+  cursor: pointer
+
+.bui-form-element
+  @extend .clear-after
+  min-width: 100px
+  cursor: pointer
+  &:hover
+    .element-label
+      color: $BuiActive
+  // General Styling
+  .element-toggle,
+  .element-checkbox,
+  .element-radio
+    float: left
+    margin-right: 10px
+    display: none
+
+  .element-checkbox-icon
+    color: $highlightColor
+    margin-left: -1px
+    margin-top: -1px
+
+  // Checkbox
+  &.checkbox-type
+    label
+      @extend %label-base
+      border-radius: 2px
+    .element-checkbox:checked + label
+      border: none
+
+  // Radio
+  &.radio-type
+    label
+      @extend %label-base
+      border-radius: 50%
+    .element-radio:checked + label
+      border: none
+      background-color: $highlightColor
+
+  // Toggle
+  &.toggle-type
+    label
+      @extend %label-base
+      position: relative
+      width: calc((#{$elementBoxSize} * 2) - 4px)
+      border-radius: $elementBoxSize
+      background-color: $BuiPassive
+      border: none
+      @include transition( background-color .25s ease )
+      &:after
+        display: block
+        content: ''
+        position: absolute
+        left: 2px
+        top: 2px
+        border-radius: 50%
+        width: calc(#{$elementBoxSize} - 6px)
+        height: calc(#{$elementBoxSize} - 6px)
+        background-color: white
+        @include transition( left .25s ease )
+    .element-toggle:checked + label
+      background-color: $highlightColor
+      &:after
+        left: $elementBoxSize
+
+  // Label
+  .element-label
+    @extend %bui-font-options
+    color: $BuiPassive
+    float: left
+    line-height: $elementBoxSize
+
+  // Checked Element
+  &.element-checked
+    .element-label
+      color: $BuiActive
+
+  // Disabled Element
+  &.element-disabled
+    label
+      border-color: $BuiDisabled
+    &:hover
+      border-color: $BuiDisabled
+    .element-label
+      color: $BuiDisabled

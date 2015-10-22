@@ -1,0 +1,77 @@
+/*
+ *
+ * BILP UI STYLING DOCUMENT
+ *
+ */
+
+#bilpui
+  #bilprospekt-ui-styling-holder
+    z-index: 99999999
+    position: absolute
+    width: 100vw
+    height: 100vh
+    top: 0
+    left: 0
+    padding: 100px
+    overflow-y: auto
+    .master-header
+      font-size: 54px
+      color: $grey-800
+      font-weight: $mediumWeight
+    .table-header-label
+      font-size: 36px
+      margin: 80px 0 40px 0
+      font-weight: $lightWeight
+      color: $grey-700
+    .code-segment
+      padding: 4px 6px
+      border-radius: 4px
+      background-color: $grey-800
+      border: 1px solid $grey-900
+      display: inline-block
+      font-family: monospace
+      font-size: 12px
+      .tag-class
+        color: white
+      .type-class
+        color: $orange-400
+      .class-class
+        color: $grey-400
+      .classname-class
+        color: $yellow-400
+      .content-class
+        color: $grey-400
+    table
+      width: 100%
+      border-collapse: collapse
+      text-align: left
+      border: 1px solid $grey-300
+      thead
+        font-size: 12px
+        text-transform: uppercase
+        color: $grey-500
+        tr
+          th
+            padding: 40px 20px
+            border-bottom: 1px solid $grey-300
+      tbody
+        tr
+          td
+            font-size: 14px
+            color: $grey-700
+            padding: 20px
+            &:nth-child(2)
+              max-width: 200px
+            .code-type
+              padding: 4px 6px
+              border-radius: 4px
+              display: inline-block
+              font-family: monospace
+              font-size: 12px
+              color: white
+              &.type-class
+                background-color: $blue-400
+                border: 1px solid $blue-500
+              &.type-component
+                background-color: $green-400
+                border: 1px solid $green-500
