@@ -11,7 +11,7 @@
     "type": "git",
     "url": "git+https://github.com/Bilprospekt/bilprospekt-ui.git"
   },
-  "author": "Viktor Silfverström <viktor@silfverstrom.com>",
+  "author": "Bilprospekt Team",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/Bilprospekt/bilprospekt-ui/issues"
