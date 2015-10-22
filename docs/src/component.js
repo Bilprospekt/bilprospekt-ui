@@ -1,5 +1,5 @@
 import React from 'react';
-import {ActionButton} from '../../lib/index.js';
+import {ActionButton} from 'bilprospekt-ui';
 
 const BilprospektUIComponent = React.createClass({
     render: function() {
