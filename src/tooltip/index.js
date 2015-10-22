@@ -102,7 +102,7 @@ const TooltipComponent = React.createClass({
     },
     render() {
         var textStyle = {
-            display : this.state.hover ? 'block' : 'block',
+            display : this.state.hover ? 'block' : 'none',
             left: this.state.left,
             top: this.state.top,
         };
