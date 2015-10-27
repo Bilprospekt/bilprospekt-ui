@@ -1731,8 +1731,9 @@ ul li {
   text-align: center;
   text-transform: uppercase;
   text-shadow: 0 1px 0 rgba(0, 0, 0, 0.15);
-  padding: 11px 20px;
+  padding: 6px 12px;
   border-radius: 4px;
+  font-size: 14px;
   min-width: 75px;
   cursor: pointer;
   line-height: normal;
@@ -1743,7 +1744,7 @@ ul li {
   transition: all 0.175s cubic-bezier(0.23, 1, 0.32, 1) 0ms;
 }
 
-/* line 21, ../sass/bui/_bui_action_button.sass */
+/* line 22, ../sass/bui/_bui_action_button.sass */
 .bui-minor-primary-action-button, .bui-minor-secondary-action-button {
   font-size: 13px;
   text-shadow: 0 1px 0 rgba(0, 0, 0, 0.15);
@@ -1760,79 +1761,79 @@ ul li {
   transition: all 0.175s cubic-bezier(0.23, 1, 0.32, 1) 0ms;
 }
 
-/* line 33, ../sass/bui/_bui_action_button.sass */
+/* line 34, ../sass/bui/_bui_action_button.sass */
 .bui-primary-action-button {
   background-color: #ffc400;
   border: 1px solid #ffab00;
   box-shadow: inset 0 1px 0 #ffd54f;
 }
-/* line 39, ../sass/bui/_bui_action_button.sass */
+/* line 40, ../sass/bui/_bui_action_button.sass */
 .bui-primary-action-button:hover {
   background-color: #ffd740;
   border-color: #ffc400;
 }
-/* line 43, ../sass/bui/_bui_action_button.sass */
+/* line 44, ../sass/bui/_bui_action_button.sass */
 .bui-primary-action-button:active {
   background-color: #ffab00;
   border-color: #ffab00;
   box-shadow: inset 0 1px 0 #ff6f00;
 }
 
-/* line 48, ../sass/bui/_bui_action_button.sass */
+/* line 49, ../sass/bui/_bui_action_button.sass */
 .bui-secondary-action-button {
   background-color: #9e9e9e;
   border: 1px solid #757575;
   box-shadow: inset 0 1px 0 #bdbdbd;
 }
-/* line 54, ../sass/bui/_bui_action_button.sass */
+/* line 55, ../sass/bui/_bui_action_button.sass */
 .bui-secondary-action-button:hover {
   background-color: #bdbdbd;
   border-color: #9e9e9e;
 }
-/* line 58, ../sass/bui/_bui_action_button.sass */
+/* line 59, ../sass/bui/_bui_action_button.sass */
 .bui-secondary-action-button:active {
   background-color: #757575;
   border-color: #757575;
   box-shadow: inset 0 1px 0 #424242;
 }
 
-/* line 63, ../sass/bui/_bui_action_button.sass */
+/* line 64, ../sass/bui/_bui_action_button.sass */
 .bui-minor-primary-action-button {
   background-color: #ffc400;
   border: 1px solid #ffab00;
   box-shadow: inset 0 1px 0 #ffd54f;
 }
-/* line 69, ../sass/bui/_bui_action_button.sass */
+/* line 70, ../sass/bui/_bui_action_button.sass */
 .bui-minor-primary-action-button:hover {
   background-color: #ffd740;
   border-color: #ffc400;
 }
-/* line 73, ../sass/bui/_bui_action_button.sass */
+/* line 74, ../sass/bui/_bui_action_button.sass */
 .bui-minor-primary-action-button:active {
   background-color: #ffab00;
   border-color: #ffab00;
   box-shadow: inset 0 1px 0 #ff6f00;
 }
 
-/* line 78, ../sass/bui/_bui_action_button.sass */
+/* line 79, ../sass/bui/_bui_action_button.sass */
 .bui-minor-secondary-action-button {
   background-color: #9e9e9e;
   border: 1px solid #757575;
   box-shadow: inset 0 1px 0 #bdbdbd;
 }
-/* line 84, ../sass/bui/_bui_action_button.sass */
+/* line 85, ../sass/bui/_bui_action_button.sass */
 .bui-minor-secondary-action-button:hover {
   background-color: #bdbdbd;
   border-color: #9e9e9e;
 }
-/* line 88, ../sass/bui/_bui_action_button.sass */
+/* line 89, ../sass/bui/_bui_action_button.sass */
 .bui-minor-secondary-action-button:active {
   background-color: #757575;
   border-color: #757575;
   box-shadow: inset 0 1px 0 #424242;
 }
 
-/* line 97, ../sass/bui/_bui_action_button.sass */
+/* line 98, ../sass/bui/_bui_action_button.sass */
 .bui-primary-action-button.bui-is-selected,
 .bui-secondary-action-button.bui-is-selected,
 .bui-minor-primary-action-button.bui-is-selected,
@@ -1841,7 +1842,7 @@ ul li {
   border: 1px solid #00acc1;
   box-shadow: inset 0 1px 0 #26c6da;
 }
-/* line 102, ../sass/bui/_bui_action_button.sass */
+/* line 103, ../sass/bui/_bui_action_button.sass */
 .bui-primary-action-button.bui-is-selected:hover,
 .bui-secondary-action-button.bui-is-selected:hover,
 .bui-minor-primary-action-button.bui-is-selected:hover,
@@ -1849,7 +1850,7 @@ ul li {
   background-color: #26c6da;
   border-color: #00bcd4;
 }
-/* line 106, ../sass/bui/_bui_action_button.sass */
+/* line 107, ../sass/bui/_bui_action_button.sass */
 .bui-primary-action-button.bui-is-selected:active,
 .bui-secondary-action-button.bui-is-selected:active,
 .bui-minor-primary-action-button.bui-is-selected:active,
