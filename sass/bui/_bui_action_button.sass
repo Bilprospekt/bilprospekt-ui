@@ -92,10 +92,34 @@
     box-shadow: inset 0 1px 0 $grey-800
 
 .bui-primary-action-button,
+.bui-minor-primary-action-button
+  &.bui-is-flat
+    color: $amber-A400
+    border-color: $amber-A400
+    &:hover
+      background-color: rgba($amber-A400, .2)
+
+.bui-secondary-action-button,
+.bui-minor-secondary-action-button
+  &.bui-is-flat
+    color: $grey-800
+    border-color: $grey-500
+    &:hover
+      background-color: rgba($grey-500, .2)
+    &:active
+      box-shadow: inset 0 1px 0 rgba($grey-500, .5)
+      background-color: rgba($grey-500, .4)
+
+.bui-primary-action-button,
 .bui-secondary-action-button,
 .bui-minor-primary-action-button,
 .bui-minor-secondary-action-button
+  &.bui-is-flat
+    background-color: transparent
+    text-shadow: none
+    box-shadow: none
   &.bui-is-selected
+    color: white
     background-color: $cyan-500
     border: 1px solid $cyan-600
     box-shadow: inset 0 1px 0 $cyan-400
