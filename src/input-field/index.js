@@ -25,8 +25,14 @@ const BuiInputField = React.createClass({
     },
     componentDidMount() {
         if (this.props.focus) {
-            this.refs.field.getDOMNode().focus();
+            this.refs.field.focus();
         }
+    },
+    blur() {
+        this.refs.field.blur();
+    },
+    getValue() {
+        return this.refs.field.value;
     },
     _handleChange(event) {
         if (typeof this.props.onChange === 'function') {
@@ -64,7 +70,7 @@ const BuiInputField = React.createClass({
                 <div className='input-disable-overlay' />
                 <div className='input-icon-holder'>{icon}</div>
                 <div className='input-text-hint'>{this.props.hint}</div>
-                <div className='input-text-value'><input ref='field' {...props} onChange={this._handleChange} onFocus={this._handleFocus} onBlur={this._handleBlur} /></div>
+                <div className='input-text-value'><input {...props} onChange={this._handleChange} onFocus={this._handleFocus} onBlur={this._handleBlur} /></div>
                 <div className='input-underlines'>
                     <div className='input-underline-blur' />
                     <div className='input-underline-focus' />
