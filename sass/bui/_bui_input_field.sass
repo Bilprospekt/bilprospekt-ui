@@ -14,11 +14,13 @@ $BuiError:    $red-400
 
 .bui-input-field
   position: relative
-  width: $inputFieldWidth
+  width: 100%
+  max-width: $inputFieldWidth
   height: $inputFieldHeight
   font-family: Roboto
   font-size: 14px
   font-weight: $normalWeight
+  line-height: normal
 
   .input-text-value
     position: relative
@@ -27,7 +29,7 @@ $BuiError:    $red-400
     height: inherit
     input[type=text],
     input[type=password]
-      width: $inputFieldWidth
+      width: 100%
       height: inherit
       outline: none
       border-radius: 2px
