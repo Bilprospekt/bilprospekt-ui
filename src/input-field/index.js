@@ -25,14 +25,17 @@ const BuiInputField = React.createClass({
     },
     componentDidMount() {
         if (this.props.focus) {
-            this.refs.field.focus();
+            this._field.focus();
         }
     },
     blur() {
-        this.refs.field.blur();
+        this._field.blur();
+    },
+    focus() {
+        this._field.focus();
     },
     getValue() {
-        return this.refs.field.value;
+        return this._field.value;
     },
     _handleChange(event) {
         if (typeof this.props.onChange === 'function') {
@@ -40,20 +43,22 @@ const BuiInputField = React.createClass({
         }
         this.setState({ value: event.target.value });
     },
-    _handleFocus() {
+    _handleFocus(e) {
         this.setState({ focus: true });
+        if (typeof this.props.onFocus === 'function') this.props.onFocus(e);
     },
-    _handleBlur() {
+    _handleBlur(e) {
         this.setState({ focus: false });
+        if (typeof this.props.onBlur === 'function') this.props.onBlur(e);
     },
-    render() { 
+    render() {
         const parentClass = classNames('bui-input-field', {
             'input-is-focused'  : this.state.focus,
             'input-is-disabled' : this.props.disabled,
             'input-has-icon'    : this.props.icon,
             'input-has-value'   : this.state.value,
             'input-has-error'   : this.props.error,
-        });
+        }, this.props.className);
 
         const icon = (this.props.icon) ? <i className={'input-icon fa ' + this.props.icon} /> : null ;
         const value = this.state.value;
@@ -70,7 +75,9 @@ const BuiInputField = React.createClass({
                 <div className='input-disable-overlay' />
                 <div className='input-icon-holder'>{icon}</div>
                 <div className='input-text-hint'>{this.props.hint}</div>
-                <div className='input-text-value'><input {...props} onChange={this._handleChange} onFocus={this._handleFocus} onBlur={this._handleBlur} /></div>
+                <div className='input-text-value'>
+                    <input {...props} ref={(ref) => this._field = ref} onChange={this._handleChange} onFocus={this._handleFocus} onBlur={this._handleBlur} />
+                </div>
                 <div className='input-underlines'>
                     <div className='input-underline-blur' />
                     <div className='input-underline-focus' />
