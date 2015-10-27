@@ -125,7 +125,7 @@ const BuiToolbarMainHolder = React.createClass({
 	}
 });
 
-exports.BuiToolbarMainHolder = BuiToolbarMainHolder;
-exports.BuiToolbarButton = BuiToolbarButton;
-exports.BuiToolbarDropdownHolder = BuiToolbarDropdownHolder;
-exports.BuiToolbarDropdownElement = BuiToolbarDropdownElement;
+exports.MainHolder = BuiToolbarMainHolder;
+exports.Button = BuiToolbarButton;
+exports.DropdownHolder = BuiToolbarDropdownHolder;
+exports.DropdownElement = BuiToolbarDropdownElement;
