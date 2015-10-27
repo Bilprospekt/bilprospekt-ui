@@ -1833,16 +1833,56 @@ ul li {
   box-shadow: inset 0 1px 0 #424242;
 }
 
-/* line 98, ../sass/bui/_bui_action_button.sass */
+/* line 96, ../sass/bui/_bui_action_button.sass */
+.bui-primary-action-button.bui-is-flat,
+.bui-minor-primary-action-button.bui-is-flat {
+  color: #ffc400;
+  border-color: #ffc400;
+}
+/* line 99, ../sass/bui/_bui_action_button.sass */
+.bui-primary-action-button.bui-is-flat:hover,
+.bui-minor-primary-action-button.bui-is-flat:hover {
+  background-color: rgba(255, 196, 0, 0.2);
+}
+
+/* line 104, ../sass/bui/_bui_action_button.sass */
+.bui-secondary-action-button.bui-is-flat,
+.bui-minor-secondary-action-button.bui-is-flat {
+  color: #424242;
+  border-color: #9e9e9e;
+}
+/* line 107, ../sass/bui/_bui_action_button.sass */
+.bui-secondary-action-button.bui-is-flat:hover,
+.bui-minor-secondary-action-button.bui-is-flat:hover {
+  background-color: rgba(158, 158, 158, 0.2);
+}
+/* line 109, ../sass/bui/_bui_action_button.sass */
+.bui-secondary-action-button.bui-is-flat:active,
+.bui-minor-secondary-action-button.bui-is-flat:active {
+  box-shadow: inset 0 1px 0 rgba(158, 158, 158, 0.5);
+  background-color: rgba(158, 158, 158, 0.4);
+}
+
+/* line 117, ../sass/bui/_bui_action_button.sass */
+.bui-primary-action-button.bui-is-flat,
+.bui-secondary-action-button.bui-is-flat,
+.bui-minor-primary-action-button.bui-is-flat,
+.bui-minor-secondary-action-button.bui-is-flat {
+  background-color: transparent;
+  text-shadow: none;
+  box-shadow: none;
+}
+/* line 121, ../sass/bui/_bui_action_button.sass */
 .bui-primary-action-button.bui-is-selected,
 .bui-secondary-action-button.bui-is-selected,
 .bui-minor-primary-action-button.bui-is-selected,
 .bui-minor-secondary-action-button.bui-is-selected {
+  color: white;
   background-color: #00bcd4;
   border: 1px solid #00acc1;
   box-shadow: inset 0 1px 0 #26c6da;
 }
-/* line 103, ../sass/bui/_bui_action_button.sass */
+/* line 127, ../sass/bui/_bui_action_button.sass */
 .bui-primary-action-button.bui-is-selected:hover,
 .bui-secondary-action-button.bui-is-selected:hover,
 .bui-minor-primary-action-button.bui-is-selected:hover,
@@ -1850,7 +1890,7 @@ ul li {
   background-color: #26c6da;
   border-color: #00bcd4;
 }
-/* line 107, ../sass/bui/_bui_action_button.sass */
+/* line 131, ../sass/bui/_bui_action_button.sass */
 .bui-primary-action-button.bui-is-selected:active,
 .bui-secondary-action-button.bui-is-selected:active,
 .bui-minor-primary-action-button.bui-is-selected:active,
