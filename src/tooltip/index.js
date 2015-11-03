@@ -4,7 +4,7 @@ import $ from 'jquery';
 
 const TooltipComponent = React.createClass({
     propTypes: {
-        text: React.PropTypes.string.isRequired,
+        text: React.PropTypes.any.isRequired,
         orient: React.PropTypes.oneOf(['auto', 'left', 'right', 'top', 'bottom']),
         relativeWindow: React.PropTypes.string,
     },
