@@ -3,22 +3,12 @@ import React, { Component } from 'react';
 import * as BUI from 'bilprospekt-ui';
 const {
   IconMenu: IconMenu,
-  Toolbar: Toolbar,
   ActionButton: BuiActionButton,
   FormElement: BuiFormElement,
   InlineEdit: BuiInlineEdit,
   InputField: BuiInputField,
   SearchAdder: BuiSearchAdder,
 } = BUI;
-
-/*
-const {
-  BuiToolbarButton,
-  BuiToolbarMainHolder,
-  BuiToolbarDropdownHolder,
-  BuiToolbarDropdownElement,
-} = BUI;
-*/
 
 //Docs components
 import BilprospektTooltipDoc from './_bilprospekt_tooltip_component.js';

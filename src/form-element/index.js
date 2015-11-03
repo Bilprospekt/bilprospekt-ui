@@ -10,7 +10,6 @@ const BuiFormElement = React.createClass({
         checked:  React.PropTypes.bool,
         disabled: React.PropTypes.bool,
         onChange: React.PropTypes.func,
-        onClick:  React.PropTypes.func,
     },
     getDefaultProps() {
         return {
@@ -23,22 +22,24 @@ const BuiFormElement = React.createClass({
             checked: this.props.checked,
         };
     },
+    isChecked() {
+        return this.state.checked;
+    },
+    setChecked(bool) {
+        this.setState({checked: bool});
+    },
     _onChange() {
         this.setState({ checked: !this.state.checked });
-        // if (this.props.type === 'radio') {
-        //     if (typeof this.props.onChange === 'function') {
-        //         this.props.onChange(true);
-        //     }
-        // } else {
-        //     if (typeof this.props.onChange === 'function') {
-        //         this.props.onChange(!this.props.checked);
-        //     }
-        // }
     },
-    _onClick() {
+    _onClick(e) {
+        if (typeof this.props.onChange === 'function') {
+            this.props.onChange(e, !this.state.checked);
+        }
+
         if (!this.props.disabled) {
             this.setState({ checked: !this.state.checked });
         }
+
     },
     render() {
         // Propfixes
