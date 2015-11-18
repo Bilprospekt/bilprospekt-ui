@@ -10,7 +10,6 @@ const rows = _(_.range(10000)).map((val, index) => {
     });
 });
 
-console.error('rows are', rows);
 const onClick = (e) => console.log('target', e.target);
 
 const rowGetter = (rowIndex, columnIndex, props) => {
