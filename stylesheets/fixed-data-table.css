@@ -213,6 +213,7 @@ body[dir="rtl"] .fixedDataTableColumnResizerLineLayout_main {
   overflow: hidden;
   position: absolute;
   top: 0;
+  border-bottom: 1px solid #E0E0E0;
 }
 
 .fixedDataTableRowLayout_body {
@@ -357,12 +358,12 @@ body[dir="rtl"] .fixedDataTableColumnResizerLineLayout_main {
  * Table.
  */
 .public_fixedDataTable_main {
-  border-color: #d3d3d3;
+  border-color: #E0E0E0;
 }
 
 .public_fixedDataTable_header,
 .public_fixedDataTable_hasBottomBorder {
-  border-color: #d3d3d3;
+  border-color: #E0E0E0;
 }
 
 .public_fixedDataTable_header .public_fixedDataTableCell_main {
@@ -371,14 +372,12 @@ body[dir="rtl"] .fixedDataTableColumnResizerLineLayout_main {
 
 .public_fixedDataTable_header,
 .public_fixedDataTable_header .public_fixedDataTableCell_main {
-  background-color: #f6f7f8;
-  background-image: -webkit-linear-gradient(#fff, #efefef);
-  background-image: linear-gradient(#fff, #efefef);
+  background-color: #EAEAEA;
 }
 
 .public_fixedDataTable_footer .public_fixedDataTableCell_main {
-  background-color: #f6f7f8;
-  border-color: #d3d3d3;
+  background-color: #EFEFEF;
+  border-color: #E0E0E0;
 }
 
 .public_fixedDataTable_topShadow {
@@ -390,7 +389,7 @@ body[dir="rtl"] .fixedDataTableColumnResizerLineLayout_main {
 }
 
 .public_fixedDataTable_horizontalScrollbar .public_Scrollbar_mainHorizontal {
-  background-color: #fff;
+  background-color: white;
 }
 /**
  * Copyright (c) 2015, Facebook, Inc.
@@ -407,16 +406,19 @@ body[dir="rtl"] .fixedDataTableColumnResizerLineLayout_main {
  * Table cell.
  */
 .public_fixedDataTableCell_main {
-  background-color: #fff;
-  border-color: #d3d3d3;
+  background-color: #F5F5F5;
+  border-color: #E0E0E0;
+  border-bottom: 1px solid #E0E0E0;
 }
 
 .public_fixedDataTableCell_highlighted {
-  background-color: #f4f4f4;
+  background-color: #EEE;
 }
 
 .public_fixedDataTableCell_cellContent {
   padding: 8px;
+  font-size: 14px;
+  color: #757575;
 }
 
 .public_fixedDataTableCell_columnResizerKnob {
@@ -454,17 +456,18 @@ body[dir="rtl"] .fixedDataTableColumnResizerLineLayout_main {
 /**
  * Table row.
  */
-.public_fixedDataTableRow_main {
-  background-color: #fff;
-}
+
+/*.public_fixedDataTableRow_main {
+  background-color: red;
+}*/
 
 .public_fixedDataTableRow_highlighted,
 .public_fixedDataTableRow_highlighted .public_fixedDataTableCell_main {
-  background-color: #f6f7f8;
+  background-color: #F5F5F5;
 }
 
 .public_fixedDataTableRow_fixedColumnsDivider {
-  border-color: #d3d3d3;
+  border-color: #E0E0E0;
 }
 
 .public_fixedDataTableRow_columnsShadow {
@@ -489,18 +492,18 @@ body[dir="rtl"] .fixedDataTableColumnResizerLineLayout_main {
 /* Touching the scroll-track directly makes the scroll-track bolder */
 .public_Scrollbar_main.public_Scrollbar_mainActive,
 .public_Scrollbar_main:hover {
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(255, 255, 255, 0.0);
 }
 
 .public_Scrollbar_main.public_Scrollbar_mainActive,
 .public_Scrollbar_main:hover {
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(255, 255, 255, 0.35);
 }
 
 .public_Scrollbar_mainOpaque,
 .public_Scrollbar_mainOpaque.public_Scrollbar_mainActive,
 .public_Scrollbar_mainOpaque:hover {
-  background-color: #fff;
+  background-color: rgba(255, 255, 255, 0.0);
 }
 
 .public_Scrollbar_face:after {
