@@ -1,5 +1,6 @@
 //Load styling
 require('../stylesheets/main.css');
+require('../stylesheets/fixed-data-table.css');
 
 //Load components
 import ActionButton from './action-button';
@@ -12,6 +13,7 @@ import Toolbar from './toolbar';
 import Tooltip from './tooltip';
 import DatePicker from './date-picker';
 import DropDownMenu from './drop-down-menu';
+import Table from './table';
 
 export {
   ActionButton,
@@ -24,4 +26,5 @@ export {
   Toolbar,
   Tooltip,
   DatePicker,
+  Table,
 };
