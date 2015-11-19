@@ -3,17 +3,11 @@ import React from 'react';
 import FixedDataTable from 'fixed-data-table';
 
 const {Table, Column, Cell} = FixedDataTable;
-const alpha = "abcdefghijklmnopqrstuvxy".split("").slice(0, 15);
-const rows = _(_.range(10000)).map((val, index) => {
-    return alpha.map(function(val) {
-        return val + index;
-    });
-});
 
 const onClick = (e) => console.log('target', e.target);
 
-const rowGetter = (rowIndex, columnIndex, props) => {
-    const val = rows[rowIndex][columnIndex];
+const rowGetter = (data, rowIndex, columnIndex, props) => {
+    const val = data[rowIndex][columnIndex];
     return (
         <Cell {...props} onClick={onClick}>{val}</Cell>
     );
@@ -21,29 +15,38 @@ const rowGetter = (rowIndex, columnIndex, props) => {
 
 const TableHolderComponent = React.createClass({
     propTypes: {
+        data: React.PropTypes.array.isRequired,
+        columns: React.PropTypes.array.isRequired,
+    },
+    getDefaultProps() {
+        return {
+            data: [],
+            columns: [],
+        };
     },
     getInitialState() {
         return {
-            columns: alpha.map(() => 80)
+            columnWidths: _(this.props.columns).map(() => 1500 / this.props.columns.length)
         }
     },
     _onResize(newWidth, dataKey) {
-        let newColumns = this.state.columns;
+        let newColumns = this.state.columnWidths;
         newColumns[dataKey] = Math.max(40, newWidth);
-        this.setState({columns: newColumns});
+        this.setState({columnWidths: newColumns});
     },
     render() {
-        var columns = _(alpha).map((val, index) => {
+        const data = this.props.data;
+        let columns = _(this.props.columns).map((val, index) => {
             return (
                 <Column
                     columnKey={index}
                     header={"Col " + val}
                     key={index}
                     dataKey={index}
-                    width={this.state.columns[index]}
+                    width={this.state.columnWidths[index]}
                     isResizable={true}
                     cell={(props) => {
-                        return rowGetter(props.rowIndex, index, props);
+                        return rowGetter(data, props.rowIndex, index, props);
                     }}
                 />
             );
@@ -54,11 +57,11 @@ const TableHolderComponent = React.createClass({
                 isColumnResizing={false}
                 overflowX='hidden'
                 onColumnResizeEndCallback={this._onResize}
-                rowHeight={60}
-                rowsCount={rows.length}
+                rowHeight={40}
+                rowsCount={this.props.data.length}
                 width={1500}
                 height={500}
-                headerHeight={60}>
+                headerHeight={40}>
                 {columns}
             </Table>
 
