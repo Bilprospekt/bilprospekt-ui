@@ -1,30 +1,51 @@
 import _ from 'underscore';
 import React from 'react';
 import FixedDataTable from 'fixed-data-table';
-import {NormalCell} from './cells';
+import TableHeader from './table_header';
 
 const {Table, Column, Cell} = FixedDataTable;
 
-const rowGetter = (data, props) => {
-    //If we want any other cell, we have add logic here
-    return <NormalCell data={data} {...props} />
-};
-
 const TableHolderComponent = React.createClass({
     propTypes: {
+        //The data for the rows
         data: React.PropTypes.array.isRequired,
+
+        //All the columns that can be rendered
         columns: React.PropTypes.array.isRequired,
+
+        //If we want to limit your columns to something specific at start. Otherwise table will handle it.
+        defaultColumns: React.PropTypes.array,
+
+        //Width and height of table
+        width: React.PropTypes.number,
+        height: React.PropTypes.number,
+
+        rowHeight: React.PropTypes.number,
+        headerHeight: React.PropTypes.number,
+
+        //Trigger functions
+        onSearch: React.PropTypes.func,
+        onFilter: React.PropTypes.func,
+        onSort: React.PropTypes.func,
+        onColumnChange: React.PropTypes.func
     },
     getDefaultProps() {
         return {
             data: [],
             columns: [],
+            defaultColumns: (this.props.columns || []),
+
+            //Change these to what we'll probably use in prod.
+            width: 1500,
+            height: 500,
+            rowHeight: 40,
+            headerHeight: 40
         };
     },
     getInitialState() {
         const avgColWidth = this._getAvgColWidth();
         return {
-            columnWidths: _(this.props.columns).map(() => avgColWidth)
+            columnWidths: _(this.props.columns).map(() => avgColWidth),
         }
     },
     _onResize(newWidth, dataKey) {
@@ -32,33 +53,35 @@ const TableHolderComponent = React.createClass({
         newColumns[dataKey] = Math.max(40, newWidth);
         this.setState({columnWidths: newColumns});
     },
-    _onCellHover(props, state) {
-        const {columnKey} = props;
-        let newColumns = this.state.columnWidths;
-        const maxColumnContentWidth = Math.max.apply(null, _(props.data).map((x) => x.length));
-
-        //We can already see everything in this column, no need to resize.
-        //if (maxColumnContentWidth < this.state.columnWidths[columnKey]) return;
-
-        const avgWidth = this._getAvgColWidth();
-        newColumns[columnKey] = state ? avgWidth : avgWidth;
-        this.setState({columnWidths: newColumns});
+    _onSearchChange(val) {
+        if (typeof this.props.onSearch === 'function') {
+            this.props.onSearch(val);
+        }
+    },
+    _onFilter() {
+        if (typeof this.props.onFilter === 'function') {
+            this.props.onFilter(); // FIXME
+        }
+    },
+    _onSort() {
+        if (typeof this.props.onSort === 'function') {
+            this.props.onSort(); // FIXME
+        }
+    },
+    _onColumnChange(newColumns) {
+        if (typeof this.props.onColumnChange === 'function') {
+            this.props.onColumnChange(newColumns);
+        }
     },
     _getAvgColWidth() {
         return 1500 / this.props.columns.length;
-    },
-    componentWillUpdate() {
-        console.time('update');
-        this.test = true;
-    },
-    componentDidUpdate() {
-        console.timeEnd('update');
     },
     render() {
         const data = this.props.data;
         const columnsData = _(this.props.columns).map((val, index) => {
             return _.pluck(data, index);
         });
+
         let columns = _(this.props.columns).map((val, index) => {
             return (
                 <Column
@@ -70,30 +93,34 @@ const TableHolderComponent = React.createClass({
                     width={this.state.columnWidths[index]}
                     isResizable={true}
                     cell={(props) => {
-                        console.time('get cell');
-                        props.onHover = this._onCellHover;
-                        const cell =  rowGetter(columnsData[index], props);
-                        console.timeEnd('get cell');
-                        return cell;
+                        return (
+                            <div>
+                                <i className='fa fa-clock-o' />
+                                {data[props.rowIndex][index]}
+                            </div>
+                        )
                     }}
                 />
             );
         });
 
+        const props = this.props;
         return (
-            <Table
-                isColumnResizing={false}
-                overflowX='hidden'
-                onColumnResizeEndCallback={this._onResize}
-                rowHeight={40}
-                rowsCount={this.props.data.length}
-                width={1500}
-                height={500}
-                headerHeight={40}>
-                {columns}
-            </Table>
-
-        )
+            <div className='bui-table-holder'>
+                <TableHeader onSearchChange={this._onSearchChange} />
+                <Table
+                    isColumnResizing={false}
+                    overflowX='hidden'
+                    onColumnResizeEndCallback={this._onResize}
+                    rowHeight={props.rowHeight}
+                    rowsCount={props.data.length}
+                    width={props.width}
+                    height={props.height}
+                    headerHeight={props.headerHeight}>
+                    {columns}
+                </Table>
+            </div>
+        );
     }
 });
 

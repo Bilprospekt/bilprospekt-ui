@@ -26,12 +26,6 @@ const NormalCell = React.createClass({
         ) return false;
         return true;
     },
-    componentWillUpdate() {
-        console.time('cellupdate');  
-    },
-    componentDidUpdate() {
-        console.timeEnd('cellupdate');  
-    },
 
     _onMouseEnter() {
         console.log('enter', this.props.rowIndex, this.props.columnKey);
