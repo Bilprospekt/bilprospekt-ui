@@ -10,11 +10,12 @@ const TableHolderComponent = React.createClass({
         //The data for the rows
         data: React.PropTypes.array.isRequired,
 
-        //All the columns that can be rendered
+        //The current columns that should be rendered.
         columns: React.PropTypes.array.isRequired,
 
-        //If we want to limit your columns to something specific at start. Otherwise table will handle it.
-        defaultColumns: React.PropTypes.array,
+        //All the columns that the user can pick between.
+        allColumnsThatCouldBeRendered: React.PropTypes.array,
+        onColumnChange: React.PropTypes.func,
 
         //Width and height of table
         width: React.PropTypes.number,
@@ -23,17 +24,21 @@ const TableHolderComponent = React.createClass({
         rowHeight: React.PropTypes.number,
         headerHeight: React.PropTypes.number,
 
-        //Trigger functions
+        //If we need to do async requests for more data. Defaults to FALSE.
+        async: React.PropTypes.bool,
+
+        //Trigger functions that haven't already been listed.
         onSearch: React.PropTypes.func,
         onFilter: React.PropTypes.func,
         onSort: React.PropTypes.func,
-        onColumnChange: React.PropTypes.func
+        onReachedBottom: React.PropTypes.func,
     },
     getDefaultProps() {
         return {
             data: [],
             columns: [],
-            defaultColumns: (this.props.columns || []),
+            async: false,
+            allColumnsThatCouldBeRendered: [],
 
             //Change these to what we'll probably use in prod.
             width: 1500,
@@ -46,6 +51,47 @@ const TableHolderComponent = React.createClass({
         const avgColWidth = this._getAvgColWidth();
         return {
             columnWidths: _(this.props.columns).map(() => avgColWidth),
+        }
+    },
+    componentWillReceiveProps(nextProps, nextState) {
+        const mapToScale = (x, inMax, outMin, outMax) => (x * (outMax - outMin) / (inMax + outMin));
+
+        if (nextProps.columns.length !== this.props.columns.length) {
+            const nextPropsMore = (nextProps.columns.length > this.props.columns.length);
+            const diff = Math.abs(nextProps.columns.length - this.props.columns.length);
+            const avgColWidth = nextPropsMore ? this._getAvgColWidth(nextProps) : this._getAvgColWidth(this.props);
+            const inMax = _(this.state.columnWidths).reduce((memo, num) => memo + num, 0);
+            let outMax;
+            if (nextPropsMore) {
+                outMax = inMax + ((this.props.columns.length - nextProps.columns.length) * avgColWidth);
+            } else {
+                outMax = inMax + ((nextProps.columns.length - this.props.columns.length) * avgColWidth);
+
+            }
+
+            const currentColumnWidths = _(this.state.columnWidths).map((val) => {
+                //Add
+                if (nextPropsMore) {
+                    return mapToScale(val, this.props.width, 0, nextProps.width - (diff * avgColWidth));
+                }
+                //Remove
+                else {
+                    return mapToScale(val, this.props.width - (diff * avgColWidth), 0, nextProps.width)
+                }
+            });
+
+            //Perhaps we should use a key?
+            const newColumnWidths = _(nextProps.columns).map((val, index) => {
+                if (currentColumnWidths[index]) {
+                    return currentColumnWidths[index];
+                }
+
+                return this._getAvgColWidth(nextProps);
+            })
+
+            this.setState({
+                columnWidths: newColumnWidths,
+            });
         }
     },
     _onResize(newWidth, dataKey) {
@@ -73,16 +119,29 @@ const TableHolderComponent = React.createClass({
             this.props.onColumnChange(newColumns);
         }
     },
-    _getAvgColWidth() {
-        return 1500 / this.props.columns.length;
+    _onScrollEnd(x, y) {
+        //onReachedBottom not a function, no need to do anything here then.
+        if (typeof this.props.onReachedBottom !== 'function') return;
+
+        const {rowHeight, data, height} = this.props;
+        var triggerLimit = rowHeight * 20;
+        var totalTableHeight = rowHeight * data.length - height;
+        if (y > (totalTableHeight - triggerLimit)) {
+            this.props.onReachedBottom();
+        }
+
+    },
+    _getAvgColWidth(props = this.props) {
+        return props.width / props.columns.length;
     },
     render() {
         const data = this.props.data;
-        const columnsData = _(this.props.columns).map((val, index) => {
+        const columnsToRender = this.props.columns;
+        const columnsData = _(columnsToRender).map((val, index) => {
             return _.pluck(data, index);
         });
 
-        let columns = _(this.props.columns).map((val, index) => {
+        let columnsEls= _(columnsToRender).map((val, index) => {
             return (
                 <Column
                     columnKey={index}
@@ -107,17 +166,23 @@ const TableHolderComponent = React.createClass({
         const props = this.props;
         return (
             <div className='bui-table-holder'>
-                <TableHeader onSearchChange={this._onSearchChange} />
+                <TableHeader
+                    onColumnChange={this._onColumnChange}
+                    onSearchChange={this._onSearchChange}
+                    allColumnsThatCouldBeRendered={props.allColumnsThatCouldBeRendered}
+                    currentColumns={columnsToRender}
+                />
                 <Table
                     isColumnResizing={false}
                     overflowX='hidden'
                     onColumnResizeEndCallback={this._onResize}
+                    onScrollEnd={this._onScrollEnd}
                     rowHeight={props.rowHeight}
                     rowsCount={props.data.length}
                     width={props.width}
                     height={props.height}
                     headerHeight={props.headerHeight}>
-                    {columns}
+                    {columnsEls}
                 </Table>
             </div>
         );
