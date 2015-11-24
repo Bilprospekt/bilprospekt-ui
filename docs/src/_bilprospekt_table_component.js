@@ -1,10 +1,10 @@
 import React from 'react';
 import _ from 'underscore';
 
-import {Table} from 'bilprospekt-ui'
+import {Table, TableDataWrapper} from 'bilprospekt-ui'
 
 const alpha = "abcdefghijklmnopqrstuvxy".split("").slice(0, 8);
-const rowsCycle = 100;
+const rowsCycle = 10000;
 const getRows = (columns, start = 0) => {
     const rows = _.range(rowsCycle).map((val, index) => {
         return columns.map(function(val) {
@@ -14,20 +14,27 @@ const getRows = (columns, start = 0) => {
     return rows;
 };
 
+const columns = alpha.slice(0, 2);
+const dataWrapper = new TableDataWrapper(
+    getRows(alpha),
+    columns
+);
+
 const TableDocComponent = React.createClass({
     getInitialState() {
-        const columns = alpha.slice(0, 2);
-        return {
-            columns: columns,
-            data: getRows(columns),
-        };
+        return dataWrapper.getState();
     },
 
-    _getMoreData() {
-        if (this.state.data.length >= 1000) return;
-        this.setState({
-            data: this.state.data.concat(getRows(this.state.columns, this.state.data.length)),
+    componentWillMount() {
+        dataWrapper.on('change', (state) => {
+            if (this.isMounted()) {
+                this.setState(state);
+            }
         });
+    },
+
+    componentWillUnmount() {
+        dataWrapper.off('change');
     },
 
     _onColumnChange(newColumns) {
@@ -50,10 +57,10 @@ const TableDocComponent = React.createClass({
                 <p className='table-header-label'>Table</p>
                 <Table
                     allColumnsThatCouldBeRendered={alpha}
-                    onReachedBottom={this._getMoreData}
                     data={this.state.data}
                     columns={this.state.columns}
-                    onColumnChange={this._onColumnChange}
+
+                    {...dataWrapper.triggers()}
                 />
             </div>
         );

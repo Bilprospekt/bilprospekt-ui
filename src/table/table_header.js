@@ -15,6 +15,7 @@ const TableActionBar = React.createClass({
     },
 
     _onColumnChange() {
+        //FIXME update logic here when dropdown is added
         const {allColumnsThatCouldBeRendered, currentColumns, onColumnChange} = this.props;
         //Invalid values provided, ignore changes.
         if (typeof onColumnChange !== 'function' || !allColumnsThatCouldBeRendered || !currentColumns) return;
@@ -34,12 +35,20 @@ const TableActionBar = React.createClass({
     },
 
     render() {
+        const props = this.props;
+        let columnChanger = null;
+        if (props.allColumnsThatCouldBeRendered && props.currentColumns) {
+            columnChanger = (
+                <i className="fa fa-cogs" onClick={this._onColumnChange} />
+            );
+        }
+
         return (
             <div className='bui-table-action-bar'>
                 Now this is podracing
                 <InputField onChange={this.props.onSearchChange} hint="Now this is searching" icon="fa-search" />
                 <div className="bui-table-icon-holder">
-                    <i className="fa fa-cogs" onClick={this._onColumnChange} />
+                    {columnChanger}
                 </div>
             </div>
         )

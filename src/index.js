@@ -14,6 +14,7 @@ import Tooltip from './tooltip';
 import DatePicker from './date-picker';
 import DropDownMenu from './drop-down-menu';
 import Table from './table';
+import TableDataWrapper from './table/data_wrapper';
 
 export {
   ActionButton,
@@ -27,4 +28,5 @@ export {
   Tooltip,
   DatePicker,
   Table,
+  TableDataWrapper
 };

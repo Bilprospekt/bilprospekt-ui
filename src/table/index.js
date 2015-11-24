@@ -24,9 +24,6 @@ const TableHolderComponent = React.createClass({
         rowHeight: React.PropTypes.number,
         headerHeight: React.PropTypes.number,
 
-        //If we need to do async requests for more data. Defaults to FALSE.
-        async: React.PropTypes.bool,
-
         //Trigger functions that haven't already been listed.
         onSearch: React.PropTypes.func,
         onFilter: React.PropTypes.func,
@@ -37,14 +34,13 @@ const TableHolderComponent = React.createClass({
         return {
             data: [],
             columns: [],
-            async: false,
             allColumnsThatCouldBeRendered: [],
 
             //Change these to what we'll probably use in prod.
             width: 1500,
             height: 500,
             rowHeight: 40,
-            headerHeight: 40
+            headerHeight: 40,
         };
     },
     getInitialState() {
@@ -54,7 +50,7 @@ const TableHolderComponent = React.createClass({
         }
     },
     componentWillReceiveProps(nextProps, nextState) {
-        const mapToScale = (x, inMax, outMin, outMax) => (x * (outMax - outMin) / (inMax + outMin));
+        const mapToScale = (x, inMax, outMax) => (x * outMax / inMax);
 
         if (nextProps.columns.length !== this.props.columns.length) {
             const nextPropsMore = (nextProps.columns.length > this.props.columns.length);
@@ -72,11 +68,11 @@ const TableHolderComponent = React.createClass({
             const currentColumnWidths = _(this.state.columnWidths).map((val) => {
                 //Add
                 if (nextPropsMore) {
-                    return mapToScale(val, this.props.width, 0, nextProps.width - (diff * avgColWidth));
+                    return mapToScale(val, this.props.width, nextProps.width - (diff * avgColWidth));
                 }
                 //Remove
                 else {
-                    return mapToScale(val, this.props.width - (diff * avgColWidth), 0, nextProps.width)
+                    return mapToScale(val, this.props.width - (diff * avgColWidth), nextProps.width)
                 }
             });
 
