@@ -14,7 +14,8 @@ const DropDownDoc = React.createClass({
                     <DropdownElement disabled label="My third element" />
                 </DropdownHolder>
 
-                <code style={{whiteSpace: 'pre-wrap', marginTop: 20, display: 'block'}}>
+                <pre>
+                <code>
                     {
                         ['<DropdownHolder label="My Dropdown" icon="fa-cogs">',
                         <br/>,
@@ -28,6 +29,7 @@ const DropDownDoc = React.createClass({
                         ]
                     }
                 </code>
+                </pre>
             </div>
         );
     },
