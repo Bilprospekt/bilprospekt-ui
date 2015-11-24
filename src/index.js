@@ -11,11 +11,11 @@ import SearchAdder from './search-adder';
 import Toolbar from './toolbar';
 import Tooltip from './tooltip';
 import DatePicker from './date-picker';
-import DropDownMenu from './drop-down-menu';
+import DropdownMenu from './drop-down-menu';
 
 export {
   ActionButton,
-  DropDownMenu,
+  DropdownMenu,
   FormElement,
   IconMenu,
   InlineEdit,
