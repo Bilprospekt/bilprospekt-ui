@@ -37,20 +37,6 @@ const TableDocComponent = React.createClass({
         dataWrapper.off('change');
     },
 
-    _onColumnChange(newColumns) {
-        const newData = _(_.range(this.state.data.length / rowsCycle)).chain()
-                  .map((val) => {
-                      return getRows(newColumns, val * rowsCycle);
-                  })
-                  .flatten(true)
-                  .value();
-
-        this.setState({
-            columns: newColumns,
-            data: newData
-        });
-    },
-
     render() {
         return (
             <div style={{width: '100%'}}>

@@ -12,6 +12,8 @@ const TableActionBar = React.createClass({
         onColumnChange: React.PropTypes.func,
 
         onSearchChange: React.PropTypes.func,
+
+        justifyColumns: React.PropTypes.func,
     },
 
     _onColumnChange() {
@@ -49,6 +51,7 @@ const TableActionBar = React.createClass({
                 <InputField onChange={this.props.onSearchChange} hint="Now this is searching" icon="fa-search" />
                 <div className="bui-table-icon-holder">
                     {columnChanger}
+                    <i className="fa fa-arrows-h" onClick={this.props.justifyColumns} />
                 </div>
             </div>
         )

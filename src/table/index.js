@@ -95,6 +95,11 @@ const TableHolderComponent = React.createClass({
         newColumns[dataKey] = Math.max(40, newWidth);
         this.setState({columnWidths: newColumns});
     },
+    _justifyColumns() {
+        const avgWidth = this._getAvgColWidth(this.props);
+        const newColumns = _(this.props.columns).map(() => avgWidth);
+        this.setState({columnWidths: newColumns});
+    },
     _onSearchChange(val) {
         if (typeof this.props.onSearch === 'function') {
             this.props.onSearch(val);
@@ -105,9 +110,9 @@ const TableHolderComponent = React.createClass({
             this.props.onFilter(); // FIXME
         }
     },
-    _onSort() {
+    _onSort(props) {
         if (typeof this.props.onSort === 'function') {
-            this.props.onSort(); // FIXME
+            this.props.onSort(props.columnKey);
         }
     },
     _onColumnChange(newColumns) {
@@ -141,7 +146,9 @@ const TableHolderComponent = React.createClass({
             return (
                 <Column
                     columnKey={index}
-                    header={"Col " + val}
+                    header={(props) => {
+                        return <div onClick={this._onSort.bind(this, props)}>Col {val}</div>
+                    }}
                     key={index}
                     id={`column-${index}`}
                     dataKey={index}
@@ -167,6 +174,7 @@ const TableHolderComponent = React.createClass({
                     onSearchChange={this._onSearchChange}
                     allColumnsThatCouldBeRendered={props.allColumnsThatCouldBeRendered}
                     currentColumns={columnsToRender}
+                    justifyColumns={this._justifyColumns}
                 />
                 <Table
                     isColumnResizing={false}

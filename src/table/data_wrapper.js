@@ -6,7 +6,8 @@ class DataWrapper {
         this.data = data;
         this.columns = columns;
         this.search = null;
-        this.filter = null;
+        //this.filter = [[0, 'a0'], [1, 'b1']];
+        this.filter = [];
         this.sort = null;
         this.listeners = [];
     }
@@ -21,8 +22,12 @@ class DataWrapper {
         this._emit('filter', this.filter);
     }
 
-    _onSort(val) {
-        this.sort = val;
+    _onSort(columnKey) {
+        const reverseOrASC = (dir) => dir === 'ASC' ? 'DESC' : 'ASC'
+        this.sort = {
+            column: columnKey,
+            direction: reverseOrASC((this.sort && this.sort.direction) || ''),
+        };
         this._emit('sort', this.sort);
     }
 
@@ -82,9 +87,13 @@ class DataWrapper {
             });
         });
 
-        if (this.filter) {
+        if (this.filter && this.filter.length) {
             chain = chain.filter((row) => {
-                return true;
+                return _(this.filter).filter((filter) => {
+                    const column = filter[0];
+                    const filterVal = filter[1];
+                    return row[column] == filterVal;
+                }).length;
             });
         }
 
