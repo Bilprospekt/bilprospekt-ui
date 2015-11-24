@@ -13,6 +13,21 @@ const DropDownDoc = React.createClass({
                     <DropdownElement label="My second element" />
                     <DropdownElement disabled label="My third element" />
                 </DropdownHolder>
+
+                <code style={{whiteSpace: 'pre-wrap', marginTop: 20, display: 'block'}}>
+                    {
+                        ['<DropdownHolder label="My Dropdown" icon="fa-cogs">',
+                        <br/>,
+                        '\t<DropdownElement checkbox label="My first element" />',
+                        <br/>,
+                        '\t<DropdownElement label="My second element" />',
+                        <br/>,
+                        '\t<DropdownElement disabled label="My third element" />',
+                        <br/>,
+                        '</DropdownHolder>',
+                        ]
+                    }
+                </code>
             </div>
         );
     },
