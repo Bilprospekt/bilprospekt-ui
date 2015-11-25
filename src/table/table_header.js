@@ -30,8 +30,16 @@ const TableActionBar = React.createClass({
         if (index !== -1) {
             newColumns.splice(index, 1);
         } else {
-            //FIXME
             newColumns.push(column);
+            let sorting = _(allColumnsThatCouldBeRendered).pluck('val');
+            newColumns = _(newColumns).chain()
+                .map((item) => {
+                    var n = sorting.indexOf(item.val);
+                    sorting[n] = '';
+                    return [n, item]
+                })
+                .sort()
+                .map((j) => j[1]).value();
         }
 
         onColumnChange(newColumns);
