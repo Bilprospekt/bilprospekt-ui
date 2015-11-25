@@ -1,0 +1,45 @@
+/*
+ *
+ * TABLE ACTION BAR STYLING
+ *
+ */
+
+$tab-height: 40px
+
+.bui-table-action-bar
+  @extend .clear-after
+  width: 100%
+  height: $tab-height
+  background-color: #EAEAEA
+  border: 1px solid #E0E0E0
+  border-bottom: none
+
+  .bui-table-text-holder
+    float: left
+    line-height: calc(#{$tab-height} - 1px)
+    margin-left: 13px
+
+  .bui-table-actions-holder
+    @extend .clear-after
+    float: right
+    border-left: 1px solid #E0E0E0
+
+    .bui-input-field
+      width: 250px
+      max-width: 250px
+      float: left
+      margin: 5px 0 4px 13px
+      .input-underlines
+        display: none
+
+    .table-icon
+      float: left
+      width: $tab-height
+      line-height: calc(#{$tab-height} - 1px)
+      text-align: center
+      border-left: 1px solid #E0E0E0
+      font-size: 14px
+      color: $grey-500
+      cursor: pointer
+      &:hover
+        color: $grey-700

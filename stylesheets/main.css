@@ -181,7 +181,7 @@
  *
  */
 /* line 8, ../sass/_base.sass */
-.clear-after:after, body:after, #header-wrapper:after, #header-wrapper .header-options .header-datepicker-button:after, .content-header:after, .content-header .left-header-part:after, .content-header .middle-header-part:after, .content-header .right-header-part:after, .content-header .right-header-part .content-button:after, .paper .paper-header:after, #popup-holder .popup-wrapper .popup-content .content-body .date-picker-wrapper:after, #popup-holder .popup-wrapper .popup-content .content-footer:after, #main-list-holder #main-table thead tr .th-filter:after, .text-edit-popup-holder .text-edit-popup-field:after, #settings-view .settings-row-holder:after, .bui-form-element:after, .bui-toolbar:after, .bui-inline-edit-component .inline-edit-buttons-holder:after, .bui-search-adder-holder .search-adder-dropdown-holder .search-adder-dropdown-head:after, .bui-search-adder-holder .search-adder-dropdown-holder .search-adder-dropdown-footer:after, #objective:after, #timereport .timereport-columns-holder:after, #booking:after, #phonestatistics:after, #phonestatistics .statistics-row-holder:after, #phonestatistics .statistics-row-holder .statistics-holder .row-head:after, #phonestatistics .statistics-row-holder .statistics-holder .row:after, #phonestatistics .two-set-info-holder:after, #phonestatistics .phone-columns-holder:after, #summary .summary-info-row:after, .garage .ranks-row:after, .garage .garage-data-holder:after {
+.clear-after:after, body:after, #header-wrapper:after, #header-wrapper .header-options .header-datepicker-button:after, .content-header:after, .content-header .left-header-part:after, .content-header .middle-header-part:after, .content-header .right-header-part:after, .content-header .right-header-part .content-button:after, .paper .paper-header:after, #popup-holder .popup-wrapper .popup-content .content-body .date-picker-wrapper:after, #popup-holder .popup-wrapper .popup-content .content-footer:after, #main-list-holder #main-table thead tr .th-filter:after, .text-edit-popup-holder .text-edit-popup-field:after, #settings-view .settings-row-holder:after, .bui-form-element:after, .bui-toolbar:after, .bui-inline-edit-component .inline-edit-buttons-holder:after, .bui-search-adder-holder .search-adder-dropdown-holder .search-adder-dropdown-head:after, .bui-search-adder-holder .search-adder-dropdown-holder .search-adder-dropdown-footer:after, .bui-table-action-bar:after, .bui-table-action-bar .bui-table-actions-holder:after, #objective:after, #timereport .timereport-columns-holder:after, #booking:after, #phonestatistics:after, #phonestatistics .statistics-row-holder:after, #phonestatistics .statistics-row-holder .statistics-holder .row-head:after, #phonestatistics .statistics-row-holder .statistics-holder .row:after, #phonestatistics .two-set-info-holder:after, #phonestatistics .phone-columns-holder:after, #summary .summary-info-row:after, .garage .ranks-row:after, .garage .garage-data-holder:after {
   content: "";
   display: block;
   clear: both;
@@ -2515,6 +2515,56 @@ h3 {
   color: white;
   padding: 10px;
   z-index: 999;
+}
+
+/*
+ * TABLE ACTION BAR STYLING
+ *
+ */
+/* line 9, ../sass/bui/_bui_table_action_bar.sass */
+.bui-table-action-bar {
+  width: 100%;
+  height: 40px;
+  background-color: #EAEAEA;
+  border: 1px solid #E0E0E0;
+  border-bottom: none;
+}
+/* line 17, ../sass/bui/_bui_table_action_bar.sass */
+.bui-table-action-bar .bui-table-text-holder {
+  float: left;
+  line-height: calc(40px - 1px);
+  margin-left: 13px;
+}
+/* line 22, ../sass/bui/_bui_table_action_bar.sass */
+.bui-table-action-bar .bui-table-actions-holder {
+  float: right;
+  border-left: 1px solid #E0E0E0;
+}
+/* line 27, ../sass/bui/_bui_table_action_bar.sass */
+.bui-table-action-bar .bui-table-actions-holder .bui-input-field {
+  width: 250px;
+  max-width: 250px;
+  float: left;
+  margin: 5px 0 4px 13px;
+}
+/* line 32, ../sass/bui/_bui_table_action_bar.sass */
+.bui-table-action-bar .bui-table-actions-holder .bui-input-field .input-underlines {
+  display: none;
+}
+/* line 35, ../sass/bui/_bui_table_action_bar.sass */
+.bui-table-action-bar .bui-table-actions-holder .table-icon {
+  float: left;
+  width: 40px;
+  line-height: calc(40px - 1px);
+  text-align: center;
+  border-left: 1px solid #E0E0E0;
+  font-size: 14px;
+  color: #9e9e9e;
+  cursor: pointer;
+}
+/* line 44, ../sass/bui/_bui_table_action_bar.sass */
+.bui-table-action-bar .bui-table-actions-holder .table-icon:hover {
+  color: #616161;
 }
 
 /*

@@ -41,17 +41,19 @@ const TableActionBar = React.createClass({
         let columnChanger = null;
         if (props.allColumnsThatCouldBeRendered && props.currentColumns) {
             columnChanger = (
-                <i className="fa fa-cogs" onClick={this._onColumnChange} />
+                <i className="fa fa-cogs table-icon" onClick={this._onColumnChange} />
             );
         }
 
         return (
             <div className='bui-table-action-bar'>
-                Now this is podracing
-                <InputField onChange={this.props.onSearchChange} hint="Now this is searching" icon="fa-search" />
-                <div className="bui-table-icon-holder">
+                <div className='bui-table-text-holder'>
+                    Now this is podracing
+                </div>
+                <div className='bui-table-actions-holder'>
+                    <InputField onChange={this.props.onSearchChange} hint="Now this is searching" icon="fa-search" />
+                    <i className="fa fa-arrows-h table-icon" onClick={this.props.justifyColumns} />
                     {columnChanger}
-                    <i className="fa fa-arrows-h" onClick={this.props.justifyColumns} />
                 </div>
             </div>
         )
