@@ -88,16 +88,14 @@ const DropdownHolder = React.createClass({
         const labelIcon = <i className={'toolbar-icon fa ' + this.props.icon} />;
 
         return (
-            <div className="bui-toolbar FIXME">
-                <div className={parentClass} onClick={this._handleClick}>
-                    <div className='toolbar-dropdown-holder-label'>
-                        {labelIcon}
-                        <span className='toolbar-text-label'>{this.props.label}</span>
-                        <i className='toolbar-caret fa fa-caret-down' />
-                    </div>
-                    <div className='toolbar-dropdown-elements-holder'>
-                        {this.props.children}
-                    </div>
+            <div className={parentClass} onClick={this._handleClick}>
+                <div className='toolbar-dropdown-holder-label'>
+                    {labelIcon}
+                    <span className='toolbar-text-label'>{this.props.label}</span>
+                    <i className='toolbar-caret fa fa-caret-down' />
+                </div>
+                <div className='toolbar-dropdown-elements-holder'>
+                    {this.props.children}
                 </div>
             </div>
         );
