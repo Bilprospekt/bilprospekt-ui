@@ -14,6 +14,7 @@ const {
 import BilprospektTooltipDoc from './_bilprospekt_tooltip_component.js';
 import BilprospektToolbarDoc from './_bilprospekt_toolbar_component.js';
 import BilprospektTableDoc from './_bilprospekt_table_component.js';
+import BilprospektDropdownDoc from './_bilprospekt_dropdown_component.js';
 
 var CodeSegment = React.createClass({
     render() {
@@ -62,7 +63,7 @@ var ComponentSegment = React.createClass({
                 {propString}
                 <span className='type-class'> /</span>
                 <span className='tag-class'>&#62;</span>
-            </p> 
+            </p>
         );
     }
 });
@@ -75,6 +76,7 @@ var BilprospektUiComponent = React.createClass({
                 <BilprospektTableDoc />
                 <BilprospektTooltipDoc />
                 <BilprospektToolbarDoc />
+                <BilprospektDropdownDoc />
                 <p className='table-header-label'>Action Buttons</p>
                 <table>
                     <thead>

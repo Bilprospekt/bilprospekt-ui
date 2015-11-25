@@ -7,9 +7,10 @@
 $elementBoxSize: 14px
 
 %label-base
-  display: block
-  float: left
-  margin: 1px
+  position: relative
+  top: 1px
+  display: inline-block
+  margin: 0 1px
   margin-right: 10px
   width: 12px
   height: 12px
@@ -20,6 +21,7 @@ $elementBoxSize: 14px
   @extend .clear-after
   min-width: 100px
   cursor: pointer
+  white-space: nowrap
   &:hover
     .element-label
       color: $BuiActive
@@ -27,14 +29,14 @@ $elementBoxSize: 14px
   .element-toggle,
   .element-checkbox,
   .element-radio
-    float: left
     margin-right: 10px
     display: none
 
   .element-checkbox-icon
     color: $highlightColor
     margin-left: -1px
-    margin-top: -1px
+    position: relative
+    top: -1px
 
   // Checkbox
   &.checkbox-type
@@ -83,7 +85,7 @@ $elementBoxSize: 14px
   .element-label
     @extend %bui-font-options
     color: $BuiPassive
-    float: left
+    display: inline-block
     line-height: $elementBoxSize
 
   // Checked Element
