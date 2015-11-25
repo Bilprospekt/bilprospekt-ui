@@ -18,7 +18,16 @@ class DataWrapper {
     }
 
     _onFilter(val) {
-        this.filter = val;
+        const find = _(this.filter).find((num) => {
+            return val[0] === num[0] && val[1] === num[1];
+        });
+
+        if (find) {
+            this.filter.splice(find, 1);
+        } else {
+            this.filter.push(val);
+        }
+
         this._emit('filter', this.filter);
     }
 
@@ -87,6 +96,7 @@ class DataWrapper {
             });
         });
 
+        console.log('filter is', this.filter);
         if (this.filter && this.filter.length) {
             chain = chain.filter((row) => {
                 return _(this.filter).filter((filter) => {

@@ -5,6 +5,7 @@ import TableHeader from './table_header';
 import $ from 'jquery';
 
 const {Table, Column, Cell} = FixedDataTable;
+import {HeaderCell} from './cells'
 
 const TableHolderComponent = React.createClass({
     propTypes: {
@@ -140,11 +141,6 @@ const TableHolderComponent = React.createClass({
             this.props.onSearch(val);
         }
     },
-    _onFilter() {
-        if (typeof this.props.onFilter === 'function') {
-            this.props.onFilter(); // FIXME
-        }
-    },
     _onSort(props) {
         if (typeof this.props.onSort === 'function') {
             this.props.onSort(props.columnKey);
@@ -183,7 +179,11 @@ const TableHolderComponent = React.createClass({
                 <Column
                     columnKey={index}
                     header={(props) => {
-                        return <div onClick={this._onSort.bind(this, props)}>{val.label}</div>
+                        return <HeaderCell
+                            onFilter={this.props.onFilter}
+                            onSort={this._onSort}
+                            {...val}
+                            {...props} />
                     }}
                     key={index}
                     id={`column-${index}`}

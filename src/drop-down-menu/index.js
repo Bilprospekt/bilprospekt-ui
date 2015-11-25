@@ -51,6 +51,7 @@ const DropdownHolder = React.createClass({
         style: React.PropTypes.object,
         noArrow: React.PropTypes.bool,
         orientation: React.PropTypes.string,
+        onToggle: React.PropTypes.func,
     },
     getInitialState() {
         return {
@@ -68,9 +69,17 @@ const DropdownHolder = React.createClass({
             document.addEventListener('click', this._hideDrop);
         }
     },
+    _triggerToggle(val) {
+        if (typeof this.props.onToggle === 'function') {
+            this.props.onToggle(val);
+        }
+    },
     _handleClick() {
         if (!this.props.disabled) {
-            this.setState({ opened: true });
+            this._triggerToggle(true);
+            if (this.isMounted()) {
+                this.setState({ opened: true });
+            }
         }
     },
     _hideDrop(e) {
@@ -81,7 +90,10 @@ const DropdownHolder = React.createClass({
         }
 
         if (this.state.opened) {
-            this.setState({ opened: false });
+            this._triggerToggle(false);
+            if (this.isMounted()) {
+                this.setState({ opened: false });
+            }
             document.removeEventListener('click', this._hideDrop);
         }
     },
