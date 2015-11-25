@@ -120,7 +120,14 @@ const TableHolderComponent = React.createClass({
     },
     _onColumnResize(newWidth, dataKey) {
         let newColumns = this.state.columnWidths;
-        newColumns[dataKey] = Math.max(40, newWidth);
+        const allOtherWidthsTogether = _(this.state.columnWidths)
+                  .chain()
+                  .filter((num, index) => index != dataKey)
+                  .reduce((memo, num) => memo + num, 0)
+                  .value();
+
+        const maxWidth = this.props.width === 'auto' ? this.state.tableWidth : this.props.width;
+        newColumns[dataKey] = Math.max(40, Math.min(maxWidth - allOtherWidthsTogether, newWidth));
         this.setState({columnWidths: newColumns});
     },
     _justifyColumns() {
