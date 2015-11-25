@@ -2,6 +2,9 @@ import React from 'react';
 import _ from 'underscore';
 import InputField from '../input-field';
 
+import DropdownMenu from '../drop-down-menu';
+const {DropdownHolder, DropdownElement} = DropdownMenu;
+
 const TableActionBar = React.createClass({
 
     propTypes: {
@@ -16,21 +19,19 @@ const TableActionBar = React.createClass({
         justifyColumns: React.PropTypes.func,
     },
 
-    _onColumnChange() {
-        //FIXME update logic here when dropdown is added
+    _onColumnChange(columnVal) {
         const {allColumnsThatCouldBeRendered, currentColumns, onColumnChange} = this.props;
+        let newColumns = currentColumns.slice();
         //Invalid values provided, ignore changes.
         if (typeof onColumnChange !== 'function' || !allColumnsThatCouldBeRendered || !currentColumns) return;
 
-        //Simply add one on each trigger for one
-        let newColumns = currentColumns.concat(
-            allColumnsThatCouldBeRendered.slice(
-                currentColumns.length, currentColumns.length + 1
-            )
-        );
-
-        if (newColumns.length === currentColumns.length) {
-            newColumns = newColumns.slice(0, 4);
+        const column = _(allColumnsThatCouldBeRendered).findWhere({val: columnVal});
+        const index = _(newColumns).findIndex((col) => col.val === columnVal);
+        if (index !== -1) {
+            newColumns.splice(index, 1);
+        } else {
+            //FIXME
+            newColumns.push(column);
         }
 
         onColumnChange(newColumns);
@@ -40,8 +41,14 @@ const TableActionBar = React.createClass({
         const props = this.props;
         let columnChanger = null;
         if (props.allColumnsThatCouldBeRendered && props.currentColumns) {
+            const columns = _(props.allColumnsThatCouldBeRendered).map((column) => {
+                const checked = _(props.currentColumns).findWhere({val : column.val});
+                return <DropdownElement checkboxChecked={checked} checkbox label={column.label} onClick={this._onColumnChange.bind(this, column.val)} />
+            });
             columnChanger = (
-                <i className="fa fa-cogs table-icon" onClick={this._onColumnChange} />
+                <DropdownHolder noArrow orientation="right" icon="fa-cogs table-icon" style={{float: 'left'}}>
+                    {columns}
+                </DropdownHolder>
             );
         }
 

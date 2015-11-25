@@ -183,7 +183,7 @@ const TableHolderComponent = React.createClass({
                 <Column
                     columnKey={index}
                     header={(props) => {
-                        return <div onClick={this._onSort.bind(this, props)}>Col {val}</div>
+                        return <div onClick={this._onSort.bind(this, props)}>{val.label}</div>
                     }}
                     key={index}
                     id={`column-${index}`}
@@ -194,7 +194,7 @@ const TableHolderComponent = React.createClass({
                         return (
                             <div>
                                 <i className='fa fa-clock-o' />
-                                {data[props.rowIndex][index]}
+                                {data[props.rowIndex][val.val]}
                             </div>
                         )
                     }}

@@ -6,7 +6,7 @@ class DataWrapper {
         this.data = data;
         this.columns = columns;
         this.search = null;
-        //this.filter = [[0, 'a0'], [1, 'b1']];
+        //this.filter = [['a', 'a0'], ['b', 'b1']];
         this.filter = [];
         this.sort = null;
         this.listeners = [];
@@ -82,8 +82,8 @@ class DataWrapper {
 
         //Only get columns wanted
         chain.map((row) => {
-            _(row).filter((cell, columnIndex) => {
-                return this.columns.indexOf(columnIndex) !== -1;
+            return _(this.columns).map((column) => {
+                return row[column.val] || null;
             });
         });
 

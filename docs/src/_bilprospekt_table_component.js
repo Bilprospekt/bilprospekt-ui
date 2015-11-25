@@ -7,17 +7,30 @@ const alpha = "abcdefghijklmnopqrstuvxy".split("").slice(0, 8);
 const rowsCycle = 10000;
 const getRows = (columns, start = 0) => {
     const rows = _.range(rowsCycle).map((val, index) => {
-        return columns.map(function(val) {
-            return val + (start + index);
+        const newRow = {};
+        _(columns).each(function(val) {
+            newRow[val] = val + (start + index);
         });
+        return newRow;
     });
     return rows;
 };
+const alphaObj = _(alpha).map((val) => {
+    return {
+        val,
+        label: `Col ${val}`,
+    };
+});
 
-const columns = alpha.slice(0, 2);
+const columns = alpha.slice(0, 5);
 const dataWrapper = new TableDataWrapper(
     getRows(alpha),
-    columns
+    _(columns).map((val) => {
+        return {
+            val: val,
+            label: `Col ${val}`,
+        };
+    })
 );
 
 const TableDocComponent = React.createClass({
@@ -42,7 +55,7 @@ const TableDocComponent = React.createClass({
             <div style={{width: '100%'}}>
                 <p className='table-header-label'>Table</p>
                 <Table
-                    allColumnsThatCouldBeRendered={alpha}
+                    allColumnsThatCouldBeRendered={alphaObj}
                     data={this.state.data}
                     columns={this.state.columns}
 
