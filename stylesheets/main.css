@@ -2149,73 +2149,82 @@ h3 {
   float: left;
   margin-top: 2px;
   margin-right: 7px;
+}
+
+/* line 15, ../sass/bui/_bui_form_elements.sass */
+.bui-form-element.checkbox-type label, .bui-form-element.radio-type label, .bui-form-element.toggle-type label {
+  position: relative;
+  top: 1px;
+  display: inline-block;
+  margin: 0 1px;
+  margin-right: 10px;
   width: 12px;
   height: 12px;
   border: 1px solid #9e9e9e;
   cursor: pointer;
-  white-space: nowrap;
 }
 
-/* line 20, ../sass/bui/_bui_form_elements.sass */
+/* line 26, ../sass/bui/_bui_form_elements.sass */
 .bui-form-element.checkbox-type label, .bui-form-element.radio-type label, .bui-form-element.toggle-type label {
   cursor: pointer;
 }
 
-/* line 23, ../sass/bui/_bui_form_elements.sass */
+/* line 29, ../sass/bui/_bui_form_elements.sass */
 .bui-form-element {
   min-width: 100px;
   cursor: pointer;
+  white-space: nowrap;
 }
-/* line 28, ../sass/bui/_bui_form_elements.sass */
+/* line 35, ../sass/bui/_bui_form_elements.sass */
 .bui-form-element:hover .element-label {
   color: #424242;
 }
-/* line 31, ../sass/bui/_bui_form_elements.sass */
+/* line 38, ../sass/bui/_bui_form_elements.sass */
 .bui-form-element .element-toggle,
 .bui-form-element .element-checkbox,
 .bui-form-element .element-radio {
-  float: left;
   margin-right: 10px;
   display: none;
 }
-/* line 38, ../sass/bui/_bui_form_elements.sass */
+/* line 44, ../sass/bui/_bui_form_elements.sass */
 .bui-form-element .element-checkbox-icon {
   color: #00bcd4;
   margin-left: -1px;
-  margin-top: -1px;
+  position: relative;
+  top: -1px;
 }
-/* line 47, ../sass/bui/_bui_form_elements.sass */
+/* line 54, ../sass/bui/_bui_form_elements.sass */
 .bui-form-element.checkbox-type label .icon {
   border-radius: 2px;
 }
-/* line 50, ../sass/bui/_bui_form_elements.sass */
+/* line 57, ../sass/bui/_bui_form_elements.sass */
 .bui-form-element.checkbox-type label .icon:before {
   font: normal normal normal 14px/1 FontAwesome;
   content: "";
   color: #00bcd4;
   display: none;
 }
-/* line 56, ../sass/bui/_bui_form_elements.sass */
+/* line 63, ../sass/bui/_bui_form_elements.sass */
 .bui-form-element.checkbox-type .element-checkbox:checked + label .icon {
   margin-top: 0;
   margin-left: -1px;
   margin-right: 8px;
   border: 1px solid transparent;
 }
-/* line 61, ../sass/bui/_bui_form_elements.sass */
+/* line 68, ../sass/bui/_bui_form_elements.sass */
 .bui-form-element.checkbox-type .element-checkbox:checked + label .icon:before {
   display: inline;
 }
-/* line 68, ../sass/bui/_bui_form_elements.sass */
+/* line 75, ../sass/bui/_bui_form_elements.sass */
 .bui-form-element.radio-type label .icon {
   border-radius: 50%;
 }
-/* line 72, ../sass/bui/_bui_form_elements.sass */
+/* line 79, ../sass/bui/_bui_form_elements.sass */
 .bui-form-element.radio-type .element-radio:checked + label .icon {
   border: none;
   background-color: #00bcd4;
 }
-/* line 80, ../sass/bui/_bui_form_elements.sass */
+/* line 87, ../sass/bui/_bui_form_elements.sass */
 .bui-form-element.toggle-type label .icon {
   position: relative;
   width: calc((14px * 2) - 4px);
@@ -2227,7 +2236,7 @@ h3 {
   -webkit-transition: background-color 0.25s ease;
   transition: background-color 0.25s ease;
 }
-/* line 88, ../sass/bui/_bui_form_elements.sass */
+/* line 95, ../sass/bui/_bui_form_elements.sass */
 .bui-form-element.toggle-type label .icon:after {
   display: block;
   content: "";
@@ -2243,36 +2252,38 @@ h3 {
   -webkit-transition: left 0.25s ease;
   transition: left 0.25s ease;
 }
-/* line 100, ../sass/bui/_bui_form_elements.sass */
+/* line 107, ../sass/bui/_bui_form_elements.sass */
 .bui-form-element.toggle-type .element-toggle:checked + label .icon {
   background-color: #00bcd4;
 }
-/* line 102, ../sass/bui/_bui_form_elements.sass */
+/* line 109, ../sass/bui/_bui_form_elements.sass */
 .bui-form-element.toggle-type .element-toggle:checked + label .icon:after {
   left: 14px;
 }
-/* line 106, ../sass/bui/_bui_form_elements.sass */
+/* line 113, ../sass/bui/_bui_form_elements.sass */
 .bui-form-element .element-label {
   color: #9e9e9e;
+  display: inline-block;
+  line-height: 14px;
 }
-/* line 112, ../sass/bui/_bui_form_elements.sass */
+/* line 121, ../sass/bui/_bui_form_elements.sass */
 .bui-form-element.element-checked .element-label {
   color: #424242;
 }
-/* line 116, ../sass/bui/_bui_form_elements.sass */
+/* line 125, ../sass/bui/_bui_form_elements.sass */
 .bui-form-element.element-disabled {
   cursor: default;
 }
-/* line 119, ../sass/bui/_bui_form_elements.sass */
+/* line 128, ../sass/bui/_bui_form_elements.sass */
 .bui-form-element.element-disabled label .icon {
   border-color: #e0e0e0;
   cursor: default;
 }
-/* line 122, ../sass/bui/_bui_form_elements.sass */
+/* line 131, ../sass/bui/_bui_form_elements.sass */
 .bui-form-element.element-disabled label .icon:hover {
   border-color: #e0e0e0;
 }
-/* line 124, ../sass/bui/_bui_form_elements.sass */
+/* line 133, ../sass/bui/_bui_form_elements.sass */
 .bui-form-element.element-disabled .element-label {
   color: #e0e0e0;
   cursor: default;
@@ -2286,12 +2297,14 @@ h3 {
 .bui-toolbar .toolbar-button, .bui-toolbar .toolbar-dropdown-holder {
   float: left;
   position: relative;
+  color: #616161;
+  font-size: 14px;
 }
-/* line 18, ../sass/bui/_bui_toolbar.sass */
+/* line 20, ../sass/bui/_bui_toolbar.sass */
 .bui-toolbar .is-disabled.toolbar-button, .bui-toolbar .is-disabled.toolbar-dropdown-holder {
   color: #e0e0e0;
 }
-/* line 21, ../sass/bui/_bui_toolbar.sass */
+/* line 23, ../sass/bui/_bui_toolbar.sass */
 .bui-toolbar .is-disabled.toolbar-button:hover .toolbar-button-label, .bui-toolbar .is-disabled.toolbar-dropdown-holder:hover .toolbar-button-label,
 .bui-toolbar .is-disabled.toolbar-button:hover .toolbar-dropdown-holder-label,
 .bui-toolbar .is-disabled.toolbar-dropdown-holder:hover .toolbar-dropdown-holder-label {
@@ -2299,17 +2312,17 @@ h3 {
   cursor: default;
 }
 
-/* line 26, ../sass/bui/_bui_toolbar.sass */
+/* line 28, ../sass/bui/_bui_toolbar.sass */
 .bui-toolbar .toolbar-button .toolbar-button-label, .bui-toolbar .toolbar-dropdown-holder .toolbar-dropdown-holder-label {
   padding: 0 10px;
   cursor: pointer;
 }
-/* line 29, ../sass/bui/_bui_toolbar.sass */
+/* line 31, ../sass/bui/_bui_toolbar.sass */
 .bui-toolbar .toolbar-button .toolbar-button-label:hover, .bui-toolbar .toolbar-dropdown-holder .toolbar-dropdown-holder-label:hover {
   background-color: #e0e0e0;
 }
 
-/* line 32, ../sass/bui/_bui_toolbar.sass */
+/* line 34, ../sass/bui/_bui_toolbar.sass */
 .bui-toolbar {
   width: 100%;
   height: 40px;
@@ -2317,24 +2330,24 @@ h3 {
   background-color: #fafafa;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
-/* line 39, ../sass/bui/_bui_toolbar.sass */
+/* line 41, ../sass/bui/_bui_toolbar.sass */
 .bui-toolbar .toolbar-icon {
   margin-right: 5px;
 }
-/* line 41, ../sass/bui/_bui_toolbar.sass */
+/* line 43, ../sass/bui/_bui_toolbar.sass */
 .bui-toolbar .toolbar-caret {
   margin-left: 5px;
 }
-/* line 43, ../sass/bui/_bui_toolbar.sass */
+/* line 45, ../sass/bui/_bui_toolbar.sass */
 .bui-toolbar .toolbar-text-label {
   line-height: 40px;
 }
-/* line 55, ../sass/bui/_bui_toolbar.sass */
+/* line 57, ../sass/bui/_bui_toolbar.sass */
 .bui-toolbar .toolbar-dropdown-holder.is-open .toolbar-dropdown-holder-label {
   background-color: #9e9e9e;
   color: white;
 }
-/* line 58, ../sass/bui/_bui_toolbar.sass */
+/* line 60, ../sass/bui/_bui_toolbar.sass */
 .bui-toolbar .toolbar-dropdown-holder.is-open .toolbar-dropdown-elements-holder {
   opacity: 1;
   top: 40px;
@@ -2342,7 +2355,7 @@ h3 {
   max-height: calc(10px + (40px * 6) - (40px / 2));
   padding: 10px 0;
 }
-/* line 64, ../sass/bui/_bui_toolbar.sass */
+/* line 66, ../sass/bui/_bui_toolbar.sass */
 .bui-toolbar .toolbar-dropdown-holder .toolbar-dropdown-elements-holder {
   position: absolute;
   top: calc(40px / 2);
@@ -2359,27 +2372,27 @@ h3 {
   -webkit-transition: opacity 0.225s ease, box-shadow 0.25s ease, top 0.25s ease, padding 0.2s ease;
   transition: opacity 0.225s ease, box-shadow 0.25s ease, top 0.25s ease, padding 0.2s ease;
 }
-/* line 76, ../sass/bui/_bui_toolbar.sass */
+/* line 78, ../sass/bui/_bui_toolbar.sass */
 .bui-toolbar .toolbar-dropdown-holder .toolbar-dropdown-elements-holder .dropdown-element {
   line-height: 14px;
   color: #424242;
   cursor: pointer;
 }
-/* line 81, ../sass/bui/_bui_toolbar.sass */
+/* line 83, ../sass/bui/_bui_toolbar.sass */
 .bui-toolbar .toolbar-dropdown-holder .toolbar-dropdown-elements-holder .dropdown-element .bui-form-element,
 .bui-toolbar .toolbar-dropdown-holder .toolbar-dropdown-elements-holder .dropdown-element .dropdown-label {
   padding: 13px 40px 13px 15px;
 }
-/* line 84, ../sass/bui/_bui_toolbar.sass */
+/* line 86, ../sass/bui/_bui_toolbar.sass */
 .bui-toolbar .toolbar-dropdown-holder .toolbar-dropdown-elements-holder .dropdown-element:hover {
   background-color: #f5f5f5;
 }
-/* line 86, ../sass/bui/_bui_toolbar.sass */
+/* line 88, ../sass/bui/_bui_toolbar.sass */
 .bui-toolbar .toolbar-dropdown-holder .toolbar-dropdown-elements-holder .dropdown-element.is-disabled {
   color: #e0e0e0;
   cursor: default;
 }
-/* line 89, ../sass/bui/_bui_toolbar.sass */
+/* line 91, ../sass/bui/_bui_toolbar.sass */
 .bui-toolbar .toolbar-dropdown-holder .toolbar-dropdown-elements-holder .dropdown-element.is-disabled:hover {
   background-color: white;
 }
