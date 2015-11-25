@@ -61,9 +61,17 @@ const TableHolderComponent = React.createClass({
         }
     },
     _setDynamicWidthOnTable() {
+        const mapToScale = (x, inMax, outMax) => (x * outMax / inMax);
         const width = $(this.refs.holder).width();
+        const inMax = _(this.state.columnWidths).reduce((memo, val) => memo + val, 0);
+        const diff = width - (this.state && this.state.tableWidth ? this.state.tableWidth : 1000);
+        const newColumnWidths = _(this.state.columnWidths).map((val) => {
+            return mapToScale(val, inMax, inMax + diff);
+        });
+
         this.setState({
             tableWidth: width,
+            columnWidths: newColumnWidths,
         });
     },
     componentWillUnmount() {
@@ -110,7 +118,7 @@ const TableHolderComponent = React.createClass({
             });
         }
     },
-    _onResize(newWidth, dataKey) {
+    _onColumnResize(newWidth, dataKey) {
         let newColumns = this.state.columnWidths;
         newColumns[dataKey] = Math.max(40, newWidth);
         this.setState({columnWidths: newColumns});
@@ -205,7 +213,7 @@ const TableHolderComponent = React.createClass({
                 <Table
                     isColumnResizing={false}
                     overflowX='hidden'
-                    onColumnResizeEndCallback={this._onResize}
+                    onColumnResizeEndCallback={this._onColumnResize}
                     onScrollEnd={this._onScrollEnd}
                     rowHeight={props.rowHeight}
                     rowsCount={props.data.length}
