@@ -2,6 +2,7 @@ import _ from 'underscore';
 import React from 'react';
 import FixedDataTable from 'fixed-data-table';
 import TableHeader from './table_header';
+import $ from 'jquery';
 
 const {Table, Column, Cell} = FixedDataTable;
 
@@ -18,7 +19,10 @@ const TableHolderComponent = React.createClass({
         onColumnChange: React.PropTypes.func,
 
         //Width and height of table
-        width: React.PropTypes.number,
+        width: React.PropTypes.oneOfType([
+            React.PropTypes.oneOf(['auto']),
+            React.PropTypes.number,
+        ]),
         height: React.PropTypes.number,
 
         rowHeight: React.PropTypes.number,
@@ -37,7 +41,7 @@ const TableHolderComponent = React.createClass({
             allColumnsThatCouldBeRendered: [],
 
             //Change these to what we'll probably use in prod.
-            width: 1500,
+            width: 'auto',
             height: 500,
             rowHeight: 40,
             headerHeight: 40,
@@ -47,7 +51,23 @@ const TableHolderComponent = React.createClass({
         const avgColWidth = this._getAvgColWidth();
         return {
             columnWidths: _(this.props.columns).map(() => avgColWidth),
+            tableWidth: 1000,
         }
+    },
+    componentDidMount() {
+        if (this.props.width === 'auto') {
+            this._setDynamicWidthOnTable();
+            $(window).on('resize', this._setDynamicWidthOnTable);
+        }
+    },
+    _setDynamicWidthOnTable() {
+        const width = $(this.refs.holder).width();
+        this.setState({
+            tableWidth: width,
+        });
+    },
+    componentWillUnmount() {
+        $(window).off('resize', this._setDynamicWidthOnTable);
     },
     componentWillReceiveProps(nextProps, nextState) {
         const mapToScale = (x, inMax, outMax) => (x * outMax / inMax);
@@ -62,17 +82,17 @@ const TableHolderComponent = React.createClass({
                 outMax = inMax + ((this.props.columns.length - nextProps.columns.length) * avgColWidth);
             } else {
                 outMax = inMax + ((nextProps.columns.length - this.props.columns.length) * avgColWidth);
-
             }
 
+            const currentTableWidth = (this.props.width === 'auto') ? this.state.tableWidth : this.props.width;
+            const nextTableWidth = (nextProps.width === 'auto') ? this.state.tableWidth : nextProps.width;
             const currentColumnWidths = _(this.state.columnWidths).map((val) => {
-                //Add
                 if (nextPropsMore) {
-                    return mapToScale(val, this.props.width, nextProps.width - (diff * avgColWidth));
-                }
-                //Remove
-                else {
-                    return mapToScale(val, this.props.width - (diff * avgColWidth), nextProps.width)
+                    //Add
+                    return mapToScale(val, currentTableWidth, nextTableWidth - (diff * avgColWidth));
+                } else {
+                    //Remove
+                    return mapToScale(val, currentTableWidth - (diff * avgColWidth), nextTableWidth)
                 }
             });
 
@@ -133,7 +153,8 @@ const TableHolderComponent = React.createClass({
 
     },
     _getAvgColWidth(props = this.props) {
-        return props.width / props.columns.length;
+        const width = props.width === 'auto' ? (this.state && this.state.tableWidth || 1000) : props.width;
+        return width / props.columns.length;
     },
     render() {
         const data = this.props.data;
@@ -167,8 +188,13 @@ const TableHolderComponent = React.createClass({
         });
 
         const props = this.props;
+        let tableWidth = props.width;
+        if (props.width === 'auto') {
+            tableWidth = this.state.tableWidth;
+        }
+
         return (
-            <div className='bui-table-holder'>
+            <div ref='holder' className='bui-table-holder'>
                 <TableHeader
                     onColumnChange={this._onColumnChange}
                     onSearchChange={this._onSearchChange}
@@ -183,7 +209,7 @@ const TableHolderComponent = React.createClass({
                     onScrollEnd={this._onScrollEnd}
                     rowHeight={props.rowHeight}
                     rowsCount={props.data.length}
-                    width={props.width}
+                    width={tableWidth}
                     height={props.height}
                     headerHeight={props.headerHeight}>
                     {columnsEls}
