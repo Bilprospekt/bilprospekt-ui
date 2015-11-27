@@ -12,6 +12,7 @@ import Toolbar from './toolbar';
 import Tooltip from './tooltip';
 import DatePicker from './date-picker';
 import DropDownMenu from './drop-down-menu';
+import Popup from './popup';
 
 export {
   ActionButton,
@@ -24,4 +25,5 @@ export {
   Toolbar,
   Tooltip,
   DatePicker,
+  Popup
 };
