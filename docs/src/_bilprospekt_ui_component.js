@@ -73,21 +73,17 @@ var BilprospektUiComponent = React.createClass({
             popup: false
         };
     },
-
     openPopup() {
         this.setState({popup: true});
     },
-
     hidePopup() {
         this.setState({popup: false});
     },
-
-    render() {
-
+    getPopupProps() {
         let headerButton = <a href="#">Some Action</a>;
         let saveButton = <div className='popup-footer-button' onClick={this.hidePopup}>Save</div>;
         let closeButton = <div className='popup-footer-button' onClick={this.hidePopup}>Close</div>;
-        let popupProps = {
+        return {
             onClose: this.hidePopup,
             header: {
                 title: 'Popup',
@@ -102,11 +98,12 @@ var BilprospektUiComponent = React.createClass({
                 }
             }
         };
-
+    },
+    render() {
         let popup = null;
         if (this.state.popup) {
             popup = (
-                <BuiPopup {...popupProps}>
+                <BuiPopup {...this.getPopupProps()}>
                     This is a popup. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis lacinia interdum lorem, et iaculis tortor blandit eu. In vestibulum massa porttitor, efficitur ipsum quis, luctus purus. Phasellus felis nunc, molestie sit amet condimentum ut, bibendum congue odio. Donec dapibus enim id bibendum fermentum. Aenean interdum sem ornare dapibus porta. Nullam ut arcu at sem pharetra aliquet. Pellentesque convallis, purus a molestie molestie, nisi ipsum dapibus augue, auctor ultrices ipsum odio non nunc. Quisque vel eleifend massa, quis viverra tortor. Aenean fermentum metus aliquam rhoncus accumsan. Nullam sodales ullamcorper maximus. Vivamus venenatis, est a gravida fringilla, metus felis varius dui, vel cursus lectus massa eu diam. Praesent commodo finibus luctus. Nunc convallis mauris at facilisis tincidunt. Sed pulvinar elit metus, at interdum ligula feugiat vitae. Donec at finibus elit, placerat accumsan neque.
                 </BuiPopup>
             );
