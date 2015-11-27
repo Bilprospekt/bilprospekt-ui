@@ -32,7 +32,6 @@ const BuiSearchAdder = React.createClass({
 		});
 	},
 	render() {
-		console.log('this.state.inputValue', this.state.inputValue);
 		let adderDropdown = null;
 		if (this.state.expanded) {
 			adderDropdown = (

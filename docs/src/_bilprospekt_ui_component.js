@@ -80,7 +80,7 @@ var BilprospektUiComponent = React.createClass({
         this.setState({popup: false});
     },
     getPopupProps() {
-        let headerButton = <a href="#">Some Action</a>;
+        let headerButton = <a href='#'>Some Action</a>;
         let saveButton = <div className='popup-footer-button' onClick={this.hidePopup}>Save</div>;
         let closeButton = <div className='popup-footer-button' onClick={this.hidePopup}>Close</div>;
         return {
@@ -187,12 +187,14 @@ var BilprospektUiComponent = React.createClass({
                         <tr>
                             <th>Element</th>
                             <th>Type</th>
+                            <th>How to use</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td><BuiInlineEdit string='Editable string' /></td>
+                            <td><BuiInlineEdit string='Editable string' placeholder='Type something' /></td>
                             <td><p className='code-type type-component'>Component</p></td>
+                            <td><ComponentSegment name="BuiInlineEdit" prop={['string', 'placeholder', 'onSave']} propType={['string', 'string', 'function']} /></td>
                         </tr>
                     </tbody>
                 </table>
