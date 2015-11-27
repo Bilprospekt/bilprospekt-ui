@@ -15,6 +15,12 @@ const TableHolderComponent = React.createClass({
         //The current columns that should be rendered.
         columns: React.PropTypes.array.isRequired,
 
+        //All the filters for the columns. Indexed by column key.
+        columnFilters: React.PropTypes.object,
+
+        //The current selected filters
+        currentFilters: React.PropTypes.array,
+
         //All the columns that the user can pick between.
         allColumnsThatCouldBeRendered: React.PropTypes.array,
         onColumnChange: React.PropTypes.func,
@@ -39,6 +45,7 @@ const TableHolderComponent = React.createClass({
         return {
             data: [],
             columns: [],
+            columnFilters: {},
             allColumnsThatCouldBeRendered: [],
 
             //Change these to what we'll probably use in prod.
@@ -170,18 +177,18 @@ const TableHolderComponent = React.createClass({
     render() {
         const data = this.props.data;
         const columnsToRender = this.props.columns;
-        const columnsData = _(columnsToRender).map((val, index) => {
-            return _.pluck(data, index);
-        });
 
         let columnsEls= _(columnsToRender).map((val, index) => {
             return (
                 <Column
                     columnKey={index}
                     header={(props) => {
+                        const filters = this.props.columnFilters[val.val];
                         return <HeaderCell
                             onFilter={this.props.onFilter}
                             onSort={this._onSort}
+                            availableFilters={filters}
+                            currentFilters={this.props.currentFilters}
                             {...val}
                             {...props} />
                     }}

@@ -9,6 +9,8 @@ const HeaderCell = React.createClass({
         label: React.PropTypes.string.isRequired,
         onSort: React.PropTypes.func,
         onFilter: React.PropTypes.func,
+        availableFilters: React.PropTypes.array,
+        currentFilters: React.PropTypes.array,
     },
     getInitialState() {
         return {
@@ -27,9 +29,9 @@ const HeaderCell = React.createClass({
             hover: false,
         });
     },
-    _onFilter() {
+    _onFilter(val) {
         if (typeof this.props.onFilter === 'function') {
-            this.props.onFilter([this.props.val, this.props.val + '0']);
+            this.props.onFilter([this.props.val, val]);
         }
     },
     _onFilterToggle(val) {
@@ -43,9 +45,15 @@ const HeaderCell = React.createClass({
     render() {
         let filterIcon = null;
         if (this.state.hover) {
+            const availableFilters = _(this.props.availableFilters).map((val, index) => {
+                const checked = _(this.props.currentFilters).find((current) => current[0] === this.props.val && current[1] === val);
+                return (
+                    <DropdownElement checkboxChecked={checked} key={index} checkbox onClick={this._onFilter.bind(this, val)} label={val} />
+                )
+            });
             filterIcon = (
                 <DropdownHolder onToggle={this._onFilterToggle}>
-                    <DropdownElement checkbox onClick={this._onFilter} label="test" />
+                    {availableFilters}
                 </DropdownHolder>
             );
         }

@@ -4,7 +4,7 @@ import _ from 'underscore';
 import {Table, TableDataWrapper} from 'bilprospekt-ui'
 
 const alpha = "abcdefghijklmnopqrstuvxy".split("").slice(0, 8);
-const rowsCycle = 10000;
+const rowsCycle = 1000;
 const getRows = (columns, start = 0) => {
     const rows = _.range(rowsCycle).map((val, index) => {
         const newRow = {};
@@ -56,8 +56,7 @@ const TableDocComponent = React.createClass({
                 <p className='table-header-label'>Table</p>
                 <Table
                     allColumnsThatCouldBeRendered={alphaObj}
-                    data={this.state.data}
-                    columns={this.state.columns}
+                    {...this.state}
 
                     {...dataWrapper.triggers()}
                 />

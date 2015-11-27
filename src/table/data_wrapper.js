@@ -96,7 +96,6 @@ class DataWrapper {
             });
         });
 
-        console.log('filter is', this.filter);
         if (this.filter && this.filter.length) {
             chain = chain.filter((row) => {
                 return _(this.filter).filter((filter) => {
@@ -130,10 +129,20 @@ class DataWrapper {
         return this.columns;
     }
 
+    getColumnFilters() {
+      const columns = this.getColumns();
+      const data = this.data;
+      return _(columns).chain().map((val) => {
+        return [val.val, _(data).pluck(val.val)];
+      }).object().value();
+    }
+
     getState() {
         return {
             data: this.getData(),
             columns: this.getColumns(),
+            columnFilters: this.getColumnFilters(),
+            currentFilters: this.filter,
         };
     }
 
