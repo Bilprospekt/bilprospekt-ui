@@ -24,7 +24,7 @@
   -webkit-backface-visibility: hidden;
           backface-visibility: hidden;
   left: 0;
-  overflow: hidden;
+  overflow: visible;
   position: absolute;
   top: 0;
   white-space: nowrap;
@@ -57,7 +57,7 @@
   border-width: 0 1px 0 0;
   box-sizing: border-box;
   display: block;
-  overflow: hidden;
+  overflow: visible;
   position: absolute;
   white-space: normal;
 }
@@ -210,7 +210,7 @@ body[dir="rtl"] .fixedDataTableColumnResizerLineLayout_main {
 
 .fixedDataTableRowLayout_main {
   box-sizing: border-box;
-  overflow: hidden;
+  overflow: visible;
   position: absolute;
   top: 0;
   border-bottom: 1px solid #E0E0E0;
