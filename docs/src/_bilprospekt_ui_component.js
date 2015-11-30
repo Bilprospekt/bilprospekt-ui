@@ -7,7 +7,7 @@ const {
   FormElement: BuiFormElement,
   InlineEdit: BuiInlineEdit,
   InputField: BuiInputField,
-  SearchAdder: BuiSearchAdder,
+  SearchableSelect: BuiSearchableSelect,
   Popup: BuiPopup
 } = BUI;
 
@@ -109,6 +109,19 @@ var BilprospektUiComponent = React.createClass({
             );
         }
 
+        let searchableSelectData = [
+            { label: 'Sölvesborg kommun', id: 'ddi1', value: 'ddv1' },
+            { label: 'Älvdalen kommun', id: 'ddi2', value: 'ddv2' },
+            { label: 'Alvesta kommun', id: 'ddi3', value: 'ddv3' },
+            { label: 'Ludvika kommun', id: 'ddi4', value: 'ddv4' },
+            { label: 'Rättvik kommun', id: 'ddi5', value: 'ddv5' },
+            { label: 'Vansbro kommun', id: 'ddi6', value: 'ddv6' },
+            { label: 'Gävle kommun', id: 'ddi7', value: 'ddv7' },
+            { label: 'Hudiksvall kommun', id: 'ddi8', value: 'ddv8' },
+            { label: 'Ovanåker kommun', id: 'ddi9',  value: 'ddv9' },
+            { label: 'Sandviken kommun', id: 'ddi0', value: 'ddv0' }
+        ];
+
         return (
             <div id='bilprospekt-ui-styling-holder'>
                 <p className='master-header'>Bilprospekt 2.0 Style Guide</p>
@@ -166,7 +179,7 @@ var BilprospektUiComponent = React.createClass({
                         </tr>
                     </tbody>
                 </table>
-                <p className='table-header-label'>Search Adder</p>
+                <p className='table-header-label'>Searchable Select</p>
                 <table>
                     <thead>
                         <tr>
@@ -176,7 +189,9 @@ var BilprospektUiComponent = React.createClass({
                     </thead>
                     <tbody>
                         <tr>
-                            <td><BuiSearchAdder icon='fa-search' hint='Sök efter län/kommun' /></td>
+                            <td>
+                            <BuiSearchableSelect icon='fa-search' hint='Sök efter län/kommun' data={searchableSelectData} />
+                            </td>
                             <td><p className='code-type type-component'>Component</p></td>
                         </tr>
                     </tbody>
