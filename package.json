@@ -23,6 +23,7 @@
     "classnames": "^2.1.5",
     "fixed-data-table": "^0.6.0",
     "jquery": "^2.1.4",
+    "react-infinite": "^0.7.1",
     "underscore": "^1.8.3"
   },
   "peerDependencies": {

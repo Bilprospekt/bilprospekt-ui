@@ -52,7 +52,7 @@ const HeaderCell = React.createClass({
                 )
             });
             filterIcon = (
-                <DropdownHolder onToggle={this._onFilterToggle}>
+                <DropdownHolder useInfiniteScroll onToggle={this._onFilterToggle}>
                     {availableFilters}
                 </DropdownHolder>
             );

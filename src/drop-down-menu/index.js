@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import classNames           from 'classnames';
 import _ from 'underscore';
+import Infinite from 'react-infinite';
 
 // Components
 import BuiFormElement from '../form-element';
@@ -52,16 +53,19 @@ const DropdownHolder = React.createClass({
         noArrow: React.PropTypes.bool,
         orientation: React.PropTypes.string,
         onToggle: React.PropTypes.func,
+        useInfiniteScroll: React.PropTypes.bool
     },
     getInitialState() {
         return {
             opened: false,
+            page: 1,
         };
     },
     getDefaultProps() {
         return {
             noArrow: false,
             orientation: "left",
+            useInfiniteScroll: false,
         };
     },
     componentDidUpdate() {
@@ -100,6 +104,11 @@ const DropdownHolder = React.createClass({
     componentWillUnmount() {
         document.removeEventListener('click', this._hideDrop);
     },
+    _handleInfiniteLoading() {
+        this.setState({
+            page: this.state.page + 1,
+        });
+    },
     render() {
         const parentClass = classNames('toolbar-dropdown-holder', {
             'is-open':     this.state.opened,
@@ -115,6 +124,25 @@ const DropdownHolder = React.createClass({
             elementsHolderStyle.right = 0;
         }
 
+
+        let children = this.props.children;
+        if (this.props.useInfiniteScroll) {
+            const childHeight = 40;
+            const childElLen = 20;
+            const childEls = React.Children.toArray(this.props.children).slice(0, this.state.page * childElLen);
+            elementsHolderStyle.overflow = 'hidden';
+            children = (
+                <Infinite elementHeight={childHeight}
+                          containerHeight={220}
+                          infiniteLoadBeginEdgeOffset={200}
+                          onInfiniteLoad={this._handleInfiniteLoading}
+                    >
+                    {childEls}
+                </Infinite>
+
+            )
+        }
+
         return (
             <div style={this.props.style} className={parentClass} onClick={this._handleClick}>
                 <div className='toolbar-dropdown-holder-label'>
@@ -123,7 +151,7 @@ const DropdownHolder = React.createClass({
                 {caret}
                 </div>
                 <div style={elementsHolderStyle} className='toolbar-dropdown-elements-holder'>
-                    {this.props.children}
+                        {children}
                 </div>
             </div>
         );
