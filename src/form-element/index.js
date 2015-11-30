@@ -28,18 +28,20 @@ const BuiFormElement = React.createClass({
     setChecked(bool) {
         this.setState({checked: bool});
     },
-    _onChange() {
-        this.setState({ checked: !this.state.checked });
-    },
-    _onClick(e) {
-        if (typeof this.props.onChange === 'function') {
-            this.props.onChange(e, !this.state.checked);
-        }
+    onClickInput(event) {
+        console.log('onckliikk', event.target);
+        // if (typeof this.props.onChange === 'function') {
+        //     this.props.onChange(event, !this.state.checked);
+        // }
 
         if (!this.props.disabled) {
             this.setState({ checked: !this.state.checked });
         }
-
+    },
+    onClickLabel(event) {
+        if (!this.props.disabled) {
+            this.setState({ checked: !this.state.checked });
+        }
     },
     render() {
         // Propfixes
@@ -55,22 +57,20 @@ const BuiFormElement = React.createClass({
 
         const props = {
             className: `element-${this.props.type}`,
-            type:      formType, 
+            type:      formType,
             disabled:  this.props.disabled,
             id:        this.props.id,
             checked:   checkValue,
             value:     this.props.value,
-            onClick:   this.props.onClick, 
+            onClick:    this.onClickInput
         };
 
-        const formIcon = (this.props.type === 'checkbox' && checkValue === 'checked') ? <i className='fa fa-check element-checkbox-icon' /> : null ;
         return (
-            <div className={parentClass} onClick={this._onClick}>
-                <input {...props} onChange={this._onChange} />
-                <label htmlFor={this.props.id}>{formIcon}</label>
-                <div className='element-label'>{this.props.label}</div>
+            <div className={parentClass}>
+                <input {...props} />
+                <label htmlFor={this.props.id}><div className='icon' /> {this.props.label}</label>
             </div>
-        );     
+        );
     }
 });
 
