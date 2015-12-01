@@ -2535,7 +2535,7 @@ h3 {
 }
 /* line 58, ../sass/bui/_bui_search_adder.sass */
 .bui-search-adder-holder.is-expanded .search-adder-dropdown-holder {
-  height: 492px;
+  height: auto;
 }
 
 /* line 2, ../sass/bui/_bui_tooltip.sass */
