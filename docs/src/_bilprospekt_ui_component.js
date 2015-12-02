@@ -4,11 +4,12 @@ import * as BUI from 'bilprospekt-ui';
 const {
   IconMenu: IconMenu,
   ActionButton: BuiActionButton,
-  FormElement: BuiFormElement,
   InlineEdit: BuiInlineEdit,
   InputField: BuiInputField,
   SearchableSelect: BuiSearchableSelect,
-  Popup: BuiPopup
+  Popup: BuiPopup,
+  Checkbox: BuiCheckbox,
+  Toggle: BuiToggle,
 } = BUI;
 
 //Docs components
@@ -70,7 +71,8 @@ var ComponentSegment = React.createClass({
 var BilprospektUiComponent = React.createClass({
     getInitialState() {
         return {
-            popup: false
+            popup: false,
+            checked: { cb2: true }
         };
     },
     openPopup() {
@@ -98,6 +100,18 @@ var BilprospektUiComponent = React.createClass({
                 }
             }
         };
+    },
+    toggleFormElements(event, isChecked) {
+        let checked = this.state.checked;
+        if (!isChecked) {
+            delete checked[event.target.id];
+        } else {
+            checked[event.target.id] = isChecked;
+        }
+        this.setState({checked: checked});
+    },
+    onSave(a) {
+        console.log('save', a);
     },
     render() {
         let popup = null;
@@ -190,7 +204,7 @@ var BilprospektUiComponent = React.createClass({
                     <tbody>
                         <tr>
                             <td>
-                            <BuiSearchableSelect icon='fa-search' hint='Sök efter län/kommun' data={searchableSelectData} />
+                            <BuiSearchableSelect icon='fa-search' hint='Sök efter län/kommun' data={searchableSelectData} onSave={this.onSave} />
                             </td>
                             <td><p className='code-type type-component'>Component</p></td>
                         </tr>
@@ -278,43 +292,25 @@ var BilprospektUiComponent = React.createClass({
                     </thead>
                     <tbody>
                         <tr>
-                            <td><BuiFormElement type='checkbox' id='cb1' value='cb1' label='Option 1' /></td>
+                            <td><BuiCheckbox id='cb1' label='Option 1' checked={this.state.checked['cb1']} onChange={this.toggleFormElements} /></td>
                             <td>Normal Checkbox</td>
                             <td><p className='code-type type-component'>Component</p></td>
                             <td><ComponentSegment name='BuiFormElement' prop={['type', 'label', 'id', 'value']} propType={['"checkbox"','string', '"cb1"', '"cb1"']} /></td>
                         </tr>
                         <tr>
-                            <td><BuiFormElement type='checkbox' id='cb2' value='cb2' label='Option 2' checked={true}/></td>
+                            <td><BuiCheckbox id='cb2' label='Option 2' checked={this.state.checked['cb2']} onChange={this.toggleFormElements} /></td>
                             <td>Checked Checkbox</td>
                             <td><p className='code-type type-component'>Component</p></td>
                             <td><ComponentSegment name='BuiFormElement' prop={['type', 'label', 'checked']} propType={['"checkbox"','string','{true}']} /></td>
                         </tr>
                         <tr>
-                            <td><BuiFormElement type='checkbox' id='cb3' value='cb3' label='Option 3' disabled={true} /></td>
+                            <td><BuiCheckbox id='cb3' label='Option 3' disabled={true} checked={this.state.checked['cb3']} onChange={this.toggleFormElements} /></td>
                             <td>Disabled Checkbox</td>
                             <td><p className='code-type type-component'>Component</p></td>
                             <td><ComponentSegment name='BuiFormElement' prop={['type', 'label', 'disabled']} propType={['"checkbox"','string','{true}']} /></td>
                         </tr>
                         <tr>
-                            <td><BuiFormElement type='radio' id='rb1' value='rb1' label='Option 1' /></td>
-                            <td>Normal Radio Button</td>
-                            <td><p className='code-type type-component'>Component</p></td>
-                            <td><ComponentSegment name='BuiFormElement' prop={['type', 'label']} propType={['"radio"','string']} /></td>
-                        </tr>
-                        <tr>
-                            <td><BuiFormElement type='radio' id='rb2' value='rb2' label='Option 2' checked={true} /></td>
-                            <td>Checked Radio Button</td>
-                            <td><p className='code-type type-component'>Component</p></td>
-                            <td><ComponentSegment name='BuiFormElement' prop={['type', 'label', 'checked']} propType={['"radio"','string', '{true}']} /></td>
-                        </tr>
-                        <tr>
-                            <td><BuiFormElement type='radio' id='rb3' value='rb3' label='Option 3' disabled={true} /></td>
-                            <td>Disabled Radio Button</td>
-                            <td><p className='code-type type-component'>Component</p></td>
-                            <td><ComponentSegment name='BuiFormElement' prop={['type', 'label', 'disabled']} propType={['"radio"','string', '{true}']} /></td>
-                        </tr>
-                        <tr>
-                            <td><BuiFormElement type='toggle' id='t1' value='t1' label='Feel Good' /></td>
+                            <td><BuiToggle id='t1' label='Feel Good' checked={this.state.checked['t1']} onChange={this.toggleFormElements} /></td>
                             <td>Toggle Button</td>
                             <td><p className='code-type type-component'>Component</p></td>
                             <td><ComponentSegment name='BuiFormElement' prop={['type', 'label',]} propType={['"toggle"','string']} /></td>

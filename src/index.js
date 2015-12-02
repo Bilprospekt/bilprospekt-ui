@@ -3,7 +3,6 @@ require('../stylesheets/main.css');
 
 //Load components
 import ActionButton from './action-button';
-import FormElement from './form-element';
 import IconMenu from './icon-menu';
 import InlineEdit from './inline-edit';
 import InputField from './input-field';
@@ -13,11 +12,12 @@ import Tooltip from './tooltip';
 import DatePicker from './date-picker';
 import DropDownMenu from './drop-down-menu';
 import Popup from './popup';
+import Checkbox from './checkbox';
+import Toggle from './toggle';
 
 export {
   ActionButton,
   DropDownMenu,
-  FormElement,
   IconMenu,
   InlineEdit,
   InputField,
@@ -25,5 +25,7 @@ export {
   Toolbar,
   Tooltip,
   DatePicker,
-  Popup
+  Popup,
+  Checkbox,
+  Toggle
 };
