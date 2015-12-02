@@ -106,8 +106,6 @@ $elementBoxSize: 14px
   .element-label
     @extend %bui-font-options
     color: $BuiPassive
-    float: left
-    line-height: $elementBoxSize
 
   // Checked Element
   &.element-checked
@@ -116,9 +114,13 @@ $elementBoxSize: 14px
 
   // Disabled Element
   &.element-disabled
+    cursor: default
     label
-      border-color: $BuiDisabled
-    &:hover
-      border-color: $BuiDisabled
+      .icon
+        border-color: $BuiDisabled
+        cursor: default
+        &:hover
+          border-color: $BuiDisabled
     .element-label
       color: $BuiDisabled
+      cursor: default
