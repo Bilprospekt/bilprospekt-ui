@@ -3,7 +3,7 @@ import classNames           from 'classnames';
 import _ from 'underscore';
 
 // Components
-import BuiFormElement from '../form-element';
+import BuiCheckbox from '../checkbox';
 
 const BuiToolbarDropdownElement = React.createClass({
     propTypes: {
@@ -20,7 +20,6 @@ const BuiToolbarDropdownElement = React.createClass({
     },
     render() {
         const props = {
-            type: 'checkbox',
             label: this.props.label,
             checked: this.props.checkboxChecked,
             disabled: this.props.disabled,
@@ -28,7 +27,7 @@ const BuiToolbarDropdownElement = React.createClass({
         };
 
         const dropdownElement = (this.props.checkbox)
-          ? <BuiFormElement {...props} />
+          ? <BuiCheckbox {...props} />
           : <p onClick={this.props.onClick} className='dropdown-label'>{this.props.label}</p> ;
 
         const elementClass = classNames('dropdown-element', {

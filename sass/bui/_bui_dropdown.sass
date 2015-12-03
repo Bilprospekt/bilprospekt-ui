@@ -1,0 +1,44 @@
+/*
+ *
+ * BUI: DROPDOWN
+ *
+ */
+
+.toolbar-dropdown-holder
+  position: relative
+  cursor: pointer
+  &.is-open
+    .toolbar-dropdown-elements-holder
+      opacity: 1
+      top: 100%
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2)
+      max-height: calc(10px + (#{$dropdownElementHeight} * 6) - (#{$dropdownElementHeight} / 2))
+      padding: 10px 0
+  .toolbar-dropdown-elements-holder
+    position: absolute
+    top: calc(#{$toolbarHeight} / 2)
+    left: 0
+    padding: 0
+    max-height: 0
+    min-width: 170px
+    overflow-y: auto
+    background-color: white
+    opacity: 0
+    box-shadow: 0 0 0 rgba(0,0,0,0)
+    @include transition( opacity .225s ease, box-shadow .25s ease, top .25s ease, padding .2s ease )
+    .dropdown-element
+      @extend %bui-font-options
+      line-height: $dropdownElementLineHeight
+      color: $BuiActive
+      cursor: pointer
+      white-space: nowrap
+      .bui-form-element,
+      .dropdown-label
+        padding: $dropdownElementPadding 40px $dropdownElementPadding 15px
+      &:hover
+        background-color: $grey-100
+      &.is-disabled
+        color: $BuiDisabled
+        cursor: default
+        &:hover
+          background-color: white

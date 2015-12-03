@@ -6,20 +6,31 @@
 
 $elementBoxSize: 14px
 
-%label-base
+%icon-base
   display: block
   float: left
-  margin: 1px
+  margin-top: 2px
+  margin-right: 7px
+
+%label-base
+  position: relative
+  top: 1px
+  display: inline-block
+  margin: 0 1px
   margin-right: 10px
   width: 12px
   height: 12px
   border: 1px solid $BuiPassive
   cursor: pointer
 
+%label-base
+  cursor: pointer
+
 .bui-form-element
   @extend .clear-after
   min-width: 100px
   cursor: pointer
+  white-space: nowrap
   &:hover
     .element-label
       color: $BuiActive
@@ -27,63 +38,82 @@ $elementBoxSize: 14px
   .element-toggle,
   .element-checkbox,
   .element-radio
-    float: left
     margin-right: 10px
     display: none
 
   .element-checkbox-icon
     color: $highlightColor
     margin-left: -1px
-    margin-top: -1px
+    position: relative
+    top: -1px
 
   // Checkbox
   &.checkbox-type
     label
       @extend %label-base
-      border-radius: 2px
+      .icon
+        @extend %icon-base
+        border-radius: 2px
+        &:before
+          font: normal normal normal 14px/1 FontAwesome
+          content: "\f00c"
+          color: #00bcd4
+          display: none
     .element-checkbox:checked + label
-      border: none
+      .icon
+        margin-top: 0
+        margin-left: -1px
+        margin-right: 8px
+        border: 1px solid transparent
+        &:before
+          display: inline
 
   // Radio
   &.radio-type
     label
       @extend %label-base
-      border-radius: 50%
+      .icon
+        @extend %icon-base
+        border-radius: 50%
     .element-radio:checked + label
-      border: none
-      background-color: $highlightColor
+      .icon
+        border: none
+        background-color: $highlightColor
 
   // Toggle
   &.toggle-type
     label
       @extend %label-base
-      position: relative
-      width: calc((#{$elementBoxSize} * 2) - 4px)
-      border-radius: $elementBoxSize
-      background-color: $BuiPassive
-      border: none
-      @include transition( background-color .25s ease )
-      &:after
-        display: block
-        content: ''
-        position: absolute
-        left: 2px
-        top: 2px
-        border-radius: 50%
-        width: calc(#{$elementBoxSize} - 6px)
-        height: calc(#{$elementBoxSize} - 6px)
-        background-color: white
-        @include transition( left .25s ease )
+      .icon
+        @extend %icon-base
+        position: relative
+        width: calc((#{$elementBoxSize} * 2) - 4px)
+        border-radius: $elementBoxSize
+        background-color: $BuiPassive
+        border: none
+        @include transition( background-color .25s ease )
+        &:after
+          display: block
+          content: ''
+          position: absolute
+          left: 2px
+          top: 2px
+          border-radius: 50%
+          width: calc(#{$elementBoxSize} - 6px)
+          height: calc(#{$elementBoxSize} - 6px)
+          background-color: white
+          @include transition( left .25s ease )
     .element-toggle:checked + label
-      background-color: $highlightColor
-      &:after
-        left: $elementBoxSize
+      .icon
+        background-color: $highlightColor
+        &:after
+          left: $elementBoxSize
 
   // Label
   .element-label
     @extend %bui-font-options
     color: $BuiPassive
-    float: left
+    display: inline-block
     line-height: $elementBoxSize
 
   // Checked Element
@@ -93,9 +123,13 @@ $elementBoxSize: 14px
 
   // Disabled Element
   &.element-disabled
+    cursor: default
     label
-      border-color: $BuiDisabled
-    &:hover
-      border-color: $BuiDisabled
+      .icon
+        border-color: $BuiDisabled
+        cursor: default
+        &:hover
+          border-color: $BuiDisabled
     .element-label
       color: $BuiDisabled
+      cursor: default
