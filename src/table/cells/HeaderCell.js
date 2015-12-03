@@ -49,13 +49,14 @@ const HeaderCell = React.createClass({
         } = this.props;
 
 
-        let pos = $(e.target).offset({top: 0, left: 0});
-        console.log($(e.target).offset({top: 0, left: 0}), $(e.target).position(), $(e.target).offsetParent().offset());
+        let pos = $(e.target).offset();
+        const relative = this.props.relativeScrollingEl ? this.props.relativeScrollingEl : window;
+        pos.top += $(relative).scrollTop();
         const props = {
             availableFilters,
             currentFilters,
             onFilter: this._onFilter,
-            top: -pos.top,
+            top: pos.top,
             left: pos.left,
             val: this.props.val,
             unmount: () => {
@@ -69,6 +70,8 @@ const HeaderCell = React.createClass({
             <TableFilterPopupComponent {...props} />,
             document.getElementById('bui-table-popup-holder')
         );
+        e.preventDefault();
+        e.stopPropagation();
     },
     render() {
         let filterIcon = null;
@@ -83,7 +86,7 @@ const HeaderCell = React.createClass({
                 ref='holder'
                 onMouseEnter={this._onMouseEnter}
                 onMouseLeave={this._onMouseLeave}
-                onClick={() => {/*this.props.onSort*/}}>
+                onClick={this.props.onSort}>
                     {this.props.label}
                     {filterIcon}
             </div>

@@ -21,6 +21,10 @@ const TableHolderComponent = React.createClass({
         //The current selected filters
         currentFilters: React.PropTypes.array,
 
+        //If we don't have scroll on window, we need to give a element to check it relative to.
+        //Needs to be a jQuery selector.
+        relativeScrollingEl: React.PropTypes.string,
+
         //All the columns that the user can pick between.
         allColumnsThatCouldBeRendered: React.PropTypes.array,
         onColumnChange: React.PropTypes.func,
@@ -189,6 +193,7 @@ const TableHolderComponent = React.createClass({
                             onSort={this._onSort}
                             availableFilters={filters}
                             currentFilters={this.props.currentFilters}
+                            relativeScrollingEl={this.props.relativeScrollingEl}
                             {...val}
                             {...props} />
                     }}
