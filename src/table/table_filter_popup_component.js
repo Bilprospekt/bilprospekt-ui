@@ -75,17 +75,16 @@ const TableFilterPopupComponent = React.createClass({
             top: this.props.top,
             left: this.props.left,
             zIndex: 100,
-            backgroundColor: 'black',
-            color: 'white',
             height: conHeight,
         };
 
         return (
-            <div className={componentClassName} style={popupstyle}>
+            <div className={componentClassName + ' bui-form-elements-dropdown-holder'} style={popupstyle}>
                 <Infinite onInfiniteLoad={this._handleInfiniteLoading}
                     containerHeight={conHeight}
                     elementHeight={childHeight}
                     infiniteLoadBeginEdgeOffset={200}
+                    className='infinite-holder'
                 >
                     {availableFilters}
                 </Infinite>
