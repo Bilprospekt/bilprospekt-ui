@@ -236,6 +236,7 @@ const TableHolderComponent = React.createClass({
                     headerHeight={props.headerHeight}>
                     {columnsEls}
                 </Table>
+                <div id='bui-table-popup-holder' />
             </div>
         );
     }

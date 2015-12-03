@@ -151,7 +151,7 @@ const DropdownHolder = React.createClass({
                 {caret}
                 </div>
                 <div style={elementsHolderStyle} className='toolbar-dropdown-elements-holder'>
-                        {children}
+                    {children}
                 </div>
             </div>
         );

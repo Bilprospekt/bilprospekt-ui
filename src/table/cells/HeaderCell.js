@@ -1,7 +1,7 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import _ from 'underscore';
-import DropdownMenu from '../../drop-down-menu/';
-const {DropdownHolder, DropdownElement} = DropdownMenu;
+import TableFilterPopupComponent from '../table_filter_popup_component.js';
 
 const HeaderCell = React.createClass({
     propTypes: {
@@ -42,27 +42,48 @@ const HeaderCell = React.createClass({
             hover,
         });
     },
+    _showFilterPopup(e) {
+        const {
+            currentFilters,
+            availableFilters,
+        } = this.props;
+
+
+        let pos = $(e.target).offset({top: 0, left: 0});
+        console.log($(e.target).offset({top: 0, left: 0}), $(e.target).position(), $(e.target).offsetParent().offset());
+        const props = {
+            availableFilters,
+            currentFilters,
+            onFilter: this._onFilter,
+            top: -pos.top,
+            left: pos.left,
+            val: this.props.val,
+            unmount: () => {
+                ReactDOM.unmountComponentAtNode(
+                    document.getElementById('bui-table-popup-holder')
+                );
+            },
+        };
+
+        ReactDOM.render(
+            <TableFilterPopupComponent {...props} />,
+            document.getElementById('bui-table-popup-holder')
+        );
+    },
     render() {
         let filterIcon = null;
         if (this.state.hover) {
-            const availableFilters = _(this.props.availableFilters).map((val, index) => {
-                const checked = _(this.props.currentFilters).find((current) => current[0] === this.props.val && current[1] === val);
-                return (
-                    <DropdownElement checkboxChecked={checked} key={index} checkbox onClick={this._onFilter.bind(this, val)} label={val} />
-                )
-            });
             filterIcon = (
-                <DropdownHolder useInfiniteScroll onToggle={this._onFilterToggle}>
-                    {availableFilters}
-                </DropdownHolder>
+                <i className='fa fa-caret-down' onClick={this._showFilterPopup} />
             );
         }
 
         return (
             <div
+                ref='holder'
                 onMouseEnter={this._onMouseEnter}
                 onMouseLeave={this._onMouseLeave}
-                onClick={this.onSort}>
+                onClick={() => {/*this.props.onSort*/}}>
                     {this.props.label}
                     {filterIcon}
             </div>
