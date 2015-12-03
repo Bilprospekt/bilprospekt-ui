@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
 
-const BuiFormElement = React.createClass({
+const BuiToggle = React.createClass({
     propTypes: {
         label: React.PropTypes.string.isRequired,
         id: React.PropTypes.string.isRequired,
@@ -42,10 +42,13 @@ const BuiFormElement = React.createClass({
         return (
             <div className={parentClass}>
                 <input {...props} />
-                <label htmlFor={this.props.id}><div className='icon' /> {this.props.label}</label>
+                <label htmlFor={this.props.id}>
+                    <div className='icon' />
+                    <span className='element-label'>{this.props.label}</span>
+                </label>
             </div>
         );
     }
 });
 
-module.exports = BuiFormElement;
+module.exports = BuiToggle;
