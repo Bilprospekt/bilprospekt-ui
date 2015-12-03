@@ -18,7 +18,6 @@ import Toggle from './toggle';
 export {
   ActionButton,
   DropdownMenu,
-  FormElement,
   IconMenu,
   InlineEdit,
   InputField,
