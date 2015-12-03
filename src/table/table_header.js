@@ -17,6 +17,7 @@ const TableActionBar = React.createClass({
         onSearchChange: React.PropTypes.func,
 
         justifyColumns: React.PropTypes.func,
+        headerLabel: React.PropTypes.node,
     },
 
     _onColumnChange(columnVal) {
@@ -63,7 +64,7 @@ const TableActionBar = React.createClass({
         return (
             <div className='bui-table-action-bar'>
                 <div className='bui-table-text-holder'>
-                    Now this is podracing
+                    {this.props.headerLabel}
                 </div>
                 <div className='bui-table-actions-holder'>
                     <InputField onChange={this.props.onSearchChange} hint="Now this is searching" icon="fa-search" />

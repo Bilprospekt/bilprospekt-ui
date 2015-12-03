@@ -38,6 +38,7 @@ const TableHolderComponent = React.createClass({
 
         rowHeight: React.PropTypes.number,
         headerHeight: React.PropTypes.number,
+        headerLabel: React.PropTypes.node,
 
         //Trigger functions that haven't already been listed.
         onSearch: React.PropTypes.func,
@@ -228,6 +229,7 @@ const TableHolderComponent = React.createClass({
                     allColumnsThatCouldBeRendered={props.allColumnsThatCouldBeRendered}
                     currentColumns={columnsToRender}
                     justifyColumns={this._justifyColumns}
+                    headerLabel={this.props.headerLabel}
                 />
                 <Table
                     isColumnResizing={false}

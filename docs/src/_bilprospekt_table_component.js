@@ -57,6 +57,7 @@ const TableDocComponent = React.createClass({
                 <Table
                     allColumnsThatCouldBeRendered={alphaObj}
                     relativeScrollingEl='#bilprospekt-ui-styling-holder'
+                    headerLabel="Now this is podracing"
                     {...this.state}
 
                     {...dataWrapper.triggers()}
