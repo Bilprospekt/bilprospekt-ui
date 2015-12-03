@@ -1,6 +1,6 @@
 import React from 'react';
 import _ from 'underscore';
-import FormElement from '../form-element';
+import Checkbox from '../checkbox';
 import Infinite from 'react-infinite';
 
 const componentClassName = 'bui-table-filter-popup';
@@ -61,9 +61,8 @@ const TableFilterPopupComponent = React.createClass({
             const checked = _(this.props.currentFilters).find((current) => current[0] === this.props.val && current[1] === val);
 
             return (
-                <FormElement checked={!!checked}
+                <Checkbox checked={!!checked}
                     key={index}
-                    type="checkbox"
                     onChange={this._onFilter.bind(this, val)}
                     label={val} />
             )

@@ -29,8 +29,8 @@ export {
   Tooltip,
   DatePicker,
   Table,
-  TableDataWrapper
+  TableDataWrapper,
   Popup,
   Checkbox,
-  Toggle
+  Toggle,
 };
