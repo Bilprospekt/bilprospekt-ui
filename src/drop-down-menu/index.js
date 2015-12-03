@@ -4,7 +4,7 @@ import _ from 'underscore';
 import Infinite from 'react-infinite';
 
 // Components
-import BuiFormElement from '../form-element';
+import Checkbox from '../checkbox'
 
 const DropdownElement = React.createClass({
     propTypes: {
@@ -29,7 +29,7 @@ const DropdownElement = React.createClass({
         };
 
         const dropdownElement = (this.props.checkbox)
-          ? <BuiFormElement {...props} />
+          ? <Checkbox {...props} />
           : <p onClick={this.props.onClick} className='dropdown-label'>{this.props.label}</p> ;
 
         const elementClass = classNames('dropdown-element', {

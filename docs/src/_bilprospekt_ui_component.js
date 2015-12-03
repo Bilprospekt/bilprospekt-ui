@@ -4,10 +4,12 @@ import * as BUI from 'bilprospekt-ui';
 const {
   IconMenu: IconMenu,
   ActionButton: BuiActionButton,
-  FormElement: BuiFormElement,
   InlineEdit: BuiInlineEdit,
   InputField: BuiInputField,
-  SearchAdder: BuiSearchAdder,
+  SearchableSelect: BuiSearchableSelect,
+  Popup: BuiPopup,
+  Checkbox: BuiCheckbox,
+  Toggle: BuiToggle,
 } = BUI;
 
 //Docs components
@@ -26,7 +28,7 @@ var CodeSegment = React.createClass({
                 <span>
                     <span className='class-class'> className</span>
                     <span className='tag-class'>=</span>
-                    <span className='classname-class'>&#39;{this.props.class}&#39;</span>   
+                    <span className='classname-class'>&#39;{this.props.class}&#39;</span>
                 </span>
             );
         }
@@ -69,7 +71,73 @@ var ComponentSegment = React.createClass({
 });
 
 var BilprospektUiComponent = React.createClass({
+    getInitialState() {
+        return {
+            popup: false,
+            checked: { cb2: true }
+        };
+    },
+    openPopup() {
+        this.setState({popup: true});
+    },
+    hidePopup() {
+        this.setState({popup: false});
+    },
+    getPopupProps() {
+        let headerButton = <a href="#">Some Action</a>;
+        let saveButton = <div className='popup-footer-button' onClick={this.hidePopup}>Save</div>;
+        let closeButton = <div className='popup-footer-button' onClick={this.hidePopup}>Close</div>;
+        return {
+            onClose: this.hidePopup,
+            header: {
+                title: 'Popup',
+                controls: {
+                    headerButton
+                }
+            },
+            footer: {
+                controls: {
+                    saveButton,
+                    closeButton
+                }
+            }
+        };
+    },
+    toggleFormElements(event, isChecked) {
+        let checked = this.state.checked;
+        if (!isChecked) {
+            delete checked[event.target.id];
+        } else {
+            checked[event.target.id] = isChecked;
+        }
+        this.setState({checked: checked});
+    },
+    onSave(a) {
+        console.log('save', a);
+    },
     render() {
+        let popup = null;
+        if (this.state.popup) {
+            popup = (
+                <BuiPopup {...this.getPopupProps()}>
+                    This is a popup. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis lacinia interdum lorem, et iaculis tortor blandit eu. In vestibulum massa porttitor, efficitur ipsum quis, luctus purus. Phasellus felis nunc, molestie sit amet condimentum ut, bibendum congue odio. Donec dapibus enim id bibendum fermentum. Aenean interdum sem ornare dapibus porta. Nullam ut arcu at sem pharetra aliquet. Pellentesque convallis, purus a molestie molestie, nisi ipsum dapibus augue, auctor ultrices ipsum odio non nunc. Quisque vel eleifend massa, quis viverra tortor. Aenean fermentum metus aliquam rhoncus accumsan. Nullam sodales ullamcorper maximus. Vivamus venenatis, est a gravida fringilla, metus felis varius dui, vel cursus lectus massa eu diam. Praesent commodo finibus luctus. Nunc convallis mauris at facilisis tincidunt. Sed pulvinar elit metus, at interdum ligula feugiat vitae. Donec at finibus elit, placerat accumsan neque.
+                </BuiPopup>
+            );
+        }
+
+        let searchableSelectData = [
+            { label: 'Sölvesborg kommun', id: 'ddi1', value: 'ddv1' },
+            { label: 'Älvdalen kommun', id: 'ddi2', value: 'ddv2' },
+            { label: 'Alvesta kommun', id: 'ddi3', value: 'ddv3' },
+            { label: 'Ludvika kommun', id: 'ddi4', value: 'ddv4' },
+            { label: 'Rättvik kommun', id: 'ddi5', value: 'ddv5' },
+            { label: 'Vansbro kommun', id: 'ddi6', value: 'ddv6' },
+            { label: 'Gävle kommun', id: 'ddi7', value: 'ddv7' },
+            { label: 'Hudiksvall kommun', id: 'ddi8', value: 'ddv8' },
+            { label: 'Ovanåker kommun', id: 'ddi9',  value: 'ddv9' },
+            { label: 'Sandviken kommun', id: 'ddi0', value: 'ddv0' }
+        ];
+
         return (
             <div id='bilprospekt-ui-styling-holder'>
                 <p className='master-header'>Bilprospekt 2.0 Style Guide</p>
@@ -77,6 +145,23 @@ var BilprospektUiComponent = React.createClass({
                 <BilprospektTooltipDoc />
                 <BilprospektToolbarDoc />
                 <BilprospektDropdownDoc />
+
+                <p className='table-header-label'>Popup</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Element</th>
+                            <th>Type</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><BuiActionButton primary={false} minor={true} label='Open popup' onClick={this.openPopup}/>{popup}</td>
+                            <td><p className='code-type type-component'>Component</p></td>
+                        </tr>
+                    </tbody>
+                </table>
+
                 <p className='table-header-label'>Action Buttons</p>
                 <table>
                     <thead>
@@ -114,7 +199,7 @@ var BilprospektUiComponent = React.createClass({
                         </tr>
                     </tbody>
                 </table>
-                <p className='table-header-label'>Search Adder</p>
+                <p className='table-header-label'>Searchable Select</p>
                 <table>
                     <thead>
                         <tr>
@@ -124,7 +209,9 @@ var BilprospektUiComponent = React.createClass({
                     </thead>
                     <tbody>
                         <tr>
-                            <td><BuiSearchAdder icon='fa-search' hint='Sök efter län/kommun' /></td>
+                            <td>
+                            <BuiSearchableSelect icon='fa-search' hint='Sök efter län/kommun' data={searchableSelectData} onSave={this.onSave} />
+                            </td>
                             <td><p className='code-type type-component'>Component</p></td>
                         </tr>
                     </tbody>
@@ -211,46 +298,28 @@ var BilprospektUiComponent = React.createClass({
                     </thead>
                     <tbody>
                         <tr>
-                            <td><BuiFormElement type='checkbox' id='cb1' value='cb1' label='Option 1' /></td>
+                            <td><BuiCheckbox id='cb1' label='Option 1' checked={this.state.checked['cb1']} onChange={this.toggleFormElements} /></td>
                             <td>Normal Checkbox</td>
                             <td><p className='code-type type-component'>Component</p></td>
-                            <td><ComponentSegment name='BuiFormElement' prop={['type', 'label', 'id', 'value']} propType={['"checkbox"','string', '"cb1"', '"cb1"']} /></td>
+                            <td><ComponentSegment name='BuiCheckbox' prop={['label', 'id', 'value']} propType={['string', '"cb1"', '"cb1"']} /></td>
                         </tr>
                         <tr>
-                            <td><BuiFormElement type='checkbox' id='cb2' value='cb2' label='Option 2' checked={true}/></td>
+                            <td><BuiCheckbox id='cb2' label='Option 2' checked={this.state.checked['cb2']} onChange={this.toggleFormElements} /></td>
                             <td>Checked Checkbox</td>
                             <td><p className='code-type type-component'>Component</p></td>
-                            <td><ComponentSegment name='BuiFormElement' prop={['type', 'label', 'checked']} propType={['"checkbox"','string','{true}']} /></td>
+                            <td><ComponentSegment name='BuiCheckbox' prop={['label', 'checked']} propType={['string','{true}']} /></td>
                         </tr>
                         <tr>
-                            <td><BuiFormElement type='checkbox' id='cb3' value='cb3' label='Option 3' disabled={true} /></td>
+                            <td><BuiCheckbox id='cb3' label='Option 3' disabled={true} checked={this.state.checked['cb3']} onChange={this.toggleFormElements} /></td>
                             <td>Disabled Checkbox</td>
                             <td><p className='code-type type-component'>Component</p></td>
-                            <td><ComponentSegment name='BuiFormElement' prop={['type', 'label', 'disabled']} propType={['"checkbox"','string','{true}']} /></td>
+                            <td><ComponentSegment name='BuiCheckbox' prop={['label', 'disabled']} propType={['string','{true}']} /></td>
                         </tr>
                         <tr>
-                            <td><BuiFormElement type='radio' id='rb1' value='rb1' label='Option 1' /></td>
-                            <td>Normal Radio Button</td>
-                            <td><p className='code-type type-component'>Component</p></td>
-                            <td><ComponentSegment name='BuiFormElement' prop={['type', 'label']} propType={['"radio"','string']} /></td>
-                        </tr>
-                        <tr>
-                            <td><BuiFormElement type='radio' id='rb2' value='rb2' label='Option 2' checked={true} /></td>
-                            <td>Checked Radio Button</td>
-                            <td><p className='code-type type-component'>Component</p></td>
-                            <td><ComponentSegment name='BuiFormElement' prop={['type', 'label', 'checked']} propType={['"radio"','string', '{true}']} /></td>
-                        </tr>
-                        <tr>
-                            <td><BuiFormElement type='radio' id='rb3' value='rb3' label='Option 3' disabled={true} /></td>
-                            <td>Disabled Radio Button</td>
-                            <td><p className='code-type type-component'>Component</p></td>
-                            <td><ComponentSegment name='BuiFormElement' prop={['type', 'label', 'disabled']} propType={['"radio"','string', '{true}']} /></td>
-                        </tr>
-                        <tr>
-                            <td><BuiFormElement type='toggle' id='t1' value='t1' label='Feel Good' /></td>
+                            <td><BuiToggle id='t1' label='Feel Good' checked={this.state.checked['t1']} onChange={this.toggleFormElements} /></td>
                             <td>Toggle Button</td>
                             <td><p className='code-type type-component'>Component</p></td>
-                            <td><ComponentSegment name='BuiFormElement' prop={['type', 'label',]} propType={['"toggle"','string']} /></td>
+                            <td><ComponentSegment name='BuiToggle' prop={['label',]} propType={['string']} /></td>
                         </tr>
                     </tbody>
                 </table>
