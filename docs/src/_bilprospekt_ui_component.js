@@ -299,25 +299,25 @@ var BilprospektUiComponent = React.createClass({
                             <td><BuiCheckbox id='cb1' label='Option 1' checked={this.state.checked['cb1']} onChange={this.toggleFormElements} /></td>
                             <td>Normal Checkbox</td>
                             <td><p className='code-type type-component'>Component</p></td>
-                            <td><ComponentSegment name='BuiFormElement' prop={['type', 'label', 'id', 'value']} propType={['"checkbox"','string', '"cb1"', '"cb1"']} /></td>
+                            <td><ComponentSegment name='BuiCheckbox' prop={['label', 'id', 'value']} propType={['string', '"cb1"', '"cb1"']} /></td>
                         </tr>
                         <tr>
                             <td><BuiCheckbox id='cb2' label='Option 2' checked={this.state.checked['cb2']} onChange={this.toggleFormElements} /></td>
                             <td>Checked Checkbox</td>
                             <td><p className='code-type type-component'>Component</p></td>
-                            <td><ComponentSegment name='BuiFormElement' prop={['type', 'label', 'checked']} propType={['"checkbox"','string','{true}']} /></td>
+                            <td><ComponentSegment name='BuiCheckbox' prop={['label', 'checked']} propType={['string','{true}']} /></td>
                         </tr>
                         <tr>
                             <td><BuiCheckbox id='cb3' label='Option 3' disabled={true} checked={this.state.checked['cb3']} onChange={this.toggleFormElements} /></td>
                             <td>Disabled Checkbox</td>
                             <td><p className='code-type type-component'>Component</p></td>
-                            <td><ComponentSegment name='BuiFormElement' prop={['type', 'label', 'disabled']} propType={['"checkbox"','string','{true}']} /></td>
+                            <td><ComponentSegment name='BuiCheckbox' prop={['label', 'disabled']} propType={['string','{true}']} /></td>
                         </tr>
                         <tr>
                             <td><BuiToggle id='t1' label='Feel Good' checked={this.state.checked['t1']} onChange={this.toggleFormElements} /></td>
                             <td>Toggle Button</td>
                             <td><p className='code-type type-component'>Component</p></td>
-                            <td><ComponentSegment name='BuiFormElement' prop={['type', 'label',]} propType={['"toggle"','string']} /></td>
+                            <td><ComponentSegment name='BuiToggle' prop={['label',]} propType={['string']} /></td>
                         </tr>
                     </tbody>
                 </table>
