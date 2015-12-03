@@ -18,11 +18,11 @@ class DataWrapper {
     }
 
     _onFilter(val) {
-        const find = _(this.filter).find((num) => {
+        const find = _(this.filter).findIndex((num) => {
             return val[0] === num[0] && val[1] === num[1];
         });
 
-        if (find) {
+        if (find !== -1) {
             this.filter.splice(find, 1);
         } else {
             this.filter.push(val);
