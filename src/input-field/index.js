@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import classNames           from 'classnames';
 
 const BuiInputField = React.createClass({
-    propTypes: { 
+    propTypes: {
         hint:     React.PropTypes.string,
         bgcolor:  React.PropTypes.string,
         value:    React.PropTypes.string,
@@ -18,7 +18,7 @@ const BuiInputField = React.createClass({
         };
     },
     getInitialState() {
-        return { 
+        return {
             value: this.props.value,
             focus: false
         };

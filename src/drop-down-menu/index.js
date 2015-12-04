@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import classNames           from 'classnames';
 import _ from 'underscore';
+import Infinite from 'react-infinite';
 
 // Components
 import Checkbox from '../checkbox'
@@ -24,7 +25,7 @@ const DropdownElement = React.createClass({
             label: this.props.label,
             checked: this.props.checkboxChecked,
             disabled: this.props.disabled,
-            onClick: this.props.onClick,
+            onChange: this.props.onClick,
         };
 
         const dropdownElement = (this.props.checkbox)
@@ -48,10 +49,23 @@ const DropdownHolder = React.createClass({
         label: React.PropTypes.string,
         icon:  React.PropTypes.string,
         disabled: React.PropTypes.bool,
+        style: React.PropTypes.object,
+        noArrow: React.PropTypes.bool,
+        orientation: React.PropTypes.string,
+        onToggle: React.PropTypes.func,
+        useInfiniteScroll: React.PropTypes.bool
     },
     getInitialState() {
         return {
             opened: false,
+            page: 1,
+        };
+    },
+    getDefaultProps() {
+        return {
+            noArrow: false,
+            orientation: "left",
+            useInfiniteScroll: false,
         };
     },
     componentDidUpdate() {
@@ -59,9 +73,17 @@ const DropdownHolder = React.createClass({
             document.addEventListener('click', this._hideDrop);
         }
     },
+    _triggerToggle(val) {
+        if (typeof this.props.onToggle === 'function') {
+            this.props.onToggle(val);
+        }
+    },
     _handleClick() {
         if (!this.props.disabled) {
-            this.setState({ opened: true });
+            this._triggerToggle(true);
+            if (this.isMounted()) {
+                this.setState({ opened: true });
+            }
         }
     },
     _hideDrop(e) {
@@ -72,12 +94,20 @@ const DropdownHolder = React.createClass({
         }
 
         if (this.state.opened) {
-            this.setState({ opened: false });
+            this._triggerToggle(false);
+            if (this.isMounted()) {
+                this.setState({ opened: false });
+            }
             document.removeEventListener('click', this._hideDrop);
         }
     },
     componentWillUnmount() {
         document.removeEventListener('click', this._hideDrop);
+    },
+    _handleInfiniteLoading() {
+        this.setState({
+            page: this.state.page + 1,
+        });
     },
     render() {
         const parentClass = classNames('toolbar-dropdown-holder', {
@@ -86,16 +116,42 @@ const DropdownHolder = React.createClass({
         });
 
         const labelIcon = <i className={'toolbar-icon fa ' + this.props.icon} />;
+        const caret = (!this.props.noArrow) ? <i className='toolbar-caret fa fa-caret-down' /> : null;
+        let elementsHolderStyle = {};
+
+        if (this.props.orientation === 'right') {
+            elementsHolderStyle.left = 'initial';
+            elementsHolderStyle.right = 0;
+        }
+
+
+        let children = this.props.children;
+        if (this.props.useInfiniteScroll) {
+            const childHeight = 40;
+            const childElLen = 20;
+            const childEls = React.Children.toArray(this.props.children).slice(0, this.state.page * childElLen);
+            elementsHolderStyle.overflow = 'hidden';
+            children = (
+                <Infinite elementHeight={childHeight}
+                          containerHeight={220}
+                          infiniteLoadBeginEdgeOffset={200}
+                          onInfiniteLoad={this._handleInfiniteLoading}
+                    >
+                    {childEls}
+                </Infinite>
+
+            )
+        }
 
         return (
-            <div className={parentClass} onClick={this._handleClick}>
+            <div style={this.props.style} className={parentClass} onClick={this._handleClick}>
                 <div className='toolbar-dropdown-holder-label'>
                     {labelIcon}
                     <span className='toolbar-text-label'>{this.props.label}</span>
-                    <i className='toolbar-caret fa fa-caret-down' />
+                {caret}
                 </div>
-                <div className='toolbar-dropdown-elements-holder'>
-                    {this.props.children}
+                <div style={elementsHolderStyle} className='toolbar-dropdown-elements-holder'>
+                    {children}
                 </div>
             </div>
         );

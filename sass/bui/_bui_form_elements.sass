@@ -13,7 +13,6 @@ $elementBoxSize: 14px
   width: 12px
   height: 12px
   border: 1px solid $BuiPassive
-  margin-right: 10px
 
 %label-base
   cursor: pointer
@@ -102,7 +101,7 @@ $elementBoxSize: 14px
     @extend %bui-font-options
     color: $BuiPassive
     display: inline-block
-    line-height: $elementBoxSize
+    padding-left: 10px
 
   // Checked Element
   &.element-checked
@@ -121,3 +120,13 @@ $elementBoxSize: 14px
     .element-label
       color: $BuiDisabled
       cursor: default
+
+
+.bui-form-elements-dropdown-holder
+  min-width: 170px
+  background-color: white
+  box-shadow: 0 2px 8px rgba(black, .2)
+  .infinite-holder
+    padding: 10px 0
+  .bui-form-element
+    padding: 8px 40px 8px 15px

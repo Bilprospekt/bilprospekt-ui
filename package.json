@@ -1,6 +1,6 @@
 {
   "name": "bilprospekt-ui",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Bilprospekt UI",
   "main": "./lib/index.js",
   "scripts": {
@@ -21,7 +21,9 @@
   "homepage": "https://github.com/Bilprospekt/bilprospekt-ui#readme",
   "dependencies": {
     "classnames": "^2.1.5",
+    "fixed-data-table": "^0.6.0",
     "jquery": "^2.1.4",
+    "react-infinite": "^0.7.1",
     "underscore": "^1.8.3"
   },
   "peerDependencies": {

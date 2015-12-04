@@ -1,10 +1,16 @@
 import React from 'react';
 import * as BUI from 'bilprospekt-ui'
+import _ from 'underscore';
 
 const {DropdownMenu: {DropdownHolder, DropdownElement}} = BUI;
 
 const DropDownDoc = React.createClass({
     render() {
+        const els = _(_.range(1000)).map((val) => {
+            return (
+                <DropdownElement key={val} checkbox label={`El ${val}`} />
+            )
+        });
         return (
             <div>
                 <p className="table-header-label">Dropdown menu</p>
@@ -30,6 +36,27 @@ const DropDownDoc = React.createClass({
                     }
                 </code>
                 </pre>
+
+                <div style={{clear: 'both'}} />
+
+                <p style={{marginTop: 20}}>With infiniteScroll for perfomance boost. Very useful if we have lots of elements.</p>
+                <DropdownHolder useInfiniteScroll label="My Infinite Dropdown" icon="fa-cogs">
+                    {els}
+                </DropdownHolder>
+
+                <pre>
+                <code>
+                    {
+                        ['<DropdownHolder useInfiniteScroll label="My Infinite Dropdown" icon="fa-cogs">',
+                         <br/>,
+                         '{An array of 1000 elements}',
+                         <br/>,
+                        '</DropdownHolder>',
+                        ]
+                    }
+                </code>
+                </pre>
+
             </div>
         );
     },

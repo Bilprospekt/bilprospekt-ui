@@ -1,5 +1,6 @@
 //Load styling
 require('../stylesheets/main.css');
+require('../stylesheets/fixed-data-table.css');
 
 //Load components
 import ActionButton from './action-button';
@@ -10,6 +11,8 @@ import SearchableSelect from './searchable-select';
 import Toolbar from './toolbar';
 import Tooltip from './tooltip';
 import DatePicker from './date-picker';
+import Table from './table';
+import TableDataWrapper from './table/data_wrapper';
 import DropdownMenu from './drop-down-menu';
 import Popup from './popup';
 import Checkbox from './checkbox';
@@ -25,7 +28,9 @@ export {
   Toolbar,
   Tooltip,
   DatePicker,
+  Table,
+  TableDataWrapper,
   Popup,
   Checkbox,
-  Toggle
+  Toggle,
 };
