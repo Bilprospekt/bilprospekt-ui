@@ -2,6 +2,7 @@ import React from 'react';
 import DayPicker from 'react-day-picker';
 const DateUtils = DayPicker.DateUtils;
 import moment from 'moment';
+import _ from 'underscore';
 
 const DatePicker = React.createClass({
     propTypes: {
@@ -75,14 +76,14 @@ const CaptionElement = React.createClass({
         return (
             <form className="DayPicker-Caption">
                 <select name="month" onChange={ this._handleChange } value={ date.getMonth() }>
-                    { months.map((month, i) =>
+                    { _(months).map((month, i) =>
                                 <option key={ i } value={ i }>
                                 { month }
                                 </option>)
                     }
                 </select>
                 <select name="year" onChange={ this._handleChange } value={ date.getFullYear() }>
-                    { years.map((year, i) =>
+                    { _(years).map((year, i) =>
                                 <option key={ i } value={ year }>
                                 { year }
                                 </option>)
