@@ -1,4 +1,5 @@
 require('./highlight.css');
+require('react-day-picker/lib/style.css');
 hljs.initHighlightingOnLoad();
 
 var React = require('react');

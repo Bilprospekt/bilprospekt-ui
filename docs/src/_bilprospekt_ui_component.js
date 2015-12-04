@@ -17,6 +17,7 @@ import BilprospektTooltipDoc from './_bilprospekt_tooltip_component.js';
 import BilprospektToolbarDoc from './_bilprospekt_toolbar_component.js';
 import BilprospektTableDoc from './_bilprospekt_table_component.js';
 import BilprospektDropdownDoc from './_bilprospekt_dropdown_component.js';
+import BilprospektDatePickerDoc from './_bilprospekt_datepicker_component.js';
 
 var CodeSegment = React.createClass({
     render() {
@@ -141,6 +142,7 @@ var BilprospektUiComponent = React.createClass({
         return (
             <div id='bilprospekt-ui-styling-holder'>
                 <p className='master-header'>Bilprospekt 2.0 Style Guide</p>
+                <BilprospektDatePickerDoc />
                 <BilprospektTableDoc />
                 <BilprospektTooltipDoc />
                 <BilprospektToolbarDoc />
