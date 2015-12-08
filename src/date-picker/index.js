@@ -1,6 +1,7 @@
 import React from 'react';
 import DayPicker from 'react-day-picker';
 const DateUtils = DayPicker.DateUtils;
+import LocaleUtils from 'react-day-picker/moment';
 import moment from 'moment';
 import _ from 'underscore';
 
@@ -10,6 +11,9 @@ const DatePicker = React.createClass({
 
         //If we want to use a range, default is TRUE
         useRange: React.PropTypes.bool,
+
+        //Language to use in datepicker. Since it depends on moment, be sure to load correct language files for moment.js
+        locale: React.PropTypes.string,
     },
     getInitialState() {
         return {
@@ -21,6 +25,7 @@ const DatePicker = React.createClass({
     getDefaultProps() {
         return {
             useRange: true,
+            locale: 'en',
         };
     },
     _onDayClick(e, day, modifiers) {
@@ -66,6 +71,8 @@ const DatePicker = React.createClass({
             numberOfMonths={1}
             modifiers={{ selected }}
             onDayClick={this._onDayClick}
+            locale={ this.props.locale }
+            localeUtils={ LocaleUtils }
             captionElement={
                 <CaptionElement onChange={(initialMonth) => this.setState({initialMonth})} date={this.state.initialMonth} />
             }
