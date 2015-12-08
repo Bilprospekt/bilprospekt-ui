@@ -37,11 +37,11 @@ const DatePickerDoc = React.createClass({
                 <p className="table-header-label">Datepicker</p>
                 <p style={{height: 60}}>Built upon <a target="_blank" href="https://github.com/gpbl/react-day-picker">react-day-picker</a></p>
                 <p style={{textAlign: 'center'}}>{dateStr}</p>
-                <DatePicker onChange={this._onChange} />
+                <DatePicker useRange onChange={this._onChange} />
                 <pre>
                 <code>
                     {
-                        ['<DatePicker onChange={func} />',
+                        ['<DatePicker useRange onChange={func} />',
                         ]
                     }
                 </code>

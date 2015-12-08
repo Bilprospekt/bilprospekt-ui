@@ -7,29 +7,52 @@ import _ from 'underscore';
 const DatePicker = React.createClass({
     propTypes: {
         onChange: React.PropTypes.func,
+
+        //If we want to use a range, default is TRUE
+        useRange: React.PropTypes.bool,
     },
     getInitialState() {
         return {
             range: {from: null, to: null},
+            date: null,
             initialMonth: new Date(),
         }
     },
+    getDefaultProps() {
+        return {
+            useRange: true,
+        };
+    },
     _onDayClick(e, day, modifiers) {
         let newSelections;
-        const dayStr = day.toString();
-        const newRange = DateUtils.addDayToRange(day, this.state.range);
 
-        if (typeof this.props.onChange === 'function') {
-            this.props.onChange(newRange);
+        if (this.props.useRange) {
+            const newRange = DateUtils.addDayToRange(day, this.state.range);
+
+            if (typeof this.props.onChange === 'function') {
+                this.props.onChange(newRange);
+            }
+
+            this.setState({
+                range: newRange,
+            });
+        } else {
+            if (typeof this.props.onChange === 'function') {
+                this.props.onChange(day);
+            }
+
+            this.setState({
+                date: day,
+            });
         }
-
-        this.setState({
-            range: newRange,
-        });
     },
     render() {
         const selected = (day) => {
-            return DateUtils.isDayInRange(day, this.state.range);
+            if (this.props.useRange) {
+                return DateUtils.isDayInRange(day, this.state.range);
+            } else {
+                return day == this.state.date.toString();
+            }
         };
 
         const fromMonth = moment("2005-01-01").toDate();
