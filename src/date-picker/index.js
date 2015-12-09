@@ -56,7 +56,7 @@ const DatePicker = React.createClass({
             if (this.props.useRange) {
                 return DateUtils.isDayInRange(day, this.state.range);
             } else {
-                return day == this.state.date.toString();
+                return this.state.date && day == this.state.date.toString();
             }
         };
 
