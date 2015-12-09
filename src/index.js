@@ -1,6 +1,7 @@
 //Load styling
 require('../stylesheets/main.css');
 require('../stylesheets/fixed-data-table.css');
+require('../stylesheets/day-picker.css');
 
 //Load components
 import ActionButton from './action-button';
