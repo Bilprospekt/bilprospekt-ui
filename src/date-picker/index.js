@@ -1,35 +1,63 @@
 import React from 'react';
 import DayPicker from 'react-day-picker';
 const DateUtils = DayPicker.DateUtils;
+import LocaleUtils from 'react-day-picker/moment';
 import moment from 'moment';
 import _ from 'underscore';
 
 const DatePicker = React.createClass({
     propTypes: {
         onChange: React.PropTypes.func,
+
+        //If we want to use a range, default is TRUE
+        useRange: React.PropTypes.bool,
+
+        //Language to use in datepicker. Since it depends on moment, be sure to load correct language files for moment.js
+        locale: React.PropTypes.string,
     },
     getInitialState() {
         return {
             range: {from: null, to: null},
+            date: null,
             initialMonth: new Date(),
         }
     },
+    getDefaultProps() {
+        return {
+            useRange: true,
+            locale: 'en',
+        };
+    },
     _onDayClick(e, day, modifiers) {
         let newSelections;
-        const dayStr = day.toString();
-        const newRange = DateUtils.addDayToRange(day, this.state.range);
 
-        if (typeof this.props.onChange === 'function') {
-            this.props.onChange(newRange);
+        if (this.props.useRange) {
+            const newRange = DateUtils.addDayToRange(day, this.state.range);
+
+            if (typeof this.props.onChange === 'function') {
+                this.props.onChange(newRange);
+            }
+
+            this.setState({
+                range: newRange,
+            });
+        } else {
+            if (typeof this.props.onChange === 'function') {
+                this.props.onChange(day);
+            }
+
+            this.setState({
+                date: day,
+            });
         }
-
-        this.setState({
-            range: newRange,
-        });
     },
     render() {
         const selected = (day) => {
-            return DateUtils.isDayInRange(day, this.state.range);
+            if (this.props.useRange) {
+                return DateUtils.isDayInRange(day, this.state.range);
+            } else {
+                return day == this.state.date.toString();
+            }
         };
 
         const fromMonth = moment("2005-01-01").toDate();
@@ -43,6 +71,8 @@ const DatePicker = React.createClass({
             numberOfMonths={1}
             modifiers={{ selected }}
             onDayClick={this._onDayClick}
+            locale={ this.props.locale }
+            localeUtils={ LocaleUtils }
             captionElement={
                 <CaptionElement onChange={(initialMonth) => this.setState({initialMonth})} date={this.state.initialMonth} />
             }
