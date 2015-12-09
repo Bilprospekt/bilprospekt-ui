@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "jquery": "^2.1.4",
+    "moment": "^2.10.6",
     "react": "^0.14.0",
     "react-dom": "^0.14.0",
     "underscore": "^1.8.3"

@@ -24,13 +24,13 @@ const DropDownDoc = React.createClass({
                 <code>
                     {
                         ['<DropdownHolder label="My Dropdown" icon="fa-cogs">',
-                        <br/>,
+                         <br key={1} />,
                         '\t<DropdownElement checkbox label="My first element" />',
-                        <br/>,
+                         <br key={3} />,
                         '\t<DropdownElement label="My second element" />',
-                        <br/>,
+                         <br key={5} />,
                         '\t<DropdownElement disabled label="My third element" />',
-                        <br/>,
+                         <br key={7} />,
                         '</DropdownHolder>',
                         ]
                     }
@@ -48,9 +48,9 @@ const DropDownDoc = React.createClass({
                 <code>
                     {
                         ['<DropdownHolder useInfiniteScroll label="My Infinite Dropdown" icon="fa-cogs">',
-                         <br/>,
+                         <br key={1}/>,
                          '{An array of 1000 elements}',
-                         <br/>,
+                         <br key={3} />,
                         '</DropdownHolder>',
                         ]
                     }
