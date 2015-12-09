@@ -9,7 +9,12 @@ import Checkbox from '../checkbox'
 const DropdownElement = React.createClass({
     propTypes: {
         label:    React.PropTypes.string.isRequired,
+
+        //If we want to use a checkbox.
         checkbox: React.PropTypes.bool,
+
+        //If checkbox is checked.
+        checkboxChecked: React.PropTypes.bool,
         disabled: React.PropTypes.bool,
         onClick: React.PropTypes.func,
     },
@@ -23,7 +28,7 @@ const DropdownElement = React.createClass({
         const props = {
             type: 'checkbox',
             label: this.props.label,
-            checked: this.props.checkboxChecked,
+            checked: !!this.props.checkboxChecked,
             disabled: this.props.disabled,
             onChange: this.props.onClick,
         };

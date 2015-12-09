@@ -12,8 +12,8 @@ class Popup extends Component {
 
     render() {
         let size = this.props.size || 'medium';
-        let headerControls = _(this.props.header.controls).map((control) => control);
-        let footerControls = _(this.props.footer.controls).map((control) => control);
+        let headerControls = _(this.props.header.controls).map((control, key) => <span key={key}>{control}</span>);
+        let footerControls = _(this.props.footer.controls).map((control, key) => <span key={key}>{control}</span>);
         return (
             <div className='popup-wrapper' ref='popupParent'>
                 <div className={'popup-content ' + size} ref='popupContent'>

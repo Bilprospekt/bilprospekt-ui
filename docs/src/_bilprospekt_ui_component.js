@@ -53,7 +53,7 @@ var ComponentSegment = React.createClass({
         var propString = [];
         for (var i = 0; i < this.props.prop.length; i++) {
             propString.push (
-                <span>
+                <span key={i}>
                     <span className='classname-class'>{this.props.prop[i]}</span>
                     <span className='class-class'>={this.props.propType[i]} </span>
                 </span>

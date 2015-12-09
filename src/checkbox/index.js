@@ -27,6 +27,7 @@ const BuiCheckbox = React.createClass({
             disabled: this.props.disabled,
             id: this.props.id,
             checked: this.props.checked,
+            readOnly: true,
         };
 
         const parentClass = classNames('bui-form-element', 'checkbox-type', {

@@ -50,9 +50,9 @@ const TableActionBar = React.createClass({
         const props = this.props;
         let columnChanger = null;
         if (props.allColumnsThatCouldBeRendered && props.currentColumns) {
-            const columns = _(props.allColumnsThatCouldBeRendered).map((column) => {
+            const columns = _(props.allColumnsThatCouldBeRendered).map((column, key) => {
                 const checked = _(props.currentColumns).findWhere({val : column.val});
-                return <DropdownElement checkboxChecked={checked} checkbox label={column.label} onClick={this._onColumnChange.bind(this, column.val)} />
+                return <DropdownElement key={key} checkboxChecked={!!checked} checkbox label={column.label} onClick={this._onColumnChange.bind(this, column.val)} />
             });
             columnChanger = (
                 <DropdownHolder noArrow orientation="right" icon="fa-cogs table-icon" style={{float: 'left'}}>
