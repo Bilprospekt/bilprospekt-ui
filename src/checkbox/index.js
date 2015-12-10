@@ -3,7 +3,7 @@ import classNames from 'classnames';
 
 const BuiCheckbox = React.createClass({
     propTypes: {
-        label: React.PropTypes.string.isRequired,
+        label: React.PropTypes.string,
         id: React.PropTypes.string,
         checked: React.PropTypes.bool,
         disabled: React.PropTypes.bool,
@@ -17,7 +17,7 @@ const BuiCheckbox = React.createClass({
     },
     _onClick(event) {
         if (typeof this.props.onChange === 'function') {
-            this.props.onChange(event, event.target.checked);
+            this.props.onChange(event, !this.props.checked);
         }
     },
     render() {
@@ -35,12 +35,17 @@ const BuiCheckbox = React.createClass({
             'element-checked': this.props.checked,
         });
 
+        let label = null;
+        if (this.props.label) {
+            label = <span className='element-label'>{this.props.label}</span>;
+        }
+
         return (
             <div onClick={this._onClick} className={parentClass}>
                 <input {...props} />
                 <label htmlFor={this.props.id}>
                     <div className='icon' />
-                    <span className='element-label'>{this.props.label}</span>
+                    {label}
                 </label>
             </div>
         );
