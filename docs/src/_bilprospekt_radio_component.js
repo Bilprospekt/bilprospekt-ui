@@ -10,7 +10,7 @@ const RadioDoc = React.createClass({
             <div>
                 <p className="table-header-label">Radio</p>
                 <RadioButtonGroup name="radio-test">
-                    <RadioButton value='first' label="First radio" />
+                    <RadioButton checked value='first' label="First radio" />
                     <RadioButton value='second' label="Second radio" />
                     <RadioButton value='disabled' disabled label="Disabled radio" />
                     <RadioButton value='third' label="Third radio" />
