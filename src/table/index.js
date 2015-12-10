@@ -206,7 +206,6 @@ const TableHolderComponent = React.createClass({
                     cell={(props) => {
                         return (
                             <div>
-                                <i className='fa fa-clock-o' />
                                 {data[props.rowIndex][val.val]}
                             </div>
                         )
