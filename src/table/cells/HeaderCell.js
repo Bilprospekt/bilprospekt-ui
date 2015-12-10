@@ -83,7 +83,6 @@ const HeaderCell = React.createClass({
 
         return (
             <div
-                ref='holder'
                 onMouseEnter={this._onMouseEnter}
                 onMouseLeave={this._onMouseLeave}
                 onClick={this.props.onSort}>

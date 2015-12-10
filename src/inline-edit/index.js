@@ -16,8 +16,7 @@ const BuiInlineEdit = React.createClass({
 	},
 	componentDidUpdate() {
 		if (this.state.editing) {
-			console.log(this.refs.editInputField.getDOMNode());
-			const $el = $(this.refs.editInputField.getDOMNode());
+			const $el = $(this._editInputField);
 			$el.find('input').focus();
 		}
 	},
@@ -44,7 +43,7 @@ const BuiInlineEdit = React.createClass({
 		let editButtons = null;
 		if (this.state.editing) {
 			editString = (
-				<BuiInputField ref='editInputField' value={this.state.string} icon='fa-pencil' />
+				      <BuiInputField ref={(c) => this._editInputField = c} value={this.state.string} icon='fa-pencil' />
 			);
 			editButtons = (
 				<div className='inline-edit-buttons-holder'>

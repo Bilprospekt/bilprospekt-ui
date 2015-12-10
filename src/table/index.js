@@ -75,7 +75,7 @@ const TableHolderComponent = React.createClass({
     },
     _setDynamicWidthOnTable() {
         const mapToScale = (x, inMax, outMax) => (x * outMax / inMax);
-        const width = $(this.refs.holder).width();
+        const width = $(this._holder).width();
         const inMax = _(this.state.columnWidths).reduce((memo, val) => memo + val, 0);
         const diff = width - (this.state && this.state.tableWidth ? this.state.tableWidth : 1000);
         const newColumnWidths = _(this.state.columnWidths).map((val) => {
@@ -222,7 +222,7 @@ const TableHolderComponent = React.createClass({
         }
 
         return (
-            <div ref='holder' className='bui-table-holder'>
+                <div ref={(ref) => this._holder = ref} className='bui-table-holder'>
                 <TableHeader
                     onColumnChange={this._onColumnChange}
                     onSearchChange={this._onSearchChange}
