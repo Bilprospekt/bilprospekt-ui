@@ -19,6 +19,7 @@ import BilprospektTableDoc from './_bilprospekt_table_component.js';
 import BilprospektDropdownDoc from './_bilprospekt_dropdown_component.js';
 import BilprospektDatePickerDoc from './_bilprospekt_datepicker_component.js';
 import BilprospektRadioDoc from './_bilprospekt_radio_component.js';
+import BilprospektSelectDoc from './_bilprospekt_select_component.js';
 
 var CodeSegment = React.createClass({
     render() {
@@ -149,6 +150,7 @@ var BilprospektUiComponent = React.createClass({
                 <BilprospektToolbarDoc />
                 <BilprospektDropdownDoc />
                 <BilprospektRadioDoc />
+                <BilprospektSelectDoc />
 
                 <p className='table-header-label'>Popup</p>
                 <table>

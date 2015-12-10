@@ -20,6 +20,8 @@ import Checkbox from './checkbox';
 import Toggle from './toggle';
 import Radio from './radio';
 
+import {Select, Option} from './select';
+
 export {
   ActionButton,
   DropdownMenu,
@@ -36,4 +38,6 @@ export {
   Checkbox,
   Toggle,
   Radio,
+  Select,
+  Option,
 };
