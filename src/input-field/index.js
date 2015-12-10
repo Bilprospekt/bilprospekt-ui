@@ -68,6 +68,9 @@ const BuiInputField = React.createClass({
         const props = {
             type: inputType,
             value: value,
+            onKeyDown: this.props.onKeyDown,
+            onKeyUp: this.props.onKeyUp,
+            onKeyPress: this.props.onKeyPress,
         };
 
         return (
