@@ -11,7 +11,7 @@ module.exports = {
     filename: 'index.js',
     publicPath: '/static/',
     library: 'bilprospekt-ui',
-    libraryTarget: 'commonjs2'
+    libraryTarget: 'umd'
   },
   resolve: {
     extensions: ['', '.js', '.jsx']
@@ -20,9 +20,24 @@ module.exports = {
     loaders: [{
       test: /\.jsx?$/,
       loaders: ['babel'],
+      exclude: /node_modules/,
       include: path.join(__dirname, 'src')
     },
    { test: /\.css$/, loader: "style-loader!css-loader" }
 	]
+  },
+  externals: {
+    react: {
+      root: 'React',
+      commonjs: 'react',
+      commonjs2: 'react',
+      amd: 'react',
+    },
+    'react-dom': {
+      root: 'ReactDOM',
+      commonjs: 'react-dom',
+      commonjs2: 'react-dom',
+      amd: 'react-dom',
+    },
   }
 };
