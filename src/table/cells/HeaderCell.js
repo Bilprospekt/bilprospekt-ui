@@ -61,9 +61,10 @@ const HeaderCell = React.createClass({
             left: pos.left,
             val: this.props.val,
             unmount: () => {
-                ReactDOM.unmountComponentAtNode(
-                    document.getElementById('bui-table-popup-holder')
-                );
+                const el = document.getElementById('bui-table-popup-holder');
+                if (el) {
+                    ReactDOM.unmountComponentAtNode(el);
+                }
             },
         };
 
