@@ -48,6 +48,7 @@ const HeaderCell = React.createClass({
             availableFilters,
         } = this.props;
 
+        if (!availableFilters) return;
 
         let pos = $(e.target).offset();
         const relative = this.props.relativeScrollingEl ? this.props.relativeScrollingEl : window;
@@ -75,7 +76,7 @@ const HeaderCell = React.createClass({
     },
     render() {
         let filterIcon = null;
-        if (this.state.hover) {
+        if (this.state.hover && this.props.availableFilters) {
             filterIcon = (
                 <i className='fa fa-caret-down' onClick={this._showFilterPopup} />
             );
