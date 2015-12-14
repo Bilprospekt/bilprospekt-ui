@@ -19,7 +19,7 @@ class DataWrapper {
 
     _onFilter(val) {
         const find = _(this.filter).findIndex((num) => {
-            return val[0] === num[0] && val[1] === num[1];
+            return val[0] === num[0] && _.isEqual(val[1], num[1]);
         });
 
         if (find !== -1) {
@@ -133,7 +133,13 @@ class DataWrapper {
       const columns = this.getColumns();
       const data = this.data;
       return _(columns).chain().map((val) => {
-        return [val.val, _(data).pluck(val.val)];
+        const values = _(data).chain()
+                .pluck(val.val)
+                .map((x) => {
+                    return {text: x, id: x};
+                })
+                .value();
+        return [val.val, values];
       }).object().value();
     }
 

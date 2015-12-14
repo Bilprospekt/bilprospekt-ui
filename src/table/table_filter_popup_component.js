@@ -8,6 +8,8 @@ const componentClassName = 'bui-table-filter-popup';
 const TableFilterPopupComponent = React.createClass({
 
     propTypes: {
+
+        //[{id, text}]
         availableFilters: React.PropTypes.array,
         currentFilters: React.PropTypes.array,
         onFilter: React.PropTypes.func,
@@ -58,13 +60,13 @@ const TableFilterPopupComponent = React.createClass({
     render() {
         const filters = this.props.availableFilters.slice(0, this.state.page * 30);
         const availableFilters = _(filters).map((val, index) => {
-            const checked = _(this.props.currentFilters).find((current) => current[0] === this.props.val && current[1] === val);
+            const checked = _(this.props.currentFilters).find((current) => current[0] === this.props.val && current[1] === val.id);
 
             return (
                 <Checkbox checked={!!checked}
                     key={index}
-                    onChange={this._onFilter.bind(this, val)}
-                    label={val} />
+                    onChange={this._onFilter.bind(this, val.id)}
+                    label={val.text} />
             )
         });
 
