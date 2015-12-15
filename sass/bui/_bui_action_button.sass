@@ -4,131 +4,48 @@
  *
  */
 
-%button
-  @extend %bui-font-options
-  display: inline-block
-  color: white
-  text-align: center
-  text-transform: uppercase
-  text-shadow: 0 1px 0 rgba(0,0,0,.15)
-  padding: 6px 12px
-  border-radius: 4px
-  font-size: 14px
-  min-width: 75px
-  cursor: pointer
-  line-height: normal
-  @include transition ( all .175s cubic-bezier(.23, 1, .32, 1) 0ms )
-
-%minor-button
-  @extend %bui-font-options
+.bui-action-button
+  line-height: initial
   font-size: 13px
-  text-shadow: 0 1px 0 rgba(0,0,0,.15)
-  padding: 4px 8px
-  border-radius: 3px
-  color: white
+  font-weight: 600
+  text-transform: uppercase
+  padding: 12px 18px
   display: inline-block
   cursor: pointer
-  line-height: normal
-  @include transition ( all .175s cubic-bezier(.23, 1, .32, 1) 0ms )
-
-.bui-primary-action-button
-  @extend %button
-  background-color: $eventColor
-  border: 1px solid $amber-A700
-  box-shadow: inset 0 1px 0 $amber-300
-
+  border-radius: 4px
+  box-shadow: 0 2px 8px rgba(black, .125)
+  @include transition(box-shadow .075s ease, background-color .085s ease)
   &:hover
-    background-color: $amber-A200
-    border-color: $eventColor
-
+    box-shadow: 0 2px 10px rgba(black, .25)
   &:active
-    background-color: $amber-A700
-    border-color: $amber-A700
-    box-shadow: inset 0 1px 0 $amber-900
+    box-shadow: 0 0 10px rgba(black, .1)
 
-.bui-secondary-action-button
-  @extend %button
-  background-color: $grey-500
-  border: 1px solid $grey-600
-  box-shadow: inset 0 1px 0 $grey-400
-
-  &:hover
-    background-color: $grey-400
-    border-color: $grey-500
-
-  &:active
-    background-color: $grey-600
-    border-color: $grey-600
-    box-shadow: inset 0 1px 0 $grey-800
-
-.bui-minor-primary-action-button
-  @extend %minor-button
-  background-color: $amber-A400
-  border: 1px solid $amber-A700
-  box-shadow: inset 0 1px 0 $amber-300
-
-  &:hover
-    background-color: $amber-A200
-    border-color: $eventColor
-
-  &:active
-    background-color: $amber-A700
-    border-color: $amber-A700
-    box-shadow: inset 0 1px 0 $amber-900
-
-.bui-minor-secondary-action-button
-  @extend %minor-button
-  background-color: $grey-500
-  border: 1px solid $grey-600
-  box-shadow: inset 0 1px 0 $grey-400
-
-  &:hover
-    background-color: $grey-400
-    border-color: $grey-500
-
-  &:active
-    background-color: $grey-600
-    border-color: $grey-600
-    box-shadow: inset 0 1px 0 $grey-800
-
-.bui-primary-action-button,
-.bui-minor-primary-action-button
-  &.bui-is-flat
-    color: $amber-A400
-    border-color: $amber-A400
-    &:hover
-      background-color: rgba($amber-A400, .2)
-
-.bui-secondary-action-button,
-.bui-minor-secondary-action-button
-  &.bui-is-flat
-    color: $grey-800
-    border-color: $grey-500
-    &:hover
-      background-color: rgba($grey-500, .2)
-    &:active
-      box-shadow: inset 0 1px 0 rgba($grey-500, .5)
-      background-color: rgba($grey-500, .4)
-
-.bui-primary-action-button,
-.bui-secondary-action-button,
-.bui-minor-primary-action-button,
-.bui-minor-secondary-action-button
-  &.bui-is-flat
-    background-color: transparent
-    text-shadow: none
-    box-shadow: none
-  &.bui-is-selected
+  &.bui-is-primary
     color: white
     background-color: $cyan-500
-    border: 1px solid $cyan-600
-    box-shadow: inset 0 1px 0 $cyan-400
 
-    &:hover
-      background-color: $cyan-400
-      border-color: $cyan-500
+  &.bui-is-secondary
+    color: $grey-700
+    background-color: white
 
-    &:active
-      background-color: $cyan-600
-      border-color: $cyan-600
-      box-shadow: inset 0 1px 0 $cyan-800
+  &.bui-is-flat
+    box-shadow: none
+    background-color: transparent
+
+    &.bui-is-primary
+      color: $cyan-500
+      &:hover
+        background-color: rgba($cyan-500, .2)
+      &:active
+        background-color: rgba($cyan-500, .3)
+
+    &.bui-is-secondary
+      color: $grey-700
+      &:hover
+        background-color: rgba($grey-700, .2)
+      &:active
+        background-color: rgba($grey-700, .3)
+
+  &.bui-is-selected
+    color: $grey-800 !important
+    background-color: rgba($grey-800, .1)

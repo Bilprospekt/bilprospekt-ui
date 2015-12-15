@@ -7,14 +7,8 @@
 .toolbar-dropdown-holder
   position: relative
   cursor: pointer
-  &.is-open
-    .toolbar-dropdown-elements-holder
-      opacity: 1
-      top: 100%
-      box-shadow: 0 2px 8px rgba(0,0,0,0.2)
-      max-height: calc(10px + (#{$dropdownElementHeight} * 6) - (#{$dropdownElementHeight} / 2))
-      padding: 10px 0
   .toolbar-dropdown-elements-holder
+    cursor: initial
     z-index: 100
     position: absolute
     top: calc(#{$toolbarHeight} / 2)
@@ -43,8 +37,17 @@
         cursor: default
         &:hover
           background-color: white
-
     &.auto-size-is-enabled
-      max-height: initial
+      max-height: 0
       min-width: initial
+      overflow: hidden
+  &.is-open
+    .toolbar-dropdown-elements-holder
+      opacity: 1
+      top: 100%
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2)
+      max-height: calc(10px + (#{$dropdownElementHeight} * 6) - (#{$dropdownElementHeight} / 2))
+      padding: 10px 0
+    .auto-size-is-enabled
+      max-height: initial
       overflow: visible

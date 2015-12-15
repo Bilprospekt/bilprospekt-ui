@@ -95,7 +95,7 @@ const DropdownHolder = React.createClass({
     },
     _hideDrop(e) {
         var $el = $(e.target);
-        var dontCloseMePleaseClass = '.bui-form-element';
+        var dontCloseMePleaseClass = '.bui-form-element, .DayPicker';
         if ($el.is(dontCloseMePleaseClass) || $el.parents().is(dontCloseMePleaseClass) || $el.children().is(dontCloseMePleaseClass)) {
             return;
         }
