@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import _ from 'underscore';
 import TableFilterPopupComponent from '../table_filter_popup_component.js';
+import FixedDataTable from 'fixed-data-table';
+const {Cell} = FixedDataTable;
 
 const HeaderCell = React.createClass({
     propTypes: {
@@ -84,13 +86,13 @@ const HeaderCell = React.createClass({
         }
 
         return (
-            <div
+            <Cell
                 onMouseEnter={this._onMouseEnter}
                 onMouseLeave={this._onMouseLeave}
                 onClick={this.props.onSort}>
                     {this.props.label}
                     {filterIcon}
-            </div>
+            </Cell>
         )
     }
 });
