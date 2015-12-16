@@ -3,6 +3,8 @@ import _ from 'underscore';
 class DataWrapper {
 
     constructor(data, columns) {
+        this.setData(data, true);
+        this.setColumns(columns, true);
         this.data = data;
         this.columns = columns;
         this.search = null;
@@ -59,6 +61,20 @@ class DataWrapper {
         }
     }
 
+    setData(data, skipEmit = false) {
+        this.data = data;
+        if (skipEmit === false) {
+            this._emit('data', this.data);
+        }
+    }
+
+    setColumns(columns, skipEmit = false) {
+        this.columns = columns;
+        if (skipEmit === false) {
+            this._emit('columns', this.columns);
+        }
+    }
+
     //Add listener
     on(event, cb) {
         if (typeof cb !== 'function') {
@@ -109,7 +125,7 @@ class DataWrapper {
         if (this.search) {
             chain = chain.filter((row) => {
                 return _(row).filter((cell) => {
-                    return cell.indexOf(this.search) !== -1;
+                    return cell.toString().toLowerCase().indexOf(this.search.toLowerCase()) !== -1;
                 }).length;
             })
         }
@@ -135,6 +151,8 @@ class DataWrapper {
       return _(columns).chain().map((val) => {
         const values = _(data).chain()
                 .pluck(val.val)
+                .compact()
+                .unique()
                 .map((x) => {
                     return {text: x, id: x};
                 })

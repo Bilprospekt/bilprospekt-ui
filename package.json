@@ -21,6 +21,7 @@
   "homepage": "https://github.com/Bilprospekt/bilprospekt-ui#readme",
   "dependencies": {
     "classnames": "^2.1.5",
+    "debug": "^2.2.0",
     "fixed-data-table": "^0.6.0",
     "jquery": "^2.1.4",
     "moment": "^2.10.6",

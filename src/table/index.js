@@ -200,7 +200,6 @@ const TableHolderComponent = React.createClass({
                     }}
                     key={index}
                     id={`column-${index}`}
-                    dataKey={index}
                     width={this.state.columnWidths[index]}
                     isResizable={true}
                     cell={(props) => {
