@@ -10,7 +10,9 @@
   font-weight: 600
   text-transform: uppercase
   padding: 12px 18px
+  min-width: 64px
   display: inline-block
+  text-align: center
   cursor: pointer
   border-radius: 4px
   box-shadow: 0 2px 8px rgba(black, .125)
@@ -22,30 +24,39 @@
 
   &.bui-is-primary
     color: white
-    background-color: $cyan-500
+    background-color: $amber-A400
 
   &.bui-is-secondary
-    color: $grey-700
-    background-color: white
+    color: white
+    background-color: $cyan-500
 
   &.bui-is-flat
     box-shadow: none
     background-color: transparent
 
     &.bui-is-primary
+      color: $amber-A400
+      &:hover
+        background-color: rgba($amber-A400, .2)
+      &:active
+        background-color: rgba($amber-A400, .3)
+
+    &.bui-is-secondary
       color: $cyan-500
       &:hover
         background-color: rgba($cyan-500, .2)
       &:active
         background-color: rgba($cyan-500, .3)
 
-    &.bui-is-secondary
-      color: $grey-700
-      &:hover
-        background-color: rgba($grey-700, .2)
-      &:active
-        background-color: rgba($grey-700, .3)
+  &.bui-is-toggle
+    color: $grey-600
+    background-color: rgba($grey-600, .0)
+    box-shadow: none
+    &:hover
+      background-color: rgba($grey-600, .2)
+    &:active
+      background-color: rgba($grey-600, .3)
 
-  &.bui-is-selected
-    color: $grey-800 !important
-    background-color: rgba($grey-800, .1)
+    &.bui-is-selected
+      color: $grey-800
+      background-color: rgba($grey-600, .1)

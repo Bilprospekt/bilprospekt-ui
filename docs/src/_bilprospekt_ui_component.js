@@ -203,6 +203,12 @@ var BilprospektUiComponent = React.createClass({
                             <td><p className='code-type type-component'>Component</p></td>
                             <td>-</td>
                         </tr>
+                        <tr>
+                            <td><BuiActionButton  toggle={true} label='Toggle Button'/></td>
+                            <td>-</td>
+                            <td><p className='code-type type-component'>Component</p></td>
+                            <td>-</td>
+                        </tr>
                     </tbody>
                 </table>
                 <p className='table-header-label'>Searchable Select</p>
