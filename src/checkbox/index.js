@@ -36,7 +36,8 @@ const BuiCheckbox = React.createClass({
         });
 
         let label = null;
-        if (this.props.label) {
+        //We want to be able to render 0
+        if (this.props.label === 0 || this.props.label) {
             label = <span className='element-label'>{this.props.label}</span>;
         }
 
