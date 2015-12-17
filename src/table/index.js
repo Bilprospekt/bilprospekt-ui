@@ -9,7 +9,7 @@ const {Table, Column, Cell} = FixedDataTable;
 import {HeaderCell, NormalCell} from './cells';
 import ColumnWidthHelper from './helpers/column_width_helper.js';
 
-const columnWidthHelper = new ColumnWidthHelper(1000, []);
+const columnWidthHelper = new ColumnWidthHelper(1, []);
 
 const TableHolderComponent = React.createClass({
     propTypes: {
@@ -132,13 +132,15 @@ const TableHolderComponent = React.createClass({
 
         const {columnWidths, totalWidth} = columnWidthHelper.getState();
 
-        console.log('render', columnWidths, totalWidth);
-
         const cols = _(columnsToRender).map((col, index) => {
+            const columnWidth = columnWidths[col.val];
+            //Last element is not resizable
+            const isResizable = (index === columnsToRender.length - 1) ? false : true;
             return (
                 <Column
                     columnKey={col.val}
                     key={col.val}
+                    {...columnWidth}
                     header={(props) => {
                         const filters = this.props.columnFilters[col.val];
                         return <HeaderCell
@@ -150,9 +152,9 @@ const TableHolderComponent = React.createClass({
                         {...col}
                         {...props} />
                     }}
-                    cell={<NormalCell onHover={this._onColumnHover} data={data} col={col.val} />}
-                    isResizable={true}
-                    width={columnWidths[col.val]} />
+                    cell={<NormalCell data={data} col={col.val} />}
+                    isResizable={isResizable}
+                    />
             );
         });
 
