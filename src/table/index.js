@@ -3,6 +3,7 @@ import React from 'react';
 import FixedDataTable from 'fixed-data-table';
 import TableHeader from './table_header';
 import $ from 'jquery';
+const debug = require('debug')('bilprospekt-ui:table');
 
 const {Table, Column, Cell} = FixedDataTable;
 
@@ -131,6 +132,7 @@ const TableHolderComponent = React.createClass({
         const columnsToRender = this.props.columns;
 
         const {columnWidths, totalWidth} = columnWidthHelper.getState();
+        debug('Column widths are', columnWidths, 'Total width', totalWidth);
 
         const cols = _(columnsToRender).map((col, index) => {
             const columnWidth = columnWidths[col.val];
