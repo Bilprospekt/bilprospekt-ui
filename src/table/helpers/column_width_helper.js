@@ -3,8 +3,7 @@ import _ from 'underscore';
 class ColumnWidthHelper {
     constructor(totalWidth = 0, identifiers = []) {
         this.minWidth = 40;
-
-        this.setTotalWidth(totalWidth, true);
+        this.totalWidth = totalWidth;
 
         //Should be an array with unique identifiers. These needs to be ordered the same way as they are rendered.
         //Otherwise really wierd buggs will appear.
@@ -18,23 +17,50 @@ class ColumnWidthHelper {
     setTotalWidth(totalWidth = 0, skipEmit = false) {
         const oldWidth = this.totalWidth;
         this.totalWidth = totalWidth;
-        const scaleValue = (x, in_max, out_max) => {
-            return x * out_max / in_max;
-        };
-
-        this._columnWidths = _(this._columnWidths).mapObject((x) => {
-            return scaleValue(x, oldWidth, totalWidth);
-        });
-
+        this._scaleCurrentWidths(oldWidth);
         if (!skipEmit) {
             this._emit();
         }
     }
 
+    // Number -> Undefined
+    _scaleCurrentWidths(oldWidth) {
+        if (!this._columnWidths || !isFinite(oldWidth) || !isFinite(this.totalWidth)) return;
+        const scaleValue = (x, in_max, out_max) => {
+            return x * out_max / in_max;
+        };
+
+        this._columnWidths = _(this._columnWidths).mapObject((x) => {
+            return scaleValue(x, oldWidth, this.totalWidth);
+        });
+    }
+
     // [String] -> Undefined
-    setIdentifiers(identifiers) {
-        this.identifiers = identifiers;
-        this._setInitWidthForNewIdentifiers();
+    setIdentifiers(newIdentifiers) {
+        //We already have identifiers, we need to adjust the ones we have.
+        if (this.identifiers && this.identifiers.length) {
+            let oldWidth;
+            if (newIdentifiers.length > this.identifiers.length) {
+                //We're adding identifiers
+                oldWidth = this.totalWidth + (this.totalWidth / this.identifiers.length);
+            } else {
+                //We're removing identifiers
+                const removedIdentifier = _.difference(this.identifiers, newIdentifiers);
+                oldWidth = this.totalWidth - this._columnWidths[removedIdentifier[0]];
+            }
+
+            this._scaleCurrentWidths(oldWidth);
+            if (newIdentifiers.length > this.identifiers.length) {
+                //We're adding identifiers
+                const addedIdentifier = _.difference(newIdentifiers, this.identifiers);
+                this._columnWidths[addedIdentifier[0]] = (this.totalWidth / newIdentifiers.length);
+            }
+
+            this.identifiers = newIdentifiers;
+        } else {
+            this.identifiers = newIdentifiers;
+            this._setInitWidthForNewIdentifiers();
+        }
     }
 
     _setInitWidthForNewIdentifiers() {
