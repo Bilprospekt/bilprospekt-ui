@@ -151,7 +151,8 @@ class DataWrapper {
       return _(columns).chain().map((val) => {
         const values = _(data).chain()
                 .pluck(val.val)
-                .compact()
+                //Do a compact, but keep 0
+                .filter((x) => x == 0 || x)
                 .unique()
                 .map((x) => {
                     return {text: x, id: x};

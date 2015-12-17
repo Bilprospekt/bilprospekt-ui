@@ -86,8 +86,6 @@ const TableHolderComponent = React.createClass({
        columnWidthHelper.setIdentifiers(_(this.props.columns).pluck('val'));
     },
     componentWillReceiveProps(nextProps, nextState) {
-        const mapToScale = (x, inMax, outMax) => (x * outMax / inMax);
-
         if (nextProps.columns.length !== this.props.columns.length) {
             columnWidthHelper.setIdentifiers(_(nextProps.columns).pluck('val'));
         }

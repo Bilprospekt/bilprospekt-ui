@@ -38,7 +38,7 @@ class ColumnWidthHelper {
     // [String] -> Undefined
     setIdentifiers(newIdentifiers) {
         //We already have identifiers, we need to adjust the ones we have.
-        if (this.identifiers && this.identifiers.length) {
+    if (this.identifiers && this.identifiers.length && _.difference(newIdentifiers, this.identifiers).length <= 1) {
             let oldWidth;
             if (newIdentifiers.length > this.identifiers.length) {
                 //We're adding identifiers
