@@ -1,6 +1,7 @@
 import React from 'react';
 import _ from 'underscore';
 import InputField from '../input-field';
+import classNames from 'classnames';
 
 import DropdownMenu from '../drop-down-menu';
 const {DropdownHolder, DropdownElement} = DropdownMenu;
@@ -18,6 +19,18 @@ const TableActionBar = React.createClass({
 
         justifyColumns: React.PropTypes.func,
         headerLabel: React.PropTypes.node,
+    },
+
+    getInitialState() {
+        return {
+            displaySearch: false,
+        };
+    },
+
+    componentDidUpdate() {
+        if (this.state.displaySearch) {
+            this.refs.tableSearchInputRef.focus();
+        }
     },
 
     _onColumnChange(columnVal) {
@@ -46,6 +59,18 @@ const TableActionBar = React.createClass({
         onColumnChange(newColumns);
     },
 
+    _displaySearch() {
+        this.setState({ displaySearch: true });
+    },
+
+    _searchBlur(e) {
+        if (e.target.value === '') {
+            this.setState({ displaySearch: false });
+        } else {
+            // Do Nothing..
+        }
+    },
+
     render() {
         const props = this.props;
         let columnChanger = null;
@@ -61,13 +86,24 @@ const TableActionBar = React.createClass({
             );
         }
 
+        const tableSearchClass = classNames('bui-table-search', {
+            'display-search': this.state.displaySearch,
+        });
+
+        const tableSearch = (
+            <div className={tableSearchClass}>
+                <i className="fa fa-search table-icon" onClick={this._displaySearch} />
+                <InputField ref='tableSearchInputRef' onChange={this.props.onSearchChange} hint="Now this is searching" icon="fa-search" onBlur={this._searchBlur} />
+            </div>
+        );
+
         return (
             <div className='bui-table-action-bar'>
                 <div className='bui-table-text-holder'>
                     {this.props.headerLabel}
                 </div>
                 <div className='bui-table-actions-holder'>
-                    <InputField onChange={this.props.onSearchChange} hint="Now this is searching" icon="fa-search" />
+                    {tableSearch}
                     <i className="fa fa-arrows-h table-icon" onClick={this.props.justifyColumns} />
                     {columnChanger}
                 </div>
