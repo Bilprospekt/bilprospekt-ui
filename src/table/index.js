@@ -60,8 +60,8 @@ const TableHolderComponent = React.createClass({
             //Change these to what we'll probably use in prod.
             width: 'auto',
             height: 500,
-            rowHeight: 40,
-            headerHeight: 40,
+            rowHeight: 46,
+            headerHeight: 50,
         };
     },
     componentDidMount() {
