@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import _ from 'underscore';
 import TableFilterPopupComponent from '../table_filter_popup_component.js';
+import FixedDataTable from 'fixed-data-table';
+const {Cell} = FixedDataTable;
 
 const HeaderCell = React.createClass({
     propTypes: {
@@ -48,6 +50,7 @@ const HeaderCell = React.createClass({
             availableFilters,
         } = this.props;
 
+        if (!availableFilters) return;
 
         let pos = $(e.target).offset();
         const relative = this.props.relativeScrollingEl ? this.props.relativeScrollingEl : window;
@@ -60,9 +63,10 @@ const HeaderCell = React.createClass({
             left: pos.left,
             val: this.props.val,
             unmount: () => {
-                ReactDOM.unmountComponentAtNode(
-                    document.getElementById('bui-table-popup-holder')
-                );
+                const el = document.getElementById('bui-table-popup-holder');
+                if (el) {
+                    ReactDOM.unmountComponentAtNode(el);
+                }
             },
         };
 
@@ -75,21 +79,20 @@ const HeaderCell = React.createClass({
     },
     render() {
         let filterIcon = null;
-        if (this.state.hover) {
+        if (this.state.hover && this.props.availableFilters) {
             filterIcon = (
-                <i className='fa fa-caret-down' onClick={this._showFilterPopup} />
+                <i className='fa fa-caret-down cellcontent_headerLabel_dropdownIcon' onClick={this._showFilterPopup} />
             );
         }
 
         return (
-            <div
-                ref='holder'
+            <Cell
                 onMouseEnter={this._onMouseEnter}
                 onMouseLeave={this._onMouseLeave}
                 onClick={this.props.onSort}>
-                    {this.props.label}
+                    <span className='cellcontent_headerLabel'>{this.props.label}</span>
                     {filterIcon}
-            </div>
+            </Cell>
         )
     }
 });

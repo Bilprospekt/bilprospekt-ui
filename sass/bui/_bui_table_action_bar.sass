@@ -4,15 +4,14 @@
  *
  */
 
-$tab-height: 40px
+$tab-height: 60px
+$tab-font-size: 20px
 
 .bui-table-action-bar
   @extend .clear-after
   width: 100%
   height: $tab-height
-  background-color: #EAEAEA
-  border: 1px solid #E0E0E0
-  border-bottom: none
+  background-color: white
 
   .bui-table-text-holder
     float: left
@@ -22,24 +21,37 @@ $tab-height: 40px
   .bui-table-actions-holder
     @extend .clear-after
     float: right
-    border-left: 1px solid #E0E0E0
 
-    .bui-input-field
-      width: 250px
-      max-width: 250px
+    .bui-table-search
       float: left
-      margin: 5px 0 4px 13px
-      .input-underlines
+      .bui-input-field
         display: none
+        width: 250px
+        max-width: 250px
+        margin: 15px 0 14px 13px
+        .input-underlines
+          display: none
+        .input-icon-holder
+          .input-icon
+            font-size: $tab-font-size
+        .input-text-value
+          input[type='text']
+            padding-left: 30px
+        .input-text-hint
+          left: 30px
+      &.display-search
+        .bui-input-field
+          display: block
+        .table-icon
+          display: none
 
     .table-icon
       float: left
-      width: $tab-height
+      width: 40px
       line-height: calc(#{$tab-height} - 1px)
       text-align: center
-      border-left: 1px solid #E0E0E0
-      font-size: 14px
-      color: $grey-500
+      font-size: $tab-font-size
+      color: $grey-600
       cursor: pointer
       &:hover
-        color: $grey-700
+        color: $grey-800

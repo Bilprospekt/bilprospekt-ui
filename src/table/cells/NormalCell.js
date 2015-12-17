@@ -3,56 +3,28 @@ import _ from 'underscore'
 import FixedDataTable from 'fixed-data-table';
 const {Cell} = FixedDataTable;
 
-const NormalCell = React.createClass({
+const NormalCell = ({data, col, rowIndex, ...props}) => {
 
-    propTypes: {
-        rowIndex: React.PropTypes.oneOfType([
-            React.PropTypes.string,
-            React.PropTypes.int
-        ]).isRequired,
-        columnKey: React.PropTypes.oneOfType([
-            React.PropTypes.string,
-            React.PropTypes.int
-        ]).isRequired,
-        data: React.PropTypes.array.isRequired,
-        onHover: React.PropTypes.func,
-    },
-
-    shouldComponentUpdate(nextProps, nextState) {
-        if (
-            (nextProps.columnKey === this.props.columnKey) &&
-            (nextProps.rowIndex === this.props.rowIndex) &&
-            (nextProps.data[nextProps.rowIndex] === this.props.data[this.props.rowIndex])
-        ) return false;
-        return true;
-    },
-
-    _onMouseEnter() {
-        console.log('enter', this.props.rowIndex, this.props.columnKey);
-        if (typeof this.props.onHover === 'function') {
-            this.props.onHover(this.props, true);
+    const onMouseEnter = () => {
+        if (typeof props.onHover === 'function') {
+            props.onHover({col, rowIndex}, true);
         }
-    },
+    };
 
-    _onMouseLeave() {
-        if (typeof this.props.onHover === 'function') {
-            this.props.onHover(this.props, false);
+    const onMouseLeave = () => {
+        if (typeof props.onHover === 'function') {
+            props.onHover({col, rowIndex}, false);
         }
-    },
+    };
 
-    render() {
-        const {rowIndex, columnKey, data, ...props} = this.props;
-        const val = data[rowIndex];
-
-        return (
-            <Cell
-            onMouseEnter={this._onMouseEnter}
-            onMouseLeave={this._onMouseLeave}
+    return (
+        <Cell
+            onMouseEnter={onMouseEnter}
+            onMouseLeave={onMouseLeave}
             {...props}>
-                {val}
-            </Cell>
-        );
-    },
-});
+            <span className='cellcontent_normalLabel'>{data[rowIndex][col]}</span>
+        </Cell>
+    );
+};
 
 export default NormalCell;

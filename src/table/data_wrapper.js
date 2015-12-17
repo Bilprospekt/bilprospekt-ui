@@ -3,6 +3,8 @@ import _ from 'underscore';
 class DataWrapper {
 
     constructor(data, columns) {
+        this.setData(data, true);
+        this.setColumns(columns, true);
         this.data = data;
         this.columns = columns;
         this.search = null;
@@ -19,7 +21,7 @@ class DataWrapper {
 
     _onFilter(val) {
         const find = _(this.filter).findIndex((num) => {
-            return val[0] === num[0] && val[1] === num[1];
+            return val[0] === num[0] && _.isEqual(val[1], num[1]);
         });
 
         if (find !== -1) {
@@ -56,6 +58,20 @@ class DataWrapper {
                     val[1](state);
                 }
             });
+        }
+    }
+
+    setData(data, skipEmit = false) {
+        this.data = data;
+        if (skipEmit === false) {
+            this._emit('data', this.data);
+        }
+    }
+
+    setColumns(columns, skipEmit = false) {
+        this.columns = columns;
+        if (skipEmit === false) {
+            this._emit('columns', this.columns);
         }
     }
 
@@ -109,7 +125,7 @@ class DataWrapper {
         if (this.search) {
             chain = chain.filter((row) => {
                 return _(row).filter((cell) => {
-                    return cell.indexOf(this.search) !== -1;
+                    return cell.toString().toLowerCase().indexOf(this.search.toLowerCase()) !== -1;
                 }).length;
             })
         }
@@ -133,7 +149,15 @@ class DataWrapper {
       const columns = this.getColumns();
       const data = this.data;
       return _(columns).chain().map((val) => {
-        return [val.val, _(data).pluck(val.val)];
+        const values = _(data).chain()
+                .pluck(val.val)
+                .compact()
+                .unique()
+                .map((x) => {
+                    return {text: x, id: x};
+                })
+                .value();
+        return [val.val, values];
       }).object().value();
     }
 

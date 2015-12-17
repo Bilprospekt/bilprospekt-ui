@@ -3,9 +3,14 @@ import React from 'react';
 import FixedDataTable from 'fixed-data-table';
 import TableHeader from './table_header';
 import $ from 'jquery';
+const debug = require('debug')('bilprospekt-ui:table');
 
 const {Table, Column, Cell} = FixedDataTable;
-import {HeaderCell} from './cells'
+
+import {HeaderCell, NormalCell} from './cells';
+import ColumnWidthHelper from './helpers/column_width_helper.js';
+
+const columnWidthHelper = new ColumnWidthHelper(1, []);
 
 const TableHolderComponent = React.createClass({
     propTypes: {
@@ -60,93 +65,35 @@ const TableHolderComponent = React.createClass({
             headerHeight: 40,
         };
     },
-    getInitialState() {
-        const avgColWidth = this._getAvgColWidth();
-        return {
-            columnWidths: _(this.props.columns).map(() => avgColWidth),
-            tableWidth: 1000,
-        }
-    },
     componentDidMount() {
+        columnWidthHelper.onChange(() => this.forceUpdate());
         if (this.props.width === 'auto') {
             this._setDynamicWidthOnTable();
             $(window).on('resize', this._setDynamicWidthOnTable);
+        } else {
+            columnWidthHelper.setTotalWidth(this.props.width);
         }
     },
     _setDynamicWidthOnTable() {
-        const mapToScale = (x, inMax, outMax) => (x * outMax / inMax);
-        const width = $(this.refs.holder).width();
-        const inMax = _(this.state.columnWidths).reduce((memo, val) => memo + val, 0);
-        const diff = width - (this.state && this.state.tableWidth ? this.state.tableWidth : 1000);
-        const newColumnWidths = _(this.state.columnWidths).map((val) => {
-            return mapToScale(val, inMax, inMax + diff);
-        });
-
-        this.setState({
-            tableWidth: width,
-            columnWidths: newColumnWidths,
-        });
+        const width = $(this._holder).width();
+        columnWidthHelper.setTotalWidth(width);
     },
     componentWillUnmount() {
         $(window).off('resize', this._setDynamicWidthOnTable);
+        columnWidthHelper.destroyListeners();
+    },
+    componentWillMount() {
+       columnWidthHelper.setIdentifiers(_(this.props.columns).pluck('val'));
     },
     componentWillReceiveProps(nextProps, nextState) {
         const mapToScale = (x, inMax, outMax) => (x * outMax / inMax);
 
         if (nextProps.columns.length !== this.props.columns.length) {
-            const nextPropsMore = (nextProps.columns.length > this.props.columns.length);
-            const diff = Math.abs(nextProps.columns.length - this.props.columns.length);
-            const avgColWidth = nextPropsMore ? this._getAvgColWidth(nextProps) : this._getAvgColWidth(this.props);
-            const inMax = _(this.state.columnWidths).reduce((memo, num) => memo + num, 0);
-            let outMax;
-            if (nextPropsMore) {
-                outMax = inMax + ((this.props.columns.length - nextProps.columns.length) * avgColWidth);
-            } else {
-                outMax = inMax + ((nextProps.columns.length - this.props.columns.length) * avgColWidth);
-            }
-
-            const currentTableWidth = (this.props.width === 'auto') ? this.state.tableWidth : this.props.width;
-            const nextTableWidth = (nextProps.width === 'auto') ? this.state.tableWidth : nextProps.width;
-            const currentColumnWidths = _(this.state.columnWidths).map((val) => {
-                if (nextPropsMore) {
-                    //Add
-                    return mapToScale(val, currentTableWidth, nextTableWidth - (diff * avgColWidth));
-                } else {
-                    //Remove
-                    return mapToScale(val, currentTableWidth - (diff * avgColWidth), nextTableWidth)
-                }
-            });
-
-            //Perhaps we should use a key?
-            const newColumnWidths = _(nextProps.columns).map((val, index) => {
-                if (currentColumnWidths[index]) {
-                    return currentColumnWidths[index];
-                }
-
-                return this._getAvgColWidth(nextProps);
-            })
-
-            this.setState({
-                columnWidths: newColumnWidths,
-            });
+            columnWidthHelper.setIdentifiers(_(nextProps.columns).pluck('val'));
         }
     },
-    _onColumnResize(newWidth, dataKey) {
-        let newColumns = this.state.columnWidths;
-        const allOtherWidthsTogether = _(this.state.columnWidths)
-                  .chain()
-                  .filter((num, index) => index != dataKey)
-                  .reduce((memo, num) => memo + num, 0)
-                  .value();
-
-        const maxWidth = this.props.width === 'auto' ? this.state.tableWidth : this.props.width;
-        newColumns[dataKey] = Math.max(40, Math.min(maxWidth - allOtherWidthsTogether, newWidth));
-        this.setState({columnWidths: newColumns});
-    },
-    _justifyColumns() {
-        const avgWidth = this._getAvgColWidth(this.props);
-        const newColumns = _(this.props.columns).map(() => avgWidth);
-        this.setState({columnWidths: newColumns});
+    _onColumnResize(newWidth, col) {
+        columnWidthHelper.setWidthForIdentifier(col, newWidth);
     },
     _onSearchChange(val) {
         if (typeof this.props.onSearch === 'function') {
@@ -173,62 +120,56 @@ const TableHolderComponent = React.createClass({
         if (y > (totalTableHeight - triggerLimit)) {
             this.props.onReachedBottom();
         }
-
     },
-    _getAvgColWidth(props = this.props) {
-        const width = props.width === 'auto' ? (this.state && this.state.tableWidth || 1000) : props.width;
-        return width / props.columns.length;
+    _onColumnHover({col}, state) {
+        const {columnWidths} = columnWidthHelper.getState();
+        const oldWidth = columnWidths[col];
+        const newWidth = (state) ? oldWidth + 20 : oldWidth - 20;
+        columnWidthHelper.setWidthForIdentifier(col, newWidth);
     },
     render() {
         const data = this.props.data;
         const columnsToRender = this.props.columns;
 
-        let columnsEls= _(columnsToRender).map((val, index) => {
+        const {columnWidths, totalWidth} = columnWidthHelper.getState();
+        debug('Column widths are', columnWidths, 'Total width', totalWidth);
+
+        const cols = _(columnsToRender).map((col, index) => {
+            const columnWidth = columnWidths[col.val];
+            //Last element is not resizable
+            const isResizable = (index === columnsToRender.length - 1) ? false : true;
             return (
                 <Column
-                    columnKey={index}
+                    columnKey={col.val}
+                    key={col.val}
+                    {...columnWidth}
                     header={(props) => {
-                        const filters = this.props.columnFilters[val.val];
+                        const filters = this.props.columnFilters[col.val];
                         return <HeaderCell
-                            onFilter={this.props.onFilter}
-                            onSort={this._onSort}
-                            availableFilters={filters}
-                            currentFilters={this.props.currentFilters}
-                            relativeScrollingEl={this.props.relativeScrollingEl}
-                            {...val}
-                            {...props} />
+                        onFilter={this.props.onFilter}
+                        onSort={this._onSort}
+                        availableFilters={filters}
+                        currentFilters={this.props.currentFilters}
+                        relativeScrollingEl={this.props.relativeScrollingEl}
+                        {...col}
+                        {...props} />
                     }}
-                    key={index}
-                    id={`column-${index}`}
-                    dataKey={index}
-                    width={this.state.columnWidths[index]}
-                    isResizable={true}
-                    cell={(props) => {
-                        return (
-                            <div>
-                                <i className='fa fa-clock-o' />
-                                {data[props.rowIndex][val.val]}
-                            </div>
-                        )
-                    }}
-                />
+                    cell={<NormalCell data={data} col={col.val} />}
+                    isResizable={isResizable}
+                    />
             );
         });
 
         const props = this.props;
-        let tableWidth = props.width;
-        if (props.width === 'auto') {
-            tableWidth = this.state.tableWidth;
-        }
 
         return (
-            <div ref='holder' className='bui-table-holder'>
+                <div ref={(ref) => this._holder = ref} className='bui-table-holder'>
                 <TableHeader
                     onColumnChange={this._onColumnChange}
                     onSearchChange={this._onSearchChange}
                     allColumnsThatCouldBeRendered={props.allColumnsThatCouldBeRendered}
                     currentColumns={columnsToRender}
-                    justifyColumns={this._justifyColumns}
+                    justifyColumns={columnWidthHelper.justifyColumns.bind(columnWidthHelper)}
                     headerLabel={this.props.headerLabel}
                 />
                 <Table
@@ -238,10 +179,10 @@ const TableHolderComponent = React.createClass({
                     onScrollEnd={this._onScrollEnd}
                     rowHeight={props.rowHeight}
                     rowsCount={props.data.length}
-                    width={tableWidth}
+                    width={totalWidth}
                     height={props.height}
                     headerHeight={props.headerHeight}>
-                    {columnsEls}
+                {cols}
                 </Table>
                 <div id='bui-table-popup-holder' />
             </div>

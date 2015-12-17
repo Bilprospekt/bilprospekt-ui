@@ -58,7 +58,8 @@ const DropdownHolder = React.createClass({
         noArrow: React.PropTypes.bool,
         orientation: React.PropTypes.string,
         onToggle: React.PropTypes.func,
-        useInfiniteScroll: React.PropTypes.bool
+        useInfiniteScroll: React.PropTypes.bool,
+        autoSize: React.PropTypes.bool,
     },
     getInitialState() {
         return {
@@ -71,6 +72,7 @@ const DropdownHolder = React.createClass({
             noArrow: false,
             orientation: "left",
             useInfiniteScroll: false,
+            autoSize: false,
         };
     },
     componentDidUpdate() {
@@ -93,7 +95,7 @@ const DropdownHolder = React.createClass({
     },
     _hideDrop(e) {
         var $el = $(e.target);
-        var dontCloseMePleaseClass = '.bui-form-element';
+        var dontCloseMePleaseClass = '.bui-form-element, .DayPicker';
         if ($el.is(dontCloseMePleaseClass) || $el.parents().is(dontCloseMePleaseClass) || $el.children().is(dontCloseMePleaseClass)) {
             return;
         }
@@ -129,7 +131,6 @@ const DropdownHolder = React.createClass({
             elementsHolderStyle.right = 0;
         }
 
-
         let children = this.props.children;
         if (this.props.useInfiniteScroll) {
             const childHeight = 40;
@@ -148,6 +149,10 @@ const DropdownHolder = React.createClass({
             )
         }
 
+        const holderClass = classNames('toolbar-dropdown-elements-holder', {
+            'auto-size-is-enabled': this.props.autoSize,
+        });
+
         return (
             <div style={this.props.style} className={parentClass} onClick={this._handleClick}>
                 <div className='toolbar-dropdown-holder-label'>
@@ -155,7 +160,7 @@ const DropdownHolder = React.createClass({
                     <span className='toolbar-text-label'>{this.props.label}</span>
                 {caret}
                 </div>
-                <div style={elementsHolderStyle} className='toolbar-dropdown-elements-holder'>
+                <div style={elementsHolderStyle} className={holderClass}>
                     {children}
                 </div>
             </div>
