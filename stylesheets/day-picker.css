@@ -1,7 +1,9 @@
 /* DayPicker styles */
 
 .DayPicker {
-  display: inline-block;
+  width: 286px;
+  line-height: initial;
+  display: block;
   position: relative;
   background-color: white;
   outline: none;

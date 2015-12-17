@@ -192,16 +192,22 @@ var BilprospektUiComponent = React.createClass({
                             <td><ComponentSegment name='BuiActionButton' prop={['primary', 'label']} propType={['false', 'string']} /></td>
                         </tr>
                         <tr>
-                            <td><BuiActionButton primary={true} minor={true} label='Primary Minor'/></td>
-                            <td>A small primary button for events and actions.</td>
+                            <td><BuiActionButton  flat={true} primary={true} label='Primary Flat'/></td>
+                            <td>-</td>
                             <td><p className='code-type type-component'>Component</p></td>
-                            <td><ComponentSegment name='BuiActionButton' prop={['primary', 'label', 'minor']} propType={['true', 'string', 'bool']} /></td>
+                            <td>-</td>
                         </tr>
                         <tr>
-                            <td><BuiActionButton  minor={true} label='Secondary Minor'/></td>
-                            <td>A small secondary button.</td>
+                            <td><BuiActionButton  flat={true} label='Secondary Flat'/></td>
+                            <td>-</td>
                             <td><p className='code-type type-component'>Component</p></td>
-                            <td><ComponentSegment name='BuiActionButton' prop={['label', 'minor']} propType={['string', 'bool']} /></td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td><BuiActionButton  toggle={true} label='Toggle Button'/></td>
+                            <td>-</td>
+                            <td><p className='code-type type-component'>Component</p></td>
+                            <td>-</td>
                         </tr>
                     </tbody>
                 </table>
