@@ -81,7 +81,7 @@ const HeaderCell = React.createClass({
         let filterIcon = null;
         if (this.state.hover && this.props.availableFilters) {
             filterIcon = (
-                <i className='fa fa-caret-down' onClick={this._showFilterPopup} />
+                <i className='fa fa-caret-down cellcontent_headerLabel_dropdownIcon' onClick={this._showFilterPopup} />
             );
         }
 
@@ -90,7 +90,7 @@ const HeaderCell = React.createClass({
                 onMouseEnter={this._onMouseEnter}
                 onMouseLeave={this._onMouseLeave}
                 onClick={this.props.onSort}>
-                    {this.props.label}
+                    <span className='cellcontent_headerLabel'>{this.props.label}</span>
                     {filterIcon}
             </Cell>
         )

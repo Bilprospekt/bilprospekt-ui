@@ -22,7 +22,7 @@ const NormalCell = ({data, col, rowIndex, ...props}) => {
             onMouseEnter={onMouseEnter}
             onMouseLeave={onMouseLeave}
             {...props}>
-            {data[rowIndex][col]}
+            <span className='cellcontent_normalLabel'>{data[rowIndex][col]}</span>
         </Cell>
     );
 };
