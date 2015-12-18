@@ -53,14 +53,13 @@ const HeaderCell = React.createClass({
         if (!availableFilters) return;
 
         let pos = $(e.target).offset();
-        const relative = this.props.relativeScrollingEl ? this.props.relativeScrollingEl : window;
-        pos.top += $(relative).scrollTop();
+        let tablePos = $(e.target).parents('.bui-table-holder').offset();
         const props = {
             availableFilters,
             currentFilters,
             onFilter: this._onFilter,
-            top: pos.top,
-            left: pos.left,
+            top: 110,
+            left: pos.left - tablePos.left,
             val: this.props.val,
             unmount: () => {
                 const el = document.getElementById('bui-table-popup-holder');
