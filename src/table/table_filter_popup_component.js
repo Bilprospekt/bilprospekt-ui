@@ -71,13 +71,14 @@ const TableFilterPopupComponent = React.createClass({
         });
 
         const conHeight = 220;
-        const childHeight = 14;
+        const childHeight = 32;
         const popupstyle = {
             position: 'absolute',
-            top: this.props.top + 39,
-            left: this.props.left - 36.75,
+            top: this.props.top,
+            left: Math.max(0, this.props.left - 171), // Minus self width
             zIndex: 100,
             height: conHeight,
+            width: 200,
         };
 
         return (

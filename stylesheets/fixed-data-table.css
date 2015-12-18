@@ -35,9 +35,21 @@
 }
 
 .fixedDataTableCellGroupLayout_cellGroup > .public_fixedDataTableCell_main {
-  display: inline-block;
-  vertical-align: top;
+  display: table-cell;
+  vertical-align: middle;
   white-space: normal;
+  overflow: hidden;
+}
+
+.fixedDataTableCellGroupLayout_cellGroup > .public_fixedDataTableCell_main:after {
+  display: block;
+  content: '';
+  position: absolute;
+  height: 100%;
+  width: 10px;
+  top: 0;
+  right: 0;
+  background-color: white;
 }
 
 .fixedDataTableCellGroupLayout_cellGroupWrapper {
@@ -80,6 +92,8 @@
 
 .fixedDataTableCellLayout_wrap1 {
   display: table;
+  height: inherit;
+  width: 100%;
 }
 
 .fixedDataTableCellLayout_wrap2 {
@@ -250,11 +264,19 @@ body[dir="rtl"] .fixedDataTableColumnResizerLineLayout_main {
   background-color: white;
 }
 
+.public_fixedDataTable_header:hover .public_fixedDataTableCell_main:after {
+  background-color: white !important;
+}
+
 .public_fixedDataTable_header .public_fixedDataTableCell_main {
   border-right: none;
 }
 
 .fixedDataTableRowLayout_rowWrapper:hover {
+  background-color: #EEEEEE;
+}
+
+.fixedDataTableRowLayout_rowWrapper:hover .fixedDataTableCellGroupLayout_cellGroup > .public_fixedDataTableCell_main:after {
   background-color: #EEEEEE;
 }
 
@@ -426,20 +448,41 @@ body[dir="rtl"] .fixedDataTableColumnResizerLineLayout_main {
   font-size: 13px;
   font-weight: 600;
   color: #757575;
-  padding-left: 8px;
-  line-height: 40px;
 }
 
 /* Header Cell Content Dropdown Icon */
 .cellcontent_headerLabel_dropdownIcon {
   font-size: 14px;
+  position: absolute;
+  margin-top: -2px;
+  right: 10px;
+  padding: 2px;
+  background-color: #EEE;
+  width: 20px;
+  text-align: center;
+  border-radius: 4px;
+  color: #757575;
+  border: 1px solid #E0E0E0;
+  cursor: pointer;
+}
+
+.cellcontent_headerLabel_dropdownIcon:hover {
+  background-color: #E0E0E0;
+  border-color: #BDBDBD;
 }
 
 /* Body Cell Content */
 .cellcontent_normalLabel {
-  padding: 8px;
   font-size: 14px;
   color: #424242;
+}
+
+/* Header & Body Style */
+
+.cellcontent_headerLabel,
+.cellcontent_normalLabel {
+  padding-left: 10px;
+  white-space: nowrap;
 }
 
 .public_fixedDataTableCell_columnResizerKnob {
