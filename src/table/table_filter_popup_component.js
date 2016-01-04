@@ -59,7 +59,7 @@ const TableFilterPopupComponent = React.createClass({
 
     render() {
         const filters = this.props.availableFilters.slice(0, this.state.page * 30);
-        const availableFilters = _(filters).map((val, index) => {
+        const availableFilters = _(filters).chain().sortBy('text').map((val, index) => {
             const checked = _(this.props.currentFilters).find((current) => current[0] === this.props.val && current[1] === val.id);
 
             return (
@@ -68,7 +68,7 @@ const TableFilterPopupComponent = React.createClass({
                     onChange={this._onFilter.bind(this, val.id)}
                     label={val.text} />
             )
-        });
+        }).value();
 
         const conHeight = 220;
         const childHeight = 32;
