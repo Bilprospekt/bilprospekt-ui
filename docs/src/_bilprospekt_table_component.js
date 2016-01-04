@@ -56,6 +56,7 @@ const TableDocComponent = React.createClass({
                 <p className='table-header-label'>Table</p>
                 <Table
                     allColumnsThatCouldBeRendered={alphaObj}
+                    makeRowsSelectable
                     headerLabel="Now this is podracing"
                     {...this.state}
 

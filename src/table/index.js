@@ -7,10 +7,11 @@ const debug = require('debug')('bilprospekt-ui:table');
 
 const {Table, Column, Cell} = FixedDataTable;
 
-import {HeaderCell, NormalCell} from './cells';
+import {HeaderCell, NormalCell, SelectorCell} from './cells';
 import ColumnWidthHelper from './helpers/column_width_helper.js';
 
 const columnWidthHelper = new ColumnWidthHelper(1, []);
+const selectorColumnWidth = 47;
 
 const TableHolderComponent = React.createClass({
     propTypes: {
@@ -41,6 +42,13 @@ const TableHolderComponent = React.createClass({
         headerHeight: React.PropTypes.number,
         headerLabel: React.PropTypes.node,
 
+        //If we should have a checkbox for rows.
+        makeRowsSelectable: React.PropTypes.bool,
+        //What rows are selected if we have makeRowsSelectable.
+        selectedRows: React.PropTypes.array,
+        //On a selection if we have makeRowsSelectable.
+        onSelection: React.PropTypes.func,
+
         //Trigger functions that haven't already been listed.
         onSearch: React.PropTypes.func,
         onFilter: React.PropTypes.func,
@@ -53,6 +61,7 @@ const TableHolderComponent = React.createClass({
             columns: [],
             columnFilters: {},
             allColumnsThatCouldBeRendered: [],
+            makeRowsSelectable: false,
 
             //Change these to what we'll probably use in prod.
             width: 'auto',
@@ -71,7 +80,10 @@ const TableHolderComponent = React.createClass({
         }
     },
     _setDynamicWidthOnTable() {
-        const width = $(this._holder).width();
+        let width = $(this._holder).width();
+        if (this.props.makeRowsSelectable) {
+            width -= selectorColumnWidth;
+        }
         columnWidthHelper.setTotalWidth(width);
     },
     componentWillUnmount() {
@@ -128,7 +140,7 @@ const TableHolderComponent = React.createClass({
         const {columnWidths, totalWidth} = columnWidthHelper.getState();
         debug('Column widths are', columnWidths, 'Total width', totalWidth);
 
-        const cols = _(columnsToRender).map((col, index) => {
+        let cols = _(columnsToRender).map((col, index) => {
             const columnWidth = columnWidths[col.val];
             //Last element is not resizable
             const isResizable = (index === columnsToRender.length - 1) ? false : true;
@@ -154,6 +166,18 @@ const TableHolderComponent = React.createClass({
         });
 
         const props = this.props;
+        if (props.makeRowsSelectable) {
+            const key = 'BP-selector';
+            cols.unshift(
+                <Column
+                    columnKey={key}
+                    key={key}
+                    isResizable={false}
+                    width={selectorColumnWidth}
+                    cell={<SelectorCell onChange={props.onSelection} selections={props.selectedRows} />}
+                />
+            )
+        }
 
         return (
                 <div ref={(ref) => this._holder = ref} style={{position: 'relative'}} className='bui-table-holder'>
@@ -172,7 +196,7 @@ const TableHolderComponent = React.createClass({
                     onScrollEnd={this._onScrollEnd}
                     rowHeight={props.rowHeight}
                     rowsCount={props.data.length}
-                    width={totalWidth}
+                    width={props.makeRowsSelectable ? totalWidth + selectorColumnWidth : totalWidth}
                     height={props.height}
                     headerHeight={props.headerHeight}>
                 {cols}
@@ -182,6 +206,5 @@ const TableHolderComponent = React.createClass({
         );
     }
 });
-
 
 export default TableHolderComponent;

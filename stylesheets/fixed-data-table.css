@@ -575,3 +575,16 @@ body[dir="rtl"] .fixedDataTableColumnResizerLineLayout_main {
 .public_Scrollbar_faceActive:after {
   background-color: #7d7d7d;
 }
+
+/**
+ * Custom CSS for .bui-form-element .checkbox-type
+ * 
+ * This CSS makes it centered in its cell
+ *
+ */
+
+.public_fixedDataTableCell_cellContent .bui-form-element {
+  min-width: initial;
+  text-align: center;
+}
+
