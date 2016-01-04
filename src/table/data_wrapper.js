@@ -55,7 +55,7 @@ class DataWrapper {
             this.selections.splice(this.selections.indexOf(row), 1);
         }
 
-        this._emit('selection', this.selections);
+        this._emit('selection', {row, val});
     }
 
     _emit(event, eventData) {
