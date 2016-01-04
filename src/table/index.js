@@ -11,7 +11,7 @@ import {HeaderCell, NormalCell, SelectorCell} from './cells';
 import ColumnWidthHelper from './helpers/column_width_helper.js';
 
 const columnWidthHelper = new ColumnWidthHelper(1, []);
-const selectorColumnWidth = 40;
+const selectorColumnWidth = 47;
 
 const TableHolderComponent = React.createClass({
     propTypes: {
