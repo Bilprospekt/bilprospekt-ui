@@ -11,6 +11,7 @@ class DataWrapper {
         //this.filter = [['a', 'a0'], ['b', 'b1']];
         this.filter = [];
         this.sort = null;
+        this.selections = [];
         this.listeners = [];
     }
 
@@ -45,6 +46,16 @@ class DataWrapper {
     _onColumnChange(newColumns) {
         this.columns = newColumns;
         this._emit('columns', this.columns);
+    }
+
+    _onSelection(row, val) {
+        if (val) {
+            this.selections.push(row);
+        } else if(this.selections.indexOf(row) !== -1) {
+            this.selections.splice(this.selections.indexOf(row), 1);
+        }
+
+        this._emit('selection', this.selections);
     }
 
     _emit(event, eventData) {
@@ -168,6 +179,7 @@ class DataWrapper {
             columns: this.getColumns(),
             columnFilters: this.getColumnFilters(),
             currentFilters: this.filter,
+            selectedRows: this.selections,
         };
     }
 
@@ -178,6 +190,7 @@ class DataWrapper {
             onFilter: this._onFilter.bind(this),
             onSort: this._onSort.bind(this),
             onColumnChange: this._onColumnChange.bind(this),
+            onSelection: this._onSelection.bind(this),
         }
     }
 }
