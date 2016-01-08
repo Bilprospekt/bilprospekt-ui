@@ -70,7 +70,7 @@ const TableHolderComponent = React.createClass({
             height: 500,
             rowHeight: 46,
             headerHeight: 50,
-            showLoadingRow: false,
+            showLoadingComponent: false,
         };
     },
     componentDidMount() {
@@ -182,7 +182,7 @@ const TableHolderComponent = React.createClass({
             )
         }
 
-        const loadingComponent = (this.props.showLoadingRow)
+        const loadingComponent = props.showLoadingComponent
                   ? <LoadingComponent />
                   : null;
 
