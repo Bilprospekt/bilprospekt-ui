@@ -182,7 +182,7 @@ const TableHolderComponent = React.createClass({
             )
         }
 
-        const loadingComponent = (this.props.showLoadingRow || true)
+        const loadingComponent = (this.props.showLoadingRow)
                   ? <LoadingComponent />
                   : null;
 
@@ -233,6 +233,7 @@ const LoadingComponent = React.createClass({
             paddingTop: 6,
             backgroundColor: 'rgba(255, 255, 255, 0.9)',
             height: 35,
+            fontSize: 14,
         };
 
         const textStyle = {
