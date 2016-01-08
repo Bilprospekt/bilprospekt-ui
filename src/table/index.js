@@ -38,6 +38,8 @@ const TableHolderComponent = React.createClass({
         ]),
         height: React.PropTypes.number,
 
+        showLoadingComponent: React.PropTypes.bool,
+
         rowHeight: React.PropTypes.number,
         headerHeight: React.PropTypes.number,
         headerLabel: React.PropTypes.node,
@@ -68,6 +70,7 @@ const TableHolderComponent = React.createClass({
             height: 500,
             rowHeight: 46,
             headerHeight: 50,
+            showLoadingRow: false,
         };
     },
     componentDidMount() {
@@ -179,6 +182,10 @@ const TableHolderComponent = React.createClass({
             )
         }
 
+        const loadingComponent = (this.props.showLoadingRow || true)
+                  ? <LoadingComponent />
+                  : null;
+
         return (
                 <div ref={(ref) => this._holder = ref} style={{position: 'relative'}} className='bui-table-holder'>
                 <TableHeader
@@ -201,9 +208,43 @@ const TableHolderComponent = React.createClass({
                     headerHeight={props.headerHeight}>
                 {cols}
                 </Table>
+                {loadingComponent}
                 <div id='bui-table-popup-holder' style={{position: 'absolute', top: 0, left: 0, }}/>
             </div>
         );
+    }
+});
+
+const LoadingComponent = React.createClass({
+    propTypes: {
+        loadingText: React.PropTypes.string,
+    },
+    getDefaultProps() {
+        return {
+            loadingText: 'Laddar in fler resultat...',
+        };
+    },
+    render() {
+        const loadingStyle = {
+            position: 'absolute',
+            bottom: 0,
+            width: '100%',
+            textAlign: 'center',
+            paddingTop: 6,
+            backgroundColor: 'rgba(255, 255, 255, 0.9)',
+            height: 35,
+        };
+
+        const textStyle = {
+            paddingLeft: 5,
+        };
+
+        return (
+            <div style={loadingStyle}>
+                <i className='fa fa-spinner fa-spin' />
+                <span style={textStyle}>{this.props.loadingText}</span>
+            </div>
+        )
     }
 });
 
