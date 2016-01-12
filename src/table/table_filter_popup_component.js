@@ -2,8 +2,10 @@ import React from 'react';
 import _ from 'underscore';
 import Checkbox from '../checkbox';
 import Infinite from 'react-infinite';
+import $ from 'jquery';
 
 const componentClassName = 'bui-table-filter-popup';
+import InputField from '../input-field';
 
 const TableFilterPopupComponent = React.createClass({
 
@@ -48,7 +50,14 @@ const TableFilterPopupComponent = React.createClass({
     getInitialState() {
         return {
             page: 1,
+            filterSearch: '',
         };
+    },
+
+    _onFilterSearch(val) {
+        this.setState({
+            filterSearch: val,
+        });
     },
 
     _handleInfiniteLoading() {
@@ -58,17 +67,28 @@ const TableFilterPopupComponent = React.createClass({
     },
 
     render() {
-        const filters = this.props.availableFilters.slice(0, this.state.page * 30);
-        const availableFilters = _(filters).chain().sortBy('text').map((val, index) => {
-            const checked = _(this.props.currentFilters).find((current) => current[0] === this.props.val && current[1] === val.id);
+        let availableFilters = this.props.availableFilters;
+        if (this.state.filterSearch) {
+            availableFilters = _(availableFilters)
+                .filter((val) => {
+                    if (this.state.filterSearch) return val.text.indexOf(this.state.filterSearch) !== -1;
+                    return true;
+                });
+        }
 
-            return (
-                <Checkbox checked={!!checked}
-                    key={index}
-                    onChange={this._onFilter.bind(this, val.id)}
-                    label={val.text} />
-            )
-        }).value();
+        let filters = availableFilters.slice(0, this.state.page * 30);
+        filters = _(filters).chain()
+                  .sortBy('text').map((val, index) => {
+                    const checked = _(this.props.currentFilters).find((current) => current[0] === this.props.val && current[1] === val.id);
+
+                    return (
+                        <Checkbox checked={!!checked}
+                            key={index}
+                            onChange={this._onFilter.bind(this, val.id)}
+                            label={val.text} />
+                    )
+                  })
+                  .value();
 
         const conHeight = 220;
         const childHeight = 32;
@@ -83,13 +103,14 @@ const TableFilterPopupComponent = React.createClass({
 
         return (
             <div className={componentClassName + ' bui-form-elements-dropdown-holder'} style={popupstyle}>
+                <InputField onChange={this._onFilterSearch} value={this.state.filterSearch} />
                 <Infinite onInfiniteLoad={this._handleInfiniteLoading}
                     containerHeight={conHeight}
                     elementHeight={childHeight}
                     infiniteLoadBeginEdgeOffset={200}
                     className='infinite-holder'
                 >
-                    {availableFilters}
+                    {filters}
                 </Infinite>
             </div>
         )
