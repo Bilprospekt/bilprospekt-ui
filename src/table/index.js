@@ -38,6 +38,15 @@ const TableHolderComponent = React.createClass({
         ]),
         height: React.PropTypes.number,
 
+        //Current sort value
+        sort: React.PropTypes.shape({
+            direction: React.PropTypes.string.isRequired,
+            column: React.PropTypes.oneOfType([
+                React.PropTypes.string,
+                React.PropTypes.number,
+            ]).isRequired,
+        }),
+
         showLoadingComponent: React.PropTypes.bool,
 
         rowHeight: React.PropTypes.number,
@@ -109,9 +118,9 @@ const TableHolderComponent = React.createClass({
             this.props.onSearch(val);
         }
     },
-    _onSort(props) {
+    _onSort(payload) {
         if (typeof this.props.onSort === 'function') {
-            this.props.onSort(props.columnKey);
+            this.props.onSort(payload);
         }
     },
     _onColumnChange(newColumns) {
@@ -154,17 +163,22 @@ const TableHolderComponent = React.createClass({
                     {...columnWidth}
                     header={(props) => {
                         const filters = this.props.columnFilters[col.val];
+                        const sort = (this.props.sort && this.props.sort.column === col.val)
+                                  ? this.props.sort
+                                  : null;
+
                         return <HeaderCell
-                        onFilter={this.props.onFilter}
-                        onSort={this._onSort}
-                        availableFilters={filters}
-                        currentFilters={this.props.currentFilters}
-                        {...col}
-                        {...props} />
+                            onFilter={this.props.onFilter}
+                            sort={sort}
+                            onSort={this._onSort}
+                            availableFilters={filters}
+                            currentFilters={this.props.currentFilters}
+                            {...col}
+                            {...props} />
                     }}
                     cell={<NormalCell data={data} col={col.val} />}
                     isResizable={isResizable}
-                    />
+                />
             );
         });
 

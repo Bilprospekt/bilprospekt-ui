@@ -13,6 +13,11 @@ const HeaderCell = React.createClass({
         onFilter: React.PropTypes.func,
         availableFilters: React.PropTypes.array,
         currentFilters: React.PropTypes.array,
+
+        //Current sort values
+        sort: React.PropTypes.shape({
+            direction: React.PropTypes.string,
+        }),
     },
     getInitialState() {
         return {
@@ -58,9 +63,12 @@ const HeaderCell = React.createClass({
             availableFilters,
             currentFilters,
             onFilter: this._onFilter,
+            onSort: this.props.onSort,
+            sort: this.props.sort,
             top: 110,
             left: pos.left - tablePos.left,
             val: this.props.val,
+            columnLabel: this.props.label,
             unmount: () => {
                 const el = document.getElementById('bui-table-popup-holder');
                 if (el) {
@@ -84,12 +92,18 @@ const HeaderCell = React.createClass({
             );
         }
 
+        let sortIndicator = null;
+        if (this.props.sort) {
+            sortIndicator = (this.props.sort.direction === 'ASC') ? 'fa-arrow-up' : 'fa-arrow-down';
+            sortIndicator = <i style={{fontSize: 12}} className={"fa " + sortIndicator} />;
+        }
+
         return (
             <Cell
                 onMouseEnter={this._onMouseEnter}
-                onMouseLeave={this._onMouseLeave}
-                onClick={this.props.onSort}>
+                onMouseLeave={this._onMouseLeave}>
                     <span className='cellcontent_headerLabel'>{this.props.label}</span>
+                    {sortIndicator}
                     {filterIcon}
             </Cell>
         )

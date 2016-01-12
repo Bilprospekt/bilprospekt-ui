@@ -16,8 +16,15 @@ const TableFilterPopupComponent = React.createClass({
         availableFilters: React.PropTypes.array,
         currentFilters: React.PropTypes.array,
         onFilter: React.PropTypes.func,
+        onSort: React.PropTypes.func,
+
+        //Current sort
+        sort: React.PropTypes.shape({
+            direction: React.PropTypes.string.isRequired,
+        }),
         unmount: React.PropTypes.func.isRequired,
         val: React.PropTypes.string.isRequired,
+        columnLabel: React.PropTypes.string.isRequired,
 
         top: React.PropTypes.number.isRequired,
         left: React.PropTypes.number.isRequired,
@@ -40,6 +47,14 @@ const TableFilterPopupComponent = React.createClass({
         }
     },
 
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.sort) {
+            this.setState({
+                sort: nextProps.sort,
+            });
+        }
+    },
+
     componentDidMount() {
         $(document.body).bind('click', this._checkForUnmount);
     },
@@ -52,6 +67,10 @@ const TableFilterPopupComponent = React.createClass({
         return {
             page: 1,
             filterSearch: '',
+
+
+            //Since we're in a seperate tree, we'll need to keep track of sort value ourself.
+            sort: this.props.sort || {},
         };
     },
 
@@ -59,6 +78,16 @@ const TableFilterPopupComponent = React.createClass({
         this.setState({
             filterSearch: val,
         });
+    },
+
+    _onSort(direction) {
+        if (typeof this.props.onSort === 'function') {
+            const payload = {columnKey: this.props.val, direction: direction, };
+            this.props.onSort(payload);
+            this.setState({
+                sort: (this.state.sort && direction === this.state.sort.direction) ? null : payload,
+            })
+        }
     },
 
     _handleInfiniteLoading() {
@@ -102,13 +131,14 @@ const TableFilterPopupComponent = React.createClass({
             width: 200,
         };
 
+        const sortDir = this.state.sort && this.state.sort.direction;
+
         return (
             <div className={componentClassName + ' bui-form-elements-dropdown-holder'} style={popupstyle}>
-                <p className='bui-table-filter-label'>Sortera this.kolumn.name</p>
-                <ActionButton label='Stigande' toggle={true} selected={false} />
-                <ActionButton label='Fallande' toggle={true} selected={false} />
+                <p className='bui-table-filter-label'>{this.props.columnLabel}</p>
+                <ActionButton label='Stigande' onClick={this._onSort.bind(this, 'ASC')} toggle={true} selected={sortDir === 'ASC'} />
+                <ActionButton label='Fallande' onClick={this._onSort.bind(this, 'DESC')} toggle={true} selected={sortDir === 'DESC'} />
 
-                <p className='bui-table-filter-label'>Filtrera this.kolumn.name</p>
                 <InputField onChange={this._onFilterSearch} value={this.state.filterSearch} hint='Sök värden' />
                 <Infinite onInfiniteLoad={this._handleInfiniteLoading}
                     containerHeight={conHeight}
