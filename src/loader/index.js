@@ -7,10 +7,11 @@ const LoaderComponent = React.createClass({
             React.PropTypes.string,
             React.PropTypes.number,
         ]).isRequired,
+        message: React.PropTypes.string,
     },
     getDefaultProps() {
         return {
-            width: 50,
+            width: '50%',
         };
     },
     render() {
