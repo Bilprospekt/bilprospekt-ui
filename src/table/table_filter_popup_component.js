@@ -6,6 +6,7 @@ import $ from 'jquery';
 
 const componentClassName = 'bui-table-filter-popup';
 import InputField from '../input-field';
+import ActionButton from '../action-button';
 
 const TableFilterPopupComponent = React.createClass({
 
@@ -97,13 +98,18 @@ const TableFilterPopupComponent = React.createClass({
             top: this.props.top,
             left: Math.max(0, this.props.left - 171), // Minus self width
             zIndex: 100,
-            height: conHeight,
+            height: conHeight + 154,
             width: 200,
         };
 
         return (
             <div className={componentClassName + ' bui-form-elements-dropdown-holder'} style={popupstyle}>
-                <InputField onChange={this._onFilterSearch} value={this.state.filterSearch} />
+                <p className='bui-table-filter-label'>Sortera this.kolumn.name</p>
+                <ActionButton label='Stigande' toggle={true} selected={false} />
+                <ActionButton label='Fallande' toggle={true} selected={false} />
+
+                <p className='bui-table-filter-label'>Filtrera this.kolumn.name</p>
+                <InputField onChange={this._onFilterSearch} value={this.state.filterSearch} hint='Sök värden' />
                 <Infinite onInfiniteLoad={this._handleInfiniteLoading}
                     containerHeight={conHeight}
                     elementHeight={childHeight}
