@@ -16,7 +16,7 @@ const LoaderDoc = React.createClass({
             <div>
                 <p className="table-header-label">Loader</p>
                 <div style={divStyle}>
-                    <Loader width={25} message='Laddar in dina listor ...' />
+                    <Loader width='25%' message='Laddar in dina listor ...' />
                 </div>
 
                 <pre>

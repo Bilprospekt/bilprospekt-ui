@@ -1,25 +1,21 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import $ from 'jquery';
 import classNames from 'classnames';
 
 const LoaderComponent = React.createClass({
     propTypes: {
-        width: React.PropTypes.number,
+        width: React.PropTypes.oneOfType([
+            React.PropTypes.string,
+            React.PropTypes.number,
+        ]).isRequired,
     },
     getDefaultProps() {
         return {
             width: 50,
         };
     },
-    getInitialState() {
-        return {
-
-        };
-    },
     render() {
         const widthStyle = ({
-            width: this.props.width + '%',
+            width: this.props.width,
         });
 
         const parentClass = classNames('bui-loader-parent', {
