@@ -23,7 +23,7 @@ const LoaderDoc = React.createClass({
                 <code>
                     {
                         [
-                        '<Loader width={25} message="Laddar in dina listor ..." />',
+                        '<Loader width="25%" message="Laddar in dina listor ..." />',
                         ]
                     }
                 </code>
