@@ -19,6 +19,7 @@ import Popup from './popup';
 import Checkbox from './checkbox';
 import Toggle from './toggle';
 import Radio from './radio';
+import Loader from './loader';
 
 import {Select, Option} from './select';
 
@@ -40,4 +41,5 @@ export {
   Radio,
   Select,
   Option,
+  Loader,
 };
