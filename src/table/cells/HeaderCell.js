@@ -93,17 +93,22 @@ const HeaderCell = React.createClass({
         }
 
         let sortIndicator = null;
+        const sortIndicatorStyle = ({
+            fontSize: 13,
+            color: '#00BCD4',
+            marginLeft: 10,
+        });
         if (this.props.sort) {
             sortIndicator = (this.props.sort.direction === 'ASC') ? 'fa-arrow-up' : 'fa-arrow-down';
-            sortIndicator = <i style={{fontSize: 12}} className={"fa " + sortIndicator} />;
+            sortIndicator = <i style={sortIndicatorStyle} className={"fa " + sortIndicator} />;
         }
 
         return (
             <Cell
                 onMouseEnter={this._onMouseEnter}
                 onMouseLeave={this._onMouseLeave}>
-                    <span className='cellcontent_headerLabel'>{this.props.label}</span>
                     {sortIndicator}
+                    <span className='cellcontent_headerLabel'>{this.props.label}</span>
                     {filterIcon}
             </Cell>
         )
