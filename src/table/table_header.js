@@ -17,6 +17,8 @@ const TableActionBar = React.createClass({
 
         onSearchChange: React.PropTypes.func,
 
+        showJawboneFilter: React.PropTypes.func,
+
         justifyColumns: React.PropTypes.func,
         headerLabel: React.PropTypes.node,
     },
@@ -97,6 +99,13 @@ const TableActionBar = React.createClass({
             </div>
         );
 
+        const jawboneFilter = (
+            <div className='bui-table-toggle-filter-button'>
+                <i className="fa fa-filter table-icon" onClick={this.props.showJawboneFilter} />
+                <span className='toggle-filter-text'>2</span>
+            </div>
+        );
+
         return (
             <div className='bui-table-action-bar'>
                 <div className='bui-table-text-holder'>
@@ -104,6 +113,7 @@ const TableActionBar = React.createClass({
                 </div>
                 <div className='bui-table-actions-holder'>
                     {tableSearch}
+                    {jawboneFilter}
                     <i className="fa fa-arrows-h table-icon" onClick={this.props.justifyColumns} />
                     {columnChanger}
                 </div>

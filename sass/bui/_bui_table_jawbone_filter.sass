@@ -1,0 +1,40 @@
+/*
+ *
+ * TABLE JAWBONE FILTER
+ *
+ */
+
+.bui-table-jawbone-filter
+  background-color: white
+  position: relative
+  overflow: hidden
+  width: 100%
+  height: 0px
+  padding: 0 10px
+  @include transition(height .25s ease, padding .25s ease)
+
+  .jawbone-filter-row-holder
+    @extend .clear-after
+    .jawbone-row-label,
+    .jawbone-row-content
+      float: left
+
+    .jawbone-row-label
+      margin-right: 10px
+      line-height: 30px
+      font-size: 13px
+      color: $grey-500
+      .row-label-name
+        font-weight: $boldWeight
+        color: $grey-600
+      .row-label-icon
+        margin-left: 10px
+        color: $grey-400
+
+    .jawbone-row-content
+      .bui-chips:not(:last-of-type)
+        margin-right: 10px
+
+  &.bui-jawbone-is-showing
+    padding: 10px 10px
+    height: 50px

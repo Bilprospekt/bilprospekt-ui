@@ -2,6 +2,7 @@ import _ from 'underscore';
 import React from 'react';
 import FixedDataTable from 'fixed-data-table';
 import TableHeader from './table_header';
+import TableJawboneFilter from './table_jawbone_filter';
 import $ from 'jquery';
 const debug = require('debug')('bilprospekt-ui:table');
 
@@ -82,6 +83,11 @@ const TableHolderComponent = React.createClass({
             showLoadingComponent: false,
         };
     },
+    getInitialState() {
+        return {
+            showJawbone: false,
+        };
+    },
     componentDidMount() {
         columnWidthHelper.onChange(() => this.forceUpdate());
         if (this.props.width === 'auto') {
@@ -145,6 +151,9 @@ const TableHolderComponent = React.createClass({
         const newWidth = (state) ? oldWidth + 20 : oldWidth - 20;
         columnWidthHelper.setWidthForIdentifier(col, newWidth);
     },
+    _showJawboneFilter() {
+        this.setState({ showJawbone: !this.state.showJawbone });
+    },
     render() {
         const data = this.props.data;
         const columnsToRender = this.props.columns;
@@ -201,7 +210,7 @@ const TableHolderComponent = React.createClass({
                   : null;
 
         return (
-                <div ref={(ref) => this._holder = ref} style={{position: 'relative'}} className='bui-table-holder'>
+            <div ref={(ref) => this._holder = ref} style={{position: 'relative'}} className='bui-table-holder'>
                 <TableHeader
                     onColumnChange={this._onColumnChange}
                     onSearchChange={this._onSearchChange}
@@ -209,7 +218,9 @@ const TableHolderComponent = React.createClass({
                     currentColumns={columnsToRender}
                     justifyColumns={columnWidthHelper.justifyColumns.bind(columnWidthHelper)}
                     headerLabel={this.props.headerLabel}
+                    showJawboneFilter={this._showJawboneFilter}
                 />
+                <TableJawboneFilter visible={this.state.showJawbone} />
                 <Table
                     isColumnResizing={false}
                     overflowX='hidden'
