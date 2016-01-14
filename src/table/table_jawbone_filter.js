@@ -27,8 +27,7 @@ const TableJawboneFilter = React.createClass({
                 );
             });
 
-
-        const height = this.props.visible ? 20 + (30 * _(filters).size()) : 0;
+        const height = this.props.visible ? 10 + (40 * _(filters).size()) : 0;
         return (
             <div className={parentClass} style={{height}}>
                 <div className='jawbone-filter-row-holder'>
@@ -58,7 +57,7 @@ const FilterRowComponent = React.createClass({
         });
 
         return (
-            <div style={{clear: 'both'}} className='jawbone-row'>
+            <div className='jawbone-row'>
                 <div className='jawbone-row-label'>
                     <span className='row-label-name'>{label}</span> filter
                     <i className='fa fa-arrow-right row-label-icon' />

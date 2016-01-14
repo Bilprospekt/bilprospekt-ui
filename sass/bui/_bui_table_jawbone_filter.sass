@@ -14,22 +14,25 @@
   @include transition(height .25s ease, padding .25s ease)
 
   .jawbone-filter-row-holder
-    @extend .clear-after
-    .jawbone-row-label,
-    .jawbone-row-content
-      float: left
+    .jawbone-row
+      @extend .clear-after
+      &:not(:last-of-type)
+        margin-bottom: 10px
+      .jawbone-row-label,
+      .jawbone-row-content
+        float: left
 
-    .jawbone-row-label
-      margin-right: 10px
-      line-height: 30px
-      font-size: 13px
-      color: $grey-500
-      .row-label-name
-        font-weight: $boldWeight
-        color: $grey-600
-      .row-label-icon
-        margin-left: 10px
-        color: $grey-400
+      .jawbone-row-label
+        margin-right: 10px
+        line-height: 30px
+        font-size: 13px
+        color: $grey-500
+        .row-label-name
+          font-weight: $boldWeight
+          color: $grey-600
+        .row-label-icon
+          margin-left: 10px
+          color: $grey-400
 
     .jawbone-row-content
       .bui-chips:not(:last-of-type)
