@@ -154,6 +154,11 @@ const TableHolderComponent = React.createClass({
     _showJawboneFilter() {
         this.setState({ showJawbone: !this.state.showJawbone });
     },
+    _onChipRemove(key, val) {
+        if (typeof this.props.onFilter === 'function') {
+            this.props.onFilter([key, val]);
+        }
+    },
     render() {
         const data = this.props.data;
         const columnsToRender = this.props.columns;
@@ -216,11 +221,12 @@ const TableHolderComponent = React.createClass({
                     onSearchChange={this._onSearchChange}
                     allColumnsThatCouldBeRendered={props.allColumnsThatCouldBeRendered}
                     currentColumns={columnsToRender}
+                    currentFilters={this.props.currentFilters}
                     justifyColumns={columnWidthHelper.justifyColumns.bind(columnWidthHelper)}
                     headerLabel={this.props.headerLabel}
                     showJawboneFilter={this._showJawboneFilter}
                 />
-                <TableJawboneFilter visible={this.state.showJawbone} />
+                <TableJawboneFilter onChipRemove={this._onChipRemove} currentFilters={this.props.currentFilters} visible={this.state.showJawbone} />
                 <Table
                     isColumnResizing={false}
                     overflowX='hidden'

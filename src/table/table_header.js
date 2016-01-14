@@ -15,12 +15,20 @@ const TableActionBar = React.createClass({
         currentColumns: React.PropTypes.array,
         onColumnChange: React.PropTypes.func,
 
+        currentFilters: React.PropTypes.array,
+
         onSearchChange: React.PropTypes.func,
 
         showJawboneFilter: React.PropTypes.func,
 
         justifyColumns: React.PropTypes.func,
         headerLabel: React.PropTypes.node,
+    },
+
+    getDefaultProps() {
+        return {
+            currentFilters: [],
+        };
     },
 
     getInitialState() {
@@ -99,10 +107,15 @@ const TableActionBar = React.createClass({
             </div>
         );
 
+
+        const filterCount = (this.props.currentFilters.length)
+                  ? <span className='toggle-filter-text'>{this.props.currentFilters.length}</span>
+                  : null;
+
         const jawboneFilter = (
             <div className='bui-table-toggle-filter-button'>
                 <i className="fa fa-filter table-icon" onClick={this.props.showJawboneFilter} />
-                <span className='toggle-filter-text'>2</span>
+                {filterCount}
             </div>
         );
 
