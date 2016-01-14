@@ -134,7 +134,9 @@ class DataWrapper {
                 return _(this.filter).filter((filter) => {
                     const column = filter[0];
                     const filterVal = filter[1];
-                    return row[column] == filterVal;
+                    const val = row[column];
+                    if (_.isArray(val)) return val.indexOf(filterVal) !== -1;
+                    return val == filterVal;
                 }).length;
             });
         }
