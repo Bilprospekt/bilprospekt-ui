@@ -23,8 +23,8 @@ const ActionButton = React.createClass({
             'bui-is-primary': this.props.primary,
             'bui-is-secondary': !this.props.primary,
             'bui-is-selected': this.props.selected,
-            'bui-is-flat': this.props.flat,
             'bui-is-toggle': this.props.toggle,
+            'bui-is-flat': this.props.flat,
         });
 
         const props = this.props;

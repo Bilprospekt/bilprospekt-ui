@@ -2,6 +2,7 @@ import _ from 'underscore';
 import React from 'react';
 import FixedDataTable from 'fixed-data-table';
 import TableHeader from './table_header';
+import TableJawboneFilter from './table_jawbone_filter';
 import $ from 'jquery';
 const debug = require('debug')('bilprospekt-ui:table');
 
@@ -38,6 +39,17 @@ const TableHolderComponent = React.createClass({
         ]),
         height: React.PropTypes.number,
 
+        //Current sort value
+        sort: React.PropTypes.shape({
+            direction: React.PropTypes.string.isRequired,
+            column: React.PropTypes.oneOfType([
+                React.PropTypes.string,
+                React.PropTypes.number,
+            ]).isRequired,
+        }),
+
+        showLoadingComponent: React.PropTypes.bool,
+
         rowHeight: React.PropTypes.number,
         headerHeight: React.PropTypes.number,
         headerLabel: React.PropTypes.node,
@@ -68,6 +80,12 @@ const TableHolderComponent = React.createClass({
             height: 500,
             rowHeight: 46,
             headerHeight: 50,
+            showLoadingComponent: false,
+        };
+    },
+    getInitialState() {
+        return {
+            showJawbone: false,
         };
     },
     componentDidMount() {
@@ -106,9 +124,9 @@ const TableHolderComponent = React.createClass({
             this.props.onSearch(val);
         }
     },
-    _onSort(props) {
+    _onSort(payload) {
         if (typeof this.props.onSort === 'function') {
-            this.props.onSort(props.columnKey);
+            this.props.onSort(payload);
         }
     },
     _onColumnChange(newColumns) {
@@ -133,6 +151,14 @@ const TableHolderComponent = React.createClass({
         const newWidth = (state) ? oldWidth + 20 : oldWidth - 20;
         columnWidthHelper.setWidthForIdentifier(col, newWidth);
     },
+    _showJawboneFilter() {
+        this.setState({ showJawbone: !this.state.showJawbone });
+    },
+    _onChipRemove(key, val) {
+        if (typeof this.props.onFilter === 'function') {
+            this.props.onFilter([key, val]);
+        }
+    },
     render() {
         const data = this.props.data;
         const columnsToRender = this.props.columns;
@@ -151,17 +177,22 @@ const TableHolderComponent = React.createClass({
                     {...columnWidth}
                     header={(props) => {
                         const filters = this.props.columnFilters[col.val];
+                        const sort = (this.props.sort && this.props.sort.column === col.val)
+                                  ? this.props.sort
+                                  : null;
+
                         return <HeaderCell
-                        onFilter={this.props.onFilter}
-                        onSort={this._onSort}
-                        availableFilters={filters}
-                        currentFilters={this.props.currentFilters}
-                        {...col}
-                        {...props} />
+                            onFilter={this.props.onFilter}
+                            sort={sort}
+                            onSort={this._onSort}
+                            availableFilters={filters}
+                            currentFilters={this.props.currentFilters}
+                            {...col}
+                            {...props} />
                     }}
                     cell={<NormalCell data={data} col={col.val} />}
                     isResizable={isResizable}
-                    />
+                />
             );
         });
 
@@ -179,16 +210,23 @@ const TableHolderComponent = React.createClass({
             )
         }
 
+        const loadingComponent = props.showLoadingComponent
+                  ? <LoadingComponent />
+                  : null;
+
         return (
-                <div ref={(ref) => this._holder = ref} style={{position: 'relative'}} className='bui-table-holder'>
+            <div ref={(ref) => this._holder = ref} style={{position: 'relative'}} className='bui-table-holder'>
                 <TableHeader
                     onColumnChange={this._onColumnChange}
                     onSearchChange={this._onSearchChange}
                     allColumnsThatCouldBeRendered={props.allColumnsThatCouldBeRendered}
                     currentColumns={columnsToRender}
+                    currentFilters={this.props.currentFilters}
                     justifyColumns={columnWidthHelper.justifyColumns.bind(columnWidthHelper)}
                     headerLabel={this.props.headerLabel}
+                    showJawboneFilter={this._showJawboneFilter}
                 />
+                <TableJawboneFilter onChipRemove={this._onChipRemove} currentFilters={this.props.currentFilters} visible={this.state.showJawbone} />
                 <Table
                     isColumnResizing={false}
                     overflowX='hidden'
@@ -201,9 +239,44 @@ const TableHolderComponent = React.createClass({
                     headerHeight={props.headerHeight}>
                 {cols}
                 </Table>
+                {loadingComponent}
                 <div id='bui-table-popup-holder' style={{position: 'absolute', top: 0, left: 0, }}/>
             </div>
         );
+    }
+});
+
+const LoadingComponent = React.createClass({
+    propTypes: {
+        loadingText: React.PropTypes.string,
+    },
+    getDefaultProps() {
+        return {
+            loadingText: 'Laddar in fler resultat...',
+        };
+    },
+    render() {
+        const loadingStyle = {
+            position: 'absolute',
+            bottom: 0,
+            width: '100%',
+            textAlign: 'center',
+            paddingTop: 6,
+            backgroundColor: 'rgba(255, 255, 255, 0.9)',
+            height: 35,
+            fontSize: 14,
+        };
+
+        const textStyle = {
+            paddingLeft: 5,
+        };
+
+        return (
+            <div style={loadingStyle}>
+                <i className='fa fa-spinner fa-spin' />
+                <span style={textStyle}>{this.props.loadingText}</span>
+            </div>
+        )
     }
 });
 

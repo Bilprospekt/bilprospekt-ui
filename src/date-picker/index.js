@@ -51,6 +51,9 @@ const DatePicker = React.createClass({
             });
         }
     },
+    getDate() {
+        return (this.props.useRange) ? this.state.range : this.state.date;
+    },
     render() {
         const selected = (day) => {
             if (this.props.useRange) {

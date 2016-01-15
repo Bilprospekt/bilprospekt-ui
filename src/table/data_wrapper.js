@@ -34,12 +34,18 @@ class DataWrapper {
         this._emit('filter', this.filter);
     }
 
-    _onSort(columnKey) {
-        const reverseOrASC = (dir) => dir === 'ASC' ? 'DESC' : 'ASC'
-        this.sort = {
-            column: columnKey,
-            direction: reverseOrASC((this.sort && this.sort.direction) || ''),
-        };
+    _onSort({columnKey, direction}) {
+        if (this.sort && this.sort.column === columnKey && this.sort.direction === direction) {
+            //Double trigger, turn off sort
+            this.sort = null;
+        } else {
+            this.sort = {
+                column: columnKey,
+                direction: direction,
+            };
+        }
+
+
         this._emit('sort', this.sort);
     }
 
@@ -128,7 +134,9 @@ class DataWrapper {
                 return _(this.filter).filter((filter) => {
                     const column = filter[0];
                     const filterVal = filter[1];
-                    return row[column] == filterVal;
+                    const val = row[column];
+                    if (_.isArray(val)) return val.indexOf(filterVal) !== -1;
+                    return val == filterVal;
                 }).length;
             });
         }
@@ -180,6 +188,8 @@ class DataWrapper {
             columnFilters: this.getColumnFilters(),
             currentFilters: this.filter,
             selectedRows: this.selections,
+
+            sort: this.sort,
         };
     }
 
