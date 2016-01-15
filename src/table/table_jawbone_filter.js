@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import _ from 'underscore';
+import $ from 'jquery';
 
 import {Chips} from 'bilprospekt-ui';
 
@@ -10,6 +11,19 @@ const TableJawboneFilter = React.createClass({
         visible: React.PropTypes.bool.isRequired,
         currentFilters: React.PropTypes.array.isRequired,
         onChipRemove: React.PropTypes.func,
+    },
+
+    getInitialState() {
+        return {
+            jawboneHeight: 0,
+        };
+    },
+
+    componentDidUpdate() {
+        const newHeight = $(this.refs.jawboneRef).outerHeight(true);
+        if (newHeight != this.state.jawboneHeight) {
+            this.setState({ jawboneHeight: newHeight });
+        }
     },
 
     render() {
@@ -27,10 +41,11 @@ const TableJawboneFilter = React.createClass({
                 );
             });
 
-        const height = this.props.visible ? 10 + (40 * _(filters).size()) : 0;
+        const height = this.props.visible ? this.state.jawboneHeight : 0;
+
         return (
             <div className={parentClass} style={{height}}>
-                <div className='jawbone-filter-row-holder'>
+                <div className='jawbone-filter-row-holder' ref='jawboneRef'>
                     {filterRows}
                 </div>
             </div>
@@ -60,7 +75,6 @@ const FilterRowComponent = React.createClass({
             <div className='jawbone-row'>
                 <div className='jawbone-row-label'>
                     <span className='row-label-name'>{label}</span> filter
-                    <i className='fa fa-arrow-right row-label-icon' />
                 </div>
                 <div className='jawbone-row-content'>
                     {chips}
