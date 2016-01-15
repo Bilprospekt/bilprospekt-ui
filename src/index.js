@@ -20,6 +20,7 @@ import Checkbox from './checkbox';
 import Toggle from './toggle';
 import Radio from './radio';
 import Chips from './chips';
+import Loader from './loader';
 
 import {Select, Option} from './select';
 
@@ -42,4 +43,5 @@ export {
   Select,
   Option,
   Chips,
+  Loader,
 };

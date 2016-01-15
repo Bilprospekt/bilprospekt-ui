@@ -1,0 +1,85 @@
+/*
+ *
+ * BUI: LOADER
+ *
+ */
+
+$loader-bar-height: 4px
+
+.bui-loader-parent
+  position: relative
+  text-align: center
+  height: 4px
+  top: calc(50% - (4px / 2))
+
+  &.bui-message-is-showing
+    height: 34px
+    top: calc(50% - (34px / 2))
+
+  .bui-loader-message
+    font-size: 17px
+    color: $grey-600
+    font-weight: $normalWeight
+    margin-bottom: 10px
+
+  .bui-loader-bar
+    position: relative
+    display: inline-block
+    max-width: 100%
+    overflow-x: hidden
+    background-color: $cyan-200
+    height: $loader-bar-height
+    opacity: 1
+    transition: height .3s ease-out, opacity .125s .175s ease
+
+    .bui-bar
+      position: absolute
+      height: 100%
+      left: 0
+      top: 0
+      background-color: $cyan-500
+      animation:         bui-loading-bar-animation 1.95s infinite ease-in-out
+      -ms-animation:     bui-loading-bar-animation 1.95s infinite ease-in-out
+      -webkit-animation: bui-loading-bar-animation 1.95s infinite ease-in-out
+
+@keyframes bui-loading-bar-animation
+  0%
+    transform: translate(-100%)
+    width: 75%
+  70%
+    transform: translate(135%)
+    width: 75%
+  70.1%
+    transform: translate(-100%)
+    width: 25%
+  100%
+    transform: translate(425%)
+    width: 25%
+
+@-ms-keyframes bui-loading-bar-animation
+  0%
+    -ms-transform: translate(-100%)
+    width: 75%
+  70%
+    -ms-transform: translate(135%)
+    width: 75%
+  70.1%
+    -ms-transform: translate(-100%)
+    width: 25%
+  100%
+    -ms-transform: translate(425%)
+    width: 25%
+
+@-webkit-keyframes bui-loading-bar-animation
+  0%
+    -webkit-transform: translate(-100%)
+    width: 75%
+  70%
+    -webkit-transform: translate(135%)
+    width: 75%
+  70.1%
+    -webkit-transform: translate(-100%)
+    width: 25%
+  100%
+    -webkit-transform: translate(425%)
+    width: 25%

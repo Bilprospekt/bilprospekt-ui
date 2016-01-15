@@ -3,13 +3,16 @@ import classNames from 'classnames';
 import _ from 'underscore';
 import $ from 'jquery';
 
-import {Chips} from 'bilprospekt-ui';
+import Chips from '../chips';
 
 const TableJawboneFilter = React.createClass({
 
     propTypes: {
         visible: React.PropTypes.bool.isRequired,
         currentFilters: React.PropTypes.array.isRequired,
+        //Holds labels for columns
+        columns: React.PropTypes.array,
+        columnFilters: React.PropTypes.array,
         onChipRemove: React.PropTypes.func,
     },
 
@@ -35,9 +38,15 @@ const TableJawboneFilter = React.createClass({
 
         const filterRows = _(filters)
             .map((values, key) => {
-                values = _(values).map((x) => x[1]);
+                values = _(values)
+                    .map((x) => {
+                        const val = _(this.props.columnFilters[key]).findWhere({id: x[1]});
+                        return val;
+                    });
+                const column = _(this.props.columns).findWhere({val: key});
+                const label = (column && column.label) || key;
                 return (
-                    <FilterRowComponent onChipRemove={this.props.onChipRemove} label={key} values={values} />
+                    <FilterRowComponent key={key} onChipRemove={this.props.onChipRemove} keyVal={key} label={label} values={values} />
                 );
             });
 
@@ -57,18 +66,22 @@ const TableJawboneFilter = React.createClass({
 const FilterRowComponent = React.createClass({
     propTypes: {
         label: React.PropTypes.string.isRequired,
+        keyVal: React.PropTypes.oneOfType([
+            React.PropTypes.string,
+            React.PropTypes.number,
+        ]).isRequired,
         values: React.PropTypes.array.isRequired,
         onChipRemove: React.PropTypes.func,
     },
     _onChipRemove(value) {
         if (typeof this.props.onChipRemove === 'function') {
-            this.props.onChipRemove(this.props.label, value);
+            this.props.onChipRemove(this.props.keyVal, value);
         }
     },
     render() {
         const {label, values} = this.props;
         const chips = _(values).map((value) => {
-            return <Chips onRemoveClick={this._onChipRemove.bind(this, value)} label={value} />;
+            return <Chips key={value.id} onRemoveClick={this._onChipRemove.bind(this, value.id)} label={value.text} />;
         });
 
         return (
