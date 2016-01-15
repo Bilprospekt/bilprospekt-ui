@@ -2,7 +2,7 @@ import React from 'react';
 
 const Chips = React.createClass({
     propTypes: {
-        label: React.PropTypes.string,
+        label: React.PropTypes.node.isRequired,
         onRemoveClick: React.PropTypes.func,
     },
     render() {

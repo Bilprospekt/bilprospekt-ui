@@ -226,7 +226,12 @@ const TableHolderComponent = React.createClass({
                     headerLabel={this.props.headerLabel}
                     showJawboneFilter={this._showJawboneFilter}
                 />
-                <TableJawboneFilter onChipRemove={this._onChipRemove} currentFilters={this.props.currentFilters} visible={this.state.showJawbone} />
+                <TableJawboneFilter columns={this.props.allColumnsThatCouldBeRendered}
+                    onChipRemove={this._onChipRemove}
+                    currentFilters={this.props.currentFilters}
+                    columnFilters={this.props.columnFilters}
+
+                    visible={this.state.showJawbone} />
                 <Table
                     isColumnResizing={false}
                     overflowX='hidden'
