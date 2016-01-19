@@ -7,12 +7,13 @@ const RadioButton = React.createClass({
             React.PropTypes.string,
             React.PropTypes.number,
         ]).isRequired,
+        label: React.PropTypes.string,
         disabled: React.PropTypes.bool,
         checked: React.PropTypes.bool,
 
         //Set by radioGroup
-        name: React.PropTypes.string.isRequired,
-        onChange: React.PropTypes.func.isRequired
+        name: React.PropTypes.string,
+        onChange: React.PropTypes.func,
     },
     _onChange() {
         this.props.onChange(this.props.value);
