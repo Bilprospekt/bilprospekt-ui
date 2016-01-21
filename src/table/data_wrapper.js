@@ -37,7 +37,7 @@ class DataWrapper {
             }
         });
 
-        this._emit('filter', _(this.filter).filter((x) => x[0] !== '_id'));
+        this._emit('filter', this.filter);
     }
 
     _onSort({columnKey, direction}) {
