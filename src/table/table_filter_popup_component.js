@@ -35,8 +35,17 @@ const TableFilterPopupComponent = React.createClass({
             this.props.onFilter(val);
         }
 
-        //Make sure list updates
-        this.forceUpdate();
+        const {internalSelections} = this.state;
+        const index = _(internalSelections).findIndex((x) => x[1] === val);
+        if (index !== -1) {
+            internalSelections.splice(index, 1);
+        } else {
+            internalSelections.push([this.props.val, val]);
+        }
+
+        this.setState({
+            internalSelections,
+        });
     },
 
     _checkForUnmount(e) {
@@ -47,12 +56,19 @@ const TableFilterPopupComponent = React.createClass({
         }
     },
 
+
+
     componentWillReceiveProps(nextProps) {
+        let obj = {
+            //Delete internal selections when we get new props, correct selections will be included there.
+            internalSelections: this.props.currentFilters || [],
+        };
+
         if (nextProps.sort) {
-            this.setState({
-                sort: nextProps.sort,
-            });
+            obj.sort = nextProps.sort;
         }
+
+        this.setState(obj);
     },
 
     componentDidMount() {
@@ -71,6 +87,7 @@ const TableFilterPopupComponent = React.createClass({
 
             //Since we're in a seperate tree, we'll need to keep track of sort value ourself.
             sort: this.props.sort || {},
+            internalSelections: this.props.currentFilters || [],
         };
     },
 
@@ -109,7 +126,7 @@ const TableFilterPopupComponent = React.createClass({
         let filters = availableFilters.slice(0, this.state.page * 30);
         filters = _(filters).chain()
                   .sortBy('text').map((val, index) => {
-                    const checked = _(this.props.currentFilters).find((current) => current[0] === this.props.val && current[1] === val.id);
+                    let checked = _(this.state.internalSelections).find((current) => current[0] === this.props.val && current[1] === val.id);
 
                     return (
                         <Checkbox checked={!!checked}

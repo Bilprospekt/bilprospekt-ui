@@ -205,7 +205,7 @@ const TableHolderComponent = React.createClass({
                     key={key}
                     isResizable={false}
                     width={selectorColumnWidth}
-                    cell={<SelectorCell onChange={props.onSelection} selections={props.selectedRows} />}
+                    cell={<SelectorCell data={data} onChange={props.onSelection} selections={props.selectedRows} />}
                 />
             )
         }
@@ -225,6 +225,8 @@ const TableHolderComponent = React.createClass({
                     justifyColumns={columnWidthHelper.justifyColumns.bind(columnWidthHelper)}
                     headerLabel={this.props.headerLabel}
                     showJawboneFilter={this._showJawboneFilter}
+                    selections={props.selectedRows}
+                    onFilter={this.props.onFilter}
                 />
                 <TableJawboneFilter columns={this.props.allColumnsThatCouldBeRendered}
                     onChipRemove={this._onChipRemove}

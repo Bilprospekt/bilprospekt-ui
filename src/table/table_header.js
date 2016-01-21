@@ -6,7 +6,7 @@ import classNames from 'classnames';
 import DropdownMenu from '../drop-down-menu';
 const {DropdownHolder, DropdownElement} = DropdownMenu;
 
-const TableActionBar = React.createClass({
+const TableHeader = React.createClass({
 
     propTypes: {
 
@@ -23,6 +23,11 @@ const TableActionBar = React.createClass({
 
         justifyColumns: React.PropTypes.func,
         headerLabel: React.PropTypes.node,
+
+        //If we have any selections that should be used when "showSelections" is triggered
+        selections: React.PropTypes.array,
+        //Function to use on "showSelections" trigger
+        onFilter: React.PropTypes.func,
     },
 
     getDefaultProps() {
@@ -73,6 +78,16 @@ const TableActionBar = React.createClass({
         this.setState({ displaySearch: true });
     },
 
+    _filterOnSelections() {
+        const {selections, onFilter} = this.props;
+
+        if (selections.length && typeof onFilter === 'function') {
+            onFilter(
+                _(selections).map((n) => ['_id', n])
+            );
+        }
+    },
+
     _searchBlur(e) {
         if (e.target.value === '') {
             this.setState({ displaySearch: false });
@@ -107,6 +122,8 @@ const TableActionBar = React.createClass({
             </div>
         );
 
+
+        //Filter Jawbone
         const filterCount = (this.props.currentFilters.length)
                   ? <span className='toggle-filter-text'>{this.props.currentFilters.length}</span>
                   : null;
@@ -122,6 +139,22 @@ const TableActionBar = React.createClass({
             </div>
         );
 
+
+        //Selections icon
+        const selectionsParentClass = classNames('bui-table-toggle-filter-button', {
+            'bui-inactive-filter-button': !this.props.selections.length,
+        });
+        const selectionsCount = (this.props.selections.length)
+                  ? <span className='toggle-filter-text'>{this.props.selections.length}</span>
+                  : null;
+
+        const selectionsFilter = (
+            <div className={selectionsParentClass}>
+                <i className="fa fa-bus table-icon" onClick={this._filterOnSelections} />
+                {selectionsCount}
+            </div>
+        );
+
         return (
             <div className='bui-table-action-bar'>
                 <div className='bui-table-text-holder'>
@@ -131,6 +164,7 @@ const TableActionBar = React.createClass({
                     {tableSearch}
                     {jawboneFilter}
                     <i className="fa fa-arrows-h table-icon" onClick={this.props.justifyColumns} />
+                    {selectionsFilter}
                     {columnChanger}
                 </div>
             </div>
@@ -139,4 +173,4 @@ const TableActionBar = React.createClass({
 
 });
 
-export default TableActionBar;
+export default TableHeader;
