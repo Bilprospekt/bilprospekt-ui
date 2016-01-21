@@ -143,10 +143,11 @@ const TableHeader = React.createClass({
         );
 
 
-        //Selections icon
+        //Selections Icon
         const selectionsParentClass = classNames('bui-table-toggle-filter-button', {
             'bui-inactive-filter-button': !this.props.selections.length,
         });
+
         const selectionsCount = (this.props.selections.length)
                   ? <span className='toggle-filter-text'>{this.props.selections.length}</span>
                   : null;
@@ -158,10 +159,19 @@ const TableHeader = React.createClass({
             </div>
         );
 
+        let headerLabel = this.props.headerLabel;
+        if (this.props.selections.length) {
+            if (this.props.selections.length === 1) {
+                headerLabel = <span className='table-active-selections-label'>Du har markerat {this.props.selections.length} rad</span>;
+            } else {
+                headerLabel = <span className='table-active-selections-label'>Du har markerat {this.props.selections.length} rader</span>;
+            }
+        }
+
         return (
             <div className='bui-table-action-bar'>
                 <div className='bui-table-text-holder'>
-                    {this.props.headerLabel}
+                    {headerLabel}
                 </div>
                 <div className='bui-table-actions-holder'>
                     {tableSearch}
