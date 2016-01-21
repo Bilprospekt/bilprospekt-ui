@@ -103,10 +103,9 @@ const TableActionBar = React.createClass({
         const tableSearch = (
             <div className={tableSearchClass}>
                 <i className="fa fa-search table-icon" onClick={this._displaySearch} />
-                <InputField ref='tableSearchInputRef' onChange={this.props.onSearchChange} hint="Now this is searching" icon="fa-search" onBlur={this._searchBlur} />
+                <InputField ref='tableSearchInputRef' onChange={this.props.onSearchChange} icon="fa-search" onBlur={this._searchBlur} />
             </div>
         );
-
 
         const filterCount = (this.props.currentFilters.length)
                   ? <span className='toggle-filter-text'>{this.props.currentFilters.length}</span>
