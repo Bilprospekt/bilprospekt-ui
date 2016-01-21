@@ -79,11 +79,13 @@ const TableHeader = React.createClass({
     },
 
     _filterOnSelections() {
-        const {selections, onFilter} = this.props;
+        const {currentFilters, selections, onFilter} = this.props;
+        const selectionsFilter = _(selections).map((n) => ['_id', n]);
+        const currentSelectionsFilters = _(currentFilters).filter((n) => n[0] === '_id');
 
         if (selections.length && typeof onFilter === 'function') {
             onFilter(
-                _(selections).map((n) => ['_id', n])
+                currentSelectionsFilters.length ? currentSelectionsFilters : selectionsFilter
             );
         }
     },
@@ -123,13 +125,14 @@ const TableHeader = React.createClass({
         );
 
 
+        const filtersWithoutId = _(this.props.currentFilters).filter((n) => n[0] !== '_id');
         //Filter Jawbone
-        const filterCount = (this.props.currentFilters.length)
-                  ? <span className='toggle-filter-text'>{this.props.currentFilters.length}</span>
+        const filterCount = (filtersWithoutId.length)
+                  ? <span className='toggle-filter-text'>{filtersWithoutId.length}</span>
                   : null;
 
         const jawboneParentClass = classNames('bui-table-toggle-filter-button', {
-            'bui-inactive-filter-button': !this.props.currentFilters.length,
+            'bui-inactive-filter-button': !filtersWithoutId.length,
         });
 
         const jawboneFilter = (

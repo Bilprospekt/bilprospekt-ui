@@ -36,6 +36,9 @@ const TableJawboneFilter = React.createClass({
 
         const filters = _(this.props.currentFilters).groupBy(([key, val]) => key);
 
+        //We dont want _id filters here.
+        delete filters._id;
+
         const filterRows = _(filters)
             .map((values, key) => {
                 values = _(values)
