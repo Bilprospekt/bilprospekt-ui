@@ -111,8 +111,12 @@ const TableActionBar = React.createClass({
                   ? <span className='toggle-filter-text'>{this.props.currentFilters.length}</span>
                   : null;
 
+        const jawboneParentClass = classNames('bui-table-toggle-filter-button', {
+            'bui-inactive-filter-button': !this.props.currentFilters.length,
+        });
+
         const jawboneFilter = (
-            <div className='bui-table-toggle-filter-button'>
+            <div className={jawboneParentClass}>
                 <i className="fa fa-filter table-icon" onClick={this.props.showJawboneFilter} />
                 {filterCount}
             </div>
