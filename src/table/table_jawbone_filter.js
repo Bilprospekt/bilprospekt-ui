@@ -12,7 +12,7 @@ const TableJawboneFilter = React.createClass({
         currentFilters: React.PropTypes.array.isRequired,
         //Holds labels for columns
         columns: React.PropTypes.array,
-        columnFilters: React.PropTypes.array,
+        columnFilters: React.PropTypes.object,
         onChipRemove: React.PropTypes.func,
     },
 
