@@ -48,6 +48,12 @@ $tab-font-size: 20px
     .bui-table-toggle-filter-button
       float: left
       position: relative
+      &.bui-inactive-filter-button
+        .table-icon
+          color: $grey-300
+          cursor: initial
+          &:hover
+            color: $grey-300
       .toggle-filter-text
         position: absolute
         top: 10px
