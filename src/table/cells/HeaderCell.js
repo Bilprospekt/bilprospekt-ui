@@ -4,6 +4,7 @@ import _ from 'underscore';
 import TableFilterPopupComponent from '../table_filter_popup_component.js';
 import FixedDataTable from 'fixed-data-table';
 const {Cell} = FixedDataTable;
+import $ from 'jquery'
 
 const HeaderCell = React.createClass({
     propTypes: {
@@ -38,7 +39,7 @@ const HeaderCell = React.createClass({
     },
     _onFilter(val) {
         if (typeof this.props.onFilter === 'function') {
-            this.props.onFilter([this.props.val, val]);
+            this.props.onFilter([[this.props.val, val]]);
         }
     },
     _onFilterToggle(val) {

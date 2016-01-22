@@ -20,16 +20,22 @@ class DataWrapper {
         this._emit('search', this.search);
     }
 
-    _onFilter(val) {
-        const find = _(this.filter).findIndex((num) => {
-            return val[0] === num[0] && _.isEqual(val[1], num[1]);
-        });
-
-        if (find !== -1) {
-            this.filter.splice(find, 1);
-        } else {
-            this.filter.push(val);
+    _onFilter(values = []) {
+        if (_.isArray(values[0]) === false) {
+            values = [values];
         }
+
+        _(values).each((val) => {
+            const find = _(this.filter).findIndex((num) => {
+                return val[0] === num[0] && _.isEqual(val[1], num[1]);
+            });
+
+            if (find !== -1) {
+                this.filter.splice(find, 1);
+            } else {
+                this.filter.push(val);
+            }
+        });
 
         this._emit('filter', this.filter);
     }
@@ -79,7 +85,13 @@ class DataWrapper {
     }
 
     setData(data, skipEmit = false) {
-        this.data = data;
+        this.data = _(data).map((val) => {
+            if (typeof val._id === 'undefined') {
+                val._id = _.uniqueId('data-wrapper-row_');
+            }
+            return val;
+        });
+
         if (skipEmit === false) {
             this._emit('data', this.data);
         }
@@ -130,15 +142,30 @@ class DataWrapper {
         });
 
         if (this.filter && this.filter.length) {
-            chain = chain.filter((row) => {
-                return _(this.filter).filter((filter) => {
-                    const column = filter[0];
-                    const filterVal = filter[1];
-                    const val = row[column];
-                    if (_.isArray(val)) return val.indexOf(filterVal) !== -1;
-                    return val == filterVal;
-                }).length;
-            });
+
+            //We seperate _id filter with rest, since _id filter has precedence.
+            const selectionFilter = _(this.filter).filter((val) => val[0] === '_id');
+            const restFilter = _(this.filter).difference(selectionFilter);
+
+            if (selectionFilter.length) {
+                chain = chain.filter((row) => {
+                    return _(selectionFilter).filter((filter) => {
+                        return filter[1] === row._id;
+                    }).length;
+                });
+            }
+
+            if (restFilter.length) {
+                chain = chain.filter((row) => {
+                    return _(restFilter).filter((filter) => {
+                        const column = filter[0];
+                        const filterVal = filter[1];
+                        const val = row[column];
+                        if (_.isArray(val)) return val.indexOf(filterVal) !== -1;
+                        return val == filterVal;
+                    }).length;
+                });
+            }
         }
 
         if (this.search) {
@@ -186,7 +213,7 @@ class DataWrapper {
             data: this.getData(),
             columns: this.getColumns(),
             columnFilters: this.getColumnFilters(),
-            currentFilters: this.filter,
+            currentFilters: this.filter.slice(),
             selectedRows: this.selections,
 
             sort: this.sort,

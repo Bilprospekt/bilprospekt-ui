@@ -35,8 +35,17 @@ const TableFilterPopupComponent = React.createClass({
             this.props.onFilter(val);
         }
 
-        //Make sure list updates
-        this.forceUpdate();
+        const {internalSelections} = this.state;
+        const index = _(internalSelections).findIndex((x) => x[1] === val);
+        if (index !== -1) {
+            internalSelections.splice(index, 1);
+        } else {
+            internalSelections.push([this.props.val, val]);
+        }
+
+        this.setState({
+            internalSelections,
+        });
     },
 
     _checkForUnmount(e) {
@@ -47,12 +56,19 @@ const TableFilterPopupComponent = React.createClass({
         }
     },
 
+
+
     componentWillReceiveProps(nextProps) {
+        let obj = {
+            //Delete internal selections when we get new props, correct selections will be included there.
+            internalSelections: this.props.currentFilters.slice() || [],
+        };
+
         if (nextProps.sort) {
-            this.setState({
-                sort: nextProps.sort,
-            });
+            obj.sort = nextProps.sort;
         }
+
+        this.setState(obj);
     },
 
     componentDidMount() {
@@ -71,6 +87,7 @@ const TableFilterPopupComponent = React.createClass({
 
             //Since we're in a seperate tree, we'll need to keep track of sort value ourself.
             sort: this.props.sort || {},
+            internalSelections: this.props.currentFilters.slice() || [],
         };
     },
 
@@ -101,7 +118,7 @@ const TableFilterPopupComponent = React.createClass({
         if (this.state.filterSearch) {
             availableFilters = _(availableFilters)
                 .filter((val) => {
-                    if (this.state.filterSearch) return val.text.indexOf(this.state.filterSearch) !== -1;
+                    if (this.state.filterSearch) return val.text.toLowerCase().indexOf(this.state.filterSearch.toLowerCase()) !== -1;
                     return true;
                 });
         }
@@ -109,7 +126,7 @@ const TableFilterPopupComponent = React.createClass({
         let filters = availableFilters.slice(0, this.state.page * 30);
         filters = _(filters).chain()
                   .sortBy('text').map((val, index) => {
-                    const checked = _(this.props.currentFilters).find((current) => current[0] === this.props.val && current[1] === val.id);
+                    let checked = _(this.state.internalSelections).find((current) => current[0] === this.props.val && current[1] === val.id);
 
                     return (
                         <Checkbox checked={!!checked}
@@ -135,10 +152,10 @@ const TableFilterPopupComponent = React.createClass({
 
         return (
             <div className={componentClassName + ' bui-form-elements-dropdown-holder'} style={popupstyle}>
-                <p className='bui-table-filter-label'>{this.props.columnLabel}</p>
-                <ActionButton label='Stigande' onClick={this._onSort.bind(this, 'ASC')} toggle={true} selected={sortDir === 'ASC'} />
-                <ActionButton label='Fallande' onClick={this._onSort.bind(this, 'DESC')} toggle={true} selected={sortDir === 'DESC'} />
-
+                <div className='bui-table-filter-popup-actions-holder'>
+                    <ActionButton label='Stigande' onClick={this._onSort.bind(this, 'ASC')} toggle={true} selected={sortDir === 'ASC'} />
+                    <ActionButton label='Fallande' onClick={this._onSort.bind(this, 'DESC')} toggle={true} selected={sortDir === 'DESC'} />
+                </div>
                 <InputField onChange={this._onFilterSearch} value={this.state.filterSearch} hint='Sök värden' />
                 <Infinite onInfiniteLoad={this._handleInfiniteLoading}
                     containerHeight={conHeight}

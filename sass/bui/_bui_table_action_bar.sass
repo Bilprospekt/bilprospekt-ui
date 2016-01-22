@@ -11,16 +11,21 @@ $tab-font-size: 20px
   @extend .clear-after
   width: 100%
   height: $tab-height
+  padding: 0 20px
   background-color: white
 
   .bui-table-text-holder
     float: left
     line-height: calc(#{$tab-height} - 1px)
-    margin-left: 13px
+    font-weight: 500
+    color: $grey-800
+    .table-active-selections-label
+      color: $cyan-500
 
   .bui-table-actions-holder
     @extend .clear-after
     float: right
+    margin-right: -8px /* Fixes length problem on the right side */
 
     .bui-table-search
       float: left
@@ -48,6 +53,12 @@ $tab-font-size: 20px
     .bui-table-toggle-filter-button
       float: left
       position: relative
+      &.bui-inactive-filter-button
+        .table-icon
+          color: $grey-300
+          cursor: initial
+          &:hover
+            color: $grey-300
       .toggle-filter-text
         position: absolute
         top: 10px

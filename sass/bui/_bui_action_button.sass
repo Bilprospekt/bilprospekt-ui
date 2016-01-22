@@ -11,8 +11,13 @@
   text-transform: uppercase
   padding: 12px 18px
   min-width: 64px
+  max-width: 100%
+  overflow: hidden
+  text-overflow: ellipsis
+  vertical-align: top
   display: inline-block
   text-align: center
+  white-space: nowrap
   cursor: pointer
   border-radius: 4px
   box-shadow: 0 2px 8px rgba(black, .125)
@@ -52,11 +57,10 @@
     color: $grey-600
     background-color: rgba($grey-600, .0)
     box-shadow: none
+    &.bui-is-selected
+      color: $grey-800
+      background-color: rgba($grey-600, .1)
     &:hover
       background-color: rgba($grey-600, .2)
     &:active
       background-color: rgba($grey-600, .3)
-
-    &.bui-is-selected
-      color: $grey-800
-      background-color: rgba($grey-600, .1)
