@@ -213,8 +213,7 @@ class DataWrapper {
             data: this.getData(),
             columns: this.getColumns(),
             columnFilters: this.getColumnFilters(),
-            //Remove _id filters, not needed below this, and makes trouble.
-            currentFilters: _(this.filter).filter((x) => x[0] !== '_id'),
+            currentFilters: this.filter.slice(),
             selectedRows: this.selections,
 
             sort: this.sort,

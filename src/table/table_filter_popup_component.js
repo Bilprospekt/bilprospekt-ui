@@ -61,7 +61,7 @@ const TableFilterPopupComponent = React.createClass({
     componentWillReceiveProps(nextProps) {
         let obj = {
             //Delete internal selections when we get new props, correct selections will be included there.
-            internalSelections: this.props.currentFilters || [],
+            internalSelections: this.props.currentFilters.slice() || [],
         };
 
         if (nextProps.sort) {
@@ -87,7 +87,7 @@ const TableFilterPopupComponent = React.createClass({
 
             //Since we're in a seperate tree, we'll need to keep track of sort value ourself.
             sort: this.props.sort || {},
-            internalSelections: this.props.currentFilters || [],
+            internalSelections: this.props.currentFilters.slice() || [],
         };
     },
 
@@ -118,7 +118,7 @@ const TableFilterPopupComponent = React.createClass({
         if (this.state.filterSearch) {
             availableFilters = _(availableFilters)
                 .filter((val) => {
-                    if (this.state.filterSearch) return val.text.indexOf(this.state.filterSearch) !== -1;
+                    if (this.state.filterSearch) return val.text.toLowerCase().indexOf(this.state.filterSearch.toLowerCase()) !== -1;
                     return true;
                 });
         }

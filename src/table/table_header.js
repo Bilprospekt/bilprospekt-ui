@@ -18,6 +18,8 @@ const TableHeader = React.createClass({
         currentFilters: React.PropTypes.array,
 
         onSearchChange: React.PropTypes.func,
+        useSearch: React.PropTypes.bool,
+        searchHint: React.PropTypes.string,
 
         showJawboneFilter: React.PropTypes.func,
 
@@ -79,11 +81,13 @@ const TableHeader = React.createClass({
     },
 
     _filterOnSelections() {
-        const {selections, onFilter} = this.props;
+        const {currentFilters, selections, onFilter} = this.props;
+        const selectionsFilter = _(selections).map((n) => ['_id', n]);
+        const currentSelectionsFilters = _(currentFilters).filter((n) => n[0] === '_id');
 
         if (selections.length && typeof onFilter === 'function') {
             onFilter(
-                _(selections).map((n) => ['_id', n])
+                currentSelectionsFilters.length ? currentSelectionsFilters : selectionsFilter
             );
         }
     },
@@ -99,13 +103,13 @@ const TableHeader = React.createClass({
     render() {
         const props = this.props;
         let columnChanger = null;
-        if (props.allColumnsThatCouldBeRendered && props.currentColumns) {
+        if (props.allColumnsThatCouldBeRendered && props.allColumnsThatCouldBeRendered.length && props.currentColumns && props.currentColumns.length) {
             const columns = _(props.allColumnsThatCouldBeRendered).map((column, key) => {
                 const checked = _(props.currentColumns).findWhere({val : column.val});
                 return <DropdownElement key={key} checkboxChecked={!!checked} checkbox label={column.label} onClick={this._onColumnChange.bind(this, column.val)} />
             });
             columnChanger = (
-                <DropdownHolder noArrow orientation="right" icon="fa-cogs table-icon" style={{float: 'left'}}>
+                <DropdownHolder noArrow orientation="right" icon="fa-align-right table-icon" style={{float: 'left'}}>
                     {columns}
                 </DropdownHolder>
             );
@@ -115,21 +119,25 @@ const TableHeader = React.createClass({
             'display-search': this.state.displaySearch,
         });
 
-        const tableSearch = (
-            <div className={tableSearchClass}>
-                <i className="fa fa-search table-icon" onClick={this._displaySearch} />
-                <InputField ref='tableSearchInputRef' onChange={this.props.onSearchChange} icon="fa-search" onBlur={this._searchBlur} />
-            </div>
-        );
+        let tableSearch = null;
 
+        if (this.props.useSearch) {
+            tableSearch = (
+                <div className={tableSearchClass}>
+                    <i className="fa fa-search table-icon" onClick={this._displaySearch} />
+                    <InputField ref='tableSearchInputRef' hint={this.props.searchHint} onChange={this.props.onSearchChange} icon="fa-search" onBlur={this._searchBlur} />
+                </div>
+            );
+        }
 
-        //Jawbone Icon
-        const filterCount = (this.props.currentFilters.length)
-                  ? <span className='toggle-filter-text'>{this.props.currentFilters.length}</span>
+        const filtersWithoutId = _(this.props.currentFilters).filter((n) => n[0] !== '_id');
+        //Filter Jawbone
+        const filterCount = (filtersWithoutId.length)
+                  ? <span className='toggle-filter-text'>{filtersWithoutId.length}</span>
                   : null;
 
         const jawboneParentClass = classNames('bui-table-toggle-filter-button', {
-            'bui-inactive-filter-button': !this.props.currentFilters.length,
+            'bui-inactive-filter-button': !filtersWithoutId.length,
         });
 
         const jawboneFilter = (
