@@ -129,10 +129,12 @@ const TableFilterPopupComponent = React.createClass({
                     let checked = _(this.state.internalSelections).find((current) => current[0] === this.props.val && current[1] === val.id);
 
                     return (
-                        <Checkbox checked={!!checked}
-                            key={index}
-                            onChange={this._onFilter.bind(this, val.id)}
-                            label={val.text} />
+                        <div className='dropdown-element'>
+                            <Checkbox checked={!!checked}
+                                key={index}
+                                onChange={this._onFilter.bind(this, val.id)}
+                                label={val.text} />
+                        </div>
                     )
                   })
                   .value();
@@ -144,7 +146,7 @@ const TableFilterPopupComponent = React.createClass({
             top: this.props.top,
             left: Math.max(0, this.props.left - 171), // Minus self width
             zIndex: 100,
-            height: conHeight + 154,
+            height: conHeight + 107,
             width: 200,
         };
 
@@ -156,7 +158,9 @@ const TableFilterPopupComponent = React.createClass({
                     <ActionButton label='Stigande' onClick={this._onSort.bind(this, 'ASC')} toggle={true} selected={sortDir === 'ASC'} />
                     <ActionButton label='Fallande' onClick={this._onSort.bind(this, 'DESC')} toggle={true} selected={sortDir === 'DESC'} />
                 </div>
-                <InputField onChange={this._onFilterSearch} value={this.state.filterSearch} hint='Sök värden' />
+                <div className='bui-table-filter-popup-search-holder'>
+                    <InputField onChange={this._onFilterSearch} value={this.state.filterSearch} hint='Sök värden' icon='fa-search' />
+                </div>
                 <Infinite onInfiniteLoad={this._handleInfiniteLoading}
                     containerHeight={conHeight}
                     elementHeight={childHeight}
