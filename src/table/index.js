@@ -63,6 +63,12 @@ const TableHolderComponent = React.createClass({
         //On a selection if we have makeRowsSelectable.
         onSelection: React.PropTypes.func,
 
+        //Search hint
+        searchHint: React.PropTypes.string,
+        //If we want or don't want search
+        useSearch: React.PropTypes.bool,
+
+
         //Trigger functions that haven't already been listed.
         onSearch: React.PropTypes.func,
         onFilter: React.PropTypes.func,
@@ -83,6 +89,8 @@ const TableHolderComponent = React.createClass({
             rowHeight: 46,
             headerHeight: 50,
             showLoadingComponent: false,
+            useSearch: true,
+            searchHint: '',
         };
     },
     getInitialState() {
@@ -231,6 +239,8 @@ const TableHolderComponent = React.createClass({
                     showJawboneFilter={this._showJawboneFilter}
                     selections={props.selectedRows}
                     onFilter={this.props.onFilter}
+                    searchHint={this.props.searchHint}
+                    useSearch={this.props.useSearch}
                 />
                 <TableJawboneFilter columns={this.props.allColumnsThatCouldBeRendered}
                     onChipRemove={this._onChipRemove}
