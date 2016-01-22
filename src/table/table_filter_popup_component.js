@@ -152,10 +152,10 @@ const TableFilterPopupComponent = React.createClass({
 
         return (
             <div className={componentClassName + ' bui-form-elements-dropdown-holder'} style={popupstyle}>
-                <p className='bui-table-filter-label'>{this.props.columnLabel}</p>
-                <ActionButton label='Stigande' onClick={this._onSort.bind(this, 'ASC')} toggle={true} selected={sortDir === 'ASC'} />
-                <ActionButton label='Fallande' onClick={this._onSort.bind(this, 'DESC')} toggle={true} selected={sortDir === 'DESC'} />
-
+                <div className='bui-table-filter-popup-actions-holder'>
+                    <ActionButton label='Stigande' onClick={this._onSort.bind(this, 'ASC')} toggle={true} selected={sortDir === 'ASC'} />
+                    <ActionButton label='Fallande' onClick={this._onSort.bind(this, 'DESC')} toggle={true} selected={sortDir === 'DESC'} />
+                </div>
                 <InputField onChange={this._onFilterSearch} value={this.state.filterSearch} hint='Sök värden' />
                 <Infinite onInfiniteLoad={this._handleInfiniteLoading}
                     containerHeight={conHeight}
