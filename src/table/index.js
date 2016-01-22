@@ -37,6 +37,8 @@ const TableHolderComponent = React.createClass({
             React.PropTypes.oneOf(['auto']),
             React.PropTypes.number,
         ]),
+
+        //Max height of table
         height: React.PropTypes.number,
 
         //Current sort value
@@ -214,6 +216,8 @@ const TableHolderComponent = React.createClass({
                   ? <LoadingComponent />
                   : null;
 
+        //50 Is HeaderHeight. We want table to be same size as content. Or max height given by props.height
+        const tableHeight = Math.min(50 + props.data.length * props.rowHeight, props.height)
         return (
             <div ref={(ref) => this._holder = ref} style={{position: 'relative'}} className='bui-table-holder'>
                 <TableHeader
@@ -242,7 +246,7 @@ const TableHolderComponent = React.createClass({
                     rowHeight={props.rowHeight}
                     rowsCount={props.data.length}
                     width={props.makeRowsSelectable ? totalWidth + selectorColumnWidth : totalWidth}
-                    height={props.height}
+                    height={tableHeight}
                     headerHeight={props.headerHeight}>
                 {cols}
                 </Table>
