@@ -118,7 +118,7 @@ const TableFilterPopupComponent = React.createClass({
         if (this.state.filterSearch) {
             availableFilters = _(availableFilters)
                 .filter((val) => {
-                    if (this.state.filterSearch) return val.text.indexOf(this.state.filterSearch) !== -1;
+                    if (this.state.filterSearch) return val.text.toLowerCase().indexOf(this.state.filterSearch.toLowerCase()) !== -1;
                     return true;
                 });
         }
