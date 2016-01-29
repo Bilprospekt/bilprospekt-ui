@@ -132,6 +132,7 @@ var BilprospektUiComponent = React.createClass({
 
         let searchableSelectData = [
             { label: 'Sölvesborg kommun', id: 'ddi1', value: 'ddv1' },
+            { label: 'Number id', id: 13, value: 13},
             { label: 'Älvdalen kommun', id: 'ddi2', value: 'ddv2' },
             { label: 'Alvesta kommun', id: 'ddi3', value: 'ddv3' },
             { label: 'Ludvika kommun', id: 'ddi4', value: 'ddv4' },
