@@ -78,8 +78,9 @@ const BuiSearchableSelect = React.createClass({
     render() {
         let dropdown = null;
         let options = _(this.props.data).map((option, index) => {
-            let checked = this.state.checked.indexOf(option.id) !== -1;
-            return <BuiCheckbox key={index} label={option.label} id={option.id} value={option.value} checked={checked} onChange={this.onAdd} />
+            const id = '' + option.id; //Checkbox expects string as id.
+            let checked = this.state.checked.indexOf(id) !== -1;
+            return <BuiCheckbox key={index} label={option.label} id={id} value={option.value} checked={checked} onChange={this.onAdd} />
         })
 
         if (this.state.expanded) {
