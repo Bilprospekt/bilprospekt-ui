@@ -46,15 +46,15 @@ const BuiSearchableSelect = React.createClass({
             this.setState({checked: all, toggle: 'Avmarkera alla'});
         }
     },
-    onAdd(event, isChecked) {
+    onAdd(id, event, isChecked) {
         let checked = this.state.checked;
 
         //Allow 0 as id
-        const validId = (event.target.id || event.target.id === 0);
+        const validId = (id || id === 0);
         if (isChecked && validId) {
-            checked.push(event.target.id);
-        } else if(validId && checked.indexOf(event.target.id) !== -1) {
-            checked.splice(checked.indexOf(event.target.id), 1);
+            checked.push(id);
+        } else if(validId && checked.indexOf(id) !== -1) {
+            checked.splice(checked.indexOf(id), 1);
         }
 
         this.setState({checked: checked, toggle: 'Markera alla'});
@@ -77,9 +77,10 @@ const BuiSearchableSelect = React.createClass({
     },
     render() {
         let dropdown = null;
-        let options = _(this.props.data).map((option, index) => {
-            let checked = this.state.checked.indexOf(option.id) !== -1;
-            return <BuiCheckbox key={index} label={option.label} id={option.id} value={option.value} checked={checked} onChange={this.onAdd} />
+        const options = _(this.props.data).map((option, index) => {
+            const id = option.id;
+            const checked = this.state.checked.indexOf(id) !== -1;
+            return <BuiCheckbox key={index} label={option.label} id={'' + id} checked={checked} onChange={this.onAdd.bind(this, id)} />
         })
 
         if (this.state.expanded) {

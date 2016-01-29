@@ -19,6 +19,9 @@ const BuiCheckbox = React.createClass({
         if (typeof this.props.onChange === 'function') {
             this.props.onChange(event, !this.props.checked);
         }
+
+        event.preventDefault();
+        event.stopPropagation();
     },
     render() {
         const props = {
@@ -44,7 +47,7 @@ const BuiCheckbox = React.createClass({
         return (
             <div onClick={this._onClick} className={parentClass}>
                 <input {...props} />
-                <label htmlFor={this.props.id}>
+                <label htmlFor={'' + this.props.id}>
                     <div className='icon' />
                     {label}
                 </label>
