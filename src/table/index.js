@@ -6,6 +6,8 @@ import TableJawboneFilter from './table_jawbone_filter';
 import $ from 'jquery';
 const debug = require('debug')('bilprospekt-ui:table');
 
+import Loader from '../loader';
+
 const {Table, Column, Cell} = FixedDataTable;
 
 import {HeaderCell, NormalCell, SelectorCell} from './cells';
@@ -220,12 +222,12 @@ const TableHolderComponent = React.createClass({
             )
         }
 
+        const tableHeight = props.height;
+
         const loadingComponent = props.showLoadingComponent
-                  ? <LoadingComponent />
+                  ? <LoadingComponent height={tableHeight} numResults={props.data.length}  />
                   : null;
 
-        //50 Is HeaderHeight. We want table to be same size as content. Or max height given by props.height
-        const tableHeight = Math.min(50 + Math.max(props.data.length, 1) * props.rowHeight, props.height)
         return (
             <div ref={(ref) => this._holder = ref} style={{position: 'relative'}} className='bui-table-holder'>
                 <TableHeader
@@ -270,6 +272,8 @@ const TableHolderComponent = React.createClass({
 const LoadingComponent = React.createClass({
     propTypes: {
         loadingText: React.PropTypes.string,
+        height: React.PropTypes.number,
+        numResults: React.PropTypes.number,
     },
     getDefaultProps() {
         return {
@@ -277,25 +281,28 @@ const LoadingComponent = React.createClass({
         };
     },
     render() {
+        const {numResults, height} = this.props;
+
+        const hasLoadedResults = numResults > 0;
         const loadingStyle = {
             position: 'absolute',
             bottom: 0,
             width: '100%',
-            textAlign: 'center',
-            paddingTop: 6,
-            backgroundColor: 'rgba(255, 255, 255, 0.9)',
-            height: 35,
-            fontSize: 14,
+
+            //50 is headerHeight
+            height: (hasLoadedResults) ? 40 : height - 50,
+            backgroundColor: (hasLoadedResults) ? 'rgba(255, 255, 255, 0.9)' : 'white',
         };
 
         const textStyle = {
             paddingLeft: 5,
         };
 
+        const text = (hasLoadedResults) ? '' : this.props.loadingText;
+
         return (
             <div style={loadingStyle}>
-                <i className='fa fa-spinner fa-spin' />
-                <span style={textStyle}>{this.props.loadingText}</span>
+                <Loader message={text} />
             </div>
         )
     }
