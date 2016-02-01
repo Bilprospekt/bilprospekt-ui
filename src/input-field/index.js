@@ -53,17 +53,21 @@ const BuiInputField = React.createClass({
     },
     render() {
         const parentClass = classNames('bui-input-field', {
-            'input-is-focused'  : this.state.focus,
-            'input-is-disabled' : this.props.disabled,
-            'input-has-icon'    : this.props.icon,
-            'input-has-value'   : this.state.value,
-            'input-has-error'   : this.props.error,
+            'input-is-focused': this.state.focus,
+            'input-is-disabled': this.props.disabled,
+            'input-has-icon': this.props.icon,
+            'input-has-value': this.state.value,
+            'input-has-error': this.props.error,
         }, this.props.className);
 
         const icon = (this.props.icon) ? <i className={'input-icon fa ' + this.props.icon} /> : null ;
         const value = this.state.value;
 
         const inputType = (this.props.password) ? 'password' : 'text' ;
+
+        const hintClass = classNames('input-text-hint', {
+            'hint-is-floating': this.props.floatingHint,
+        });
 
         const props = {
             type: inputType,
@@ -78,7 +82,7 @@ const BuiInputField = React.createClass({
             <div className={parentClass}>
                 <div className='input-disable-overlay' />
                 <div className='input-icon-holder'>{icon}</div>
-                <div className='input-text-hint'>{this.props.hint}</div>
+                <div className={hintClass}>{this.props.hint}</div>
                 <div className='input-text-value'>
                     <input {...props} ref={(ref) => this._field = ref} onChange={this._handleChange} onFocus={this._handleFocus} onBlur={this._handleBlur} />
                 </div>

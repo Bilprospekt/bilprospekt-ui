@@ -265,6 +265,12 @@ var BilprospektUiComponent = React.createClass({
                             <td><ComponentSegment name='BuiInputField' prop={['hint']} propType={['string']} /></td>
                         </tr>
                         <tr>
+                            <td><BuiInputField hint='Hint text' floatingHint={true} /></td>
+                            <td>Normal with staying hint text</td>
+                            <td><p className='code-type type-component'>Component</p></td>
+                            <td><ComponentSegment name='BuiInputField' prop={['hint', 'floatingHint']} propType={['string','true']} /></td>
+                        </tr>
+                        <tr>
                             <td><BuiInputField hint='Search for prospect' icon='fa-search' /></td>
                             <td>Normal with hint text and icon</td>
                             <td><p className='code-type type-component'>Component</p></td>

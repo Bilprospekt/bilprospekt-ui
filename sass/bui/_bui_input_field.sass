@@ -4,11 +4,11 @@
  *
  */
 
-$inputFieldWidth:         200px
-$inputFieldHeight:        30px
+$inputFieldWidth:  200px
+$inputFieldHeight: 30px
 
 $BuiActive:   $grey-800
-$BuiPassive:     $grey-500
+$BuiPassive:  $grey-500
 $BuiDisabled: $grey-300
 $BuiError:    $red-400
 
@@ -69,7 +69,10 @@ $BuiError:    $red-400
     top: 7px
     left: 0
     color: $BuiPassive
-    @include transition( opacity .3s ease, padding-left .2s ease )
+    transform: translateY(0%)
+    ms-transform: translateY(0%)
+    -webkit-transform: translateY(0%)
+    @include transition( all .125s ease-out )
 
   .input-text-error
     position: absolute
@@ -98,6 +101,13 @@ $BuiError:    $red-400
     .input-text-hint
       opacity: 0
       padding-left: 10px
+      &.hint-is-floating
+        opacity: 1
+        padding-left: 0
+        font-size: .8em
+        transform: translateY(-120%)
+        -ms-transform: translateY(-120%)
+        -webkit-transform: translateY(-120%)
 
   // Input is focused
   &.input-is-focused
@@ -105,6 +115,14 @@ $BuiError:    $red-400
       width: 100%
     .input-icon
       color: $highlightColor
+    .input-text-hint
+      &.hint-is-floating
+        opacity: 1
+        padding-left: 0
+        font-size: .8em
+        transform: translateY(-120%)
+        -ms-transform: translateY(-120%)
+        -webkit-transform: translateY(-120%)
 
   // Input has error
   &.input-has-error
