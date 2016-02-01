@@ -231,6 +231,12 @@ var BilprospektUiComponent = React.createClass({
                             </td>
                             <td><p className='code-type type-component'>Component</p></td>
                         </tr>
+                        <tr>
+                            <td>
+                            <BuiSearchableSelect icon='fa-search' hint='Sök efter län/kommun' data={searchableSelectData} onSave={this.onSave} />
+                            </td>
+                            <td><p className='code-type type-component'>Component</p></td>
+                        </tr>
                     </tbody>
                 </table>
                 <p className='table-header-label'>Inline Edit</p>
@@ -264,6 +270,12 @@ var BilprospektUiComponent = React.createClass({
                             <td>Normal with hint text</td>
                             <td><p className='code-type type-component'>Component</p></td>
                             <td><ComponentSegment name='BuiInputField' prop={['hint']} propType={['string']} /></td>
+                        </tr>
+                        <tr>
+                            <td><BuiInputField hint='Hint text' floatingHint={true} /></td>
+                            <td>Normal with staying hint text</td>
+                            <td><p className='code-type type-component'>Component</p></td>
+                            <td><ComponentSegment name='BuiInputField' prop={['hint', 'floatingHint']} propType={['string','true']} /></td>
                         </tr>
                         <tr>
                             <td><BuiInputField hint='Search for prospect' icon='fa-search' /></td>

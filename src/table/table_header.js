@@ -35,6 +35,7 @@ const TableHeader = React.createClass({
     getDefaultProps() {
         return {
             currentFilters: [],
+            selections: [],
         };
     },
 
