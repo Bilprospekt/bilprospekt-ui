@@ -111,8 +111,6 @@ const BuiSearchableSelect = React.createClass({
             'is-expanded' : this.state.expanded,
         });
 
-        console.log('focus', this.state.focus);
-
         return (
             <div className={classes}>
                 <BuiInputField icon={this.props.icon} hint={this.props.hint} onChange={this.onSearch} onFocus={this.onFocus} onBlur={this.onBlur} value={this.state.inputValue} />
