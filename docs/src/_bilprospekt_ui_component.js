@@ -230,6 +230,12 @@ var BilprospektUiComponent = React.createClass({
                             </td>
                             <td><p className='code-type type-component'>Component</p></td>
                         </tr>
+                        <tr>
+                            <td>
+                            <BuiSearchableSelect icon='fa-search' hint='Sök efter län/kommun' data={searchableSelectData} onSave={this.onSave} />
+                            </td>
+                            <td><p className='code-type type-component'>Component</p></td>
+                        </tr>
                     </tbody>
                 </table>
                 <p className='table-header-label'>Inline Edit</p>

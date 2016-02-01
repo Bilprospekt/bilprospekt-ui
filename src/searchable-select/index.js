@@ -17,6 +17,7 @@ const BuiSearchableSelect = React.createClass({
     },
     getInitialState() {
         return {
+            focus: false,
             expanded: false,
             inputValue: null,
             checked: [],
@@ -24,9 +25,17 @@ const BuiSearchableSelect = React.createClass({
         };
     },
     onFocus(event) {
+        this.setState({ focus: true });
+
         if (event.target.value !== '') {
             this.onSearch(event.target.value);
         }
+    },
+    onBlur() {
+        this.setState({
+            focus: false,
+            expanded: false
+        });
     },
     onSearch(value) {
         if (typeof this.props.onChange === 'function') {
@@ -35,7 +44,7 @@ const BuiSearchableSelect = React.createClass({
 
         this.setState({
             inputValue: value,
-            expanded: value === '' ? false : true
+            expanded: (value === '' && focus) ? false : true
         });
     },
     onToggleAll() {
@@ -101,9 +110,11 @@ const BuiSearchableSelect = React.createClass({
             'is-expanded' : this.state.expanded,
         });
 
+        console.log('focus', this.state.focus);
+
         return (
             <div className={classes}>
-                <BuiInputField icon={this.props.icon} hint={this.props.hint} onChange={this.onSearch} onFocus={this.onFocus} value={this.state.inputValue} />
+                <BuiInputField icon={this.props.icon} hint={this.props.hint} onChange={this.onSearch} onFocus={this.onFocus} onBlur={this.onBlur} value={this.state.inputValue} />
                 <i className='search-adder-dropdown-indicator-icon fa fa-caret-down' />
                 {dropdown}
             </div>
