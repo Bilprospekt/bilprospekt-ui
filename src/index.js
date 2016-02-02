@@ -21,6 +21,7 @@ import Toggle from './toggle';
 import Radio from './radio';
 import Chips from './chips';
 import Loader from './loader';
+import Tabs from './tabs';
 
 import {Select, Option} from './select';
 
@@ -44,4 +45,5 @@ export {
   Option,
   Chips,
   Loader,
+  Tabs,
 };

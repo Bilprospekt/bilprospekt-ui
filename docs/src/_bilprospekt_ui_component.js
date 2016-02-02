@@ -22,6 +22,7 @@ import BilprospektRadioDoc from './_bilprospekt_radio_component.js';
 import BilprospektSelectDoc from './_bilprospekt_select_component.js';
 import BilprospektChipsDoc from './_bilprospekt_chips_component.js';
 import BilprospektLoaderDoc from './_bilprospekt_loader_component.js';
+import BilprospektTabsDoc from './_bilprospekt_tabs_component.js';
 
 var CodeSegment = React.createClass({
     render() {
@@ -147,6 +148,7 @@ var BilprospektUiComponent = React.createClass({
         return (
             <div id='bilprospekt-ui-styling-holder'>
                 <p className='master-header'>Bilprospekt 2.0 Style Guide</p>
+                <BilprospektTabsDoc />
                 <BilprospektDatePickerDoc />
                 <BilprospektTableDoc />
                 <BilprospektTooltipDoc />
