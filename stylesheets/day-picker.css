@@ -2,7 +2,7 @@
 
 .DayPicker {
   width: 286px;
-  line-height: initial;
+  line-height: 38px;
   display: block;
   position: relative;
   background-color: white;
