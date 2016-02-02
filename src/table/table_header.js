@@ -26,6 +26,7 @@ const TableHeader = React.createClass({
         justifyColumns: React.PropTypes.func,
         headerLabel: React.PropTypes.node,
 
+        makeRowsSelectable: React.PropTypes.bool,
         //If we have any selections that should be used when "showSelections" is triggered
         selections: React.PropTypes.array,
         //Function to use on "showSelections" trigger
@@ -36,6 +37,7 @@ const TableHeader = React.createClass({
         return {
             currentFilters: [],
             selections: [],
+            makeRowsSelectable: false,
         };
     },
 
@@ -158,12 +160,15 @@ const TableHeader = React.createClass({
                   ? <span className='toggle-filter-text'>{this.props.selections.length}</span>
                   : null;
 
-        const selectionsFilter = (
-            <div className={selectionsParentClass}>
-                <i className="fa fa-bus table-icon" onClick={this._filterOnSelections} />
-                {selectionsCount}
-            </div>
-        );
+        let selectionsFilter = null;
+        if (this.props.makeRowsSelectable) {
+            selectionsFilter = (
+                <div className={selectionsParentClass}>
+                    <i className="fa fa-bus table-icon" onClick={this._filterOnSelections} />
+                    {selectionsCount}
+                </div>
+            );
+        }
 
         let headerLabel = this.props.headerLabel;
         if (this.props.selections.length) {

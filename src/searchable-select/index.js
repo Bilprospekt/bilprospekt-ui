@@ -44,7 +44,7 @@ const BuiSearchableSelect = React.createClass({
 
         this.setState({
             inputValue: value,
-            expanded: (value === '' && focus) ? false : true
+            expanded: (value === '' && this.state.focus) ? false : true
         });
     },
     onToggleAll() {

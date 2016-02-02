@@ -240,6 +240,7 @@ const TableHolderComponent = React.createClass({
                     headerLabel={this.props.headerLabel}
                     showJawboneFilter={this._showJawboneFilter}
                     selections={props.selectedRows}
+                    makeRowsSelectable={props.makeRowsSelectable}
                     onFilter={this.props.onFilter}
                     searchHint={this.props.searchHint}
                     useSearch={this.props.useSearch}
