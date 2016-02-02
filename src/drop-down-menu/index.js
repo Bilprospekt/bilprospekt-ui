@@ -127,7 +127,7 @@ const DropdownHolder = React.createClass({
         let elementsHolderStyle = {};
 
         if (this.props.orientation === 'right') {
-            elementsHolderStyle.left = 'initial';
+            elementsHolderStyle.left = 'auto';
             elementsHolderStyle.right = 0;
         }
 

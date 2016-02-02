@@ -584,7 +584,7 @@ body[dir="rtl"] .fixedDataTableColumnResizerLineLayout_main {
  */
 
 .public_fixedDataTableCell_cellContent .bui-form-element {
-  min-width: initial;
+  min-width: auto;
   text-align: center;
 }
 
