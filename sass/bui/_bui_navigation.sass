@@ -1,0 +1,232 @@
+/*
+ *
+ * BUI: NAVIGATION
+ *
+ */
+
+$navWidth: 240px
+$cb: cubic-bezier(.17,.67,0,1)
+
+.bui-navigation-holder
+  height: 100%
+  width: $navWidth
+  position: relative
+  background-color: white
+  padding-top: 20px
+  @include transition(width .225s $cb)
+
+  .navigation-search-holder
+    .search-button
+      position: relative
+      width: calc(100% - 40px)
+      margin: 0 20px
+      padding: 10px 0
+      background-color: $cyan-500
+      border-radius: 4px
+      text-align: center
+      white-space: nowrap
+      cursor: pointer
+      @include transition(all .225s $cb)
+      .search-icon,
+      .search-label
+        display: inline-block
+        color: white
+        font-size: 14px
+        text-transform: uppercase
+        font-weight: 600
+      .search-icon
+        width: 20px
+        text-align: center
+        @include transition(width .225s $cb)
+      .search-label
+        opacity: 1
+        @include transition(opacity .125s ease)
+
+    /*
+     * Search Popup Style
+     */
+
+    .search-popup-parent
+      position: absolute
+      z-index: 5
+      top: 10px
+      left: 100%   
+      background-color: white
+      box-shadow: 0 2px 8px rgba(black, .125)
+      border-radius: 4px
+      margin-left: 10px
+      cursor: default
+      width: 0
+      height: 0
+      overflow: hidden
+      @include transition(width .175s $cb, height .175s $cb)
+
+      .popup-holder
+        width: 240px
+        height: 526px
+        opacity: 0
+        @include transform(scale(.85))
+        @include transition(transform .125s $cb, opacity .075s ease)
+        transition-delay: .125s
+        .popup__search-field
+          @extend .clear-after
+          padding: 13px 20px
+          border-bottom: 1px solid $grey-300
+          .bui-input-field
+            float: left
+            width: 180px
+            .input-underlines
+              display: none
+          .search-close-button
+            float: left
+            width: 20px
+            line-height: 20px
+            text-align: center
+            margin: 5px 0
+            font-size: 14px
+            color: $grey-500
+            cursor: pointer
+            &:hover
+              color: $red-400
+        .popup__empty-state
+          position: relative
+          height: calc(100% - 57px)
+          width: 100%
+          display: table
+          .empty-state-content
+            display: table-cell
+            vertical-align: middle
+            text-align: center
+          .empty-state-icon
+            font-size: 28px
+            color: $grey-300
+            margin: 0 8px
+          .empty-state-text
+            font-size: 16px
+            color: $grey-400
+            margin-top: 10px
+        .popup__result-state
+          padding: 20px
+          .bui-action-button
+            width: 100%
+          .result-item
+            @extend .clear-after
+            cursor: pointer
+            &:not(:last-of-type)
+              margin-bottom: 10px
+            &:hover
+              .item-type
+                background-color: $cyan-500
+              .item-name
+                color: $grey-800
+                font-weight: 500
+            .item-type,
+            .item-name
+              float: left
+            .item-type
+              background-color: $grey-500
+              border-radius: 100%
+              width: 30px
+              height: 30px
+              margin-right: 10px
+              text-align: center
+              .type-icon
+                font-size: 14px
+                color: white
+                line-height: 30px
+            .item-name
+              font-size: 15px
+              line-height: 30px
+              color: $grey-600
+
+      &.is-showing
+        width: 240px
+        height: 526px
+        .popup-holder
+          opacity: 1
+          @include transform(scale(1))
+          
+  .navigation-toggle-button
+    position: absolute
+    bottom: 0
+    width: 100%
+    text-align: right
+    border-top: 1px solid $grey-200
+    cursor: pointer
+    &:hover
+      background-color: $grey-50
+      .toggle-hint
+        max-width: 120px
+        opacity: 1
+    .toggle-icon
+      line-height: 40px
+      width: 40px
+      text-align: center
+      font-size: 20px
+      color: $grey-700
+      @include transition(width .225s $cb)
+    .toggle-hint
+      position: absolute
+      z-index: 5
+      left: 100%
+      top: 0
+      margin: 5px
+      white-space: nowrap
+      color: white
+      font-size: 12px
+      font-weight: 500
+      padding: 8px
+      background-color: rgba(black, .75)
+      border-radius: 4px
+      overflow: hidden
+      max-width: 0
+      opacity: 0
+      @include transition(all .125s ease)
+
+  .navigation-links
+    margin-top: 20px
+    .link-row
+      @extend .clear-after
+      white-space: nowrap
+      color: $grey-700
+      cursor: pointer
+      &:not(:last-of-type)
+        margin-bottom: 20px
+      &:hover
+        color: $grey-900
+      .link-icon,
+      .link-label
+        display: inline-block
+        opacity: 1
+        @include transition(opacity .125s ease)
+      .link-icon
+        font-size: 20px
+        width: 20px
+        margin: 0 20px
+        text-align: center
+      .link-string
+        font-weight: 500
+
+  /*
+   * Minimized Menu Style
+   */
+
+  &.nav-is-minimized
+    width: 60px
+
+    .navigation-search-holder
+      .search-button
+        width: 40px
+        margin: 0 10px
+        .search-icon
+          width: 40px
+        .search-label
+          opacity: 0
+
+    .navigation-toggle-button
+      .toggle-icon
+        width: 60px
+
+    .navigation-links
+      .link-label
+        opacity: 0
