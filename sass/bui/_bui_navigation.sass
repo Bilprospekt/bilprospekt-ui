@@ -112,6 +112,7 @@ $cb: cubic-bezier(.17,.67,0,1)
           .result-item
             @extend .clear-after
             cursor: pointer
+            white-space: nowrap
             &:not(:last-of-type)
               margin-bottom: 10px
             &:hover
@@ -135,6 +136,9 @@ $cb: cubic-bezier(.17,.67,0,1)
                 color: white
                 line-height: 30px
             .item-name
+              width: calc(100% - 40px)
+              overflow: hidden
+              text-overflow: ellipsis
               font-size: 15px
               line-height: 30px
               color: $grey-600

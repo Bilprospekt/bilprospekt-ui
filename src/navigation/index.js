@@ -108,7 +108,7 @@ const Navigation = React.createClass({
         } else {
             searchContentState = (
                 <div className='popup__result-state'>
-                    <SearchItem icon='fa-user' name='Niklas Silfverström' />
+                    <SearchItem icon='fa-user' name='Niklas Silfverström Von Javascript' />
                     <SearchItem icon='fa-user' name='Viktor Silfverström' />
                     <SearchItem icon='fa-building' name='Silfverströms Bilar' />
                     <SearchItem icon='fa-briefcase' name='Silfverström AB' />
