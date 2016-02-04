@@ -15,9 +15,19 @@ const NavigationDoc = React.createClass({
         ];
 
         return (
-            <div style={{height: 500}}>
+            <div>
                 <p className="table-header-label">Navigation</p>
                 <Navigation links={navLinks} searchButton={true} />
+
+                <pre>
+                    <code>
+                        {
+                            [
+                            '<Nav links=[array] searchButton={true} />',
+                            ]
+                        }
+                    </code>
+                </pre>
             </div>
         );
     },

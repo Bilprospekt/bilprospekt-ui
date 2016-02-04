@@ -69,8 +69,6 @@ const Navigation = React.createClass({
 
     render() {
 
-        console.log('search value', this.state.searchValue);
-
         /*
          * Navigation Links
          */

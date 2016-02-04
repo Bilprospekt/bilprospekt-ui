@@ -27,6 +27,10 @@ $cb: cubic-bezier(.17,.67,0,1)
       white-space: nowrap
       cursor: pointer
       @include transition(all .225s $cb)
+      &:hover
+        background-color: $cyan-400
+      &:active
+        background-color: $cyan-600
       .search-icon,
       .search-label
         display: inline-block
