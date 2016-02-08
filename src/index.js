@@ -25,6 +25,7 @@ import Tabs from './tabs';
 import Navigation from './navigation';
 import Header from './header';
 import ViewWrapper from './view-wrapper';
+import BaseWrapper from './base-wrapper';
 
 import {Select, Option} from './select';
 
@@ -52,4 +53,5 @@ export {
   Navigation,
   Header,
   ViewWrapper,
+  BaseWrapper,
 };

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import _                    from 'underscore';
+import $                    from 'jquery';
 import classNames           from 'classnames';
 
 const Tabs = React.createClass({
@@ -20,28 +21,45 @@ const Tabs = React.createClass({
         };
     },
 
+    componentDidMount() {
+        // Call for initial position
+        this._changeTab(this.state.selectedTab);
+        _.each(this.refs, function(button) {
+            console.log('button', button);
+        });
+    },
+
     _changeTab(index) {
         this.setState({ selectedTab: index });
+
+        // Call for animation
+        const $button = $(this.refs['buttonRef' + index]);
+        this._animateTab($button.outerWidth(), $button.position().left);
 
         if (typeof this.props.onChange === 'function') {
             this.props.onChange(index);
         }
     },
 
-    componentDidUpdate() {
+    _animateTab(width, left) {
         const $tab = $(this.refs.tabRef);
         $tab.animate({
-            left: (this.state.selectedTab) * 120
-        }, 225, 'swing');
+            width: width,
+            left: left,
+        }, 175, 'swing');
     },
 
     render() {
         const labels = _(this.props.labels).map((label, index) => {
-            if (index === this.state.selectedTab) {
-                return <div className='menu-labels__button button-selected' onClick={this._changeTab.bind(this, index)}>{label}</div>;
-            } else {
-                return <div className='menu-labels__button' onClick={this._changeTab.bind(this, index)}>{label}</div>;
-            }
+            const buttonClass = classNames('menu-labels__button', {
+                'button-selected': (index === this.state.selectedTab),
+            });
+
+            return (
+                <div key={index} className={buttonClass} onClick={this._changeTab.bind(this, index)} ref={'buttonRef' + index}>
+                    {label}
+                </div>
+            );
         });
 
         return (

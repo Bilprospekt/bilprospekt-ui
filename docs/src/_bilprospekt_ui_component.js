@@ -25,6 +25,8 @@ import BilprospektLoaderDoc from './_bilprospekt_loader_component.js';
 import BilprospektTabsDoc from './_bilprospekt_tabs_component.js';
 import BilprospektNavigationDoc from './_bilprospekt_navigation_component.js';
 import BilprospektViewWrapperDoc from './_bilprospekt_view_wrapper_component.js';
+import BilprospektBaseWrapperDoc from './_bilprospekt_base_wrapper_component.js';
+import BilprospektAppDoc from './_bilprospekt_app_component.js';
 
 var CodeSegment = React.createClass({
     render() {
@@ -150,6 +152,8 @@ var BilprospektUiComponent = React.createClass({
         return (
             <div id='bilprospekt-ui-styling-holder'>
                 <p className='master-header'>Bilprospekt 2.0 Style Guide</p>
+                <BilprospektAppDoc />
+                <BilprospektBaseWrapperDoc />
                 <BilprospektViewWrapperDoc />
                 <BilprospektNavigationDoc />
                 <BilprospektTabsDoc />

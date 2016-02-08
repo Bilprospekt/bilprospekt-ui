@@ -8,10 +8,12 @@ $navWidth: 240px
 $cb: cubic-bezier(.17,.67,0,1)
 
 .bui-navigation-holder
+  float: left
   height: 100%
   width: $navWidth
   position: relative
   background-color: white
+  border-right:  1px solid $grey-200
   @include transition(width .225s $cb)
 
   .navigation-logotype
