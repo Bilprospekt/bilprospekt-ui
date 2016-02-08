@@ -42,6 +42,7 @@ const BuiInputField = React.createClass({
             this.props.onChange(event.target.value);
         }
         this.setState({ value: event.target.value });
+
     },
     _handleFocus(e) {
         this.setState({ focus: true });

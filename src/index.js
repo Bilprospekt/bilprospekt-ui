@@ -23,6 +23,8 @@ import Chips from './chips';
 import Loader from './loader';
 import Tabs from './tabs';
 import Navigation from './navigation';
+import Header from './header';
+import ViewWrapper from './view-wrapper';
 
 import {Select, Option} from './select';
 
@@ -48,4 +50,6 @@ export {
   Loader,
   Tabs,
   Navigation,
+  Header,
+  ViewWrapper,
 };

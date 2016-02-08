@@ -12,10 +12,29 @@ $cb: cubic-bezier(.17,.67,0,1)
   width: $navWidth
   position: relative
   background-color: white
-  padding-top: 20px
   @include transition(width .225s $cb)
 
+  .navigation-logotype
+    height: 112px
+    padding: 20px
+    background-color: white
+    border-bottom: 1px solid $grey-200
+    .logotype-big,
+    .logotype-small
+      position: absolute
+      top: 0
+      left: 0
+      height: 54px
+    .logotype-big
+      //background-image: url('../sass/img/bilprospekt_logo_big.png')
+      width: 200px
+    .logotype-small
+      width: 46px
+      //background-image: url('../sass/img/bilprospekt_logo_small.png')
+
   .navigation-search-holder
+    position: relative
+    margin-top: 20px
     .search-button
       position: relative
       width: calc(100% - 40px)
@@ -53,7 +72,7 @@ $cb: cubic-bezier(.17,.67,0,1)
     .search-popup-parent
       position: absolute
       z-index: 5
-      top: 10px
+      top: -10px
       left: 100%   
       background-color: white
       box-shadow: 0 2px 8px rgba(black, .125)

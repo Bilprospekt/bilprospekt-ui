@@ -169,6 +169,10 @@ const Navigation = React.createClass({
 
         return (
             <div className={parentClass}>
+                <div className='navigation-logotype'>
+                    <div className='logotype-big' />
+                    <div className='logotype-small' />
+                </div>
                 {navSearch}
                 <div className='navigation-links'>{navLinks}</div>
                 <div className='navigation-toggle-button' onClick={this._toggleMenuSize}>
