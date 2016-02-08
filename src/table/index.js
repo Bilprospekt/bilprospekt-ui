@@ -53,6 +53,10 @@ const TableHolderComponent = React.createClass({
         }),
 
         showLoadingComponent: React.PropTypes.bool,
+        showNoResultsMessageComponent: React.PropTypes.bool,
+
+        // Message to show if there are no search results
+        noResultsMessage: React.PropTypes.string,
 
         rowHeight: React.PropTypes.number,
         headerHeight: React.PropTypes.number,
@@ -91,8 +95,10 @@ const TableHolderComponent = React.createClass({
             rowHeight: 46,
             headerHeight: 50,
             showLoadingComponent: false,
+            showNoResultsMessageComponent: false,
             useSearch: true,
             searchHint: '',
+            noResultsMessage: null,
         };
     },
     getInitialState() {
@@ -228,6 +234,10 @@ const TableHolderComponent = React.createClass({
                   ? <LoadingComponent height={tableHeight} numResults={props.data.length}  />
                   : null;
 
+        const noResultsMessageComponent = props.showNoResultsMessageComponent && props.noResultsMessage && !props.showLoadingComponent
+        ? <NoResultsMessageComponent height={tableHeight} message={props.noResultsMessage} />
+        : null;
+
         return (
             <div ref={(ref) => this._holder = ref} style={{position: 'relative'}} className='bui-table-holder'>
                 <TableHeader
@@ -264,7 +274,41 @@ const TableHolderComponent = React.createClass({
                 {cols}
                 </Table>
                 {loadingComponent}
+                {noResultsMessageComponent}
                 <div id='bui-table-popup-holder' style={{position: 'absolute', top: 0, left: 0, }}/>
+            </div>
+        );
+    }
+});
+
+const NoResultsMessageComponent = React.createClass({
+    propTypes: {
+        height: React.PropTypes.number,
+        message: React.PropTypes.string,
+    },
+    getDefaultProps() {
+        return {
+            message: null
+        };
+    },
+    render() {
+        const {height, message} = this.props;
+
+        const loadingStyle = {
+            position: 'absolute',
+            bottom: 0,
+            width: '100%',
+
+            //50 is headerHeight
+            height: height - 50,
+            backgroundColor: 'white',
+        };
+
+        const message = message ? message : 'Your search gave no results.';
+
+        return (
+            <div style={loadingStyle}>
+                {message}
             </div>
         );
     }
