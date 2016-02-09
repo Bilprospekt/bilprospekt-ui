@@ -24,9 +24,8 @@ const Tabs = React.createClass({
     componentDidMount() {
         // Call for initial position
         this._changeTab(this.state.selectedTab);
-        _.each(this.refs, function(button) {
-            console.log('button', button);
-        });
+
+        // Width        
     },
 
     _changeTab(index) {

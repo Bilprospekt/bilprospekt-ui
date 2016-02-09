@@ -46,6 +46,10 @@ const Navigation = React.createClass({
     _toggleMenuSize() {
         this.setState({ minimized: !this.state.minimized });
         this._closeSearch();
+
+        if (typeof this.props.onClick === 'function') {
+            this.props.onClick(!this.state.minimized);
+        }
     },
 
     _toggleSearch() {
@@ -53,6 +57,7 @@ const Navigation = React.createClass({
             this._closeSearch();
         } else {
             this.setState({ searching: true });
+            $(this.refs.navSearchRef).focus();
         }
     },
 
@@ -132,7 +137,7 @@ const Navigation = React.createClass({
                     <div className={searchPopupClass}>
                         <div className='popup-holder'>
                             <div className='popup__search-field'>
-                                <BuiInputField icon='fa-search' onChange={this._onSearchChange} value={this.state.searchValue} />
+                                <BuiInputField icon='fa-search' hint='Snabbsök' onChange={this._onSearchChange} value={this.state.searchValue} ref='navSearchRef' />
                                 <i className='fa fa-times search-close-button' onClick={this._closeSearch} />
                             </div>
                             {searchContentState}

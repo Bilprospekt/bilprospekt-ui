@@ -7,6 +7,16 @@ import {Tabs}        from 'bilprospekt-ui';
 import {ViewWrapper} from 'bilprospekt-ui';
 
 const AppDoc = React.createClass({
+    getInitialState() {
+        return {
+            smallNav: false,
+        };
+    },
+
+    _toggleMenuSize(bool) {
+        this.setState({ smallNav: bool });
+    },
+
     render() {
 
         /*
@@ -34,13 +44,17 @@ const AppDoc = React.createClass({
             'Tid och Datum',
         ];
 
+        /*
+         * Base Wrapper
+         */
+
         return (
             <div>
                 <p className="table-header-label">App Example</p>
                 <div className='bui-app-base'>
-                    <Navigation links={navLinks} searchButton={true} />
-                    <BaseWrapper>
-                        <Header withTabs={true} pathLabel='Inställningar' />
+                    <Navigation links={navLinks} searchButton={true} onClick={this._toggleMenuSize} />
+                    <BaseWrapper bigView={this.state.smallNav}>
+                        <Header withTabs={true} withSearch={true} pathLabel='Inställningar' />
                         <Tabs labels={tabLabels} />
                     </BaseWrapper>
                 </div>
@@ -53,9 +67,9 @@ const AppDoc = React.createClass({
                                 <br />,
                                 '\t<Navigation links={navLinks} searchButton={true}',
                                 <br />,
-                                '\t<BaseWrapper>',
+                                '\t<BaseWrapper bigView={bool}>',
                                 <br />,
-                                '\t\t<Header withTabs={true} pathLabel="Inställningar" />',
+                                '\t\t<Header withTabs={true} withSearch={true} pathLabel="Inställningar" />',
                                 <br />,
                                 '\t\t<Tabs labels={tabLabels} />',
                                 <br />,

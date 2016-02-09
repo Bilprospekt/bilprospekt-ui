@@ -4,8 +4,13 @@
  *
  */
 
+/* $cb imported from '_bui_navigation.sass' */
+
 .bui-base-wrapper
   float: left
   position: relative
   width: calc(100% - 240px)
   height: 100%
+  @include transition(width .225s $cb)
+  &.big-view
+    width: calc(100% - 60px)
