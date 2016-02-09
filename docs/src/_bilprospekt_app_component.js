@@ -48,11 +48,16 @@ const AppDoc = React.createClass({
          * Base Wrapper
          */
 
+        const logos = {
+            small: <img src='img/bilprospekt_logo_small.png' />,
+            big: <img src='img/bilprospekt_logo_big.png' />,
+        };
+
         return (
             <div>
                 <p className="table-header-label">App Example</p>
                 <div className='bui-app-base'>
-                    <Navigation links={navLinks} searchButton={true} onClick={this._toggleMenuSize} />
+                    <Navigation logos={logos} links={navLinks} searchButton={true} onClick={this._toggleMenuSize} />
                     <BaseWrapper bigView={this.state.smallNav}>
                         <Header withTabs={true} withSearch={true} pathLabel='Inställningar' />
                         <Tabs labels={tabLabels} />

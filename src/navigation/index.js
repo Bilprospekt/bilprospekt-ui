@@ -26,6 +26,7 @@ const Navigation = React.createClass({
     propTypes: {
         links: React.PropTypes.array.isRequired,
         searchButton: React.PropTypes.bool,
+        logos: React.PropTypes.object,
     },
 
     getInitialState() {
@@ -126,7 +127,7 @@ const Navigation = React.createClass({
             );
         }
 
-        let navSearch = null 
+        let navSearch = null;
         if (this.props.searchButton) {
             navSearch = (
                 <div className='navigation-search-holder'>
@@ -172,11 +173,24 @@ const Navigation = React.createClass({
             'nav-is-hidden': this.state.hidden,
         });
 
+
+        let logotypeBig = null;
+        let logotypeSmall = null;
+
+        if (this.props.logos) {
+            logotypeBig = this.props.logos.big;
+            logotypeSmall = this.props.logos.small;
+        }
+
         return (
             <div className={parentClass}>
                 <div className='navigation-logotype'>
-                    <div className='logotype-big' />
-                    <div className='logotype-small' />
+                    <div className='logotype-big'>
+                        {logotypeBig}
+                    </div>
+                    <div className='logotype-small'>
+                        {logotypeSmall}
+                    </div>
                 </div>
                 {navSearch}
                 <div className='navigation-links'>{navLinks}</div>
