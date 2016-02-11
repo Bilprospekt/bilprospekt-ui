@@ -69,6 +69,9 @@ const TableHolderComponent = React.createClass({
         //On a selection if we have makeRowsSelectable.
         onSelection: React.PropTypes.func,
 
+        //When a row is clicked
+        onRowClick: React.PropTypes.func,
+
         //Search hint
         searchHint: React.PropTypes.string,
         //If we want or don't want search
@@ -177,6 +180,11 @@ const TableHolderComponent = React.createClass({
             this.props.onFilter([key, val]);
         }
     },
+    _onRowClick(ev, row) {
+        if (typeof this.props.onRowClick === 'function') {
+            this.props.onRowClick(row);
+        }
+    },
     render() {
         const data = this.props.data;
         const columnsToRender = this.props.columns;
@@ -267,6 +275,7 @@ const TableHolderComponent = React.createClass({
                     onColumnResizeEndCallback={this._onColumnResize}
                     onScrollEnd={this._onScrollEnd}
                     rowHeight={props.rowHeight}
+                    onRowClick={this._onRowClick}
                     rowsCount={props.data.length}
                     width={props.makeRowsSelectable ? totalWidth + selectorColumnWidth : totalWidth}
                     height={tableHeight}
@@ -292,7 +301,7 @@ const NoResultsMessageComponent = React.createClass({
         };
     },
     render() {
-        const {height, message} = this.props;
+        let {height, message} = this.props;
 
         const loadingStyle = {
             position: 'absolute',
@@ -304,7 +313,7 @@ const NoResultsMessageComponent = React.createClass({
             backgroundColor: 'white',
         };
 
-        const message = message ? message : 'Your search gave no results.';
+        message = message ? message : 'Your search gave no results.';
 
         return (
             <div style={loadingStyle}>
