@@ -18,7 +18,6 @@ $cb: cubic-bezier(.17,.67,0,1)
 
   .navigation-logotype
     height: 112px
-    padding: 20px
     background-color: white
     border-bottom: 1px solid $grey-200
     .logotype-big,
@@ -26,13 +25,14 @@ $cb: cubic-bezier(.17,.67,0,1)
       position: absolute
       top: 0
       left: 0
-      height: 54px
+      height: 112px
+      width: 100%
+      padding: 37px 55px
+      @include transition(all .225s $cb)
     .logotype-big
-      //background-image: url('../sass/img/bilprospekt_logo_big.png')
-      width: 200px
+      opacity: 1
     .logotype-small
-      width: 46px
-      //background-image: url('../sass/img/bilprospekt_logo_small.png')
+      opacity: 0
 
   .navigation-search-holder
     position: relative
@@ -233,8 +233,8 @@ $cb: cubic-bezier(.17,.67,0,1)
         width: 20px
         margin: 0 20px
         text-align: center
-      .link-string
-        font-weight: 500
+      .link-label
+        vertical-align: bottom
 
   /*
    * Minimized Menu Style
@@ -242,6 +242,15 @@ $cb: cubic-bezier(.17,.67,0,1)
 
   &.nav-is-minimized
     width: 60px
+
+    .navigation-logotype
+      .logotype-big,
+      .logotype-small
+        padding: 37px 15px
+      .logotype-big
+        opacity: 0
+      .logotype-small
+        opacity: 1
 
     .navigation-search-holder
       .search-button

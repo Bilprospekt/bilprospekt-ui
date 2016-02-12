@@ -15,6 +15,16 @@ const AppDoc = React.createClass({
 
     _toggleMenuSize(bool) {
         this.setState({ smallNav: bool });
+
+        if (document.createEvent) {
+            var ev = document.createEvent('Event');
+            ev.initEvent('resize', true, true);
+            window.dispatchEvent(ev);
+        } else { //IE
+            var element = document.documentElement;
+            var event = document.createEventObject();
+            element.fireEvent('onresize', event);
+        }
     },
 
     render() {
@@ -70,7 +80,7 @@ const AppDoc = React.createClass({
                             [
                             '<div className="bui-app-base">',
                                 <br />,
-                                '\t<Navigation links={navLinks} searchButton={true}',
+                                '\t<Navigation links={navLinks} searchButton={true} />',
                                 <br />,
                                 '\t<BaseWrapper bigView={bool}>',
                                 <br />,

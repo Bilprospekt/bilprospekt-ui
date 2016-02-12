@@ -153,10 +153,6 @@ var BilprospektUiComponent = React.createClass({
             <div id='bilprospekt-ui-styling-holder'>
                 <p className='master-header'>Bilprospekt 2.0 Style Guide</p>
                 <BilprospektAppDoc />
-                <BilprospektBaseWrapperDoc />
-                <BilprospektViewWrapperDoc />
-                <BilprospektNavigationDoc />
-                <BilprospektTabsDoc />
                 <BilprospektDatePickerDoc />
                 <BilprospektTableDoc />
                 <BilprospektTooltipDoc />
