@@ -1,4 +1,5 @@
 import _ from 'underscore';
+const debug = require('debug')('bilprospekt-ui:table:column_width_helper');
 
 class ColumnWidthHelper {
     constructor(totalWidth = 0, identifiers = []) {
@@ -16,7 +17,8 @@ class ColumnWidthHelper {
     // Number -> Undefined
     setTotalWidth(totalWidth = 0, skipEmit = false) {
         const oldWidth = this.totalWidth;
-        this.totalWidth = totalWidth;
+        this.totalWidth = totalWidth || 0;
+        debug('Setting total width to:', this.totalWidth, 'skip is:', skipEmit);
         this._scaleCurrentWidths(oldWidth);
         if (!skipEmit) {
             this._emit();
@@ -37,6 +39,7 @@ class ColumnWidthHelper {
 
     // [String] -> Undefined
     setIdentifiers(newIdentifiers) {
+        debug('Setting identifiers', newIdentifiers);
         //We already have identifiers, we need to adjust the ones we have.
     if (this.identifiers && this.identifiers.length && _.difference(newIdentifiers, this.identifiers).length <= 1) {
             let oldWidth;
@@ -129,6 +132,7 @@ class ColumnWidthHelper {
     }
 
     destroyListeners() {
+        debug('Destroying listeners');
         this.listeners = [];
     }
 

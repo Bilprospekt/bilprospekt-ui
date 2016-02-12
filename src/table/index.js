@@ -13,7 +13,6 @@ const {Table, Column, Cell} = FixedDataTable;
 import {HeaderCell, NormalCell, SelectorCell} from './cells';
 import ColumnWidthHelper from './helpers/column_width_helper.js';
 
-const columnWidthHelper = new ColumnWidthHelper(1, []);
 const selectorColumnWidth = 47;
 
 const TableHolderComponent = React.createClass({
@@ -110,12 +109,13 @@ const TableHolderComponent = React.createClass({
         };
     },
     componentDidMount() {
-        columnWidthHelper.onChange(() => this.forceUpdate());
+        this.columnWidthHelper.onChange(() => this.forceUpdate());
+
         if (this.props.width === 'auto') {
             this._setDynamicWidthOnTable();
             $(window).on('resize', this._setDynamicWidthOnTable);
         } else {
-            columnWidthHelper.setTotalWidth(this.props.width);
+            this.columnWidthHelper.setTotalWidth(this.props.width);
         }
     },
     _setDynamicWidthOnTable() {
@@ -123,22 +123,24 @@ const TableHolderComponent = React.createClass({
         if (this.props.makeRowsSelectable) {
             width -= selectorColumnWidth;
         }
-        columnWidthHelper.setTotalWidth(width);
+        this.columnWidthHelper.setTotalWidth(width);
     },
     componentWillUnmount() {
         $(window).off('resize', this._setDynamicWidthOnTable);
-        columnWidthHelper.destroyListeners();
+        this.columnWidthHelper.destroyListeners();
     },
+
     componentWillMount() {
-       columnWidthHelper.setIdentifiers(_(this.props.columns).pluck('val'));
+       this.columnWidthHelper = new ColumnWidthHelper(1, []);
+       this.columnWidthHelper.setIdentifiers(_(this.props.columns).pluck('val'));
     },
     componentWillReceiveProps(nextProps, nextState) {
         if (nextProps.columns.length !== this.props.columns.length) {
-            columnWidthHelper.setIdentifiers(_(nextProps.columns).pluck('val'));
+            this.columnWidthHelper.setIdentifiers(_(nextProps.columns).pluck('val'));
         }
     },
     _onColumnResize(newWidth, col) {
-        columnWidthHelper.setWidthForIdentifier(col, newWidth);
+        this.columnWidthHelper.setWidthForIdentifier(col, newWidth);
     },
     _onSearchChange(val) {
         if (typeof this.props.onSearch === 'function') {
@@ -167,10 +169,10 @@ const TableHolderComponent = React.createClass({
         }
     },
     _onColumnHover({col}, state) {
-        const {columnWidths} = columnWidthHelper.getState();
+        const {columnWidths} = this.columnWidthHelper.getState();
         const oldWidth = columnWidths[col];
         const newWidth = (state) ? oldWidth + 20 : oldWidth - 20;
-        columnWidthHelper.setWidthForIdentifier(col, newWidth);
+        this.columnWidthHelper.setWidthForIdentifier(col, newWidth);
     },
     _showJawboneFilter() {
         this.setState({ showJawbone: !this.state.showJawbone });
@@ -189,11 +191,11 @@ const TableHolderComponent = React.createClass({
         const data = this.props.data;
         const columnsToRender = this.props.columns;
 
-        const {columnWidths, totalWidth} = columnWidthHelper.getState();
+        const {columnWidths, totalWidth} = this.columnWidthHelper.getState();
         debug('Column widths are', columnWidths, 'Total width', totalWidth);
 
         let cols = _(columnsToRender).map((col, index) => {
-            const columnWidth = columnWidths[col.val];
+            const columnWidth = columnWidths[col.val] || {width: 0, minWidth: 0, maxWidth: 0,};
             //Last element is not resizable
             const isResizable = (index === columnsToRender.length - 1) ? false : true;
             return (
@@ -254,7 +256,7 @@ const TableHolderComponent = React.createClass({
                     allColumnsThatCouldBeRendered={props.allColumnsThatCouldBeRendered}
                     currentColumns={columnsToRender}
                     currentFilters={this.props.currentFilters}
-                    justifyColumns={columnWidthHelper.justifyColumns.bind(columnWidthHelper)}
+                    justifyColumns={this.columnWidthHelper.justifyColumns.bind(this.columnWidthHelper)}
                     headerLabel={this.props.headerLabel}
                     showJawboneFilter={this._showJawboneFilter}
                     selections={props.selectedRows}
