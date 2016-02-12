@@ -2,7 +2,7 @@
 
 .DayPicker {
   width: 286px;
-  line-height: initial;
+  line-height: 38px;
   display: block;
   position: relative;
   background-color: white;
@@ -108,23 +108,10 @@
 /* Default modifiers */
 
 .DayPicker-Day--today {
-  color: white;
-  position: relative;
-  z-index: 1;
+  color: #00BCD4;
+  font-weight: 600;
+  font-size: 18px;
 }
-
-  .DayPicker-Day--today:before {
-    display: block;
-    content: '';
-    position: absolute;
-    z-index: -1;
-    top: 10%;
-    left: 10%;
-    width: 80%;
-    height: 80%;
-    border-radius: 100%;
-    background-color: #00BCD4;
-  }
 
 .DayPicker-Day--disabled {
   color: #dce0e0;

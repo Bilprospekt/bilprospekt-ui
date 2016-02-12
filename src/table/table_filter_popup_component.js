@@ -18,6 +18,9 @@ const TableFilterPopupComponent = React.createClass({
         onFilter: React.PropTypes.func,
         onSort: React.PropTypes.func,
 
+        //If we don't want to be able to sort on this column
+        useSort: React.PropTypes.bool,
+
         //Current sort
         sort: React.PropTypes.shape({
             direction: React.PropTypes.string.isRequired,
@@ -91,6 +94,12 @@ const TableFilterPopupComponent = React.createClass({
         };
     },
 
+    getDefaultProps() {
+        return {
+            useSort: true,
+        };
+    },
+
     _onFilterSearch(val) {
         this.setState({
             filterSearch: val,
@@ -146,18 +155,25 @@ const TableFilterPopupComponent = React.createClass({
             top: this.props.top,
             left: Math.max(0, this.props.left - 171), // Minus self width
             zIndex: 100,
-            height: conHeight + 107,
+            height: conHeight + 52 + (this.props.useSort ? 55 : 0) ,
             width: 200,
         };
 
         const sortDir = this.state.sort && this.state.sort.direction;
 
-        return (
-            <div className={componentClassName + ' bui-form-elements-dropdown-holder'} style={popupstyle}>
+        let sortDiv = null;
+        if (this.props.useSort) {
+            sortDiv = (
                 <div className='bui-table-filter-popup-actions-holder'>
                     <ActionButton label='Stigande' onClick={this._onSort.bind(this, 'ASC')} toggle={true} selected={sortDir === 'ASC'} />
                     <ActionButton label='Fallande' onClick={this._onSort.bind(this, 'DESC')} toggle={true} selected={sortDir === 'DESC'} />
                 </div>
+            );
+        }
+
+        return (
+            <div className={componentClassName + ' bui-form-elements-dropdown-holder'} style={popupstyle}>
+                {sortDiv}
                 <div className='bui-table-filter-popup-search-holder'>
                     <InputField onChange={this._onFilterSearch} value={this.state.filterSearch} hint='Sök värden' icon='fa-search' />
                 </div>

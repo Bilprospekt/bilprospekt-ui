@@ -1,6 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
+import ReactDOM from 'react-dom';
 import classNames from 'classnames';
 import _ from 'underscore';
+import $ from 'jquery';
 
 // Components
 import BuiInputField from '../input-field';
@@ -17,25 +19,31 @@ const BuiSearchableSelect = React.createClass({
     },
     getInitialState() {
         return {
-            focus: false,
             expanded: false,
             inputValue: null,
             checked: [],
             toggle: 'Markera alla'
         };
     },
+    componentDidMount() {
+        window.addEventListener('click', this._onClick);
+    },
+    componentWillUnmount() {
+        window.removeEventListener('click', this._onClick);
+    },
+    _onClick(ev) {
+        const $target = $(ev.target);
+        const node = ReactDOM.findDOMNode(this);
+        if (!($target.is(node) || $target.parents().is(node))) {
+            this.setState({
+                expanded: false,
+            });
+        }
+    },
     onFocus(event) {
-        this.setState({ focus: true });
-
         if (event.target.value !== '') {
             this.onSearch(event.target.value);
         }
-    },
-    onBlur() {
-        this.setState({
-            focus: false,
-            expanded: false
-        });
     },
     onSearch(value) {
         if (typeof this.props.onChange === 'function') {
@@ -44,7 +52,7 @@ const BuiSearchableSelect = React.createClass({
 
         this.setState({
             inputValue: value,
-            expanded: (value === '' && focus) ? false : true
+            expanded: (value === '') ? false : true
         });
     },
     onToggleAll() {
@@ -113,7 +121,7 @@ const BuiSearchableSelect = React.createClass({
 
         return (
             <div className={classes}>
-                <BuiInputField icon={this.props.icon} hint={this.props.hint} onChange={this.onSearch} onFocus={this.onFocus} onBlur={this.onBlur} value={this.state.inputValue} />
+                <BuiInputField icon={this.props.icon} hint={this.props.hint} onChange={this.onSearch} onFocus={this.onFocus} value={this.state.inputValue} />
                 <i className='search-adder-dropdown-indicator-icon fa fa-caret-down' />
                 {dropdown}
             </div>

@@ -1,0 +1,46 @@
+/*
+ *
+ * BUI: TABS
+ *
+ */
+
+$buttonWidth: 120px
+
+.bui-tabs-holder
+  position: relative
+  width: 100%
+
+  .tabs-holder__menu-labels
+    @extend .clear-after
+    position: relative
+    width: 100%
+    background-color: $cyan-500
+    .menu-labels__button
+      float: left
+      height: 50px
+      line-height: 50px
+      width: $buttonWidth
+      text-align: center
+      text-transform: uppercase
+      font-size: 14px
+      font-weight: 600
+      color: rgba(white, .65)
+      cursor: pointer
+      &:hover
+        color: rgba(white, 1)
+      &.button-selected
+        color: white
+        cursor: default
+    .menu-labels__tab
+      position: absolute
+      bottom: 0
+      left: 0
+      height: 4px
+      width: $buttonWidth
+      background-color: $amber-A400
+
+  .tabs-holder__tab-content
+    position: relative
+    width: 100%
+    height: calc(100% - 50px)
+    background-color: white

@@ -13,7 +13,6 @@ const {Table, Column, Cell} = FixedDataTable;
 import {HeaderCell, NormalCell, SelectorCell} from './cells';
 import ColumnWidthHelper from './helpers/column_width_helper.js';
 
-const columnWidthHelper = new ColumnWidthHelper(1, []);
 const selectorColumnWidth = 47;
 
 const TableHolderComponent = React.createClass({
@@ -53,6 +52,10 @@ const TableHolderComponent = React.createClass({
         }),
 
         showLoadingComponent: React.PropTypes.bool,
+        showNoResultsMessageComponent: React.PropTypes.bool,
+
+        // Message to show if there are no search results
+        noResultsMessage: React.PropTypes.string,
 
         rowHeight: React.PropTypes.number,
         headerHeight: React.PropTypes.number,
@@ -65,11 +68,16 @@ const TableHolderComponent = React.createClass({
         //On a selection if we have makeRowsSelectable.
         onSelection: React.PropTypes.func,
 
+        //When a row is clicked
+        onRowClick: React.PropTypes.func,
+
         //Search hint
         searchHint: React.PropTypes.string,
         //If we want or don't want search
         useSearch: React.PropTypes.bool,
 
+        //If we want to disable sort for any column. Logic could perhaps be improved here.
+        disableSortForColumns: React.PropTypes.array,
 
         //Trigger functions that haven't already been listed.
         onSearch: React.PropTypes.func,
@@ -84,6 +92,7 @@ const TableHolderComponent = React.createClass({
             columnFilters: {},
             allColumnsThatCouldBeRendered: [],
             makeRowsSelectable: false,
+            disableSortForColumns: [],
 
             //Change these to what we'll probably use in prod.
             width: 'auto',
@@ -91,8 +100,10 @@ const TableHolderComponent = React.createClass({
             rowHeight: 46,
             headerHeight: 50,
             showLoadingComponent: false,
+            showNoResultsMessageComponent: false,
             useSearch: true,
             searchHint: '',
+            noResultsMessage: null,
         };
     },
     getInitialState() {
@@ -101,12 +112,13 @@ const TableHolderComponent = React.createClass({
         };
     },
     componentDidMount() {
-        columnWidthHelper.onChange(() => this.forceUpdate());
+        this.columnWidthHelper.onChange(() => this.forceUpdate());
+
         if (this.props.width === 'auto') {
             this._setDynamicWidthOnTable();
             $(window).on('resize', this._setDynamicWidthOnTable);
         } else {
-            columnWidthHelper.setTotalWidth(this.props.width);
+            this.columnWidthHelper.setTotalWidth(this.props.width);
         }
     },
     _setDynamicWidthOnTable() {
@@ -114,22 +126,24 @@ const TableHolderComponent = React.createClass({
         if (this.props.makeRowsSelectable) {
             width -= selectorColumnWidth;
         }
-        columnWidthHelper.setTotalWidth(width);
+        this.columnWidthHelper.setTotalWidth(width);
     },
     componentWillUnmount() {
         $(window).off('resize', this._setDynamicWidthOnTable);
-        columnWidthHelper.destroyListeners();
+        this.columnWidthHelper.destroyListeners();
     },
+
     componentWillMount() {
-       columnWidthHelper.setIdentifiers(_(this.props.columns).pluck('val'));
+       this.columnWidthHelper = new ColumnWidthHelper(1, []);
+       this.columnWidthHelper.setIdentifiers(_(this.props.columns).pluck('val'));
     },
     componentWillReceiveProps(nextProps, nextState) {
         if (nextProps.columns.length !== this.props.columns.length) {
-            columnWidthHelper.setIdentifiers(_(nextProps.columns).pluck('val'));
+            this.columnWidthHelper.setIdentifiers(_(nextProps.columns).pluck('val'));
         }
     },
     _onColumnResize(newWidth, col) {
-        columnWidthHelper.setWidthForIdentifier(col, newWidth);
+        this.columnWidthHelper.setWidthForIdentifier(col, newWidth);
     },
     _onSearchChange(val) {
         if (typeof this.props.onSearch === 'function') {
@@ -158,28 +172,33 @@ const TableHolderComponent = React.createClass({
         }
     },
     _onColumnHover({col}, state) {
-        const {columnWidths} = columnWidthHelper.getState();
+        const {columnWidths} = this.columnWidthHelper.getState();
         const oldWidth = columnWidths[col];
         const newWidth = (state) ? oldWidth + 20 : oldWidth - 20;
-        columnWidthHelper.setWidthForIdentifier(col, newWidth);
+        this.columnWidthHelper.setWidthForIdentifier(col, newWidth);
     },
     _showJawboneFilter() {
         this.setState({ showJawbone: !this.state.showJawbone });
     },
     _onChipRemove(key, val) {
         if (typeof this.props.onFilter === 'function') {
-            this.props.onFilter([key, val]);
+            this.props.onFilter([[key, val]]);
+        }
+    },
+    _onRowClick(ev, row) {
+        if (typeof this.props.onRowClick === 'function') {
+            this.props.onRowClick(row);
         }
     },
     render() {
         const data = this.props.data;
         const columnsToRender = this.props.columns;
 
-        const {columnWidths, totalWidth} = columnWidthHelper.getState();
+        const {columnWidths, totalWidth} = this.columnWidthHelper.getState();
         debug('Column widths are', columnWidths, 'Total width', totalWidth);
 
         let cols = _(columnsToRender).map((col, index) => {
-            const columnWidth = columnWidths[col.val];
+            const columnWidth = columnWidths[col.val] || {width: 0, minWidth: 0, maxWidth: 0,};
             //Last element is not resizable
             const isResizable = (index === columnsToRender.length - 1) ? false : true;
             return (
@@ -193,9 +212,12 @@ const TableHolderComponent = React.createClass({
                                   ? this.props.sort
                                   : null;
 
+                        const useSort = this.props.disableSortForColumns.indexOf(col.val) === -1;
+
                         return <HeaderCell
                             onFilter={this.props.onFilter}
                             sort={sort}
+                            useSort={useSort}
                             onSort={this._onSort}
                             availableFilters={filters}
                             currentFilters={this.props.currentFilters}
@@ -228,6 +250,10 @@ const TableHolderComponent = React.createClass({
                   ? <LoadingComponent height={tableHeight} numResults={props.data.length}  />
                   : null;
 
+        const noResultsMessageComponent = props.showNoResultsMessageComponent && props.noResultsMessage && !props.showLoadingComponent
+        ? <NoResultsMessageComponent height={tableHeight} message={props.noResultsMessage} />
+        : null;
+
         return (
             <div ref={(ref) => this._holder = ref} style={{position: 'relative'}} className='bui-table-holder'>
                 <TableHeader
@@ -236,10 +262,11 @@ const TableHolderComponent = React.createClass({
                     allColumnsThatCouldBeRendered={props.allColumnsThatCouldBeRendered}
                     currentColumns={columnsToRender}
                     currentFilters={this.props.currentFilters}
-                    justifyColumns={columnWidthHelper.justifyColumns.bind(columnWidthHelper)}
+                    justifyColumns={this.columnWidthHelper.justifyColumns.bind(this.columnWidthHelper)}
                     headerLabel={this.props.headerLabel}
                     showJawboneFilter={this._showJawboneFilter}
                     selections={props.selectedRows}
+                    makeRowsSelectable={props.makeRowsSelectable}
                     onFilter={this.props.onFilter}
                     searchHint={this.props.searchHint}
                     useSearch={this.props.useSearch}
@@ -256,6 +283,7 @@ const TableHolderComponent = React.createClass({
                     onColumnResizeEndCallback={this._onColumnResize}
                     onScrollEnd={this._onScrollEnd}
                     rowHeight={props.rowHeight}
+                    onRowClick={this._onRowClick}
                     rowsCount={props.data.length}
                     width={props.makeRowsSelectable ? totalWidth + selectorColumnWidth : totalWidth}
                     height={tableHeight}
@@ -263,7 +291,41 @@ const TableHolderComponent = React.createClass({
                 {cols}
                 </Table>
                 {loadingComponent}
+                {noResultsMessageComponent}
                 <div id='bui-table-popup-holder' style={{position: 'absolute', top: 0, left: 0, }}/>
+            </div>
+        );
+    }
+});
+
+const NoResultsMessageComponent = React.createClass({
+    propTypes: {
+        height: React.PropTypes.number,
+        message: React.PropTypes.string,
+    },
+    getDefaultProps() {
+        return {
+            message: null
+        };
+    },
+    render() {
+        let {height, message} = this.props;
+
+        const loadingStyle = {
+            position: 'absolute',
+            bottom: 0,
+            width: '100%',
+
+            //50 is headerHeight
+            height: height - 50,
+            backgroundColor: 'white',
+        };
+
+        message = message ? message : 'Your search gave no results.';
+
+        return (
+            <div style={loadingStyle}>
+                {message}
             </div>
         );
     }

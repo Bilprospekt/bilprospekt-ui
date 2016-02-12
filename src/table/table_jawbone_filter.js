@@ -22,6 +22,13 @@ const TableJawboneFilter = React.createClass({
         };
     },
 
+    getDefaultProps() {
+        return {
+            columnFilters: {},
+            currentFilters: [],
+        }
+    },
+
     componentDidUpdate() {
         const newHeight = $(this.refs.jawboneRef).outerHeight(true);
         if (newHeight != this.state.jawboneHeight) {
@@ -34,18 +41,18 @@ const TableJawboneFilter = React.createClass({
             'bui-jawbone-is-showing': this.props.visible,
         });
 
-        const filters = _(this.props.currentFilters).groupBy(([key, val]) => key);
+        const filters = this.props.currentFilters.length ? _(this.props.currentFilters).groupBy(([key, val]) => key) : [];
 
         //We dont want _id filters here.
         delete filters._id;
 
         const filterRows = _(filters)
             .map((values, key) => {
-                values = _(values)
+                values = _(values).chain()
                     .map((x) => {
                         const val = _(this.props.columnFilters[key]).findWhere({id: x[1]});
                         return val;
-                    });
+                    }).compact().value();
                 const column = _(this.props.columns).findWhere({val: key});
                 const label = (column && column.label) || key;
                 return (
