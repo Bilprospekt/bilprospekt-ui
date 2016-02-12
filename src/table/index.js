@@ -76,6 +76,8 @@ const TableHolderComponent = React.createClass({
         //If we want or don't want search
         useSearch: React.PropTypes.bool,
 
+        //If we want to disable sort for any column. Logic could perhaps be improved here.
+        disableSortForColumns: React.PropTypes.array,
 
         //Trigger functions that haven't already been listed.
         onSearch: React.PropTypes.func,
@@ -90,6 +92,7 @@ const TableHolderComponent = React.createClass({
             columnFilters: {},
             allColumnsThatCouldBeRendered: [],
             makeRowsSelectable: false,
+            disableSortForColumns: [],
 
             //Change these to what we'll probably use in prod.
             width: 'auto',
@@ -209,9 +212,12 @@ const TableHolderComponent = React.createClass({
                                   ? this.props.sort
                                   : null;
 
+                        const useSort = this.props.disableSortForColumns.indexOf(col.val) === -1;
+
                         return <HeaderCell
                             onFilter={this.props.onFilter}
                             sort={sort}
+                            useSort={useSort}
                             onSort={this._onSort}
                             availableFilters={filters}
                             currentFilters={this.props.currentFilters}
