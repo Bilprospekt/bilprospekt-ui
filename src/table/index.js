@@ -179,7 +179,7 @@ const TableHolderComponent = React.createClass({
     },
     _onChipRemove(key, val) {
         if (typeof this.props.onFilter === 'function') {
-            this.props.onFilter([key, val]);
+            this.props.onFilter([[key, val]]);
         }
     },
     _onRowClick(ev, row) {
