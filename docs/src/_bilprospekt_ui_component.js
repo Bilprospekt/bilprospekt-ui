@@ -7,7 +7,6 @@ const {
   InlineEdit: BuiInlineEdit,
   InputField: BuiInputField,
   SearchableSelect: BuiSearchableSelect,
-  Popup: BuiPopup,
   Checkbox: BuiCheckbox,
   Toggle: BuiToggle,
 } = BUI;
@@ -26,6 +25,7 @@ import BilprospektTabsDoc from './_bilprospekt_tabs_component.js';
 import BilprospektNavigationDoc from './_bilprospekt_navigation_component.js';
 import BilprospektViewWrapperDoc from './_bilprospekt_view_wrapper_component.js';
 import BilprospektBaseWrapperDoc from './_bilprospekt_base_wrapper_component.js';
+import BilprospektPopupDoc from './_bilprospekt_popup_component.js';
 import BilprospektAppDoc from './_bilprospekt_app_component.js';
 
 var CodeSegment = React.createClass({
@@ -83,34 +83,7 @@ var ComponentSegment = React.createClass({
 var BilprospektUiComponent = React.createClass({
     getInitialState() {
         return {
-            popup: false,
             checked: { cb2: true }
-        };
-    },
-    openPopup() {
-        this.setState({popup: true});
-    },
-    hidePopup() {
-        this.setState({popup: false});
-    },
-    getPopupProps() {
-        let headerButton = <a href="#">Some Action</a>;
-        let saveButton = <div className='popup-footer-button' onClick={this.hidePopup}>Save</div>;
-        let closeButton = <div className='popup-footer-button' onClick={this.hidePopup}>Close</div>;
-        return {
-            onClose: this.hidePopup,
-            header: {
-                title: 'Popup',
-                controls: {
-                    headerButton
-                }
-            },
-            footer: {
-                controls: {
-                    saveButton,
-                    closeButton
-                }
-            }
         };
     },
     toggleFormElements(event, isChecked) {
@@ -126,15 +99,6 @@ var BilprospektUiComponent = React.createClass({
         console.log('save', a);
     },
     render() {
-        let popup = null;
-        if (this.state.popup) {
-            popup = (
-                <BuiPopup {...this.getPopupProps()}>
-                    This is a popup. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis lacinia interdum lorem, et iaculis tortor blandit eu. In vestibulum massa porttitor, efficitur ipsum quis, luctus purus. Phasellus felis nunc, molestie sit amet condimentum ut, bibendum congue odio. Donec dapibus enim id bibendum fermentum. Aenean interdum sem ornare dapibus porta. Nullam ut arcu at sem pharetra aliquet. Pellentesque convallis, purus a molestie molestie, nisi ipsum dapibus augue, auctor ultrices ipsum odio non nunc. Quisque vel eleifend massa, quis viverra tortor. Aenean fermentum metus aliquam rhoncus accumsan. Nullam sodales ullamcorper maximus. Vivamus venenatis, est a gravida fringilla, metus felis varius dui, vel cursus lectus massa eu diam. Praesent commodo finibus luctus. Nunc convallis mauris at facilisis tincidunt. Sed pulvinar elit metus, at interdum ligula feugiat vitae. Donec at finibus elit, placerat accumsan neque.
-                </BuiPopup>
-            );
-        }
-
         let searchableSelectData = [
             { label: 'Sölvesborg kommun', id: 'ddi1', value: 'ddv1' },
             { label: 'Number id', id: 13, value: 13},
@@ -153,6 +117,7 @@ var BilprospektUiComponent = React.createClass({
             <div id='bilprospekt-ui-styling-holder'>
                 <p className='master-header'>Bilprospekt 2.0 Style Guide</p>
                 <BilprospektAppDoc />
+                <BilprospektPopupDoc />
                 <BilprospektDatePickerDoc />
                 <BilprospektTableDoc />
                 <BilprospektTooltipDoc />
@@ -162,22 +127,6 @@ var BilprospektUiComponent = React.createClass({
                 <BilprospektSelectDoc />
                 <BilprospektChipsDoc />
                 <BilprospektLoaderDoc />
-
-                <p className='table-header-label'>Popup</p>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Element</th>
-                            <th>Type</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><BuiActionButton primary={false} minor={true} label='Open popup' onClick={this.openPopup}/>{popup}</td>
-                            <td><p className='code-type type-component'>Component</p></td>
-                        </tr>
-                    </tbody>
-                </table>
 
                 <p className='table-header-label'>Action Buttons</p>
                 <table>

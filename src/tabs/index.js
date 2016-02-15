@@ -5,8 +5,7 @@ import $                    from 'jquery';
 import classNames           from 'classnames';
 
 // Components
-import * as BUI from 'bilprospekt-ui'
-const {DropdownMenu: {DropdownHolder, DropdownElement}} = BUI;
+import {DropdownHolder, DropdownElement} from '../drop-down-menu';
 import {DatePicker} from 'bilprospekt-ui';
 
 const Tabs = React.createClass({
@@ -79,7 +78,7 @@ const Tabs = React.createClass({
          * vTabs = Visible Tabs
          */
 
-        console.log('parentWidth', pWidth, 'childrenWidth', cWidth);
+        //console.log('parentWidth', pWidth, 'childrenWidth', cWidth);
 
         let tabArea = pWidth - this.state.bonusSpace;
         let mappedTabs = 0;
