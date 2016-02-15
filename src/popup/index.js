@@ -18,7 +18,6 @@ const Popup = React.createClass({
     getInitialState() {
         return {
             display: false,
-            windowHeight: window.innerHeight,
         };
     },
 
@@ -29,7 +28,7 @@ const Popup = React.createClass({
     componentDidUpdate() {
         if (this.state.display) {
             const $content = $(this.refs.contentRef);
-            const maxHeight = this.state.windowHeight - (80 + 120); // 120px is header + footer height
+            const maxHeight = window.innerHeight - (80 + 120); // 120px is header + footer height
 
             // Puts a max-height on the popup content div to control its height with the overflow property
             $content.css('max-height', maxHeight);
@@ -54,7 +53,7 @@ const Popup = React.createClass({
     },
 
     _handleResize(e) {
-        this.setState({ windowHeight: window.innerHeight });
+        this.forceUpdate();
     },
 
     _openPopup() {
@@ -66,10 +65,6 @@ const Popup = React.createClass({
     },
 
     render() {
-        const popupContentClass = classNames('popup-content', {
-            'is-max-height': $(this.refs.contentRef).first().height() > this.state.windowHeight - (80 + 120),
-        });
-
         let popupContent = null;
         if (this.state.display) {
             popupContent = (
@@ -78,7 +73,7 @@ const Popup = React.createClass({
                         <div className='popup-center-wrapper'>
                             <div className='popup-wrapper' ref='popupRef'>
                                 <div className='popup-header'>{this.props.title}</div>
-                                <div className={popupContentClass} ref='contentRef'>{this.props.content}</div>
+                                <div className='popup-content' ref='contentRef'>{this.props.content}</div>
                                 <div className='popup-footer'>
                                     <ActionButton primary flat label={this.props.closeLabel} onClick={this._closePopup} />
                                     <ActionButton primary flat label={this.props.actionLabel} />

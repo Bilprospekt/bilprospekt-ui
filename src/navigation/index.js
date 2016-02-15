@@ -45,8 +45,8 @@ const Navigation = React.createClass({
     },
 
     _toggleMenuSize() {
-        this.setState({ minimized: !this.state.minimized });
-        this._closeSearch();
+        this.setState({ 
+            minimized: !this.state.minimized });
 
         if (typeof this.props.onClick === 'function') {
             this.props.onClick(!this.state.minimized);

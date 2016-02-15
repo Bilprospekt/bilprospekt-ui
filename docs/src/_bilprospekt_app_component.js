@@ -1,10 +1,6 @@
 import React from 'react';
 
-import {Navigation}  from 'bilprospekt-ui';
-import {BaseWrapper} from 'bilprospekt-ui';
-import {Header}      from 'bilprospekt-ui';
-import {Tabs}        from 'bilprospekt-ui';
-import {ViewWrapper} from 'bilprospekt-ui';
+import {Navigation, BaseWrapper, Header, Tabs, ViewWrapper}  from 'bilprospekt-ui';
 
 const AppDoc = React.createClass({
     getInitialState() {
@@ -80,7 +76,7 @@ const AppDoc = React.createClass({
                             [
                             '<div className="bui-app-base">',
                                 <br />,
-                                '\t<Navigation links={navLinks} searchButton={true} />',
+                                '\t<Navigation logos={object} links={navLinks} searchButton={true} onClick={function} />',
                                 <br />,
                                 '\t<BaseWrapper bigView={bool}>',
                                 <br />,

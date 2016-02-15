@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import classNames           from 'classnames';
+import $                    from 'jquery';
 
 // Components
 import BuiInputField from '../input-field';

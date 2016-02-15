@@ -21,10 +21,6 @@ import BilprospektRadioDoc from './_bilprospekt_radio_component.js';
 import BilprospektSelectDoc from './_bilprospekt_select_component.js';
 import BilprospektChipsDoc from './_bilprospekt_chips_component.js';
 import BilprospektLoaderDoc from './_bilprospekt_loader_component.js';
-import BilprospektTabsDoc from './_bilprospekt_tabs_component.js';
-import BilprospektNavigationDoc from './_bilprospekt_navigation_component.js';
-import BilprospektViewWrapperDoc from './_bilprospekt_view_wrapper_component.js';
-import BilprospektBaseWrapperDoc from './_bilprospekt_base_wrapper_component.js';
 import BilprospektPopupDoc from './_bilprospekt_popup_component.js';
 import BilprospektAppDoc from './_bilprospekt_app_component.js';
 

@@ -6,7 +6,6 @@ import classNames           from 'classnames';
 
 // Components
 import {DropdownHolder, DropdownElement} from '../drop-down-menu';
-import {DatePicker} from 'bilprospekt-ui';
 
 const Tabs = React.createClass({
     propTypes: {
@@ -95,7 +94,6 @@ const Tabs = React.createClass({
                 mappedTabs += 1;
                 // If the currently mapped tab's width overflow the parent's width
                 if ((mappedTabsWidth + $currentTab[0].getBoundingClientRect().width) > tabArea) {
-                    console.log('bigger on tab nr. ', mappedTabs);
                     $currentTab.hide();
 
                     // Checks for remaining tabs and adds them to hideArray
@@ -112,18 +110,15 @@ const Tabs = React.createClass({
 
                 // Else just add it to the total width
                 } else {
-                    //console.log('roflmao');
                     mappedTabsWidth += $currentTab[0].getBoundingClientRect().width;
                     showArray.push($currentTab);                    
                 }
             });
 
-            console.log('showArray', showArray);
             this.setState({ activeTabs: showArray });
 
         } else if (tabArea > cWidth && this.state.hiddenTabs) {
-            //if ()
-            console.log('there are', this.state.hiddenTabs.length, 'hidden tab(s)');
+
         }
     },
 
