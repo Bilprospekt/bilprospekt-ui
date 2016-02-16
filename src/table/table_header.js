@@ -164,7 +164,7 @@ const TableHeader = React.createClass({
         if (this.props.makeRowsSelectable) {
             selectionsFilter = (
                 <div className={selectionsParentClass}>
-                    <i className="fa fa-bus table-icon" onClick={this._filterOnSelections} />
+                    <i className="fa fa-check table-icon" onClick={this._filterOnSelections} />
                     {selectionsCount}
                 </div>
             );
