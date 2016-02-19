@@ -31,7 +31,7 @@ $elementBoxSize: 14px
     display: none
 
   .element-checkbox-icon
-    color: $highlightColor
+    color: $cyan-500
     margin-left: -1px
     position: relative
     top: -1px
@@ -68,7 +68,7 @@ $elementBoxSize: 14px
     .element-radio:checked + label
       .icon
         border: none
-        background-color: $highlightColor
+        background-color: $cyan-500
 
   // Toggle
   &.toggle-type
@@ -95,13 +95,14 @@ $elementBoxSize: 14px
           @include transition( left .25s ease )
     .element-toggle:checked + label
       .icon
-        background-color: $highlightColor
+        background-color: $cyan-500
         &:after
           left: $elementBoxSize
 
   // Label
   .element-label
-    @extend %bui-font-options
+    font-size: 14px
+    font-weight: 500
     color: $BuiPassive
     display: inline-block
     padding-left: 10px
