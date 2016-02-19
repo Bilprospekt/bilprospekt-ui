@@ -45,7 +45,8 @@ $dropdownElementHeight: 40px
   .toolbar-caret
     margin-left: $iconSpace
   .toolbar-text-label
-    @extend %bui-font-options
+    font-size: 14px
+    font-weight: 500
     line-height: $toolbarHeight
   .toolbar-button
     @extend %toolbar-button-base
@@ -78,7 +79,8 @@ $dropdownElementHeight: 40px
       box-shadow: 0 0 0 rgba(0,0,0,0)
       @include transition( opacity .225s ease, box-shadow .25s ease, top .25s ease, padding .2s ease )
       .dropdown-element
-        @extend %bui-font-options
+        font-size: 14px
+        font-weight: 500
         line-height: $dropdownElementLineHeight
         color: $BuiActive
         cursor: pointer
