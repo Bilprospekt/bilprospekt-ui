@@ -23,7 +23,7 @@ const SearchableSelectDoc = React.createClass({
         ];
 
         return (
-            <div>
+            <div id='SearchableSelectDoc'>
                 <p className="table-header-label">Searchable Select</p>
                 <SearchableSelect icon='fa-search' hint='Sök efter län/kommun' data={searchableSelectData} onSave={this.onSave} />
 

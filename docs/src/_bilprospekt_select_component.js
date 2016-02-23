@@ -6,7 +6,7 @@ import {Select, Option} from 'bilprospekt-ui';
 const SelectDoc = React.createClass({
     render() {
         return (
-            <div>
+            <div id='SelectDoc'>
                 <p className="table-header-label">Select</p>
                 <Select>
                     <Option value="first" label="first option" />

@@ -7,7 +7,7 @@ const {RadioButton, RadioButtonGroup} = Radio;
 const RadioDoc = React.createClass({
     render() {
         return (
-            <div>
+            <div id='RadioDoc'>
                 <p className="table-header-label">Radio</p>
                 <RadioButtonGroup name="radio-test">
                     <RadioButton value='first' label="First radio" />

@@ -44,7 +44,7 @@ const PopupDoc = React.createClass({
             );
         }
         return (
-            <div>
+            <div id='PopupDoc'>
                 <p className="table-header-label">Popup</p>
                 <ActionButton primary={false} minor={true} label='Open popup' onClick={this.openPopup}/>
                 {popup}

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import $                    from 'jquery';
 
 //Docs components
 import BilprospektTooltipDoc from './_bilprospekt_tooltip_component.js';
@@ -18,27 +19,68 @@ import BilprospektInlineEditDoc from './_bilprospekt_inline_edit_component.js';
 import BilprospektInputFieldDoc from './_bilprospekt_input_field_component.js';
 import BilprospektFormElementsDoc from './_bilprospekt_form_elements_component.js';
 
+const NavElement = React.createClass({
+    _onClick() {
+        const $target = $( '#' + this.props.target + 'Doc' );
+        console.log($target);
+
+        // Scroll animation
+        $('html, body').animate({
+            scrollTop: $target.offset().top
+        }, 450);
+    },
+    render() {
+        return (
+            <li onClick={this._onClick}>{this.props.label}</li>
+        );
+    }
+});
+
 var BilprospektUiComponent = React.createClass({
     render() {
         return (
             <div className='bui-docs-wrapper'>
-                <p className='master-header'>Bilprospekt 2.0 Style Guide</p>
-                <BilprospektTabsDoc />
-                <BilprospektDatePickerDoc />
-                <BilprospektTableDoc />
-                <BilprospektTooltipDoc />
-                <BilprospektToolbarDoc />
-                <BilprospektDropdownDoc />
-                <BilprospektRadioDoc />
-                <BilprospektSelectDoc />
-                <BilprospektChipsDoc />
-                <BilprospektLoaderDoc />
-                <BilprospektPopupDoc />
-                <BilprospektActionButtonDoc />
-                <BilprospektSearchableSelectDoc />
-                <BilprospektInlineEditDoc />
-                <BilprospektInputFieldDoc />
-                <BilprospektFormElementsDoc />
+                <div className='docs-navigation'>
+                    <div className='nav-logotype' />
+                    <div className='nav-menu'>
+                        <ul>
+                            <NavElement label='Tabs' target='Tabs' />
+                            <NavElement label='Date Picker' target='DatePicker' />
+                            <NavElement label='Table' target='Table' />
+                            <NavElement label='Tooltip' target='Tooltip' />
+                            <NavElement label='Toolbar' target='Toolbar' />
+                            <NavElement label='Dropdown' target='Dropdown' />
+                            <NavElement label='Radio' target='Radio' />
+                            <NavElement label='Select' target='Select' />
+                            <NavElement label='Chips' target='Chips' />
+                            <NavElement label='Loader' target='Loader' />
+                            <NavElement label='Popup' target='Popup' />
+                            <NavElement label='Action Button' target='ActionButton' />
+                            <NavElement label='Searchable Select' target='SearchableSelect' />
+                            <NavElement label='Inline Edit' target='InlineEdit' />
+                            <NavElement label='Input Field' target='InputField' />
+                            <NavElement label='Form Elements' target='FormElements' />
+                        </ul>
+                    </div>
+                </div>
+                <div className='docs-content'>             
+                    <BilprospektTabsDoc />
+                    <BilprospektDatePickerDoc />
+                    <BilprospektTableDoc />
+                    <BilprospektTooltipDoc />
+                    <BilprospektToolbarDoc />
+                    <BilprospektDropdownDoc />
+                    <BilprospektRadioDoc />
+                    <BilprospektSelectDoc />
+                    <BilprospektChipsDoc />
+                    <BilprospektLoaderDoc />
+                    <BilprospektPopupDoc />
+                    <BilprospektActionButtonDoc />
+                    <BilprospektSearchableSelectDoc />
+                    <BilprospektInlineEditDoc />
+                    <BilprospektInputFieldDoc />
+                    <BilprospektFormElementsDoc />
+                </div>
             </div>
         );
     }

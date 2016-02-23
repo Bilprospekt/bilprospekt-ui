@@ -22,7 +22,7 @@ const TabsDoc = React.createClass({
         ];
 
         return (
-            <div style={{height: 500}}>
+            <div id='TabsDoc'>
                 <p className="table-header-label">Tabs</p>
                 <Tabs labels={tabLabels} selectedTab={0} onChange={this._onChange}>
                     <p>Tab {this.state.index} Content</p>
