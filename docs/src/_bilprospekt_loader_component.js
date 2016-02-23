@@ -13,7 +13,7 @@ const LoaderDoc = React.createClass({
         });
 
         return (
-            <div>
+            <div id='LoaderDoc'>
                 <p className="table-header-label">Loader</p>
                 <div style={divStyle}>
                     <Loader width='25%' message='Laddar in dina listor ...' />

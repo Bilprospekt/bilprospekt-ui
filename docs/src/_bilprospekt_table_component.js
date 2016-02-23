@@ -52,7 +52,7 @@ const TableDocComponent = React.createClass({
 
     render() {
         return (
-            <div style={{width: '100%'}}>
+            <div style={{width: '100%'}} id='TableDoc'>
                 <p className='table-header-label'>Table</p>
                 <Table
                     allColumnsThatCouldBeRendered={alphaObj}

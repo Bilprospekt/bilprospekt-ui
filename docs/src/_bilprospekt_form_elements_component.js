@@ -19,7 +19,7 @@ const FormElementsDoc = React.createClass({
     },
     render() {
         return (
-            <div>
+            <div id='FormElementsDoc'>
                 <p className="table-header-label">Form Elements</p>
                 <Checkbox id='cb1' label='Option 1' checked={this.state.checked['cb1']} onChange={this.toggleFormElements} />
                 <Checkbox id='cb2' label='Option 2' checked={this.state.checked['cb2']} onChange={this.toggleFormElements} />

@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import classNames from 'classnames';
 import _ from 'underscore';
 import $ from 'jquery';
+import EventUtil from '../helpers/EventUtil.js';
 
 // Components
 import BuiInputField from '../input-field';
@@ -26,10 +27,10 @@ const BuiSearchableSelect = React.createClass({
         };
     },
     componentDidMount() {
-        window.addEventListener('click', this._onClick);
+        EventUtil.addHandler(window, 'click', this._onClick);
     },
     componentWillUnmount() {
-        window.removeEventListener('click', this._onClick);
+        EventUtil.removeHandler(window, 'click', this._onClick);
     },
     _onClick(ev) {
         const $target = $(ev.target);

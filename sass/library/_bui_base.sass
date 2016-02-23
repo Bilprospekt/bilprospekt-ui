@@ -16,10 +16,48 @@
   box-sizing: border-box
   text-decoration: none
 
-.bui-docs-wrapper
-  padding: 20px
+#bui-docs-body
   background-color: $grey-100
+  width: 100%
+  height: 100%
   font-family: "Roboto", sans-serif
   font-weight: 400
   text-rendering: auto
   -webkit-font-smoothing: antialiased
+
+.bui-docs-wrapper
+  @extend .clear-after
+
+  .docs-navigation
+    position: fixed
+    width: 200px
+    border-right: 1px solid $grey-300
+
+  .docs-navigation > .nav-menu
+
+  .docs-navigation > .nav-menu > ul
+    list-style-type: none
+    text-transform: uppercase
+    font-size: 13px
+    font-weight: 500
+    padding: 5px 0
+
+  .docs-navigation > .nav-menu > ul > li
+    cursor: pointer
+    margin: 15px 0
+    color: $grey-500
+    &:hover
+      color: $grey-700
+
+  .docs-content
+    position: relative
+    left: 200px
+    width: calc(100% - 200px)
+    padding: 100px
+
+    .table-header-label
+      font-size: 28px
+      font-weight: 300
+      color: $grey-700
+      padding: 10px 0
+      margin-top: 20px

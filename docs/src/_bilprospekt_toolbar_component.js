@@ -9,7 +9,7 @@ const {
 const ToolbarDocComponent = React.createClass({
     render() {
         return (
-            <div>
+            <div id='ToolbarDoc'>
                 <p className='table-header-label'>Toolbar</p>
                 <MainHolder>
                     <Button label='Skapa affär' icon='fa-plus' />

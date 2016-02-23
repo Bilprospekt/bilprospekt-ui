@@ -9,7 +9,7 @@ const BilprospektTooltipComponent = React.createClass({
             marginLeft: 50,
         };
         return (
-            <div style={{width: '100%'}}>
+            <div style={{width: '100%'}} id='TooltipDoc'>
                 <p className='table-header-label'>Tooltip</p>
                 <Tooltip style={style} text="This is a tooltip">
                     Auto orient

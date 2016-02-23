@@ -5,7 +5,7 @@ import {Chips} from 'bilprospekt-ui';
 const ChipsDoc = React.createClass({
     render() {
         return (
-            <div>
+            <div id='ChipsDoc'>
                 <p className="table-header-label">Chips</p>
                 <Chips label='Estrella Chip' />
 

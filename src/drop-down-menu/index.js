@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import classNames           from 'classnames';
 import _ from 'underscore';
 import Infinite from 'react-infinite';
+import EventUtil from '../helpers/EventUtil.js';
 
 // Components
 import Checkbox from '../checkbox'
@@ -77,7 +78,7 @@ const DropdownHolder = React.createClass({
     },
     componentDidUpdate() {
         if (this.state.opened) {
-            document.addEventListener('click', this._hideDrop);
+            EventUtil.addHandler(document, 'click', this._hideDrop);
         }
     },
     _triggerToggle(val) {
@@ -105,11 +106,11 @@ const DropdownHolder = React.createClass({
             if (this.isMounted()) {
                 this.setState({ opened: false });
             }
-            document.removeEventListener('click', this._hideDrop);
+            EventUtil.removeHandler(document, 'click', this._hideDrop);
         }
     },
     componentWillUnmount() {
-        document.removeEventListener('click', this._hideDrop);
+        EventUtil.removeHandler(document, 'click', this._hideDrop);
     },
     _handleInfiniteLoading() {
         this.setState({

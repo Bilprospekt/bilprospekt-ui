@@ -33,7 +33,7 @@ const DatePickerDoc = React.createClass({
         }
 
         return (
-            <div>
+            <div id='DatePickerDoc'>
                 <p className="table-header-label">Datepicker</p>
                 <p style={{height: 60}}>Built upon <a target="_blank" href="https://github.com/gpbl/react-day-picker">react-day-picker</a></p>
                 <p style={{textAlign: 'center'}}>{dateStr}</p>

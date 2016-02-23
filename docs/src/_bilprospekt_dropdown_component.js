@@ -5,7 +5,7 @@ import _ from 'underscore';
 const {DropdownMenu: {DropdownHolder, DropdownElement}} = BUI;
 import {DatePicker} from 'bilprospekt-ui';
 
-const DropDownDoc = React.createClass({
+const DropdownDoc = React.createClass({
     render() {
         const els = _(_.range(1000)).map((val) => {
             return (
@@ -13,7 +13,7 @@ const DropDownDoc = React.createClass({
             )
         });
         return (
-            <div>
+            <div id='DropdownDoc'>
                 <p className="table-header-label">Dropdown menu</p>
                 <DropdownHolder label="My Dropdown" icon="fa-cogs">
                     <DropdownElement checkbox label="My first element" />
@@ -81,4 +81,4 @@ const DropDownDoc = React.createClass({
     },
 });
 
-export default DropDownDoc;
+export default DropdownDoc;
