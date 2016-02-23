@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import classNames           from 'classnames';
 import _ from 'underscore';
+import EventUtil from '../helpers/EventUtil.js';
 
 // Components
 import BuiCheckbox from '../checkbox';
@@ -55,7 +56,7 @@ const BuiToolbarDropdownHolder = React.createClass({
     },
     componentDidUpdate() {
         if (this.state.opened) {
-                document.addEventListener('click', this._hideDrop);
+            EventUtil.addHandler(document, 'click', this._hideDrop);
         }
     },
     _handleClick() {
@@ -71,12 +72,12 @@ const BuiToolbarDropdownHolder = React.createClass({
             }
 
             if (this.state.opened) {
-                    this.setState({ opened: false });
-                    document.removeEventListener('click', this._hideDrop);
+                this.setState({ opened: false });
+                EventUtil.removeHandler(document, 'click', this._hideDrop);
             }
     },
     componentWillUnmount() {
-            document.removeEventListener('click', this._hideDrop);
+        EventUtil.removeHandler(document, 'click', this._hideDrop);
     },
     render() {
             const parentClass = classNames('toolbar-dropdown-holder', {
