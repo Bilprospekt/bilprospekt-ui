@@ -37,6 +37,11 @@ const BuiInputField = React.createClass({
     getValue() {
         return this._field.value;
     },
+    clearValue() {
+        this.setState({
+            value: '',
+        });
+    },
     _handleChange(event) {
         if (typeof this.props.onChange === 'function') {
             this.props.onChange(event.target.value);
