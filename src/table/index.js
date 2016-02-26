@@ -311,7 +311,8 @@ const NoResultsMessageComponent = React.createClass({
     render() {
         let {height, message} = this.props;
 
-        const loadingStyle = {
+        const outerErrorStyle = {
+            display: 'table',
             position: 'absolute',
             bottom: 0,
             width: '100%',
@@ -321,11 +322,25 @@ const NoResultsMessageComponent = React.createClass({
             backgroundColor: 'white',
         };
 
+        const innerErrorStyle = {
+            display: 'table-cell',
+            width: '100%',
+            verticalAlign: 'middle',
+            textAlign: 'center',
+            fontSize: 28,
+            fontWeight: 300,
+            lineHeight: '35px',
+            color: '#616161',
+            padding: '0 40px',
+        };
+
         message = message ? message : 'Your search gave no results.';
 
         return (
-            <div style={loadingStyle}>
-                {message}
+            <div style={outerErrorStyle}>
+                <div style={innerErrorStyle}>
+                    {message}
+                </div>
             </div>
         );
     }
