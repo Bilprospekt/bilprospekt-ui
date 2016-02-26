@@ -23,7 +23,8 @@ module.exports = {
       exclude: /node_modules/,
       include: path.join(__dirname, 'src')
     },
-   { test: /\.css$/, loader: "style-loader!css-loader" }
+   { test: /\.css$/, loader: "style-loader!css-loader" },
+   { test: /\.(jpg|png)$/, loader: "file-loader"},
 	]
   },
   externals: {
