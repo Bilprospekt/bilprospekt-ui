@@ -269,7 +269,7 @@ const TableHolderComponent = React.createClass({
                 classes.push('selected');
             }
 
-            return classes;
+            return classes.join(' ');
         };
 
         return (
