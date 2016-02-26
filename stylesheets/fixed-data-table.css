@@ -233,6 +233,19 @@ body[dir="rtl"] .fixedDataTableColumnResizerLineLayout_main {
   border-bottom: 1px solid #E0E0E0;
 }
 
+/* Selected Row Design */
+
+.fixedDataTableRowLayout_main.selected,
+.fixedDataTableRowLayout_main.selected .fixedDataTableCellGroupLayout_cellGroup > .public_fixedDataTableCell_main:after {
+  background-color: #F5F5F5;
+}
+
+.fixedDataTableRowLayout_main.selected:hover {
+  background-color: #EEEEEE;
+}
+
+/* End of SRD */
+
 .fixedDataTableRowLayout_body {
   left: 0;
   position: absolute;

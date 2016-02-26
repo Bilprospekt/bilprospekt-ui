@@ -4,7 +4,7 @@ import $                    from 'jquery';
 import classNames           from 'classnames';
 
 // Components
-import {ActionButton} from 'bilprospekt-ui';
+import BuiActionButton from '../action-button';
 
 const Popup = React.createClass({
     propTypes: {       
