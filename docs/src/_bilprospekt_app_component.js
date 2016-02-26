@@ -59,11 +59,19 @@ const AppDoc = React.createClass({
             big: <img src='img/bilprospekt_logo_big.png' />,
         };
 
+        const searchData = [
+            {type: 'company', name: 'Planet express', id: 0},
+            {type: 'car', name: 'ABC123', id: 1},
+            {type: 'person', name: 'Bender', id: 'bend'},
+            {type: 'company', name: 'MomCorp', id: 'MOM'},
+            {type: 'person', name: 'Hubert Farnsworth', id: 'hubert'},
+        ];
+
         return (
             <div id='AppDoc'>
                 <p className="table-header-label">App Example</p>
                 <div className='bui-app-base'>
-                    <Navigation logos={logos} links={navLinks} searchButton={true} onClick={this._toggleMenuSize} />
+                    <Navigation searchData={searchData} logos={logos} links={navLinks} searchButton={true} onClick={this._toggleMenuSize} />
                     <BaseWrapper bigView={this.state.smallNav}>
                         <Header withTabs={true} withSearch={true} pathLabel='Inställningar' />
                         <Tabs labels={tabLabels} />
@@ -76,7 +84,7 @@ const AppDoc = React.createClass({
                             [
                             '<div className="bui-app-base">',
                                 <br />,
-                                '\t<Navigation logos={object} links={navLinks} searchButton={true} onClick={function} />',
+                                '\t<Navigation searchData={searchData} logos={object} links={navLinks} searchButton={true} onClick={function} />',
                                 <br />,
                                 '\t<BaseWrapper bigView={bool}>',
                                 <br />,

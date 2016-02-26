@@ -10,11 +10,12 @@ const SearchItem = React.createClass({
     propTypes: {
         icon: React.PropTypes.string.isRequired,
         name: React.PropTypes.string.isRequired,
+        onClick: React.PropTypes.func,
     },
 
     render() {
         return (
-            <div className='result-item'>
+            <div className='result-item' onClick={this.props.onClick}>
                 <div className='item-type'><i className={'type-icon fa ' + this.props.icon} /></div>
                 <div className='item-name'>{this.props.name}</div>
             </div>
@@ -27,6 +28,10 @@ const Navigation = React.createClass({
         links: React.PropTypes.array.isRequired,
         searchButton: React.PropTypes.bool,
         logos: React.PropTypes.object,
+        searchData: React.PropTypes.array,
+        onSearchItemClick: React.PropTypes.func,
+        onSearchChange: React.PropTypes.func,
+        onShowAll: React.PropTypes.func,
     },
 
     getInitialState() {
@@ -41,11 +46,12 @@ const Navigation = React.createClass({
     getDefaultProps() {
         return {
             searchButton: false,
+            searchData: [],
         }
     },
 
     _toggleMenuSize() {
-        this.setState({ 
+        this.setState({
             minimized: !this.state.minimized });
 
         if (typeof this.props.onClick === 'function') {
@@ -70,7 +76,23 @@ const Navigation = React.createClass({
     },
 
     _onSearchChange(value) {
+        if (typeof this.props.onSearchChange === 'function') {
+            this.props.onSearchChange(value);
+        }
+
         this.setState({ searchValue: value });
+    },
+
+    _searchItemClick(id) {
+        if (typeof this.props.onSearchItemClick === 'function') {
+            this.props.onSearchItemClick(id);
+        }
+    },
+
+    _showAll() {
+        if (typeof this.props.onShowAll === 'function') {
+            this.props.onShowAll();
+        }
     },
 
     render() {
@@ -96,6 +118,20 @@ const Navigation = React.createClass({
             'is-showing': this.state.searching
         });
 
+        const items = _(this.props.searchData).map((val) => {
+            const iconChoices = {
+                company: 'fa-building',
+                car: 'fa-car',
+                person: 'fa-user',
+            };
+
+            const icon = iconChoices[val.type] || 'fa-question';
+
+            return (
+                <SearchItem icon={icon} name={val.name} onClick={this._searchItemClick.bind(this, val.id)} />
+            );
+        });
+
         let searchContentState;
         if (!this.state.searchValue) {
             searchContentState = (
@@ -112,19 +148,16 @@ const Navigation = React.createClass({
         } else {
             searchContentState = (
                 <div className='popup__result-state'>
-                    <SearchItem icon='fa-user' name='Niklas Silfverström Von Javascript' />
-                    <SearchItem icon='fa-user' name='Viktor Silfverström' />
-                    <SearchItem icon='fa-building' name='Silfverströms Bilar' />
-                    <SearchItem icon='fa-briefcase' name='Silfverström AB' />
-                    <SearchItem icon='fa-car' name='VIK 404' />
-                    <SearchItem icon='fa-car' name='NIK 007' />
-                    <SearchItem icon='fa-user' name='Niklas Silfverström' />
-                    <SearchItem icon='fa-user' name='Viktor Silfverström' />
-                    <SearchItem icon='fa-building' name='Silfverströms Bilar' />
-                    <SearchItem icon='fa-briefcase' name='Silfverström AB' />
-                    <BuiActionButton label='Visa alla resultat' primary flat />
+                    {items}
+                    <BuiActionButton onClick={this._showAll} label='Visa alla resultat' primary flat />
                 </div>
             );
+        }
+
+        const keyPress = (e) => {
+            if (e.which === '13') {
+                this._showAll();
+            }
         }
 
         let navSearch = null;
@@ -138,7 +171,7 @@ const Navigation = React.createClass({
                     <div className={searchPopupClass}>
                         <div className='popup-holder'>
                             <div className='popup__search-field'>
-                                <BuiInputField icon='fa-search' hint='Snabbsök' onChange={this._onSearchChange} value={this.state.searchValue} ref='navSearchRef' />
+                            <BuiInputField icon='fa-search' hint='Snabbsök' onChange={this._onSearchChange} value={this.state.searchValue} ref='navSearchRef' onKeyPress={keyPress} />
                                 <i className='fa fa-times search-close-button' onClick={this._closeSearch} />
                             </div>
                             {searchContentState}
