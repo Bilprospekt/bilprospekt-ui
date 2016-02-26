@@ -21,18 +21,23 @@ import BilprospektFormElementsDoc from './_bilprospekt_form_elements_component.j
 import BilprospektAppDoc from './_bilprospekt_app_component.js';
 
 const NavElement = React.createClass({
-    _onClick() {
+    _onClick(e) {
+        // Variables
+        const $el = $(e.target);
         const $target = $( '#' + this.props.target + 'Doc' );
-        console.log($target);
+
+        // Set classes
+        $el.siblings().removeClass('active-nav-element');
+        $el.addClass('active-nav-element');
 
         // Scroll animation
         $('html, body').animate({
             scrollTop: $target.offset().top
-        }, 450);
+        }, 175);
     },
     render() {
         return (
-            <li onClick={this._onClick}>{this.props.label}</li>
+            <li className={this.props.className} onClick={this._onClick}>{this.props.label}</li>
         );
     }
 });
@@ -45,7 +50,7 @@ var BilprospektUiComponent = React.createClass({
                     <div className='nav-logotype' />
                     <div className='nav-menu'>
                         <ul>
-                            <NavElement label='App Example' target='App' />
+                            <NavElement label='App Example' target='App' className='active-nav-element' />
                             <NavElement label='Tabs' target='Tabs' />
                             <NavElement label='Date Picker' target='DatePicker' />
                             <NavElement label='Table' target='Table' />
