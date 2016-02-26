@@ -61,6 +61,9 @@ const TableHolderComponent = React.createClass({
         headerHeight: React.PropTypes.number,
         headerLabel: React.PropTypes.node,
 
+        //If we want specific some specific class for a row. Should look like {_id: [string]}
+        rowClasses: React.PropTypes.object,
+
         //If we should have a checkbox for rows.
         makeRowsSelectable: React.PropTypes.bool,
         //What rows are selected if we have makeRowsSelectable.
@@ -93,6 +96,7 @@ const TableHolderComponent = React.createClass({
             allColumnsThatCouldBeRendered: [],
             makeRowsSelectable: false,
             disableSortForColumns: [],
+            rowClasses: {},
 
             //Change these to what we'll probably use in prod.
             width: 'auto',
@@ -254,6 +258,15 @@ const TableHolderComponent = React.createClass({
         ? <NoResultsMessageComponent height={tableHeight} message={props.noResultsMessage} />
         : null;
 
+        const rowClassNameGetter = (index) => {
+            const id = props.data[index]._id;
+            if (typeof props.rowClasses[id] !== 'undefined') {
+                return props.rowClasses[id];
+            }
+
+            return false;
+        };
+
         return (
             <div ref={(ref) => this._holder = ref} style={{position: 'relative'}} className='bui-table-holder'>
                 <TableHeader
@@ -281,6 +294,7 @@ const TableHolderComponent = React.createClass({
                     isColumnResizing={false}
                     overflowX='hidden'
                     onColumnResizeEndCallback={this._onColumnResize}
+                    rowClassNameGetter={rowClassNameGetter}
                     onScrollEnd={this._onScrollEnd}
                     rowHeight={props.rowHeight}
                     onRowClick={this._onRowClick}

@@ -112,7 +112,7 @@ const TableHeader = React.createClass({
                 return <DropdownElement key={key} checkboxChecked={!!checked} checkbox label={column.label} onClick={this._onColumnChange.bind(this, column.val)} />
             });
             columnChanger = (
-                <DropdownHolder noArrow orientation="right" icon="fa-align-right table-icon" style={{float: 'left'}}>
+                <DropdownHolder noArrow orientation="right" icon="fa-ellipsis-h table-icon" style={{float: 'left'}}>
                     {columns}
                 </DropdownHolder>
             );

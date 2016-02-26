@@ -41,6 +41,11 @@ const BuiSearchableSelect = React.createClass({
             });
         }
     },
+    clear() {
+        this.setState({
+            inputValue: null,
+        });
+    },
     onFocus(event) {
         if (event.target.value !== '') {
             this.onSearch(event.target.value);
