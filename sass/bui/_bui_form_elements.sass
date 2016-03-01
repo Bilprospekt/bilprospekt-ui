@@ -74,8 +74,14 @@ $elementBoxSize: 14px
   &.toggle-type
     label
       @extend %label-base
+      @extend .clear-after
+      .element-label
+        float: left
+        padding-left: 0
       .icon
         @extend %icon-base
+        float: right
+        margin: 1px 0
         position: relative
         width: calc((#{$elementBoxSize} * 2) - 4px)
         border-radius: $elementBoxSize

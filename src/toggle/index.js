@@ -43,8 +43,8 @@ const BuiToggle = React.createClass({
             <div className={parentClass}>
                 <input {...props} />
                 <label htmlFor={this.props.id}>
-                    <div className='icon' />
                     <span className='element-label'>{this.props.label}</span>
+                    <div className='icon' />
                 </label>
             </div>
         );
