@@ -25,7 +25,9 @@ const FormElementsDoc = React.createClass({
                 <Checkbox id='cb2' label='Option 2' checked={this.state.checked['cb2']} onChange={this.toggleFormElements} />
                 <Checkbox id='cb3' label='Option 3' disabled={true} checked={this.state.checked['cb3']} onChange={this.toggleFormElements} />
 
+                <div style={{width:140}}>
                 <Toggle id='t1' label='Feel Good' checked={this.state.checked['t1']} onChange={this.toggleFormElements} />
+                </div>
 
                 <pre>
                 <code>
