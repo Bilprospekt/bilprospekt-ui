@@ -13,6 +13,10 @@ const Select = React.createClass({
         };
     },
     _onChange(value) {
+        if (typeof this.props.onChange === 'function') {
+            this.props.onChange(value);
+        }
+
         this.setState({
             selected: value,
         });
