@@ -6,17 +6,30 @@ const {DropdownMenu: {DropdownHolder, DropdownElement}} = BUI;
 import {DatePicker} from 'bilprospekt-ui';
 
 const DropdownDoc = React.createClass({
+    _onClick() {
+        this.setState({
+            checked: !this.state.checked,
+        });
+    },
+    getInitialState() {
+        return {
+            checked: false,
+        };
+    },
     render() {
         const els = _(_.range(1000)).map((val) => {
             return (
                 <DropdownElement key={val} checkbox label={`El ${val}`} />
             )
         });
+
+        const checked = this.state.checked;
+
         return (
             <div id='DropdownDoc'>
                 <p className="table-header-label">Dropdown menu</p>
                 <DropdownHolder label="My Dropdown" icon="fa-cogs">
-                    <DropdownElement checkbox label="My first element" />
+                    <DropdownElement checkboxChecked={checked} onClick={this._onClick} checkbox label="My first element" />
                     <DropdownElement label="My second element" />
                     <DropdownElement disabled label="My third element" />
                 </DropdownHolder>
@@ -26,7 +39,7 @@ const DropdownDoc = React.createClass({
                     {
                         ['<DropdownHolder label="My Dropdown" icon="fa-cogs">',
                          <br key={1} />,
-                        '\t<DropdownElement checkbox label="My first element" />',
+                        '\t<DropdownElement checkboxChecked={checked} checkbox onClick={this._onClick} label="My first element" />',
                          <br key={3} />,
                         '\t<DropdownElement label="My second element" />',
                          <br key={5} />,
