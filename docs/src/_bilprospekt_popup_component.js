@@ -1,13 +1,14 @@
 import React from 'react';
 
 import {Popup, ActionButton} from 'bilprospekt-ui';
+import Portal from 'react-portal';
 
 const PopupDoc = React.createClass({
     render() {
 
         const popupButton = <ActionButton label='Open Popup' primary style={{marginBottom: 20}} />;
         const popupContent = (
-            <div>
+            <div style={{height: 500}}>
                 Lorem ipsum roflmao
             </div>
         );
@@ -15,19 +16,26 @@ const PopupDoc = React.createClass({
         return (
             <div id='PopupDoc'>
                 <p className="table-header-label">Popup</p>
-                <Popup
-                    button={popupButton}
-                    title='This is a nice popup'
-                    content={popupContent}
-                    actionLabel='Sounds good'
-                    closeLabel='No way'
-                />
+                <Portal closeOnEsc openByClickOn={popupButton}>
+                    <Popup
+                        title='This is a nice popup'
+                        actionLabel='Sounds good'
+                        closeLabel='No way'
+                    >
+                        {popupContent}
+                    </Popup>
+                </Portal>
 
                 <pre>
+                <a href='https://github.com/tajo/react-portal'>https://github.com/tajo/react-portal</a>
                 <code>
                     {
                         [
-                        '<Popup />',
+                        '<Portal closeOnEsc openByClickOn={popupButton}>',
+                        '\n\t<Popup onAction={(value) => {}} title="This is a nice popup" actionLabel="Sounds good" closeLabel="No way">',
+                        '\n\t\t{popupContent}',
+                        '\n\t</Popup>',
+                        '\n</Portal>'
                         ]
                     }
                 </code>

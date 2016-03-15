@@ -4,92 +4,90 @@ import $                    from 'jquery';
 import classNames           from 'classnames';
 
 // Components
-import BuiActionButton from '../action-button';
+import ActionButton from '../action-button';
+import Portal from 'react-portal';
 
 const Popup = React.createClass({
-    propTypes: {       
-        button: React.PropTypes.object.isRequired,
-        content: React.PropTypes.object.isRequired,
+    propTypes: {
         actionLabel: React.PropTypes.string.isRequired,
         closeLabel: React.PropTypes.string.isRequired,
-        display: React.PropTypes.bool,
-    },
-
-    getInitialState() {
-        return {
-            display: false,
-        };
+        onAction: React.PropTypes.func.isRequired,
     },
 
     componentDidMount() {
-        window.addEventListener('resize', this._handleResize);
+        $(window).on('resize', this._handleResize);
+        $(this.refs.popupParent).on('click', this._onWindowClick);
+        this.doAnimation();
+    },
+    componentWillUnmount() {
+        $(window).off('resize', this._handleResize);
+        $(this.refs.popupParent).off('click', this._onWindowClick);
     },
 
-    componentDidUpdate() {
-        if (this.state.display) {
-            const $content = $(this.refs.contentRef);
-            const maxHeight = window.innerHeight - (80 + 120); // 120px is header + footer height
-
-            // Puts a max-height on the popup content div to control its height with the overflow property
-            $content.css('max-height', maxHeight);
-
-            if ($content.first()[0].scrollHeight > maxHeight) {
-                $content.addClass('is-max-height');
-            } else {
-                $content.removeClass('is-max-height');
-            }
-
-            // Animations
-            const $overlay = $(this.refs.overlayRef);
-            const $popup = $(this.refs.popupRef);
-
-            $overlay.addClass('overlay-animation');
-            $popup.addClass('popup-animation');
+    _onWindowClick(e) {
+        const $target = $(e.target);
+        const $popupRef = $(this.refs.popupRef);
+        if (!($target.is($popupRef) || $target.parents().is($popupRef))) {
+            this._closePopup();
         }
     },
 
-    componentWillUnmount() {
-        window.removeEventListener('resize', this._handleResize);
+    doAnimation() {
+        const $content = $(this.refs.contentRef);
+        const maxHeight = window.innerHeight - (80 + 120); // 120px is header + footer height
+
+        // Puts a max-height on the popup content div to control its height with the overflow property
+        $content.css('max-height', maxHeight);
+
+        if ($content.first().prop('scrollHeight') > maxHeight) {
+            $content.addClass('is-max-height');
+        } else {
+            $content.removeClass('is-max-height');
+        }
+
+        // Animations
+        const $overlay = $(this.refs.overlayRef);
+        const $popup = $(this.refs.popupRef);
+
+        setTimeout(() => {
+            $overlay.addClass('overlay-animation');
+            $popup.addClass('popup-animation');
+        }, 10);
     },
 
     _handleResize(e) {
-        this.forceUpdate();
-    },
-
-    _openPopup() {
-        this.setState({ display: true });
+        this.doAnimation();
     },
 
     _closePopup() {
-        this.setState({ display: false });
+        this.props.closePortal();
+    },
+
+    _doAction(value) {
+        if (typeof this.props.onAction === 'function') {
+            this.props.onAction(value);
+        }
+        this._closePopup();
     },
 
     render() {
-        let popupContent = null;
-        if (this.state.display) {
-            popupContent = (
+        return (
+            <div className='bui-popup-parent' ref='popupParent'>
                 <div className='popup-holder'>
                     <div className='popup-center-class'>
                         <div className='popup-center-wrapper'>
                             <div className='popup-wrapper' ref='popupRef'>
                                 <div className='popup-header'>{this.props.title}</div>
-                                <div className='popup-content' ref='contentRef'>{this.props.content}</div>
+                                <div className='popup-content' ref='contentRef'>{this.props.children}</div>
                                 <div className='popup-footer'>
-                                    <ActionButton primary flat label={this.props.closeLabel} onClick={this._closePopup} />
-                                    <ActionButton primary flat label={this.props.actionLabel} />
+                <ActionButton primary flat label={this.props.closeLabel} onClick={this._doAction.bind(this, false)} />
+                <ActionButton primary flat label={this.props.actionLabel} onClick={this._doAction.bind(this, true)} />
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div className='popup-overlay' ref='overlayRef' />
                 </div>
-            );
-        }
-
-        return (
-            <div className='bui-popup-parent' ref='popupParent'>
-                <div onClick={this._openPopup}>{this.props.button}</div>
-                {popupContent}
             </div>
         );
     }

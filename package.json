@@ -27,6 +27,7 @@
     "moment": "^2.10.6",
     "react-day-picker": "1.2.0",
     "react-infinite": "^0.7.1",
+    "react-portal": "^2.1.0",
     "underscore": "^1.8.3"
   },
   "peerDependencies": {
