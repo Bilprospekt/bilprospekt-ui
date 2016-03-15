@@ -34,7 +34,7 @@ const FormElementsDoc = React.createClass({
                     {
                         [
                         '<Checkbox />',
-                        '<Toggle />',
+                            "\n<Toggle id='t1' label={string} checked={bool} onChange={(event, isChecked) => {}} />",
                         ]
                     }
                 </code>
