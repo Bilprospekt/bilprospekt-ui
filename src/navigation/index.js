@@ -26,6 +26,7 @@ const SearchItem = React.createClass({
 const Navigation = React.createClass({
     propTypes: {
         links: React.PropTypes.array.isRequired,
+        activeLink: React.PropTypes.number,
         searchButton: React.PropTypes.bool,
         logos: React.PropTypes.object,
         searchData: React.PropTypes.array,
@@ -40,6 +41,7 @@ const Navigation = React.createClass({
             searching: false,
             searchValue: null,
             hidden: false,
+            activeLink: this.props.activeLink,
         };
     },
 
@@ -95,6 +97,14 @@ const Navigation = React.createClass({
         }
     },
 
+    _changeActiveLink(index) {
+        if (typeof this.props.onChange === 'function') {
+            this.props.onChange(index);
+        }
+
+        this.setState({ activeLink: index });
+    },
+
     render() {
 
         /*
@@ -102,8 +112,12 @@ const Navigation = React.createClass({
          */
 
         const navLinks = _(this.props.links).map((val, index) => {
+            const linkRowClass = classNames('link-row', {
+                'active-link': (this.state.activeLink === index),
+            });
+
             return (
-                <div className='link-row' key={index}>
+                <div className={linkRowClass} key={index} onClick={this._changeActiveLink.bind(this, index)}>
                     <i className={'link-icon fa ' + val[1]} />
                     <p className='link-label'>{val[0]}</p>
                 </div>
