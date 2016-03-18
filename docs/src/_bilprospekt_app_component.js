@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {Navigation, BaseWrapper, Header, Tabs, ViewWrapper}  from 'bilprospekt-ui';
+import {Navigation, BaseWrapper, Header, Tabs}  from 'bilprospekt-ui';
 
 const AppDoc = React.createClass({
     getInitialState() {
@@ -30,13 +30,13 @@ const AppDoc = React.createClass({
          */
 
         const navLinks = [
-            ['Instrumentpanel', 'fa-user'],
-            ['Prospektera',     'fa-sliders'],
-            ['Bearbeta',        'fa-arrows'],
-            ['Listor',          'fa-list'],
-            ['Analysera',       'fa-line-chart'],
-            ['Aktivitet',       'fa-dashboard'],
-            ['Inställningar',   'fa-cog']
+            {label: 'Instrumentpanel', icon: 'fa-user'},
+            {label: 'Prospektera', icon: 'fa-sliders'},
+            {label: 'Bearbeta', icon: 'fa-arrows'},
+            {label: 'Listor', icon: 'fa-list'},
+            {label: 'Analysera', icon: 'fa-line-chart'},
+            {label: 'Aktivitet', icon: 'fa-dashboard'},
+            {label: 'Inställningar', icon: 'fa-cog'}
         ];
 
         /*

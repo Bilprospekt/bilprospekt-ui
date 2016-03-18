@@ -95,6 +95,12 @@ const Navigation = React.createClass({
         }
     },
 
+    _onNavClick(link) {
+        if (typeof this.props.onNavClick === 'function') {
+            this.props.onNavClick(link);
+        }
+    },
+
     render() {
 
         /*
@@ -103,9 +109,9 @@ const Navigation = React.createClass({
 
         const navLinks = _(this.props.links).map((val, index) => {
             return (
-                <div className='link-row' key={index}>
-                    <i className={'link-icon fa ' + val[1]} />
-                    <p className='link-label'>{val[0]}</p>
+                    <div onClick={this._onNavClick.bind(this, val.link)}className='link-row' key={index}>
+                    <i className={`link-icon fa ${val.icon}`} />
+                    <p className='link-label'>{val.label}</p>
                 </div>
             );
         });
