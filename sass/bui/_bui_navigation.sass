@@ -235,6 +235,16 @@ $cb: cubic-bezier(.17,.67,0,1)
       .link-label
         vertical-align: bottom
 
+      &.active-link
+        cursor: default
+        .link-label
+          font-weight: 500
+        .link-icon,
+        .link-label
+          color: $cyan-500
+          &:hover
+            color: $cyan-500
+
   /*
    * Minimized Menu Style
    */

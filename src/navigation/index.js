@@ -27,12 +27,14 @@ const SearchItem = React.createClass({
 const Navigation = React.createClass({
     propTypes: {
         links: React.PropTypes.array.isRequired,
+        activeLink: React.PropTypes.string,
         searchButton: React.PropTypes.bool,
         logos: React.PropTypes.object,
         searchData: React.PropTypes.array,
         onSearchItemClick: React.PropTypes.func,
         onSearchChange: React.PropTypes.func,
         onShowAll: React.PropTypes.func,
+        onNavClick: React.PropTypes.func,
     },
 
     getInitialState() {
@@ -96,6 +98,12 @@ const Navigation = React.createClass({
         }
     },
 
+    _onNavClick(link) {
+        if (typeof this.props.onNavClick === 'function') {
+            this.props.onNavClick(link);
+        }
+    },
+
     render() {
 
         /*
@@ -103,10 +111,14 @@ const Navigation = React.createClass({
          */
 
         const navLinks = _(this.props.links).map((val, index) => {
+            const linkRowClass = classNames('link-row', {
+                'active-link': (this.props.activeLink && this.props.activeLink === val.link),
+            });
+
             return (
-                <div className='link-row' key={index}>
-                    <i className={'link-icon fa ' + val[1]} />
-                    <p className='link-label'>{val[0]}</p>
+                    <div className={linkRowClass} onClick={this._onNavClick.bind(this, val.link)} key={index}>
+                    <i className={`link-icon fa ${val.icon}`} />
+                    <p className='link-label'>{val.label}</p>
                 </div>
             );
         });
