@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import _                    from 'underscore';
 import classNames           from 'classnames';
+import $ from 'jquery';
 
 // Components
 import BuiInputField from '../input-field';
@@ -26,7 +27,7 @@ const SearchItem = React.createClass({
 const Navigation = React.createClass({
     propTypes: {
         links: React.PropTypes.array.isRequired,
-        activeLink: React.PropTypes.number,
+        activeLink: React.PropTypes.string,
         searchButton: React.PropTypes.bool,
         logos: React.PropTypes.object,
         searchData: React.PropTypes.array,
@@ -42,7 +43,6 @@ const Navigation = React.createClass({
             searching: false,
             searchValue: null,
             hidden: false,
-            activeLink: this.props.activeLink,
         };
     },
 
@@ -102,7 +102,6 @@ const Navigation = React.createClass({
         if (typeof this.props.onNavClick === 'function') {
             this.props.onNavClick(link);
         }
-        this.setState({ activeLink: link });
     },
 
     render() {
@@ -111,9 +110,9 @@ const Navigation = React.createClass({
          * Navigation Links
          */
 
-        const navLinks = _(this.props.links).map((val) => {
+        const navLinks = _(this.props.links).map((val, index) => {
             const linkRowClass = classNames('link-row', {
-                'active-link': (this.state.activeLink === val.link),
+                'active-link': (this.props.activeLink && this.props.activeLink === val.link),
             });
 
             return (

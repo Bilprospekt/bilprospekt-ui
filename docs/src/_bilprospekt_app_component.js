@@ -24,8 +24,8 @@ const AppDoc = React.createClass({
         }
     },
 
-    _onNavLinkChange(index) {
-        this.setState({ activeNavLink: index });
+    _onNavLinkChange(link) {
+        this.setState({ activeNavLink: link });
     },
 
     render() {
@@ -35,13 +35,13 @@ const AppDoc = React.createClass({
          */
 
         const navLinks = [
-            {label: 'Instrumentpanel', icon: 'fa-user'},
-            {label: 'Prospektera', icon: 'fa-sliders'},
-            {label: 'Bearbeta', icon: 'fa-arrows'},
-            {label: 'Listor', icon: 'fa-list'},
-            {label: 'Analysera', icon: 'fa-line-chart'},
-            {label: 'Aktivitet', icon: 'fa-dashboard'},
-            {label: 'Inställningar', icon: 'fa-cog'}
+            {link: 'dashboard', label: 'Instrumentpanel', icon: 'fa-user'},
+            {link: 'prospect', label: 'Prospektera', icon: 'fa-sliders'},
+            {link: 'agile', label: 'Bearbeta', icon: 'fa-arrows'},
+            {link: 'list', label: 'Listor', icon: 'fa-list'},
+            {link: 'analyse', label: 'Analysera', icon: 'fa-line-chart'},
+            {link: 'activity', label: 'Aktivitet', icon: 'fa-dashboard'},
+            {link: 'settings', label: 'Inställningar', icon: 'fa-cog'}
         ];
 
         /*
@@ -76,7 +76,7 @@ const AppDoc = React.createClass({
             <div id='AppDoc'>
                 <p className="table-header-label">App Example</p>
                 <div className='bui-app-base'>
-                    <Navigation searchData={searchData} logos={logos} links={navLinks} activeLink={this.state.activeNavLink} onChange={this._onNavLinkChange} searchButton={true} onClick={this._toggleMenuSize} />
+                    <Navigation searchData={searchData} logos={logos} links={navLinks} activeLink={this.state.activeNavLink} onNavClick={this._onNavLinkChange} searchButton={true} onClick={this._toggleMenuSize} />
                     <BaseWrapper bigView={this.state.smallNav}>
                         <Header withTabs={true} withSearch={true} pathLabel='Inställningar' />
                         <Tabs labels={tabLabels} />
