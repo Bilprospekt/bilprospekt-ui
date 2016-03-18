@@ -81,18 +81,15 @@ $cb: cubic-bezier(.17,.67,0,1)
       border-radius: 4px
       margin-left: 10px
       cursor: default
-      width: 0
-      height: 0
-      overflow: hidden
-      @include transition(width .175s $cb, height .175s $cb)
-
+      display: none
+      //width: 0
+      //height: 0
       .popup-holder
-        width: 240px
-        height: 526px
-        opacity: 0
-        @include transform(scale(.85))
-        @include transition(transform .125s $cb, opacity .075s ease)
-        transition-delay: .125s
+        min-width: 240px
+        //opacity: 0
+        //@include transform(scale(.85))
+        //@include transition(transform .125s $cb, opacity .075s ease)
+        //transition-delay: .125s
         .popup__search-field
           @extend .clear-after
           padding: 13px 20px
@@ -103,7 +100,7 @@ $cb: cubic-bezier(.17,.67,0,1)
             .input-underlines
               display: none
           .search-close-button
-            float: left
+            float: right
             width: 20px
             line-height: 20px
             text-align: center
@@ -115,7 +112,7 @@ $cb: cubic-bezier(.17,.67,0,1)
               color: $red-400
         .popup__empty-state
           position: relative
-          height: calc(100% - 57px)
+          height: 260px
           width: 100%
           display: table
           .empty-state-content
@@ -131,7 +128,7 @@ $cb: cubic-bezier(.17,.67,0,1)
             color: $grey-400
             margin-top: 10px
         .popup__result-state
-          padding: 20px
+          padding: 20px 20px 10px 20px
           .bui-action-button
             width: 100%
           .result-item
@@ -145,11 +142,11 @@ $cb: cubic-bezier(.17,.67,0,1)
                 background-color: $cyan-500
               .item-name
                 color: $grey-800
-                font-weight: 500
             .item-type,
             .item-name
-              float: left
+              display: inline-block
             .item-type
+              vertical-align: top
               background-color: $grey-500
               border-radius: 100%
               width: 30px
@@ -169,11 +166,12 @@ $cb: cubic-bezier(.17,.67,0,1)
               color: $grey-600
 
       &.is-showing
-        width: 240px
-        height: 526px
+        display: block
+        //width: 240px
+        //height: 540px
         .popup-holder
-          opacity: 1
-          @include transform(scale(1))
+          //opacity: 1
+          //@include transform(scale(1))
           
   .navigation-toggle-button
     position: absolute
