@@ -126,7 +126,7 @@ const BuiSearchableSelect = React.createClass({
         });
 
         return (
-            <div className={classes}>
+            <div className={classes} style={this.props.style}>
                 <BuiInputField icon={this.props.icon} hint={this.props.hint} onChange={this.onSearch} onFocus={this.onFocus} value={this.state.inputValue} />
                 <i className='search-adder-dropdown-indicator-icon fa fa-caret-down' />
                 {dropdown}

@@ -6,6 +6,7 @@ const AppDoc = React.createClass({
     getInitialState() {
         return {
             smallNav: false,
+            activeNavLink: 0,
         };
     },
 
@@ -21,6 +22,10 @@ const AppDoc = React.createClass({
             var event = document.createEventObject();
             element.fireEvent('onresize', event);
         }
+    },
+
+    _onNavLinkChange(index) {
+        this.setState({ activeNavLink: index });
     },
 
     render() {
@@ -71,7 +76,7 @@ const AppDoc = React.createClass({
             <div id='AppDoc'>
                 <p className="table-header-label">App Example</p>
                 <div className='bui-app-base'>
-                    <Navigation searchData={searchData} logos={logos} links={navLinks} searchButton={true} onClick={this._toggleMenuSize} />
+                    <Navigation searchData={searchData} logos={logos} links={navLinks} activeLink={this.state.activeNavLink} onChange={this._onNavLinkChange} searchButton={true} onClick={this._toggleMenuSize} />
                     <BaseWrapper bigView={this.state.smallNav}>
                         <Header withTabs={true} withSearch={true} pathLabel='Inställningar' />
                         <Tabs labels={tabLabels} />
@@ -84,7 +89,7 @@ const AppDoc = React.createClass({
                             [
                             '<div className="bui-app-base">',
                                 <br />,
-                                '\t<Navigation searchData={searchData} logos={object} links={navLinks} searchButton={true} onClick={function} />',
+                                '\t<Navigation searchData={searchData} logos={object} links={navLinks} activeLink={number} onChange={function} searchButton={true} onClick={function} />',
                                 <br />,
                                 '\t<BaseWrapper bigView={bool}>',
                                 <br />,

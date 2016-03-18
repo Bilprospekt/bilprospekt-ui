@@ -34,9 +34,11 @@ const Select = React.createClass({
         const selectedLabel = selectedChild && selectedChild.props.label || '';
 
         return (
-            <DropdownHolder label={selectedLabel}>
-                {options}
-            </DropdownHolder>
+            <div className='bui-select-parent'>
+                <DropdownHolder label={selectedLabel}>
+                    {options}
+                </DropdownHolder>
+            </div>
         );
     },
 });

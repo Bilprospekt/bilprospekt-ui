@@ -3,12 +3,13 @@ import classNames           from 'classnames';
 
 const BuiInputField = React.createClass({
     propTypes: {
-        hint:     React.PropTypes.string,
-        bgcolor:  React.PropTypes.string,
-        value:    React.PropTypes.string,
-        icon:     React.PropTypes.string,
-        password: React.PropTypes.bool,
-        disabled: React.PropTypes.bool,
+        hint:         React.PropTypes.string,
+        bgcolor:      React.PropTypes.string,
+        value:        React.PropTypes.string,
+        icon:         React.PropTypes.string,
+        password:     React.PropTypes.bool,
+        disabled:     React.PropTypes.bool,
+        floatingHint: React.PropTypes.bool,
 
         onChange: React.PropTypes.func,
     },

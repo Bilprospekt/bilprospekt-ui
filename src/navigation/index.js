@@ -26,12 +26,14 @@ const SearchItem = React.createClass({
 const Navigation = React.createClass({
     propTypes: {
         links: React.PropTypes.array.isRequired,
+        activeLink: React.PropTypes.number,
         searchButton: React.PropTypes.bool,
         logos: React.PropTypes.object,
         searchData: React.PropTypes.array,
         onSearchItemClick: React.PropTypes.func,
         onSearchChange: React.PropTypes.func,
         onShowAll: React.PropTypes.func,
+        onNavClick: React.PropTypes.func,
     },
 
     getInitialState() {
@@ -40,6 +42,7 @@ const Navigation = React.createClass({
             searching: false,
             searchValue: null,
             hidden: false,
+            activeLink: this.props.activeLink,
         };
     },
 
@@ -99,6 +102,7 @@ const Navigation = React.createClass({
         if (typeof this.props.onNavClick === 'function') {
             this.props.onNavClick(link);
         }
+        this.setState({ activeLink: link });
     },
 
     render() {
@@ -107,9 +111,13 @@ const Navigation = React.createClass({
          * Navigation Links
          */
 
-        const navLinks = _(this.props.links).map((val, index) => {
+        const navLinks = _(this.props.links).map((val) => {
+            const linkRowClass = classNames('link-row', {
+                'active-link': (this.state.activeLink === val.link),
+            });
+
             return (
-                    <div onClick={this._onNavClick.bind(this, val.link)}className='link-row' key={index}>
+                    <div className={linkRowClass} onClick={this._onNavClick.bind(this, val.link)} key={index}>
                     <i className={`link-icon fa ${val.icon}`} />
                     <p className='link-label'>{val.label}</p>
                 </div>

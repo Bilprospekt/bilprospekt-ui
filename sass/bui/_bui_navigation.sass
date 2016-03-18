@@ -17,7 +17,7 @@ $cb: cubic-bezier(.17,.67,0,1)
   @include transition(width .225s $cb)
 
   .navigation-logotype
-    height: 112px
+    height: 120px
     background-color: white
     border-bottom: 1px solid $grey-200
     .logotype-big,
@@ -200,6 +200,7 @@ $cb: cubic-bezier(.17,.67,0,1)
       left: 100%
       top: 0
       margin: 5px
+      line-height: 14px
       white-space: nowrap
       color: white
       font-size: 12px
@@ -235,6 +236,16 @@ $cb: cubic-bezier(.17,.67,0,1)
         text-align: center
       .link-label
         vertical-align: bottom
+
+      &.active-link
+        cursor: default
+        .link-label
+          font-weight: 500
+        .link-icon,
+        .link-label
+          color: $cyan-500
+          &:hover
+            color: $cyan-500
 
   /*
    * Minimized Menu Style
