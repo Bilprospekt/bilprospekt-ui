@@ -25,6 +25,7 @@ const ActionButton = React.createClass({
             'bui-is-selected': this.props.selected,
             'bui-is-toggle': this.props.toggle,
             'bui-is-flat': this.props.flat,
+            [this.props.className]: this.props.className,
         });
 
         const props = this.props;

@@ -5,29 +5,21 @@ import Portal from 'react-portal';
 
 const SnackbarDoc = React.createClass({
     render() {
-
-        const snackbarButton = <ActionButton label='Show Snackbar' primary />
-
+        const snackbarTrigger = <ActionButton label='Show Snackbar' primary />;
         return (
             <div id='SnackbarDoc'>
                 <p className="table-header-label">Snackbar</p>
-                <Portal closeOnEsc openByClickOn={snackbarButton}>
-                    <Snackbar
-                        message='roflmao'
-                        closeLabel='Stäng'
-                        />
-                </Portal>
+
+                <Snackbar isOpenedBy={snackbarTrigger} header='Snackbar Header' message='This is a normal text string on a snackbar' />
 
                 <pre>
                 <a href='https://github.com/tajo/react-portal'>https://github.com/tajo/react-portal</a>
                 <code>
                     {
                         [
-                        '<Portal closeOnEsc openByClickOn={popupButton}>',
-                        '\n\t<Snackbar onAction={(value) => {}} title="This is a nice popup" actionLabel="Sounds good" closeLabel="No way">',
-                        '\n\t\t{popupContent}',
-                        '\n\t</Popup>',
-                        '\n</Portal>'
+                        '<Snackbar message="string" closeLabel="string">',
+                        '\n\t<ActionButton />',
+                        '\n</Snackbar>'
                         ]
                     }
                 </code>

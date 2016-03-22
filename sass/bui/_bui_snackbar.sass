@@ -4,4 +4,77 @@
  *
  */
 
-.bui-snackbar-parent
+.bui-snackbar-box
+  position: fixed
+  display: table
+  z-index: 100
+  bottom: 2px
+  left: 0
+  background-color: $grey-900
+  border-radius: 2px
+  /* Animation Styling */
+  opacity: 0
+  @include transition(opacity .25s ease)
+
+  &.snackbar-fadein-animation
+    opacity: 1
+
+  .snackbar-left-area,
+  .snackbar-right-area
+    display: table-cell
+    vertical-align: middle
+
+  .snackbar-icon,
+  .snackbar-content
+    display: inline-block
+
+  /* Snackbar Content Items */ 
+
+  .snackbar-close-icon,
+  .snackbar-status-icon
+    line-height: 20px
+    text-align: center
+    font-size: 14px
+
+  /* Close Button */
+  .snackbar-close-icon
+    width: 20px
+    background-color: rgba(black, .5)
+    border-radius: 100%
+    color: $grey-800
+    margin: 20px
+    cursor: pointer
+    &:hover
+      color: $grey-300
+
+  /* Status Icon */
+  .snackbar-status-icon
+    width: 60px
+    padding: 20px
+    border-right: 1px solid rgba(black, .25)
+    &.status-warning
+      color: $red-400
+    &.status-loading
+      color: $yellow-400
+    &.status-success
+      color: $green-400
+    &.status-info
+      color: $blue-400
+
+  .snackbar-header,
+  .snackbar-message
+    color: white
+    font-weight: 500
+    line-height: 20px
+
+  /* Header */
+  .snackbar-header
+    font-size: 15px
+
+  /* Message */
+  .snackbar-message
+    font-size: 14px
+
+
+
+
