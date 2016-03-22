@@ -8,6 +8,15 @@ const TooltipDoc = React.createClass({
             "Now this is tooltipping!", 
             "With extra rows!", 
             "Ok, now I'm just showing off..",
+            "Row 4",
+            "Row 5",
+            "Row 6",
+            "Row 7",
+            "Row 8",
+            "Row 9",
+            "Row 10",
+            "Row 11",
+            "Row 12",
         ];
         const tooltipStyle = ({
             display: 'inline-block',

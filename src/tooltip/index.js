@@ -73,8 +73,8 @@ const Tooltip = React.createClass({
         const wWidth  = $(window).innerWidth();
 
         const borderOffset = 10; // A tooltip can't get closer than 10px to an edge
-        let newArrowValue;
 
+        /* X-Axis */
         if (this.props.position === 'top' || this.props.position === 'bottom') {
             // Overflow on Left
             if (newLeft < borderOffset) {
@@ -94,6 +94,19 @@ const Tooltip = React.createClass({
             } else if (newLeft < 0) {
                 newLeft = pPos.left + pWidth + arrowSize + this.props.space;
                 $tChild.toggleClass('tooltip-position-left tooltip-position-right');
+            }
+        }
+
+        /* Y-Axis */
+        if (this.props.position === 'left' || this.props.position === 'right') {
+            const scrollFromTop = $(window).scrollTop();
+            console.log('scrollFromTop', scrollFromTop);
+            if (newTop < (scrollFromTop - borderOffset)) {
+                newTop = scrollFromTop + borderOffset;
+                $tArrow.css({top: (pPos.top - scrollFromTop) + (arrowSize / 2)});
+            } else if ((newTop + cHeight) > (scrollFromTop + wHeight - borderOffset)) {
+                newTop = (scrollFromTop + wHeight) - (cHeight + borderOffset);
+                $tArrow.css({top: pPos.top - (scrollFromTop + wHeight) + cHeight + (pHeight / 2) + (arrowSize / 2)});
             }
         }
 
