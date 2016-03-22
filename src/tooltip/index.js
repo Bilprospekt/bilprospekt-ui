@@ -100,7 +100,6 @@ const Tooltip = React.createClass({
         /* Y-Axis */
         if (this.props.position === 'left' || this.props.position === 'right') {
             const scrollFromTop = $(window).scrollTop();
-            console.log('scrollFromTop', scrollFromTop);
             if (newTop < (scrollFromTop - borderOffset)) {
                 newTop = scrollFromTop + borderOffset;
                 $tArrow.css({top: (pPos.top - scrollFromTop) + (arrowSize / 2)});
