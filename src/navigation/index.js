@@ -116,7 +116,7 @@ const Navigation = React.createClass({
             });
 
             return (
-                    <div className={linkRowClass} onClick={this._onNavClick.bind(this, val.link)} key={index}>
+                <div className={linkRowClass} onClick={this._onNavClick.bind(this, val.link)} key={index}>
                     <i className={`link-icon fa ${val.icon}`} />
                     <p className='link-label'>{val.label}</p>
                 </div>

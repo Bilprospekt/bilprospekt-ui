@@ -5,40 +5,37 @@
  */
 
 .bui-snackbar-box
+  @extend .clear-after
   position: fixed
   display: table
   z-index: 100
   bottom: 2px
-  left: 0
+  left: 50%
+  width: 500px
+  margin-left: -250px
   background-color: $grey-900
   border-radius: 2px
   /* Animation Styling */
   opacity: 0
-  @include transition(opacity .25s ease)
+  @include transition(opacity .25s ease, bottom .125s ease)
 
   &.snackbar-fadein-animation
     opacity: 1
 
-  .snackbar-left-area,
-  .snackbar-right-area
-    display: table-cell
-    vertical-align: middle
-
-  .snackbar-icon,
+  .snackbar-status-icon,
   .snackbar-content
-    display: inline-block
+    float: left
+  .snackbar-close-icon
+    float: right
 
   /* Snackbar Content Items */ 
 
-  .snackbar-close-icon,
-  .snackbar-status-icon
-    line-height: 20px
-    text-align: center
-    font-size: 14px
-
   /* Close Button */
   .snackbar-close-icon
+    line-height: 20px
     width: 20px
+    text-align: center
+    font-size: 14px
     background-color: rgba(black, .5)
     border-radius: 100%
     color: $grey-800
@@ -49,9 +46,11 @@
 
   /* Status Icon */
   .snackbar-status-icon
-    width: 60px
-    padding: 20px
-    border-right: 1px solid rgba(black, .25)
+    line-height: 60px
+    width: 20px
+    text-align: center
+    font-size: 14px
+    margin: 0 20px
     &.status-warning
       color: $red-400
     &.status-loading
@@ -61,20 +60,12 @@
     &.status-info
       color: $blue-400
 
-  .snackbar-header,
-  .snackbar-message
-    color: white
-    font-weight: 500
-    line-height: 20px
-
-  /* Header */
-  .snackbar-header
-    font-size: 15px
-
   /* Message */
   .snackbar-message
     font-size: 14px
-
+    font-weight: 500
+    line-height: 60px
+    color: white
 
 
 

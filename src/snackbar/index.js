@@ -11,13 +11,21 @@ const Popup = React.createClass({
         header:     React.PropTypes.string, 
         status:     React.PropTypes.string,
         isOpenedBy: React.PropTypes.node,
-        loeader:    React.PropTypes.bool,     
+        loader:     React.PropTypes.bool,
+        showTime:   React.PropTypes.number,      
+    },
+
+    getInitialState() {
+        return  {
+            snackbarShowing: false,
+        };
     },
 
     getDefaultProps() {
         return {
             status: 'info',
             loader: false,
+            showTime: 5000,
         };
     },
 
@@ -26,10 +34,17 @@ const Popup = React.createClass({
 
         const sHeight = $snackbar.outerHeight();
         const sWidth  = $snackbar.outerWidth();
-        
+
+        // Handle multiple snackbars
+        let newBottomValue = 0;
+        $('.bui-snackbar-box').each(function(index) {
+            if (index > 0) {
+                newBottomValue = 65 * index;
+            }
+        });
+
         $snackbar.css({
-            left: '50%',
-            marginLeft: -(sWidth / 2),
+            bottom: 5 + newBottomValue,
         });
 
         setTimeout(() => {
@@ -38,12 +53,32 @@ const Popup = React.createClass({
     },
 
     _showSnackbar() {
-        this.refs.snackbarPortal.openPortal();
-        this._animateSnackbar();
+        if (!this.state.snackbarShowing) {
+            this.refs.snackbarPortal.openPortal();
+            this._animateSnackbar();
+            this.setState({ snackbarShowing: true });
+
+            setTimeout( this._closeSnackbar, this.props.showTime );
+        }
     },
 
     _closeSnackbar() {
-        this.refs.snackbarPortal.closePortal();
+        const _this = this;
+        setTimeout(function() {
+            _this.refs.snackbarPortal.closePortal();
+
+            let newBottomValue;
+            const snackbars = $('.bui-snackbar-box').length;
+
+            if (snackbars > 0) {
+                $('.bui-snackbar-box').each(function(index) {
+                    newBottomValue = 65 * index;
+                    $(this).css({bottom: 5 + newBottomValue});
+                });
+            }
+        }, 1);
+
+        this.setState({ snackbarShowing: false });
     },
 
     render() {
@@ -57,15 +92,10 @@ const Popup = React.createClass({
             snackbarContent = <p className='snackbar-message'>Build Loader for Snackbar</p>;
         }
 
-        // this.props.header
-        let snackbarHeader = (this.props.header)
-            ? <p className='snackbar-header'>{this.props.header}</p>
-            : null ;
-
         // this.props.status
         let snackbarStatusIcon = null;
         if (this.props.status === 'loading') {
-            snackbarStatusIcon = <i className='fa fa-clock snackbar-status-icon status-loading' />;
+            snackbarStatusIcon = <i className='fa fa-clock-o snackbar-status-icon status-loading' />;
         } else if (this.props.status === 'warning') {
             snackbarStatusIcon = <i className='fa fa-warning snackbar-status-icon status-warning' />;
         } else if (this.props.status === 'success') {
@@ -74,25 +104,27 @@ const Popup = React.createClass({
             snackbarStatusIcon = <i className='fa fa-info snackbar-status-icon status-info' />;
         }
 
+        // this.props.isOpenedBy
+        let snackbarButton = null;
+        if (this.props.isOpenedBy) {
+            snackbarButton = React.cloneElement(this.props.isOpenedBy, {
+                onClick: this._showSnackbar,
+            });
+        }
+
+        // this.props.isOpen
+        if (this.props.isOpen) {
+            this._showSnackbar();
+        }
+
         return (
             <div className='bui-snackbar-parent' style={this.props.style}>
-                {React.cloneElement(this.props.isOpenedBy, {
-                    onClick: this._showSnackbar,
-                })}
+                {snackbarButton}
                 <Portal closeOnEsc ref='snackbarPortal'>
                     <div className='bui-snackbar-box' ref='snackbar'>
-                        <div className='snackbar-left-area'>
-                            <div className='snackbar-icon'>
-                                {snackbarStatusIcon}
-                            </div>
-                            <div className='snackbar-content'>
-                                {snackbarHeader}
-                                {snackbarContent}
-                            </div>
-                        </div>
-                        <div className='snackbar-right-area'>
-                            <i className='fa fa-close snackbar-close-icon' onClick={this._closeSnackbar} />
-                        </div>
+                        {snackbarStatusIcon}
+                        <div className='snackbar-content'>{snackbarContent}</div>
+                        <i className='fa fa-close snackbar-close-icon' onClick={this._closeSnackbar} />
                     </div>
                 </Portal>
                 
