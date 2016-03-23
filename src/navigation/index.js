@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import _                    from 'underscore';
 import classNames           from 'classnames';
 import $                    from 'jquery';
+import EventUtil from '../helpers/EventUtil.js';
 
 // Components
 import BuiInputField from '../input-field';
@@ -66,9 +67,26 @@ const Navigation = React.createClass({
         }
     },
 
+    componentDidMount() {
+        $(window).on('keydown', this._onGlobalKeyDown);
+    },
+
+    componentWillUnmount() {
+        $(window).on('keydown', this._onGlobalKeyDown);
+    },
+
+    _onGlobalKeyDown(e) {
+        if (e.which === 27 && this.state.searching === true) {
+            this.closeSearch();
+        }
+    },
+
     _toggleMenuSize() {
-        this.setState({
-            minimized: !this.state.minimized });
+        this.setState({minimized: !this.state.minimized });
+
+        setTimeout(() => {
+            EventUtil.triggerEvent('resize');
+        }, 100);
 
         if (typeof this.props.onClick === 'function') {
             this.props.onClick(!this.state.minimized);
@@ -80,11 +98,17 @@ const Navigation = React.createClass({
             this.closeSearch();
         } else {
             this.setState({ searching: true });
-            $(this.refs.navSearchRef).focus();
+            setTimeout(() => {
+                this.refs.navSearchRef.focus();
+            }, 200);
         }
     },
 
     closeSearch() {
+        if (this.refs.navSearchRef) {
+            this.refs.navSearchRef.clearValue();
+        }
+
         this.setState({
             searching: false,
             searchValue: null,
@@ -103,18 +127,24 @@ const Navigation = React.createClass({
         if (typeof this.props.onSearchItemClick === 'function') {
             this.props.onSearchItemClick(val);
         }
+
+        this.closeSearch();
     },
 
     _showAll() {
         if (typeof this.props.onShowAll === 'function') {
             this.props.onShowAll(this.state.searchValue);
         }
+
+        this.closeSearch();
     },
 
     _onNavClick(link) {
         if (typeof this.props.onNavClick === 'function') {
             this.props.onNavClick(link);
         }
+
+        this.closeSearch();
     },
 
     render() {
