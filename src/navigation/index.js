@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import _                    from 'underscore';
 import classNames           from 'classnames';
-import $ from 'jquery';
+import $                    from 'jquery';
 
 // Components
 import BuiInputField from '../input-field';
@@ -167,7 +167,7 @@ const Navigation = React.createClass({
                         <i className='empty-state-icon fa fa-building' />
                         <i className='empty-state-icon fa fa-briefcase' />
                         <i className='empty-state-icon fa fa-car' />
-                        <p className='empty-state-text'>Snabbsök i Bilprospekt<br />efter vad du söker</p>
+                        <p className='empty-state-text'>Sök efter<br />organisationsnummer,<br />företagsnamn,<br />registreringsnummer<br />och namn på privatpersoner</p>
                     </div>
                 </div>
             );
