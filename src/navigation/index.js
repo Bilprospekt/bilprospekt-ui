@@ -30,7 +30,20 @@ const Navigation = React.createClass({
         activeLink: React.PropTypes.string,
         searchButton: React.PropTypes.bool,
         logos: React.PropTypes.object,
-        searchData: React.PropTypes.array,
+        searchData: React.PropTypes.arrayOf(
+            React.PropTypes.shape({
+                val: React.PropTypes.oneOfType([
+                    React.PropTypes.string,
+                    React.PropTypes.number,
+                ]).isRequired,
+                name: React.PropTypes.oneOfType([
+                    React.PropTypes.string,
+                    React.PropTypes.number,
+                ]).isRequired,
+                type: React.PropTypes.string,
+            })
+        ),
+
         onSearchItemClick: React.PropTypes.func,
         onSearchChange: React.PropTypes.func,
         onShowAll: React.PropTypes.func,
@@ -64,14 +77,14 @@ const Navigation = React.createClass({
 
     _toggleSearch() {
         if (this.state.searching) {
-            this._closeSearch();
+            this.closeSearch();
         } else {
             this.setState({ searching: true });
             $(this.refs.navSearchRef).focus();
         }
     },
 
-    _closeSearch() {
+    closeSearch() {
         this.setState({
             searching: false,
             searchValue: null,
@@ -86,15 +99,15 @@ const Navigation = React.createClass({
         this.setState({ searchValue: value });
     },
 
-    _searchItemClick(id) {
+    _searchItemClick(val) {
         if (typeof this.props.onSearchItemClick === 'function') {
-            this.props.onSearchItemClick(id);
+            this.props.onSearchItemClick(val);
         }
     },
 
     _showAll() {
         if (typeof this.props.onShowAll === 'function') {
-            this.props.onShowAll();
+            this.props.onShowAll(this.state.searchValue);
         }
     },
 
@@ -141,7 +154,7 @@ const Navigation = React.createClass({
             const icon = iconChoices[val.type] || 'fa-question';
 
             return (
-                <SearchItem icon={icon} name={val.name} onClick={this._searchItemClick.bind(this, val.id)} />
+                <SearchItem icon={icon} name={val.name} onClick={this._searchItemClick.bind(this, val)} />
             );
         });
 
@@ -168,8 +181,10 @@ const Navigation = React.createClass({
         }
 
         const keyPress = (e) => {
-            if (e.which === '13') {
+            if (e.which === 13) {
                 this._showAll();
+            } else if (e.which === 27) {
+                this.closeSearch();
             }
         }
 
@@ -184,8 +199,8 @@ const Navigation = React.createClass({
                     <div className={searchPopupClass}>
                         <div className='popup-holder'>
                             <div className='popup__search-field'>
-                            <BuiInputField icon='fa-search' hint='Snabbsök' onChange={this._onSearchChange} value={this.state.searchValue} ref='navSearchRef' onKeyPress={keyPress} />
-                                <i className='fa fa-times search-close-button' onClick={this._closeSearch} />
+                            <BuiInputField icon='fa-search' hint='Snabbsök' onChange={this._onSearchChange} value={this.state.searchValue} ref='navSearchRef' onKeyDown={keyPress} />
+                                <i className='fa fa-times search-close-button' onClick={this.closeSearch} />
                             </div>
                             {searchContentState}
                         </div>
