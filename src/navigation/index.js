@@ -76,12 +76,12 @@ const Navigation = React.createClass({
 
     componentDidMount() {
         $(window).on('keydown', this._onGlobalKeyDown);
-        $(window).on('click', this._onGlobalClick);
+        $(window).on('mousedown', this._onGlobalClick);
     },
 
     componentWillUnmount() {
         $(window).off('keydown', this._onGlobalKeyDown);
-        $(window).off('click', this._onGlobalClick);
+        $(window).off('mousedown', this._onGlobalClick);
     },
 
     _onGlobalKeyDown(e) {
@@ -95,7 +95,6 @@ const Navigation = React.createClass({
         const $trigger = $(this.refs['search-trigger']);
         const $holder = $(this.refs['search-popup-holder']);
         if (!($target.is($holder) || $target.parents().is($holder)) && !($target.is($trigger) || $target.parents().is($trigger))) {
-                <i className='empty-state-icon fa fa-car' />
             this.closeSearch();
         }
     },
@@ -178,7 +177,7 @@ const Navigation = React.createClass({
             });
 
             return (
-                    <div className={linkRowClass} onClick={this._onNavClick.bind(this, val.link)} key={index}>
+                <div className={linkRowClass} onClick={this._onNavClick.bind(this, val.link)} key={index}>
                     <i className={`link-icon fa ${val.icon}`} />
                     <p className='link-label'>{val.label}</p>
                 </div>
@@ -264,7 +263,7 @@ const Navigation = React.createClass({
                     <div ref='search-popup-holder' className={searchPopupClass} style={searchPopupStyle}>
                         <div className='popup-holder'>
                             <div className='popup__search-field'>
-                                <BuiInputField icon='fa-search' hint='Snabbsök' onChange={this._onSearchChange} value={this.state.searchValue} ref='navSearchRef' onKeyDown={keyPress} />
+                                <BuiInputField fastRemove icon='fa-search' hint='Snabbsök' onChange={this._onSearchChange} value={this.state.searchValue} ref='navSearchRef' onKeyDown={keyPress} />
                             </div>
                             {searchContentState}
                         </div>
