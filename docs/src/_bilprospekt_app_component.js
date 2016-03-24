@@ -77,7 +77,7 @@ const AppDoc = React.createClass({
             <div id='AppDoc'>
                 <p className="table-header-label">App Example</p>
                 <div className='bui-app-base'>
-                    <Navigation searchData={searchData} logos={logos} links={navLinks} activeLink={this.state.activeNavLink} onNavClick={this._onNavLinkChange} searchButton={true} onClick={this._toggleMenuSize} />
+                    <Navigation maxWidth='calc(100vw - 654px)' searchData={searchData} logos={logos} links={navLinks} activeLink={this.state.activeNavLink} onNavClick={this._onNavLinkChange} searchButton={true} onClick={this._toggleMenuSize} />
                     <BaseWrapper bigView={this.state.smallNav}>
                         <Header withTabs={true} withSearch={true} pathLabel='Inställningar' />
                         <Tabs labels={tabLabels} />
