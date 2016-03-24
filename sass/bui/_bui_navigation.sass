@@ -4,7 +4,7 @@
  *
  */
 
-$navWidth: 240px
+$navWidth: 200px
 $cb: cubic-bezier(.17,.67,0,1)
 
 .bui-navigation-holder
@@ -27,7 +27,7 @@ $cb: cubic-bezier(.17,.67,0,1)
       left: 0
       height: 112px
       width: 100%
-      padding: 37px 55px
+      padding: 37px 35px
       @include transition(all .225s $cb)
     .logotype-big
       opacity: 1
@@ -91,25 +91,11 @@ $cb: cubic-bezier(.17,.67,0,1)
         //@include transition(transform .125s $cb, opacity .075s ease)
         //transition-delay: .125s
         .popup__search-field
-          @extend .clear-after
           padding: 13px 20px
           border-bottom: 1px solid $grey-300
           .bui-input-field
-            float: left
-            width: 180px
             .input-underlines
               display: none
-          .search-close-button
-            float: right
-            width: 20px
-            line-height: 20px
-            text-align: center
-            margin: 5px 0
-            font-size: 14px
-            color: $grey-500
-            cursor: pointer
-            &:hover
-              color: $red-400
         .popup__empty-state
           position: relative
           height: 260px
@@ -124,7 +110,7 @@ $cb: cubic-bezier(.17,.67,0,1)
             color: $grey-300
             margin: 0 8px
           .empty-state-text
-            font-size: 16px
+            font-size: 14px
             color: $grey-400
             margin-top: 10px
         .popup__result-state
@@ -161,7 +147,7 @@ $cb: cubic-bezier(.17,.67,0,1)
               width: calc(100% - 40px)
               overflow: hidden
               text-overflow: ellipsis
-              font-size: 15px
+              font-size: 14px
               line-height: 30px
               color: $grey-600
 
@@ -225,13 +211,14 @@ $cb: cubic-bezier(.17,.67,0,1)
       .link-icon,
       .link-label
         display: inline-block
-        font-size: 16px
+        line-height: 20px
       .link-icon
-        font-size: 20px
+        font-size: 18px
         width: 20px
         margin: 0 20px
         text-align: center
       .link-label
+        font-size: 14px
         vertical-align: bottom
 
       &.active-link
