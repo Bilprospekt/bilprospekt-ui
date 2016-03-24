@@ -69,14 +69,24 @@ const Navigation = React.createClass({
 
     componentDidMount() {
         $(window).on('keydown', this._onGlobalKeyDown);
+        $(window).on('click', this._onGlobalClick);
     },
 
     componentWillUnmount() {
-        $(window).on('keydown', this._onGlobalKeyDown);
+        $(window).off('keydown', this._onGlobalKeyDown);
+        $(window).off('click', this._onGlobalClick);
     },
 
     _onGlobalKeyDown(e) {
         if (e.which === 27 && this.state.searching === true) {
+            this.closeSearch();
+        }
+    },
+
+    _onGlobalClick(e) {
+        const $target = $(e.target);
+        const $holder = $(this.refs.holder);
+        if (!($target.is($holder) || $target.parents($holder).is($holder))) {
             this.closeSearch();
         }
     },
@@ -274,7 +284,7 @@ const Navigation = React.createClass({
         }
 
         return (
-            <div className={parentClass}>
+            <div ref='holder' className={parentClass}>
                 <div className='navigation-logotype'>
                     <div className='logotype-big'>
                         {logotypeBig}
