@@ -40,7 +40,12 @@ const BuiInputField = React.createClass({
     getValue() {
         return this._field.value;
     },
-    clearValue() {
+    clearValue(trigger) {
+        if (trigger === true) {
+            if (typeof this.props.onChange === 'function') {
+                this.props.onChange('');
+            }
+        }
         this.setState({
             value: '',
         });
@@ -61,7 +66,7 @@ const BuiInputField = React.createClass({
         if (typeof this.props.onBlur === 'function') this.props.onBlur(e);
     },
     _removeValueAction() {
-        this.clearValue();
+        this.clearValue(true);
         this.focus();
     },
     render() {
