@@ -1,12 +1,74 @@
-.bui-tooltip
-  .bui-tooltip-text
-    background-color: $grey-900
-    text-transform: uppercase
-    font-size: 10px
+/*
+ *
+ * BUI: TOOLTIP
+ *
+ */
+
+$arrowSize: 6px
+
+.bui-tooltip-parent
+
+.bui-tooltip-child
+  display: none
+  position: absolute
+  z-index: 100
+  padding: 10px
+  background-color: $grey-800
+  border-radius: 4px
+
+  .tooltip-header
+    font-size: 15px
     font-weight: 500
-    position: absolute
-    top: 0px
-    left: 0px
     color: white
-    padding: 10px
-    z-index: 999
+    margin-bottom: 5px
+
+  .tooltip-text
+    color: $grey-100
+    font-size: 13px
+    font-weight: 500
+    white-space: nowrap
+
+  &.has-max-width-limit
+    .tooltip-text
+      white-space: normal
+
+  /* Tooltip Arrow */
+
+  .tooltip-arrow
+    position: absolute
+    content: ''
+    display: block
+    width: 0
+    height: 0
+
+  &.tooltip-position-top
+    .tooltip-arrow
+      top: 100%
+      left: calc(50% - #{$arrowSize})
+      border-left:  $arrowSize solid transparent
+      border-right: $arrowSize solid transparent
+      border-top:   $arrowSize solid $grey-800
+
+  &.tooltip-position-bottom
+    .tooltip-arrow
+      bottom: 100%
+      left: calc(50% - #{$arrowSize})
+      border-left:   $arrowSize solid transparent
+      border-right:  $arrowSize solid transparent
+      border-bottom: $arrowSize solid $grey-800
+
+  &.tooltip-position-left
+    .tooltip-arrow
+      left: 100%
+      top: calc(50% - #{$arrowSize})
+      border-top:    $arrowSize solid transparent
+      border-bottom: $arrowSize solid transparent
+      border-left:   $arrowSize solid $grey-800
+
+  &.tooltip-position-right
+    .tooltip-arrow
+      right: 100%
+      top: calc(50% - #{$arrowSize})
+      border-top:    $arrowSize solid transparent
+      border-bottom: $arrowSize solid transparent
+      border-right:  $arrowSize solid $grey-800

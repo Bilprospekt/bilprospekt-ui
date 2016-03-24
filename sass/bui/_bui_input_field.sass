@@ -4,7 +4,6 @@
  *
  */
 
-$inputFieldWidth:  200px
 $inputFieldHeight: 30px
 
 $BuiActive:   $grey-800
@@ -15,7 +14,6 @@ $BuiError:    $red-400
 .bui-input-field
   position: relative
   width: 100%
-  max-width: $inputFieldWidth
   height: $inputFieldHeight
   font-size: 14px
   font-weight: 400
@@ -61,6 +59,16 @@ $BuiError:    $red-400
     .input-icon
       color: $BuiPassive
       line-height: 29px
+
+  .input-remove-button
+    position: absolute
+    z-index: 3
+    right: 0
+    line-height: 30px
+    color: $grey-400
+    cursor: pointer
+    &:hover
+      color: $red-400
 
   .input-text-hint
     position: absolute
@@ -142,4 +150,10 @@ $BuiError:    $red-400
         color: $BuiDisabled
     .input-underline-blur
       border-color: $BuiDisabled
+
+  // Input has fast remove
+  &.input-has-fast-remove
+    .input-text-value
+      input
+        padding-right: 20px
       

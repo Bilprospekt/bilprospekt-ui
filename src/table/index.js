@@ -260,11 +260,16 @@ const TableHolderComponent = React.createClass({
 
         const rowClassNameGetter = (index) => {
             const id = props.data[index]._id;
+            let classes = [];
             if (typeof props.rowClasses[id] !== 'undefined') {
-                return props.rowClasses[id];
+                classes = props.rowClasses[id];
             }
 
-            return false;
+            if (props.selectedRows && props.selectedRows.indexOf(id) !== -1) {
+                classes.push('selected');
+            }
+
+            return classes.join(' ');
         };
 
         return (

@@ -1,11 +1,12 @@
 import React from 'react';
 
-import {Navigation, BaseWrapper, Header, Tabs, ViewWrapper}  from 'bilprospekt-ui';
+import {Navigation, BaseWrapper, Header, Tabs}  from 'bilprospekt-ui';
 
 const AppDoc = React.createClass({
     getInitialState() {
         return {
             smallNav: false,
+            activeNavLink: 0,
         };
     },
 
@@ -23,6 +24,10 @@ const AppDoc = React.createClass({
         }
     },
 
+    _onNavLinkChange(link) {
+        this.setState({ activeNavLink: link });
+    },
+
     render() {
 
         /*
@@ -30,13 +35,13 @@ const AppDoc = React.createClass({
          */
 
         const navLinks = [
-            ['Instrumentpanel', 'fa-user'],
-            ['Prospektera',     'fa-sliders'],
-            ['Bearbeta',        'fa-arrows'],
-            ['Listor',          'fa-list'],
-            ['Analysera',       'fa-line-chart'],
-            ['Aktivitet',       'fa-dashboard'],
-            ['Inställningar',   'fa-cog']
+            {link: 'dashboard', label: 'Instrumentpanel', icon: 'fa-user'},
+            {link: 'prospect', label: 'Prospektera', icon: 'fa-sliders'},
+            {link: 'agile', label: 'Bearbeta', icon: 'fa-arrows'},
+            {link: 'list', label: 'Listor', icon: 'fa-list'},
+            {link: 'analyse', label: 'Analysera', icon: 'fa-line-chart'},
+            {link: 'activity', label: 'Aktivitet', icon: 'fa-dashboard'},
+            {link: 'settings', label: 'Inställningar', icon: 'fa-cog'}
         ];
 
         /*
@@ -59,11 +64,20 @@ const AppDoc = React.createClass({
             big: <img src='img/bilprospekt_logo_big.png' />,
         };
 
+        const searchData = [
+            {type: 'company', name: 'Planet express', id: 0},
+            {type: 'car', name: 'ABC123', id: 1},
+            {type: 'person', name: 'Bender', id: 'bend'},
+            {type: 'person', name: 'Planet Express, Planet Express, Planet Express, Planet Express, Planet Express'},
+            {type: 'company', name: 'MomCorp', id: 'MOM'},
+            {type: 'person', name: 'Hubert Farnsworth', id: 'hubert'},
+        ];
+
         return (
             <div id='AppDoc'>
                 <p className="table-header-label">App Example</p>
                 <div className='bui-app-base'>
-                    <Navigation logos={logos} links={navLinks} searchButton={true} onClick={this._toggleMenuSize} />
+                    <Navigation maxWidth='calc(100vw - 654px)' searchData={searchData} logos={logos} links={navLinks} activeLink={this.state.activeNavLink} onNavClick={this._onNavLinkChange} searchButton={true} onClick={this._toggleMenuSize} />
                     <BaseWrapper bigView={this.state.smallNav}>
                         <Header withTabs={true} withSearch={true} pathLabel='Inställningar' />
                         <Tabs labels={tabLabels} />
@@ -76,7 +90,7 @@ const AppDoc = React.createClass({
                             [
                             '<div className="bui-app-base">',
                                 <br />,
-                                '\t<Navigation logos={object} links={navLinks} searchButton={true} onClick={function} />',
+                                '\t<Navigation searchData={searchData} logos={object} links={navLinks} activeLink={number} onChange={function} searchButton={true} onClick={function} />',
                                 <br />,
                                 '\t<BaseWrapper bigView={bool}>',
                                 <br />,

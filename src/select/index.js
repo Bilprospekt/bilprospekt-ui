@@ -13,6 +13,10 @@ const Select = React.createClass({
         };
     },
     _onChange(value) {
+        if (typeof this.props.onChange === 'function') {
+            this.props.onChange(value);
+        }
+
         this.setState({
             selected: value,
         });
@@ -30,9 +34,11 @@ const Select = React.createClass({
         const selectedLabel = selectedChild && selectedChild.props.label || '';
 
         return (
-            <DropdownHolder label={selectedLabel}>
-                {options}
-            </DropdownHolder>
+            <div className='bui-select-parent'>
+                <DropdownHolder label={selectedLabel}>
+                    {options}
+                </DropdownHolder>
+            </div>
         );
     },
 });

@@ -1,121 +1,172 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import $ from 'jquery';
+import React, { Component } from 'react';
+import ReactDOM             from 'react-dom';
+import $                    from 'jquery';
+import _                    from 'underscore';
+import classNames           from 'classnames';
 
-const TooltipComponent = React.createClass({
+// Components
+import Portal from 'react-portal';
+
+const Tooltip = React.createClass({
     propTypes: {
-        text: React.PropTypes.any.isRequired,
-        orient: React.PropTypes.oneOf(['auto', 'left', 'right', 'top', 'bottom']),
-        relativeWindow: React.PropTypes.string,
+        string:   React.PropTypes.string,
+        rows:     React.PropTypes.array,
+        header:   React.PropTypes.string,
+        position: React.PropTypes.string, 
+        space:    React.PropTypes.number,
+        delay:    React.PropTypes.number,
+        maxWidth: React.PropTypes.number,
     },
+
     getDefaultProps() {
         return {
-            orient: 'auto',
-            relativeWindow: '#bilprospekt-ui-styling-holder', //Change to document
-            //FIXME Remove
-            style: {
-                width: 50,
-            },
+            position: 'top',
+            space: 0,
+            delay: 0,
         };
     },
-    getInitialState() {
-        return {
-            hover: false,
-            left: 0,
-            top: 0,
-        };
-    },
-    _onMouseEnter(e) {
-        if (!this._tooltip || !this._holder) return;
-        let {orient} = this.props;
 
-        const tooltip = ReactDOM.findDOMNode(this._tooltip);
-        const $tooltip = $(tooltip);
+    _showTooltip() {
+        this.refs.tooltipPortal.openPortal();
 
-        const holder = ReactDOM.findDOMNode(this._holder);
-        const $holder = $(holder);
+        const $tParent = $(ReactDOM.findDOMNode(this.refs.cloneRef));
+        const $tChild  = $(this.refs.childRef);
+        const $tArrow  = $(this.refs.arrowRef);
 
-        const holderHeight = $holder.innerHeight();
-        const holderWidth = $holder.innerWidth();
+        const pPos    = $tParent.offset();
+        const pHeight = $tParent.outerHeight();
+        const pWidth  = $tParent.outerWidth();
+        
+        const cHeight = $tChild.outerHeight();
+        const cWidth  = $tChild.outerWidth();
 
-        const $window = $(window);
+        const arrowSize = 6; // This is taken from the sass document
 
-        const windowWidth = $window.width();
-        const windowHeight = $window.height();
+        /*
+         * Positioning Tooltip
+         */
 
-        const tooltipWidth = $tooltip.innerWidth();
-        const tooltipHeight = $tooltip.innerHeight();
+        let newTop;
+        let newLeft;
 
-        let scrollTop = 0;
-        if (this.props.relativeWindow) {
-            scrollTop = $(this.props.relativeWindow).scrollTop();
+        if (this.props.position === 'top' || this.props.position === 'bottom') {
+            newLeft = ((pWidth - cWidth) / 2) + pPos.left;
+        } else if (this.props.position === 'left' || this.props.position === 'right') {
+            newTop = pPos.top + ((pHeight - cHeight) / 2);
         }
 
-        let left = $holder.position().left;
-        let top = $holder.position().top + scrollTop;
+        if (this.props.position === 'top') {
+            newTop = pPos.top - cHeight - arrowSize - this.props.space;  
+        } else if (this.props.position === 'bottom') {
+            newTop = pPos.top + pHeight + arrowSize + this.props.space;
+        } else if (this.props.position === 'left') {
+            newLeft = pPos.left - (cWidth + arrowSize + this.props.space);
+        } else if (this.props.position ==='right') {
+            newLeft = pPos.left + pWidth + arrowSize + this.props.space;
+        }
 
-        //All apply functions depending on orient
-        var rightApply = (left) => left + holderWidth * 1.75;
-        var leftApply = (left) => left - tooltipWidth + holderWidth / 2;
-        var topApply = (top) => top - (holderHeight + tooltipHeight);
-        var bottomApply = (top) => top + holderHeight * 1.75;
+        /*
+         * Check if tooltip exceeds window borders
+         */
 
-        //Check which orient we should use.
-        //Order goes right -> left -> bottom -> top
-        if (orient === 'auto') {
-            //Each check looks so apply fits window
-            if (rightApply(left) + tooltipWidth < windowWidth) {
-                orient = 'right'
-            } else if (leftApply(left) > 0)  {
-                orient = 'left';
-            } else if(bottomApply(top) > 0) {
-                orient = 'bottom'
-            } else {
-                orient = 'top';
+        const wHeight = $(window).innerHeight();
+        const wWidth  = $(window).innerWidth();
+
+        const borderOffset = 10; // A tooltip can't get closer than 10px to an edge
+
+        /* X-Axis */
+        if (this.props.position === 'top' || this.props.position === 'bottom') {
+            // Overflow on Left
+            if (newLeft < borderOffset) {
+                newLeft = borderOffset;
+                $tArrow.css({left: (pPos.left + (pWidth / 2)) - (borderOffset + arrowSize)})
+            // Overflow on Right
+            } else if ((newLeft + cWidth) > ( wWidth- borderOffset)) {
+                newLeft = wWidth - (cWidth + borderOffset);
+                $tArrow.css({left: pPos.left - (wWidth - (cWidth + borderOffset + (pWidth / 2) - arrowSize))});
+            }
+        } else if (this.props.position === 'left' || this.props.position === 'right') {
+            // Overflow on Right
+            if ((newLeft + cWidth) > wWidth) {
+                newLeft = pPos.left - cWidth - arrowSize - this.props.space;
+                $tChild.toggleClass('tooltip-position-right tooltip-position-left');
+            // Overflow on Left
+            } else if (newLeft < 0) {
+                newLeft = pPos.left + pWidth + arrowSize + this.props.space;
+                $tChild.toggleClass('tooltip-position-left tooltip-position-right');
             }
         }
 
-        if (orient === 'right') {
-            left = rightApply(left);
-        } else if(orient === 'left') {
-            left = leftApply(left);
-        } else {
-            left += $holder.width() / 3;
+        /* Y-Axis */
+        if (this.props.position === 'left' || this.props.position === 'right') {
+            const scrollFromTop = $(window).scrollTop();
+            if (newTop < (scrollFromTop - borderOffset)) {
+                newTop = scrollFromTop + borderOffset;
+                $tArrow.css({top: (pPos.top - scrollFromTop) + (arrowSize / 2)});
+            } else if ((newTop + cHeight) > (scrollFromTop + wHeight - borderOffset)) {
+                newTop = (scrollFromTop + wHeight) - (cHeight + borderOffset);
+                $tArrow.css({top: pPos.top - (scrollFromTop + wHeight) + cHeight + (pHeight / 2) + (arrowSize / 2)});
+            }
         }
 
-        if (orient === 'top') {
-            top = topApply(top);
-        } else if(orient === 'bottom') {
-            top = bottomApply(top);
-        } else {
-            top -= tooltipHeight / 4;
-        }
-
-        this.setState({
-            hover: true,
-            left: left,
-            top: top,
+        $tChild.css({
+            top: newTop,
+            left: newLeft,
         });
+
+        $tChild.delay(this.props.delay).fadeIn(50);
     },
-    _onMouseLeave() {
-        this.setState({hover: false});
+
+    _hideTooltip() {
+        this.refs.tooltipPortal.closePortal();
     },
+
     render() {
-        var textStyle = {
-            display : this.state.hover ? 'block' : 'none',
-            left: this.state.left,
-            top: this.state.top,
-        };
+        // this.props.string & this.props.rows
+        let tooltipContent;
+        if (this.props.string) {
+            tooltipContent = (
+                <p className='tooltip-text'>{this.props.string}</p>
+            );
+        } else if (this.props.rows) {
+            tooltipContent = _(this.props.rows).map((row, index) => {
+                return (
+                    <p key={index} className='tooltip-text'>{row}</p>
+                );
+            });
+        } else {
+            tooltipContent = null;
+            console.error('You have to declare this.props.string[string] or this.props.rows[array]');
+        }
+
+        // this.props.maxWidth
+        const childStyle = (this.props.maxWidth) ? {maxWidth: this.props.maxWidth} : null ;
+        const childClass = classNames(`bui-tooltip-child tooltip-position-${this.props.position}`, {
+            'has-max-width-limit': this.props.maxWidth,
+        });
+
+        // this.props.header
+        const tooltipHeader = (this.props.header)
+            ? <p className='tooltip-header'>{this.props.header}</p>
+            : null ;
 
         return (
-                <div style={this.props.style || {}} ref={(ref) => this._holder = ref} onMouseEnter={this._onMouseEnter} onMouseLeave={this._onMouseLeave} className='bui-tooltip'>
-                <div ref={(ref) => this._tooltip = ref} style={textStyle} className='bui-tooltip-text'>
-                    {this.props.text}
-                </div>
-                {this.props.children}
+            <div className='bui-tooltip-parent' style={this.props.style}>
+                {React.cloneElement(this.props.children, {
+                    onMouseOver: this._showTooltip,
+                    onMouseOut: this._hideTooltip,
+                    ref: 'cloneRef'
+                })}
+                <Portal ref='tooltipPortal' closeOnEsc>
+                    <div className={childClass} style={childStyle} ref='childRef'>
+                        <div className='tooltip-arrow' ref='arrowRef' />
+                        {tooltipHeader}
+                        {tooltipContent}
+                    </div>
+                </Portal>
             </div>
         );
     }
 });
 
-export default TooltipComponent;
+export default Tooltip;

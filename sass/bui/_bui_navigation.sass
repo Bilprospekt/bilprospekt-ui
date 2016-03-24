@@ -4,7 +4,7 @@
  *
  */
 
-$navWidth: 240px
+$navWidth: 200px
 $cb: cubic-bezier(.17,.67,0,1)
 
 .bui-navigation-holder
@@ -17,7 +17,7 @@ $cb: cubic-bezier(.17,.67,0,1)
   @include transition(width .225s $cb)
 
   .navigation-logotype
-    height: 112px
+    height: 120px
     background-color: white
     border-bottom: 1px solid $grey-200
     .logotype-big,
@@ -27,7 +27,7 @@ $cb: cubic-bezier(.17,.67,0,1)
       left: 0
       height: 112px
       width: 100%
-      padding: 37px 55px
+      padding: 37px 35px
       @include transition(all .225s $cb)
     .logotype-big
       opacity: 1
@@ -81,41 +81,24 @@ $cb: cubic-bezier(.17,.67,0,1)
       border-radius: 4px
       margin-left: 10px
       cursor: default
-      width: 0
-      height: 0
-      overflow: hidden
-      @include transition(width .175s $cb, height .175s $cb)
-
+      display: none
+      //width: 0
+      //height: 0
       .popup-holder
-        width: 240px
-        height: 526px
-        opacity: 0
-        @include transform(scale(.85))
-        @include transition(transform .125s $cb, opacity .075s ease)
-        transition-delay: .125s
+        min-width: 240px
+        //opacity: 0
+        //@include transform(scale(.85))
+        //@include transition(transform .125s $cb, opacity .075s ease)
+        //transition-delay: .125s
         .popup__search-field
-          @extend .clear-after
           padding: 13px 20px
           border-bottom: 1px solid $grey-300
           .bui-input-field
-            float: left
-            width: 180px
             .input-underlines
               display: none
-          .search-close-button
-            float: left
-            width: 20px
-            line-height: 20px
-            text-align: center
-            margin: 5px 0
-            font-size: 14px
-            color: $grey-500
-            cursor: pointer
-            &:hover
-              color: $red-400
         .popup__empty-state
           position: relative
-          height: calc(100% - 57px)
+          height: 260px
           width: 100%
           display: table
           .empty-state-content
@@ -127,11 +110,11 @@ $cb: cubic-bezier(.17,.67,0,1)
             color: $grey-300
             margin: 0 8px
           .empty-state-text
-            font-size: 16px
+            font-size: 14px
             color: $grey-400
             margin-top: 10px
         .popup__result-state
-          padding: 20px
+          padding: 20px 20px 10px 20px
           .bui-action-button
             width: 100%
           .result-item
@@ -145,11 +128,11 @@ $cb: cubic-bezier(.17,.67,0,1)
                 background-color: $cyan-500
               .item-name
                 color: $grey-800
-                font-weight: 500
             .item-type,
             .item-name
-              float: left
+              display: inline-block
             .item-type
+              vertical-align: top
               background-color: $grey-500
               border-radius: 100%
               width: 30px
@@ -164,16 +147,17 @@ $cb: cubic-bezier(.17,.67,0,1)
               width: calc(100% - 40px)
               overflow: hidden
               text-overflow: ellipsis
-              font-size: 15px
+              font-size: 14px
               line-height: 30px
               color: $grey-600
 
       &.is-showing
-        width: 240px
-        height: 526px
+        display: block
+        //width: 240px
+        //height: 540px
         .popup-holder
-          opacity: 1
-          @include transform(scale(1))
+          //opacity: 1
+          //@include transform(scale(1))
           
   .navigation-toggle-button
     position: absolute
@@ -200,6 +184,7 @@ $cb: cubic-bezier(.17,.67,0,1)
       left: 100%
       top: 0
       margin: 5px
+      line-height: 14px
       white-space: nowrap
       color: white
       font-size: 12px
@@ -226,15 +211,25 @@ $cb: cubic-bezier(.17,.67,0,1)
       .link-icon,
       .link-label
         display: inline-block
-        opacity: 1
-        @include transition(opacity .125s ease)
+        line-height: 20px
       .link-icon
-        font-size: 20px
+        font-size: 18px
         width: 20px
         margin: 0 20px
         text-align: center
       .link-label
+        font-size: 14px
         vertical-align: bottom
+
+      &.active-link
+        cursor: default
+        .link-label
+          font-weight: 500
+        .link-icon,
+        .link-label
+          color: $cyan-500
+          &:hover
+            color: $cyan-500
 
   /*
    * Minimized Menu Style

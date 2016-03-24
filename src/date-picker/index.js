@@ -14,6 +14,10 @@ const DatePicker = React.createClass({
 
         //Language to use in datepicker. Since it depends on moment, be sure to load correct language files for moment.js
         locale: React.PropTypes.string,
+
+        //Note that these only really work for year atm.
+        maxDate: React.PropTypes.object, //Moment date
+        minDate: React.PropTypes.object, //Moment date
     },
     getInitialState() {
         return {
@@ -26,6 +30,8 @@ const DatePicker = React.createClass({
         return {
             useRange: true,
             locale: 'en',
+            maxDate: moment(),
+            minDate: moment().subtract(10, 'years').month(0).day(0),
         };
     },
     _onDayClick(e, day, modifiers) {
@@ -77,7 +83,7 @@ const DatePicker = React.createClass({
             locale={ this.props.locale }
             localeUtils={ LocaleUtils }
             captionElement={
-                <CaptionElement onChange={(initialMonth) => this.setState({initialMonth})} date={this.state.initialMonth} />
+                <CaptionElement maxDate={this.props.maxDate} minDate={this.props.minDate} onChange={(initialMonth) => this.setState({initialMonth})} date={this.state.initialMonth} />
             }
                 />
         );
@@ -88,6 +94,8 @@ const CaptionElement = React.createClass({
     propTypes: {
         date: React.PropTypes.object,
         onChange: React.PropTypes.func,
+        minDate: React.PropTypes.object, //Moment date
+        maxDate: React.PropTypes.object, //Moment date
     },
     _handleChange(e) {
         const {year, month} = e.target.form;
@@ -100,8 +108,8 @@ const CaptionElement = React.createClass({
         const months = moment.months();
 
         let years = [];
-        const y = moment().subtract(10, 'years');
-        while (y.year() <= moment().year()) {
+        const y = moment(this.props.minDate);
+        while (y.year() <= this.props.maxDate.year()) {
             years.push(y.year());
             y.add(1, 'year');
         }

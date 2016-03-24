@@ -20,7 +20,7 @@ const BuiToggle = React.createClass({
             checked: this.props.checked,
         };
     },
-    onClick(event) {
+    onChange(event) {
         if (typeof this.props.onChange === 'function') {
             this.props.onChange(event, event.target.checked);
         }
@@ -32,7 +32,7 @@ const BuiToggle = React.createClass({
             disabled: this.props.disabled,
             id: this.props.id,
             checked: this.props.checked,
-            onClick: this.onClick
+            onChange: this.onChange,
         };
         const parentClass = classNames('bui-form-element', 'toggle-type', {
             'element-disabled': this.props.disabled,
@@ -43,8 +43,8 @@ const BuiToggle = React.createClass({
             <div className={parentClass}>
                 <input {...props} />
                 <label htmlFor={this.props.id}>
-                    <div className='icon' />
                     <span className='element-label'>{this.props.label}</span>
+                    <div className='icon' />
                 </label>
             </div>
         );

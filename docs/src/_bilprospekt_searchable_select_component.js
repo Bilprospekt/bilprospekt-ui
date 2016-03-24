@@ -1,10 +1,23 @@
 import React from 'react';
+import _ from 'underscore';
 
 import {SearchableSelect} from 'bilprospekt-ui';
 
 const SearchableSelectDoc = React.createClass({
     onSave(a) {
         console.log('save', a);
+    },
+
+    getInitialState() {
+        return {
+            search: '',
+        };
+    },
+
+    _onChange(value) {
+        this.setState({
+            search: value,
+        });
     },
 
     render() {
@@ -19,13 +32,18 @@ const SearchableSelectDoc = React.createClass({
             { label: 'Gävle kommun', id: 'ddi7', value: 'ddv7' },
             { label: 'Hudiksvall kommun', id: 'ddi8', value: 'ddv8' },
             { label: 'Ovanåker kommun', id: 'ddi9',  value: 'ddv9' },
-            { label: 'Sandviken kommun', id: 'ddi0', value: 'ddv0' }
+            { label: 'Sandviken kommun', id: 'ddi0', value: 'ddv0' },
+            { label: 'Helsingborg kommun', id: 'ddi10', value: 'ddv10' },
         ];
+
+        searchableSelectData = _(searchableSelectData).filter((val) => {
+            return val.label.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1;
+        });
 
         return (
             <div id='SearchableSelectDoc'>
                 <p className="table-header-label">Searchable Select</p>
-                <SearchableSelect icon='fa-search' hint='Sök efter län/kommun' data={searchableSelectData} onSave={this.onSave} />
+                <SearchableSelect onChange={this._onChange} icon='fa-search' hint='Sök efter län/kommun' data={searchableSelectData} onSave={this.onSave} />
 
                 <pre>
                 <code>

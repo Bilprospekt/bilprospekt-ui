@@ -26,6 +26,7 @@ import Navigation from './navigation';
 import Header from './header';
 import ViewWrapper from './view-wrapper';
 import BaseWrapper from './base-wrapper';
+import Snackbar from './snackbar';
 
 import {Select, Option} from './select';
 
@@ -54,4 +55,5 @@ export {
   Header,
   ViewWrapper,
   BaseWrapper,
+  Snackbar,
 };

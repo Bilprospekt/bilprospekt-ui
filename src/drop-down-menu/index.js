@@ -23,6 +23,7 @@ const DropdownElement = React.createClass({
         return {
             checkbox: false,
             checkboxChecked: false,
+            disabled: false,
         };
     },
     render() {
@@ -36,7 +37,7 @@ const DropdownElement = React.createClass({
 
         const dropdownElement = (this.props.checkbox)
           ? <Checkbox {...props} />
-          : <p onClick={this.props.onClick} className='dropdown-label'>{this.props.label}</p> ;
+          : <p onClick={this.props.onClick} className='dropdown-label'>{this.props.label}</p>;
 
         const elementClass = classNames('dropdown-element', {
             'is-disabled': this.props.disabled,
