@@ -10,12 +10,14 @@ const BuiInputField = React.createClass({
         password:     React.PropTypes.bool,
         disabled:     React.PropTypes.bool,
         floatingHint: React.PropTypes.bool,
+        fastRemove:   React.PropTypes.bool,
 
         onChange: React.PropTypes.func,
     },
     getDefaultProps() {
         return {
-            value:   null,
+            value: null,
+            fastRemove: false,
         };
     },
     getInitialState() {
@@ -58,6 +60,10 @@ const BuiInputField = React.createClass({
         this.setState({ focus: false });
         if (typeof this.props.onBlur === 'function') this.props.onBlur(e);
     },
+    _removeValueAction() {
+        this.clearValue();
+        this.focus();
+    },
     render() {
         const parentClass = classNames('bui-input-field', {
             'input-is-focused': this.state.focus,
@@ -65,10 +71,16 @@ const BuiInputField = React.createClass({
             'input-has-icon': this.props.icon,
             'input-has-value': this.state.value,
             'input-has-error': this.props.error,
+            'input-has-fast-remove': this.props.fastRemove,
         }, this.props.className);
 
         const icon = (this.props.icon) ? <i className={'input-icon fa ' + this.props.icon} /> : null ;
         const value = this.state.value;
+
+        // this.props.fastRemove
+        const fastRemoveIcon = (this.props.fastRemove && this.state.value)
+            ? <div className='input-remove-button' onClick={this._removeValueAction}><i className='fa fa-times-circle' /></div>
+            : null ;
 
         const inputType = (this.props.password) ? 'password' : 'text' ;
 
@@ -86,9 +98,10 @@ const BuiInputField = React.createClass({
         };
 
         return (
-            <div className={parentClass}>
+            <div className={parentClass} style={this.props.style}>
                 <div className='input-disable-overlay' />
                 <div className='input-icon-holder'>{icon}</div>
+                {fastRemoveIcon}
                 <div className={hintClass}>{this.props.hint}</div>
                 <div className='input-text-value'>
                     <input {...props} ref={(ref) => this._field = ref} onChange={this._handleChange} onFocus={this._handleFocus} onBlur={this._handleBlur} />

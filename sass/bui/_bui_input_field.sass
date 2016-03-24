@@ -60,6 +60,16 @@ $BuiError:    $red-400
       color: $BuiPassive
       line-height: 29px
 
+  .input-remove-button
+    position: absolute
+    z-index: 3
+    right: 0
+    line-height: 30px
+    color: $grey-400
+    cursor: pointer
+    &:hover
+      color: $red-400
+
   .input-text-hint
     position: absolute
     padding-left: 0
@@ -140,4 +150,10 @@ $BuiError:    $red-400
         color: $BuiDisabled
     .input-underline-blur
       border-color: $BuiDisabled
+
+  // Input has fast remove
+  &.input-has-fast-remove
+    .input-text-value
+      input
+        padding-right: 20px
       
