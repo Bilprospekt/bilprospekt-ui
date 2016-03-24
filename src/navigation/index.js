@@ -31,6 +31,7 @@ const Navigation = React.createClass({
         activeLink: React.PropTypes.string,
         searchButton: React.PropTypes.bool,
         logos: React.PropTypes.object,
+
         searchData: React.PropTypes.arrayOf(
             React.PropTypes.shape({
                 val: React.PropTypes.oneOfType([
@@ -44,6 +45,11 @@ const Navigation = React.createClass({
                 type: React.PropTypes.string,
             })
         ),
+
+        maxWidth: React.PropTypes.oneOfType([
+            React.PropTypes.string,
+            React.PropTypes.number,
+        ]),
 
         onSearchItemClick: React.PropTypes.func,
         onSearchChange: React.PropTypes.func,
@@ -64,6 +70,7 @@ const Navigation = React.createClass({
         return {
             searchButton: false,
             searchData: [],
+            maxWidth: 'calc(100vw-220px)',
         }
     },
 
@@ -180,6 +187,13 @@ const Navigation = React.createClass({
          * Navigation Seach
          */
 
+        let searchPopupStyle = null;
+        if (this.props.maxWidth) {
+            searchPopupStyle = ({
+                maxWidth: this.props.maxWidth,
+            });
+        }
+
         const searchPopupClass = classNames('search-popup-parent', {
             'is-showing': this.state.searching
         });
@@ -211,6 +225,15 @@ const Navigation = React.createClass({
                     </div>
                 </div>
             );
+        } else if (this.state.searchValue && this.props.searchData.length === 0) {
+            searchContentState = (
+                <div className='popup__empty-state'>
+                    <div className='empty-state-content'>
+                        <i className='empty-state-icon fa fa-warning' />
+                        <p className='empty-state-text'>Inga resultat.</p>
+                    </div>
+                </div>
+            );
         } else {
             searchContentState = (
                 <div className='popup__result-state'>
@@ -236,11 +259,10 @@ const Navigation = React.createClass({
                         <i className='search-icon fa fa-search' />
                         <p className='search-label'>Snabbsök</p>
                     </div>
-                    <div className={searchPopupClass}>
+                    <div className={searchPopupClass} style={searchPopupStyle}>
                         <div className='popup-holder'>
                             <div className='popup__search-field'>
-                            <BuiInputField icon='fa-search' hint='Snabbsök' onChange={this._onSearchChange} value={this.state.searchValue} ref='navSearchRef' onKeyDown={keyPress} />
-                                <i className='fa fa-times search-close-button' onClick={this.closeSearch} />
+                                <BuiInputField icon='fa-search' hint='Snabbsök' onChange={this._onSearchChange} value={this.state.searchValue} ref='navSearchRef' onKeyDown={keyPress} />
                             </div>
                             {searchContentState}
                         </div>
