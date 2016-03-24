@@ -92,8 +92,10 @@ const Navigation = React.createClass({
 
     _onGlobalClick(e) {
         const $target = $(e.target);
-        const $holder = $(this.refs.holder);
-        if (!($target.is($holder) || $target.parents($holder).is($holder))) {
+        const $trigger = $(this.refs['search-trigger']);
+        const $holder = $(this.refs['search-popup-holder']);
+        if (!($target.is($holder) || $target.parents().is($holder)) && !($target.is($trigger) || $target.parents().is($trigger))) {
+                <i className='empty-state-icon fa fa-car' />
             this.closeSearch();
         }
     },
@@ -255,11 +257,11 @@ const Navigation = React.createClass({
         if (this.props.searchButton) {
             navSearch = (
                 <div className='navigation-search-holder'>
-                    <div className='search-button' onClick={this._toggleSearch}>
+                    <div ref='search-trigger' className='search-button' onClick={this._toggleSearch}>
                         <i className='search-icon fa fa-search' />
                         <p className='search-label'>Snabbsök</p>
                     </div>
-                    <div className={searchPopupClass} style={searchPopupStyle}>
+                    <div ref='search-popup-holder' className={searchPopupClass} style={searchPopupStyle}>
                         <div className='popup-holder'>
                             <div className='popup__search-field'>
                                 <BuiInputField icon='fa-search' hint='Snabbsök' onChange={this._onSearchChange} value={this.state.searchValue} ref='navSearchRef' onKeyDown={keyPress} />
@@ -306,7 +308,7 @@ const Navigation = React.createClass({
         }
 
         return (
-            <div ref='holder' className={parentClass}>
+            <div className={parentClass}>
                 <div className='navigation-logotype'>
                     <div className='logotype-big'>
                         {logotypeBig}
