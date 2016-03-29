@@ -13,6 +13,7 @@ const Popup = React.createClass({
         actionLabel: React.PropTypes.string.isRequired,
         closeLabel: React.PropTypes.string.isRequired,
         onAction: React.PropTypes.func.isRequired,
+        contentFullWidth: React.PropTypes.bool,
     },
 
     componentWillUnmount() {
@@ -74,6 +75,11 @@ const Popup = React.createClass({
     },
 
     render() {
+        // this.props.contentFullWidth
+        const contentClass = classNames('popup-content', {
+            'full-width-enabled': this.props.contentFullWidth,
+        });
+
         return (
             <div className='bui-popup-parent'>
                 {React.cloneElement(this.props.openBy, {onClick: this._openPopup})}
@@ -83,7 +89,7 @@ const Popup = React.createClass({
                             <div className='popup-center-wrapper'>
                                 <div className='popup-wrapper' ref='popupRef'>
                                     <div className='popup-header'>{this.props.title}</div>
-                                    <div className='popup-content' ref='contentRef'>{this.props.children}</div>
+                                    <div className={contentClass} ref='contentRef'>{this.props.children}</div>
                                     <div className='popup-footer'>
                                         <ActionButton primary flat label={this.props.closeLabel} onClick={this._doAction.bind(this, false)} />
                                         <ActionButton primary flat label={this.props.actionLabel} onClick={this._doAction.bind(this, true)} />

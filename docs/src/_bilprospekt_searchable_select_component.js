@@ -50,7 +50,7 @@ const SearchableSelectDoc = React.createClass({
                 <code>
                     {
                         [
-                        '<SearchableSelect />',
+                        '<SearchableSelect fieldWidth={number} onChange={function} icon="string" hint="string" data={object} onSave={function} />',
                         ]
                     }
                 </code>
