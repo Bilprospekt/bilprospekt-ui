@@ -9,22 +9,22 @@ const PopupDoc = React.createClass({
         const popupButton = <ActionButton label='Open Popup' primary style={{marginBottom: 20}} />;
         const popupContent = (
             <div style={{height: 500}}>
-                Lorem ipsum roflmao
+                Would you like to close this popup?
             </div>
         );
 
         return (
             <div id='PopupDoc'>
                 <p className="table-header-label">Popup</p>
-                <Portal closeOnEsc openByClickOn={popupButton}>
                     <Popup
+                        openBy={popupButton}
+                        onAction={(value) => {}}
                         title='This is a nice popup'
                         actionLabel='Sounds good'
                         closeLabel='No way'
                     >
                         {popupContent}
                     </Popup>
-                </Portal>
 
                 <pre>
                 <a href='https://github.com/tajo/react-portal'>https://github.com/tajo/react-portal</a>

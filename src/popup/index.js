@@ -9,16 +9,12 @@ import Portal from 'react-portal';
 
 const Popup = React.createClass({
     propTypes: {
+        openBy: React.PropTypes.node.isRequired,
         actionLabel: React.PropTypes.string.isRequired,
         closeLabel: React.PropTypes.string.isRequired,
         onAction: React.PropTypes.func.isRequired,
     },
 
-    componentDidMount() {
-        $(window).on('resize', this._handleResize);
-        $(this.refs.popupParent).on('click', this._onWindowClick);
-        this.doAnimation();
-    },
     componentWillUnmount() {
         $(window).off('resize', this._handleResize);
         $(this.refs.popupParent).off('click', this._onWindowClick);
@@ -32,7 +28,7 @@ const Popup = React.createClass({
         }
     },
 
-    doAnimation() {
+    _doAnimation() {
         const $content = $(this.refs.contentRef);
         const maxHeight = window.innerHeight - (80 + 120); // 120px is header + footer height
 
@@ -56,11 +52,18 @@ const Popup = React.createClass({
     },
 
     _handleResize(e) {
-        this.doAnimation();
+        this._doAnimation();
+    },
+
+    _openPopup() {
+        this.refs.popupPortal.openPortal();
+        $(window).on('resize', this._handleResize);
+        $(this.refs.popupParent).on('click', this._onWindowClick);
+        this._doAnimation();
     },
 
     _closePopup() {
-        this.props.closePortal();
+        this.refs.popupPortal.closePortal();
     },
 
     _doAction(value) {
@@ -72,22 +75,25 @@ const Popup = React.createClass({
 
     render() {
         return (
-            <div className='bui-popup-parent' ref='popupParent'>
-                <div className='popup-holder'>
-                    <div className='popup-center-class'>
-                        <div className='popup-center-wrapper'>
-                            <div className='popup-wrapper' ref='popupRef'>
-                                <div className='popup-header'>{this.props.title}</div>
-                                <div className='popup-content' ref='contentRef'>{this.props.children}</div>
-                                <div className='popup-footer'>
-                <ActionButton primary flat label={this.props.closeLabel} onClick={this._doAction.bind(this, false)} />
-                <ActionButton primary flat label={this.props.actionLabel} onClick={this._doAction.bind(this, true)} />
+            <div className='bui-popup-parent'>
+                {React.cloneElement(this.props.openBy, {onClick: this._openPopup})}
+                <Portal closeOnEsc ref='popupPortal'>
+                    <div className='bui-popup-holder' ref='popupParent'>
+                        <div className='popup-center-class'>
+                            <div className='popup-center-wrapper'>
+                                <div className='popup-wrapper' ref='popupRef'>
+                                    <div className='popup-header'>{this.props.title}</div>
+                                    <div className='popup-content' ref='contentRef'>{this.props.children}</div>
+                                    <div className='popup-footer'>
+                                        <ActionButton primary flat label={this.props.closeLabel} onClick={this._doAction.bind(this, false)} />
+                                        <ActionButton primary flat label={this.props.actionLabel} onClick={this._doAction.bind(this, true)} />
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        <div className='popup-overlay' ref='overlayRef' />
                     </div>
-                    <div className='popup-overlay' ref='overlayRef' />
-                </div>
+                </Portal>
             </div>
         );
     }
