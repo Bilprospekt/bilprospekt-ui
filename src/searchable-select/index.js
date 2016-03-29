@@ -17,6 +17,7 @@ const BuiSearchableSelect = React.createClass({
         hint: React.PropTypes.string,
         onSave: React.PropTypes.func,
         onChange: React.PropTypes.func,
+        fieldWidth: React.PropTypes.number,
     },
     getInitialState() {
         return {
@@ -125,8 +126,19 @@ const BuiSearchableSelect = React.createClass({
             'is-expanded' : this.state.expanded,
         });
 
+        // this.props.fieldWidth & this.props.style
+        let holderStyle = null;
+        if (this.props.style) {
+            holderStyle = this.props.style;
+            holderStyle.width = (this.props.fieldWidth) ? this.props.fieldWidth : null ;
+        } else if (this.props.fieldWidth) {
+            holderStyle = ({
+                width: this.props.fieldWidth,
+            });
+        }
+
         return (
-            <div className={classes} style={this.props.style}>
+            <div className={classes} style={holderStyle}>
                 <BuiInputField icon={this.props.icon} hint={this.props.hint} onChange={this.onSearch} onFocus={this.onFocus} value={this.state.inputValue} />
                 <i className='search-adder-dropdown-indicator-icon fa fa-caret-down' />
                 {dropdown}
