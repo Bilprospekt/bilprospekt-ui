@@ -19,7 +19,7 @@ const PopupDoc = React.createClass({
         const popupContent = (
             <div style={{height: 500}}>
                 Would you like to close this popup?
-                <p style={{marginBottom: 10, cursor: 'pointer'}} onClick={this.toggleCFW}>Toggle contentFullWidth</p>
+                <p style={{marginTop: 10, cursor: 'pointer', color: 'blue'}} onClick={this.toggleCFW}>Toggle contentFullWidth</p>
             </div>
         );
 
@@ -27,7 +27,6 @@ const PopupDoc = React.createClass({
             <div id='PopupDoc'>
                 <p className="table-header-label">Popup</p>
                 
-
                 <Popup
                     openBy={popupButton}
                     onAction={(value) => {}}
@@ -38,6 +37,7 @@ const PopupDoc = React.createClass({
                 >
                     {popupContent}
                 </Popup>
+
 
                 <pre>
                 <a href='https://github.com/tajo/react-portal'>https://github.com/tajo/react-portal</a>
