@@ -31,10 +31,8 @@ $fieldHeight: 30px
 		@include transition ( all 1.175s cubic-bezier(.23, 1, .32, 1) 0ms )
 		.search-adder-dropdown-head
 			@extend .clear-after
-			padding: 20px
+			padding: 5px
 			border-bottom: 1px solid $grey-300
-			& *:not(:last-child)
-				margin-right: 20px
 		.search-adder-dropdown-body
 			padding: 15px 20px
 			max-height: 400px
@@ -45,12 +43,9 @@ $fieldHeight: 30px
 				line-height: initial
 		.search-adder-dropdown-footer
 			@extend .clear-after
-			padding: 10px
+			text-align: right
+			padding: 5px
 			border-top: 1px solid $grey-300
-			& *
-				float: right
-			& *:not(:last-child)
-				margin-left: 10px
 	&.is-expanded
 		.bui-input-field,
 		.search-adder-dropdown-indicator-icon

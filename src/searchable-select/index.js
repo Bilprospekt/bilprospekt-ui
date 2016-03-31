@@ -15,6 +15,7 @@ const BuiSearchableSelect = React.createClass({
         data: React.PropTypes.array.isRequired,
         icon: React.PropTypes.string,
         hint: React.PropTypes.string,
+        onSaveLabel: React.PropTypes.string,
         onSave: React.PropTypes.func,
         onChange: React.PropTypes.func,
         fieldWidth: React.PropTypes.number,
@@ -25,6 +26,11 @@ const BuiSearchableSelect = React.createClass({
             inputValue: null,
             checked: [],
             toggle: 'Markera alla'
+        };
+    },
+    getDefaultProps() {
+        return {
+            onSaveLabel: 'Välj',
         };
     },
     componentDidMount() {
@@ -107,16 +113,24 @@ const BuiSearchableSelect = React.createClass({
             return <BuiCheckbox key={index} label={option.label} id={'' + id} checked={checked} onChange={this.onAdd.bind(this, id)} />
         })
 
+        const buttonProps = {
+            style: {
+                margin: 5,
+                padding: 10,
+            },
+            flat: true,
+        };
+
         if (this.state.expanded) {
             dropdown = (
                 <div className='search-adder-dropdown-holder'>
                     <div className='search-adder-dropdown-head'>
-                        <BuiActionButton minor={true} label={this.state.toggle} onClick={this.onToggleAll}/>
+                        <BuiActionButton {...buttonProps} secondary label={this.state.toggle} onClick={this.onToggleAll}/>
                     </div>
                     <div className='search-adder-dropdown-body'>{options}</div>
                     <div className='search-adder-dropdown-footer'>
-                        <BuiActionButton minor={true} label='Klar' primary={true} onClick={this.onSave} />
-                        <BuiActionButton minor={true} label='Avbryt' onClick={this.onCancel} />
+                        <BuiActionButton {...buttonProps} primary label='Avbryt' onClick={this.onCancel} />
+                        <BuiActionButton {...buttonProps} primary label={this.props.onSaveLabel} onClick={this.onSave} /> 
                     </div>
                 </div>
             );
