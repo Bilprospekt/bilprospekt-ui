@@ -19,6 +19,7 @@ const BuiSearchableSelect = React.createClass({
         onSave: React.PropTypes.func,
         onChange: React.PropTypes.func,
         fieldWidth: React.PropTypes.number,
+        expandOnFocus: React.PropTypes.bool,
     },
     getInitialState() {
         return {
@@ -31,6 +32,7 @@ const BuiSearchableSelect = React.createClass({
     getDefaultProps() {
         return {
             onSaveLabel: 'Välj',
+            expandOnFocus: false,
         };
     },
     componentDidMount() {
@@ -54,6 +56,12 @@ const BuiSearchableSelect = React.createClass({
         });
     },
     onFocus(event) {
+        if (this.props.expandOnFocus === true && !this.state.expanded) {
+            this.setState({
+                expanded: true,
+            });
+        }
+
         if (event.target.value !== '') {
             this.onSearch(event.target.value);
         }
@@ -63,10 +71,15 @@ const BuiSearchableSelect = React.createClass({
             this.props.onChange(value);
         }
 
-        this.setState({
+        let newState = {
             inputValue: value,
-            expanded: (value === '') ? false : true
-        });
+        };
+
+        if (!this.props.expandOnFocus) {
+            newState.expanded = (value === '') ? false : true;
+        }
+
+        this.setState(newState);
     },
     onToggleAll() {
         if (this.state.checked.length === this.props.data.length) {
