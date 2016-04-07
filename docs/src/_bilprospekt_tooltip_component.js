@@ -53,7 +53,7 @@ const TooltipDoc = React.createClass({
                         [
                         '<Tooltip',
                         '\n\t string="string"',
-                        '\n\t rows={array}',
+                        '\n\t rows=[array]',
                         '\n\t header="string"',
                         '\n\t position="string"',
                         '\n\t maxWidth={number}',

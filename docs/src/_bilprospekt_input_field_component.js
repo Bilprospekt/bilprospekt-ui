@@ -5,22 +5,34 @@ import {InputField} from 'bilprospekt-ui';
 const InputFieldDoc = React.createClass({
     render() {
         const inputStyle = ({
-            margin: '10px 0',
+            marginBottom: 40,
+            width: 250,
         });
 
         return (
             <div id='InputFieldDoc'>
                 <p className="table-header-label">Input Field</p>
 
-                <InputField icon='fa-search' hint='Search here' style={inputStyle} />
+                <InputField icon='fa-search' hint='Search here' floatingHint={true} style={inputStyle} />
 
                 <InputField icon='fa-search' hint='Search with remove input button' fastRemove={true} style={inputStyle} />
+
+                <InputField icon='fa-comment' hint='Skriv en kommentar (multiLine)' multiLine={true} fastRemove={true} style={inputStyle} />
 
                 <pre>
                 <code>
                     {
                         [
-                        '<InputField />',
+                        '<InputField',
+                        '\n\t value="string"',
+                        '\n\t icon="string"',
+                        '\n\t hint="string"',
+                        '\n\t floatingHint={bool}',
+                        '\n\t multiLine={bool}',
+                        '\n\t fastRemove={bool}',
+                        '\n\t password={bool}',
+                        '\n\t disabled={bool}',
+                        '\n/>'
                         ]
                     }
                 </code>

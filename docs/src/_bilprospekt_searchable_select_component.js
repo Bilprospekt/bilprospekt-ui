@@ -43,13 +43,22 @@ const SearchableSelectDoc = React.createClass({
         return (
             <div id='SearchableSelectDoc'>
                 <p className="table-header-label">Searchable Select</p>
-                <SearchableSelect onChange={this._onChange} icon='fa-search' hint='Sök efter län/kommun' data={searchableSelectData} onSave={this.onSave} />
+
+                <SearchableSelect style={{margin: 10}} fieldWidth={250} onChange={this._onChange} icon='fa-search' hint='Sök efter län/kommun' data={searchableSelectData} onSave={this.onSave} />
 
                 <pre>
                 <code>
                     {
                         [
-                        '<SearchableSelect />',
+                        '<SearchableSelect',
+                        '\n\t data=[array]',
+                        '\n\t icon="string"',
+                        '\n\t hint="string"',
+                        '\n\t fieldWidth={number}',
+                        '\n\t onSaveLabel="string"',
+                        '\n\t onSave={function}',
+                        '\n\t onChange={function}',
+                        '\n/>'
                         ]
                     }
                 </code>
