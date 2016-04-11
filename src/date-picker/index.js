@@ -40,6 +40,16 @@ const DatePicker = React.createClass({
         if (this.props.useRange) {
             const newRange = DateUtils.addDayToRange(day, this.state.range);
 
+            //Set range to include full days
+            if (newRange.from) {
+              newRange.from = moment(newRange.from).hour(0).minute(0).second(0).toDate();
+            }
+
+            if (newRange.to) {
+              newRange.to = moment(newRange.to).hour(23).minute(59).second(59).toDate();
+            }
+
+            //If parent listens on onChange, trigger listener.
             if (typeof this.props.onChange === 'function') {
                 this.props.onChange(newRange);
             }
