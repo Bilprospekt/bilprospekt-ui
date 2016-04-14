@@ -71,6 +71,10 @@ const AppDoc = React.createClass({
             {type: 'person', name: 'Planet Express, Planet Express, Planet Express, Planet Express, Planet Express'},
             {type: 'company', name: 'MomCorp', id: 'MOM'},
             {type: 'person', name: 'Hubert Farnsworth', id: 'hubert'},
+            {type: 'company', name: 'Planet express', id: 2},
+            {type: 'car', name: 'ABC123', id: 3},
+            {type: 'company', name: 'Planet express', id: 4},
+            {type: 'car', name: 'ABC123', id: 5},
         ];
 
         return (
