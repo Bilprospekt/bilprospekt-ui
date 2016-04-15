@@ -66,8 +66,8 @@ const BuiInputField = React.createClass({
             const $parent  = $(this.refs.parentRef);
 
             $hidden[0].value = $showing[0].value;
-            $parent.css({ height: ($hidden[0].scrollHeight > 30) ? $hidden[0].scrollHeight + 5 : $hidden[0].scrollHeight });
-            $showing.css({ height: ($hidden[0].scrollHeight > 30) ? $hidden[0].scrollHeight + 5 : $hidden[0].scrollHeight });
+            $parent.css({ height: ($hidden[0].scrollHeight > 28) ? $hidden[0].scrollHeight + 5 + 2 : $hidden[0].scrollHeight + 2 });
+            $showing.css({ height: ($hidden[0].scrollHeight > 28) ? $hidden[0].scrollHeight + 5 : $hidden[0].scrollHeight });
         }
 
         if (typeof this.props.onChange === 'function') {
@@ -91,7 +91,7 @@ const BuiInputField = React.createClass({
 
     _removeValueAction() {
         if (this.props.multiLine) {
-            $(this._field).css({ height: 30 });
+            $(this._field).css({ height: 28 });
             $(this.refs.parentRef).css({ height: 30 });
         }
         this.clearValue(true);
