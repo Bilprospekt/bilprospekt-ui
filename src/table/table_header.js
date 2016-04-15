@@ -4,6 +4,7 @@ import InputField from '../input-field';
 import classNames from 'classnames';
 
 import DropdownMenu from '../drop-down-menu';
+import Tooltip from '../tooltip';
 const {DropdownHolder, DropdownElement} = DropdownMenu;
 
 const TableHeader = React.createClass({
@@ -104,6 +105,16 @@ const TableHeader = React.createClass({
     },
 
     render() {
+        // Tooltips for the header actions
+        const tooltipProps = {
+            position: 'top',
+            space: -10,
+            delay: 100,
+            style: {
+                float: 'left',
+            },
+        };
+
         const props = this.props;
         let columnChanger = null;
         if (props.allColumnsThatCouldBeRendered && props.allColumnsThatCouldBeRendered.length && props.currentColumns && props.currentColumns.length) {
@@ -112,9 +123,11 @@ const TableHeader = React.createClass({
                 return <DropdownElement key={key} checkboxChecked={!!checked} checkbox label={column.label} onClick={this._onColumnChange.bind(this, column.val)} />
             });
             columnChanger = (
-                <DropdownHolder noArrow orientation="right" icon="fa-ellipsis-h table-icon" style={{float: 'left'}}>
-                    {columns}
-                </DropdownHolder>
+                <div>
+                    <DropdownHolder noArrow orientation="right" icon="fa-ellipsis-h table-icon">
+                        {columns}
+                    </DropdownHolder>
+                </div>
             );
         }
 
@@ -127,8 +140,10 @@ const TableHeader = React.createClass({
         if (this.props.useSearch) {
             tableSearch = (
                 <div className={tableSearchClass}>
-                    <i className="fa fa-search table-icon" onClick={this._displaySearch} />
-                    <InputField ref='tableSearchInputRef' hint={this.props.searchHint} onChange={this.props.onSearchChange} icon="fa-search" onBlur={this._searchBlur} />
+                    <Tooltip string='Snabbsök i tabellen' {...tooltipProps}>
+                        <i className="fa fa-search table-icon" onClick={this._displaySearch} />
+                    </Tooltip>
+                    <InputField ref='tableSearchInputRef' icon="fa-search" hint={this.props.searchHint} fastRemove onChange={this.props.onSearchChange} onBlur={this._searchBlur} />
                 </div>
             );
         }
@@ -186,10 +201,10 @@ const TableHeader = React.createClass({
                 </div>
                 <div className='bui-table-actions-holder'>
                     {tableSearch}
-                    {jawboneFilter}
-                    <i className="fa fa-arrows-h table-icon" onClick={this.props.justifyColumns} />
-                    {selectionsFilter}
-                    {columnChanger}
+                    <Tooltip string='Visa valda filter' {...tooltipProps}>{jawboneFilter}</Tooltip>
+                    <Tooltip string='Återställ kolumnbredder' {...tooltipProps}><i className="fa fa-arrows-h table-icon" onClick={this.props.justifyColumns} /></Tooltip>
+                    <Tooltip string='Visa markerade rader' {...tooltipProps}>{selectionsFilter}</Tooltip>
+                    <Tooltip string='Välj kolumner att visa' {...tooltipProps}>{columnChanger}</Tooltip>
                 </div>
             </div>
         )
