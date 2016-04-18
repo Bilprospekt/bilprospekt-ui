@@ -62,7 +62,10 @@ class DataWrapper {
 
     _onSelection(row, val) {
         if (val) {
+          //Check so we don't add it twice.
+          if (this.selections.indexOf(row) === -1) {
             this.selections.push(row);
+          }
         } else if(this.selections.indexOf(row) !== -1) {
             this.selections.splice(this.selections.indexOf(row), 1);
         }
