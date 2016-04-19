@@ -20,6 +20,7 @@ import BilprospektInputFieldDoc       from './_bilprospekt_input_field_component
 import BilprospektFormElementsDoc     from './_bilprospekt_form_elements_component.js';
 import BilprospektAppDoc              from './_bilprospekt_app_component.js';
 import BilprospektSnackbarDoc         from './_bilprospekt_snackbar_component.js';
+import BilprospektSectionHeaderDoc    from './_bilprospekt_section_header_component.js';
 
 const NavElement = React.createClass({
     _onClick(e) {
@@ -52,6 +53,7 @@ var BilprospektUiComponent = React.createClass({
                     <div className='nav-menu'>
                         <ul>
                             <NavElement label='App Example' target='App' className='active-nav-element' />
+                            <NavElement label='Section Header' target='SectionHeader' />
                             <NavElement label='Snackbar' target='Snackbar' />
                             <NavElement label='Tabs' target='Tabs' />
                             <NavElement label='Date Picker' target='DatePicker' />
@@ -73,7 +75,8 @@ var BilprospektUiComponent = React.createClass({
                     </div>
                 </div>
                 <div className='docs-content'>
-                    <BilprospektAppDoc />  
+                    <BilprospektAppDoc />
+                    <BilprospektSectionHeaderDoc />  
                     <BilprospektSnackbarDoc />           
                     <BilprospektTabsDoc />
                     <BilprospektDatePickerDoc />
