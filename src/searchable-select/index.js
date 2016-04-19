@@ -51,6 +51,7 @@ const BuiSearchableSelect = React.createClass({
         }
     },
     clear() {
+        this.refs.input.clear();
         this.setState({
             inputValue: null,
         });
@@ -166,7 +167,7 @@ const BuiSearchableSelect = React.createClass({
 
         return (
             <div className={classes} style={holderStyle}>
-                <BuiInputField icon={this.props.icon} hint={this.props.hint} onChange={this.onSearch} onFocus={this.onFocus} value={this.state.inputValue} />
+                <BuiInputField ref='input' icon={this.props.icon} hint={this.props.hint} onChange={this.onSearch} onFocus={this.onFocus} value={this.state.inputValue} />
                 <i className='search-adder-dropdown-indicator-icon fa fa-caret-down' />
                 {dropdown}
             </div>
