@@ -27,6 +27,18 @@ const TabsDoc = React.createClass({
                 <Tabs labels={tabLabels} selectedTab={0} onChange={this._onChange}>
                     <p>Tab {this.state.index} Content</p>
                 </ Tabs>
+
+                <pre>
+                <code>
+                    {
+                        [
+                        '<Tabs labels=[array] selectedTab={number}>',
+                        '\n\t {this.props.children}',
+                        '\n</Tabs>'
+                        ]
+                    }
+                </code>
+                </pre>
             </div>
         );
     },

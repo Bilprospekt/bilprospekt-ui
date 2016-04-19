@@ -63,6 +63,43 @@ const TableDocComponent = React.createClass({
 
                     {...dataWrapper.triggers()}
                 />
+
+                <pre>
+                <code>
+                    {
+                        [
+                        '<Table',
+                        '\n\t data=[array]',
+                        '\n\t columns=[array]',
+                        '\n\t columnFilters={object}',
+                        '\n\t currentFilters=[array]',
+                        '\n\t allColumnsThatCouldBeRendered=[array]',
+                        '\n\t onColumnChange={function}',
+                        '\n\t width={number}',
+                        '\n\t height={number}',
+                        '\n\t sort={direction="string", (column="string" || {number})}',
+                        '\n\t showLoadingComponent={bool}',
+                        '\n\t showNoResultsMessageComponent={bool}',
+                        '\n\t noResultsMessage="string"',
+                        '\n\t rowHeight={number}',
+                        '\n\t headerHeight={number}',
+                        '\n\t headerLabel={node}',
+                        '\n\t rowClasses={object}',
+                        '\n\t selectedRows=[array]',
+                        '\n\t onSelection={function}',
+                        '\n\t onRowClick={function}',
+                        '\n\t searchHint="string"',
+                        '\n\t useSearch={bool}',
+                        '\n\t disableSortForColumns=[array]',
+                        '\n\t onSearch={function}',
+                        '\n\t onFilter={function}',
+                        '\n\t onSort={function}',
+                        '\n\t onReachedBottom={function}',
+                        '\n/>'
+                        ]
+                    }
+                </code>
+                </pre>
             </div>
         );
     }
