@@ -1,15 +1,21 @@
-import React, { Component } from 'react';
+import React 	  from 'react';
+import classNames from 'classnames';
 
 const SectionHeader = React.createClass({
 	propTypes: {
-        icon:  React.PropTypes.string.isRequired,
-        label: React.PropTypes.string.isRequired,
-        desc:  React.PropTypes.string,
-        style: React.PropTypes.func,
+        icon:  		 React.PropTypes.string.isRequired,
+        label: 		 React.PropTypes.string.isRequired,
+        desc:  		 React.PropTypes.string,
+        highlighted: React.PropTypes.bool,
+        style: 		 React.PropTypes.func,
     },
 	render() {
+		const parentClass = classNames('bui-section-header', {
+			'is-highlighted': this.props.highlighted,
+		});
+
 		return (
-			<div className='bui-section-header' style={this.props.style}>
+			<div className={parentClass} style={this.props.style}>
 				<div className='section-circle'>
 					<i className={'section-icon fa ' + this.props.icon} />
 				</div>
