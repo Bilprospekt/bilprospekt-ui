@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {Popup, ActionButton} from 'bilprospekt-ui';
+import {Popup, ActionButton, InputField} from 'bilprospekt-ui';
 
 const PopupDoc = React.createClass({
     getInitialState() {
@@ -17,9 +17,10 @@ const PopupDoc = React.createClass({
 
         const popupButton = <ActionButton label='Open Popup' primary style={{marginBottom: 20}} />;
         const popupContent = (
-            <div style={{height: 500}}>
+            <div>
                 Would you like to close this popup?
                 <p style={{marginTop: 10, cursor: 'pointer', color: 'blue'}} onClick={this.toggleCFW}>Toggle contentFullWidth</p>
+                <div style={{marginTop: 100}}><InputField multiLine fastRemove icon='fa-comment' hint='Comment' /></div>
             </div>
         );
 

@@ -13,7 +13,14 @@ const ActionButtonDoc = React.createClass({
                 <code>
                     {
                         [
-                        '<ActionButton />',
+                        '<ActionButton',
+                        '\n\t label="string"',
+                        '\n\t primary={bool}',
+                        '\n\t style={object}',
+                        '\n\t selected={bool}',
+                        '\n\t flat={bool}',
+                        '\n\t toggle={bool}',
+                        '\n/>'
                         ]
                     }
                 </code>
