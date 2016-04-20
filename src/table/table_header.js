@@ -129,6 +129,7 @@ const TableHeader = React.createClass({
                     </DropdownHolder>
                 </div>
             );
+            columnChanger = <Tooltip string='Välj kolumner att visa' {...tooltipProps}>{columnChanger}</Tooltip>;
         }
 
         const tableSearchClass = classNames('bui-table-search', {
@@ -183,6 +184,7 @@ const TableHeader = React.createClass({
                     {selectionsCount}
                 </div>
             );
+            selectionsFilter = <Tooltip string='Visa markerade rader' {...tooltipProps}>{selectionsFilter}</Tooltip>;
         }
 
         let headerLabel = this.props.headerLabel;
@@ -203,8 +205,8 @@ const TableHeader = React.createClass({
                     {tableSearch}
                     <Tooltip string='Visa valda filter' {...tooltipProps}>{jawboneFilter}</Tooltip>
                     <Tooltip string='Återställ kolumnbredder' {...tooltipProps}><i className="fa fa-arrows-h table-icon" onClick={this.props.justifyColumns} /></Tooltip>
-                    <Tooltip string='Visa markerade rader' {...tooltipProps}>{selectionsFilter}</Tooltip>
-                    <Tooltip string='Välj kolumner att visa' {...tooltipProps}>{columnChanger}</Tooltip>
+                    {selectionsFilter}
+                    {columnChanger}
                 </div>
             </div>
         )
