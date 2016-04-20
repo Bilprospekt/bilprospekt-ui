@@ -56,6 +56,10 @@ const Tabs = React.createClass({
         });
     },
 
+    componentDidUpdate() {
+        this._changeTab(this.state.selectedTab);
+    },
+
     componentWillUnmount() {
         window.removeEventListener('resize', this._handleResize);
     },
