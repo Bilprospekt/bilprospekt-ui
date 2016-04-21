@@ -14,7 +14,13 @@ const SectionHeaderDoc = React.createClass({
                 <code>
                     {
                         [
-                        '<SectionHeader />',
+                        '<SectionHeader',
+                        '\n\t icon="string"',
+                        '\n\t label="string"',
+                        '\n\t desc="string"',
+                        '\n\t style={object}',
+                        '\n\t highlighted={bool}',
+                        '\n/>'
                         ]
                     }
                 </code>
