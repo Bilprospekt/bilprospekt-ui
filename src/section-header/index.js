@@ -2,6 +2,9 @@ import React 	  from 'react';
 import _		  from 'underscore';
 import classNames from 'classnames';
 
+// Components
+import ActionButton from '../action-button';
+
 const SectionHeader = React.createClass({
 	propTypes: {
         icon: React.PropTypes.string.isRequired,
@@ -12,6 +15,7 @@ const SectionHeader = React.createClass({
         ]),
         descType: React.PropTypes.string,
         highlighted: React.PropTypes.bool,
+        link: React.PropTypes.array,
         style: React.PropTypes.func,
     },
 
@@ -46,6 +50,17 @@ const SectionHeader = React.createClass({
 			descText = this.props.desc;
 		}
 
+		// this.props.link
+		let sectionLink = null;
+		if (_.isArray(this.props.link)) {
+			console.log(this.props.link)
+			sectionLink = (
+				<div className='section-link'>
+					<ActionButton flat primary label={this.props.link[0]} linkTo={this.props.link[1]} />
+				</div>
+			);
+		}
+
 		return (
 			<div className={parentClass} style={this.props.style}>
 				<div className='section-circle'>
@@ -55,6 +70,7 @@ const SectionHeader = React.createClass({
 					<p className='section-label'>{this.props.label}</p>
 					<p className={descClass}>{descIcon}{descText}</p>
 				</div>
+				{sectionLink}
 			</div>
 		);
 	},

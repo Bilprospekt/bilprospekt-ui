@@ -9,7 +9,9 @@ const ActionButton = React.createClass({
         selected: React.PropTypes.bool,
         flat: React.PropTypes.bool,
         toggle: React.PropTypes.bool,
+        linkTo: React.PropTypes.string,
     },
+
     getDefaultProps() {
         return {
             primary: false,
@@ -18,6 +20,13 @@ const ActionButton = React.createClass({
             toggle: false,
         };
     },
+
+    _onClick() {
+        if (this.props.linkTo) {
+            window.open(this.props.linkTo, '_self')
+        }
+    },
+
     render() {
         const buttonClass = classNames('bui-action-button', {
             'bui-is-primary': this.props.primary,
@@ -28,8 +37,9 @@ const ActionButton = React.createClass({
         });
 
         const props = this.props;
+
         return (
-            <div {...props} className={buttonClass}>
+            <div {...props} className={buttonClass} onClick={this._onClick}>
                 {this.props.label}
             </div>
         );

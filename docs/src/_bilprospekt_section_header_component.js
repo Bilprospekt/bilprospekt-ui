@@ -4,12 +4,17 @@ import {SectionHeader} from 'bilprospekt-ui';
 
 const SectionHeaderDoc = React.createClass({
     render() {
+        const link = [
+            'Join the party!',
+            'http://www.google.se',
+        ];
+
         return (
             <div id='SectionHeaderDoc'>
                 <p className="table-header-label">Section Header</p>
                 <SectionHeader highlighted icon='fa-user' label='User Profile' desc='This user is highlighted' style={{marginBottom: 20}} />
                 <SectionHeader icon='fa-comment' label='Comment Section' desc='This is where we comment on stuff' style={{marginBottom: 20}} />
-                <SectionHeader icon='fa-users' label='Party Section' desc={['Peter', 'Daniel', 'Alexander']} style={{marginBottom: 20}} />
+                <SectionHeader icon='fa-users' label='Party Section' desc={['Peter', 'Daniel', 'Alexander']} style={{marginBottom: 20}} link={link} />
                 <SectionHeader icon='fa-car' label='Car Section' desc='Something minor happened!' descType='minor' style={{marginBottom: 20}} />
                 <SectionHeader icon='fa-building' label='Company Section' desc='Something major happened!' descType='major' style={{marginBottom: 20}} />
 
@@ -22,6 +27,7 @@ const SectionHeaderDoc = React.createClass({
                         '\n\t label="string"',
                         '\n\t desc="string" || desc=[array]',
                         '\n\t descType="minor" || descType="major"',
+                        '\n\t link=[array] link[0] should be label and link[1] should be url',
                         '\n\t style={object}',
                         '\n\t highlighted={bool}',
                         '\n/>'
