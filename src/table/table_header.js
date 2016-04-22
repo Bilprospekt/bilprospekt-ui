@@ -5,6 +5,7 @@ import classNames from 'classnames';
 
 import DropdownMenu from '../drop-down-menu';
 import Tooltip from '../tooltip';
+import SectionHeader from '../section-header';
 const {DropdownHolder, DropdownElement} = DropdownMenu;
 
 const TableHeader = React.createClass({
@@ -187,14 +188,25 @@ const TableHeader = React.createClass({
             selectionsFilter = <Tooltip string='Visa markerade rader' {...tooltipProps}>{selectionsFilter}</Tooltip>;
         }
 
-        let headerLabel = this.props.headerLabel;
-        if (this.props.selections.length) {
-            if (this.props.selections.length === 1) {
-                headerLabel = <span className='table-active-selections-label'>Du har markerat {this.props.selections.length} rad</span>;
+        // this.props.headerLabel
+        let headerLabel;
+        if (typeof this.props.headerLabel === 'string') {
+            if (this.props.selections.length) {
+                if (this.props.selections.length === 1) {
+                    headerLabel = <span className='table-active-selections-label'>Du har markerat {this.props.selections.length} rad</span>;
+                } else {
+                    headerLabel = <span className='table-active-selections-label'>Du har markerat {this.props.selections.length} rader</span>;
+                }
             } else {
-                headerLabel = <span className='table-active-selections-label'>Du har markerat {this.props.selections.length} rader</span>;
+                headerLabel = this.props.headerLabel;
             }
+        } else if (_.isArray(this.props.headerLabel)) {
+            headerLabel = <SectionHeader icon={this.props.headerLabel[0]} label={this.props.headerLabel[1]} desc={this.props.headerLabel[2]} />
+        } else {
+            console.error('props.headerLabel have to be either a string or an array');
+            headerLabel = '';
         }
+        
 
         return (
             <div className='bui-table-action-bar'>

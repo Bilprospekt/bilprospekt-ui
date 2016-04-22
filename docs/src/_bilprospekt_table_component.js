@@ -1,7 +1,7 @@
 import React from 'react';
 import _ from 'underscore';
 
-import {Table, TableDataWrapper} from 'bilprospekt-ui'
+import {Table, TableDataWrapper} from 'bilprospekt-ui';
 
 const alpha = "abcdefghijklmnopqrstuvxy".split("").slice(0, 8);
 const rowsCycle = 1000;
@@ -35,7 +35,10 @@ const dataWrapper = new TableDataWrapper(
 
 const TableDocComponent = React.createClass({
     getInitialState() {
-        return dataWrapper.getState();
+        return {
+            ...dataWrapper.getState(),
+            headerLabel: "Now this is podracing!",
+        };
     },
 
     componentWillMount() {
@@ -50,14 +53,28 @@ const TableDocComponent = React.createClass({
         dataWrapper.off('change');
     },
 
+    _toggleHeaderLabel() {
+        if (typeof this.state.headerLabel != 'string') {
+            this.setState({ headerLabel: "Now this is podracing!" });
+        } else {
+            const labelArray = [
+                'fa-car',
+                'Table Label',
+                'Table description',
+            ];
+            this.setState({ headerLabel: labelArray});
+        }
+    },
+
     render() {
         return (
             <div style={{width: '100%'}} id='TableDoc'>
                 <p className='table-header-label'>Table</p>
+                <p onClick={this._toggleHeaderLabel}>Toggla headerLabel</p>
                 <Table
                     allColumnsThatCouldBeRendered={alphaObj}
                     makeRowsSelectable
-                    headerLabel="Now this is podracing"
+                    headerLabel={this.state.headerLabel}
                     searchHint="Now this is podracing"
                     {...this.state}
 
