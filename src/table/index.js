@@ -289,7 +289,7 @@ const TableHolderComponent = React.createClass({
                     searchHint={this.props.searchHint}
                     useSearch={this.props.useSearch}
                 />
-                <TableJawboneFilter columns={this.props.allColumnsThatCouldBeRendered}
+                <TableJawboneFilter columns={props.allColumnsThatCouldBeRendered.length ? props.allColumnsThatCouldBeRendered : this.props.columns}
                     onChipRemove={this._onChipRemove}
                     currentFilters={this.props.currentFilters}
                     columnFilters={this.props.columnFilters}
