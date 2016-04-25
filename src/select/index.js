@@ -55,6 +55,7 @@ const Option = React.createClass({
             React.PropTypes.string,
             React.PropTypes.number,
         ]).isRequired,
+        label: React.PropTypes.string.isRequired,
         //Provided by parent
         onClick: React.PropTypes.func.isRequired,
         selected: React.PropTypes.bool.isRequired,

@@ -9,16 +9,23 @@ import Portal from 'react-portal';
 
 const Popup = React.createClass({
     propTypes: {
-        openBy: React.PropTypes.node.isRequired,
+        openBy: React.PropTypes.node,
         actionLabel: React.PropTypes.string.isRequired,
         closeLabel: React.PropTypes.string.isRequired,
         onAction: React.PropTypes.func.isRequired,
         contentFullWidth: React.PropTypes.bool,
+        openByDefault: React.PropTypes.bool,
     },
 
     componentWillUnmount() {
         $(window).off('resize', this._handleResize);
         $(this.refs.popupParent).off('click', this._onWindowClick);
+    },
+
+    componentDidMount() {
+      if (this.props.openByDefault === true) {
+        this._openPopup();
+      }
     },
 
     _onWindowClick(e) {
@@ -80,9 +87,14 @@ const Popup = React.createClass({
             'full-width-enabled': this.props.contentFullWidth,
         });
 
+        let openBy = null;
+        if (this.props.openBy) {
+          openBy = React.cloneElement(this.props.openBy, {onClick: this._openPopup});
+        }
+
         return (
             <div className='bui-popup-parent'>
-                {React.cloneElement(this.props.openBy, {onClick: this._openPopup})}
+                {openBy}
                 <Portal closeOnEsc ref='popupPortal'>
                     <div className='bui-popup-holder' ref='popupParent'>
                         <div className='popup-center-class'>
