@@ -8,6 +8,12 @@ const SelectDoc = React.createClass({
         return (
             <div id='SelectDoc'>
                 <p className="table-header-label">Select</p>
+                <Select disabled>
+                    <Option value="first" label="first option" />
+                    <Option value="second" label="second option" />
+                    <Option value="third" label="third option" />
+                </Select>
+
                 <Select defaultSelectedValue="second">
                     <Option value="first" label="first option" />
                     <Option value="second" label="second option" />

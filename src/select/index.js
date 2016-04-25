@@ -1,5 +1,6 @@
 import React from 'react';
 import _ from 'underscore';
+import classNames from 'classnames';
 import {DropdownHolder, DropdownElement} from '../drop-down-menu';
 
 const Select = React.createClass({
@@ -41,12 +42,16 @@ const Select = React.createClass({
             });
         });
 
+        const parentClass = classNames('bui-select-parent', {
+            'is-disabled': this.props.disabled,
+        });
+
         const children = React.Children.toArray(this.props.children);
         const selectedChild = _(children).find((val) => val.props.value === this.state.selected);
         const selectedLabel = selectedChild && selectedChild.props.label || '';
 
         return (
-            <div className='bui-select-parent'>
+            <div className={parentClass}>
                 <DropdownHolder disabled={this.props.disabled} label={selectedLabel}>
                     {options}
                 </DropdownHolder>
