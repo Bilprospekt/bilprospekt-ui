@@ -8,7 +8,7 @@ const SelectDoc = React.createClass({
         return (
             <div id='SelectDoc'>
                 <p className="table-header-label">Select</p>
-                <Select selectedOption={2}>
+                <Select defaultSelectedValue="second">
                     <Option value="first" label="first option" />
                     <Option value="second" label="second option" />
                     <Option value="third" label="third option" />
@@ -18,7 +18,7 @@ const SelectDoc = React.createClass({
                 <code>
                     {
                         [
-                        '<Select selectedOption={2}>',
+                        '<Select onChange={func} defaultSelectedValue="second">',
                                 <br />,
                             '\t<Option value="first" label="first option" />',
                                 <br />,

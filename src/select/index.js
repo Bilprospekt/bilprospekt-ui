@@ -4,18 +4,22 @@ import {DropdownHolder, DropdownElement} from '../drop-down-menu';
 
 const Select = React.createClass({
     propTypes: {
-        selectedOption: React.PropTypes.number,
-        onChange: React.PropTypes.func,
+      //The option that should be selected per default
+      defaultSelectedValue: React.PropTypes.oneOfType([
+        React.PropTypes.string,
+        React.PropTypes.number,
+      ]),
+      onChange: React.PropTypes.func,
     },
     getDefaultProps() {
         return {
-            selectedOption: 0,
+            defaultSelectedValue: null,
         };
     },
     getInitialState() {
         const children = React.Children.toArray(this.props.children);
         return {
-            selected: children.length ? children[this.props.selectedOption].props.value : null,
+            selected: children.length ? (this.props.defaultSelectedValue || children[0].props.value) : null,
         };
     },
     _onChange(value) {
