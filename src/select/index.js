@@ -4,12 +4,18 @@ import {DropdownHolder, DropdownElement} from '../drop-down-menu';
 
 const Select = React.createClass({
     propTypes: {
+        selectedOption: React.PropTypes.number,
         onChange: React.PropTypes.func,
+    },
+    getDefaultProps() {
+        return {
+            selectedOption: 0,
+        };
     },
     getInitialState() {
         const children = React.Children.toArray(this.props.children);
         return {
-            selected: children.length ? children[0].props.value : null,
+            selected: children.length ? children[this.props.selectedOption].props.value : null,
         };
     },
     _onChange(value) {
