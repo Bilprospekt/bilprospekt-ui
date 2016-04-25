@@ -18,7 +18,7 @@ const SelectDoc = React.createClass({
                 <code>
                     {
                         [
-                        '<Select onChange={func} defaultSelectedValue="second">',
+                        '<Select disabled={bool} onChange={func} defaultSelectedValue="second">',
                                 <br />,
                             '\t<Option value="first" label="first option" />',
                                 <br />,

@@ -10,10 +10,12 @@ const Select = React.createClass({
         React.PropTypes.number,
       ]),
       onChange: React.PropTypes.func,
+      disabled: React.PropTypes.bool,
     },
     getDefaultProps() {
         return {
             defaultSelectedValue: null,
+            disabled: false,
         };
     },
     getInitialState() {
@@ -45,7 +47,7 @@ const Select = React.createClass({
 
         return (
             <div className='bui-select-parent'>
-                <DropdownHolder label={selectedLabel}>
+                <DropdownHolder disabled={this.props.disabled} label={selectedLabel}>
                     {options}
                 </DropdownHolder>
             </div>
