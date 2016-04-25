@@ -32,6 +32,13 @@ const Tabs = React.createClass({
         };
     },
 
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.selectedTab != this.state.selectedTab) {
+            this._changeTab(nextProps.selectedTab);
+            this.setState({ selectedTab: nextProps.selectedTab });
+        }
+    },
+
     componentDidMount() {
         window.addEventListener('resize', this._handleResize);
 

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import classNames           from 'classnames';
+import EventUtil            from '../helpers/EventUtil.js';
 
 const BuiInputField = React.createClass({
     propTypes: {
@@ -26,6 +27,7 @@ const BuiInputField = React.createClass({
         return {
             value: this.props.value,
             focus: false,
+            textareaOldHeight: 28,
         };
     },
 
@@ -33,6 +35,10 @@ const BuiInputField = React.createClass({
         if (this.props.focus) {
             this._field.focus();
         }
+    },
+
+    componentDidUpdate() {
+        this._checkTextareaHeightChange();
     },
 
     blur() {
@@ -59,24 +65,38 @@ const BuiInputField = React.createClass({
         });
     },
 
-    _handleChange(event) {
+    _checkTextareaHeightChange() {
         if (this.props.multiLine) {
-            const $showing = $(this._field);
             const $hidden  = $(this.refs.textareaHiddenRef);
-            const $parent  = $(this.refs.parentRef);
 
-            $hidden[0].value = $showing[0].value;
-            $parent.css({ height: ($hidden[0].scrollHeight > 30) ? $hidden[0].scrollHeight + 5 : $hidden[0].scrollHeight });
-            $showing.css({ height: ($hidden[0].scrollHeight > 30) ? $hidden[0].scrollHeight + 5 : $hidden[0].scrollHeight });
-        }
+            if (($hidden[0].scrollHeight + 2) != this.state.textareaOldHeight) {
+                EventUtil.triggerEvent('resize');
+            }
+        } 
+    },
 
+    _handleChange(event) {
         if (typeof this.props.onChange === 'function') {
             this.props.onChange(event.target.value);
         }
 
-        this.setState({
-            value: event.target.value,
-        });
+        if (this.props.multiLine) {
+            const $showing = $(this._field);
+            const $hidden  = $(this.refs.textareaHiddenRef);
+            const $parent  = $(this.refs.parentRef);
+            const oldHeight = $showing.height();
+
+            $hidden[0].value = $showing[0].value;
+            $parent.css({ height: ($hidden[0].scrollHeight > 28) ? $hidden[0].scrollHeight + 5 + 2 : $hidden[0].scrollHeight + 2 });
+            $showing.css({ height: ($hidden[0].scrollHeight > 28) ? $hidden[0].scrollHeight + 5 : $hidden[0].scrollHeight });
+
+            this.setState({
+                value: event.target.value,
+                textareaOldHeight: oldHeight,
+            });
+        } else {
+            this.setState({ value: event.target.value });
+        }
     },
 
     _handleFocus(e) {
@@ -91,11 +111,12 @@ const BuiInputField = React.createClass({
 
     _removeValueAction() {
         if (this.props.multiLine) {
-            $(this._field).css({ height: 30 });
+            $(this._field).css({ height: 28 });
             $(this.refs.parentRef).css({ height: 30 });
         }
         this.clearValue(true);
         this.focus();
+        this._checkTextareaHeightChange('clearValue');
     },
 
     render() {

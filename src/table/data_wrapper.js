@@ -5,14 +5,16 @@ class DataWrapper {
     constructor(data, columns) {
         this.setData(data, true);
         this.setColumns(columns, true);
-        this.data = data;
-        this.columns = columns;
+        this.listeners = [];
+
+        this.clear();
+    }
+
+    clear() {
         this.search = null;
-        //this.filter = [['a', 'a0'], ['b', 'b1']];
         this.filter = [];
         this.sort = null;
         this.selections = [];
-        this.listeners = [];
     }
 
     _onSearch(val) {
@@ -62,7 +64,10 @@ class DataWrapper {
 
     _onSelection(row, val) {
         if (val) {
+          //Check so we don't add it twice.
+          if (this.selections.indexOf(row) === -1) {
             this.selections.push(row);
+          }
         } else if(this.selections.indexOf(row) !== -1) {
             this.selections.splice(this.selections.indexOf(row), 1);
         }

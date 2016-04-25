@@ -41,7 +41,17 @@ const ToolbarDocComponent = React.createClass({
                 <code>
                     {
                         [
-                        '<MainHolder />',
+                        '<MainHolder>',
+                        '\n\t <Button label="Skapa affär" icon="fa-plus" />',
+                        '\n\t <Button label="Kommentera" icon="fa-comment" disabled={true} />',
+                        '\n\t <DropdownHolder label="Filter" icon="fa-filter">',
+                        '\n\t\t <DropdownElement label="Knapp 1" />',
+                        '\n\t\t <DropdownElement label="Knapp 2" disabled={true} />',
+                        '\n\t\t <DropdownElement label="Knapp 2" checkbox={true} />',
+                        '\n\t\t <DropdownElement label="Knapp 2" checkbox={true} disabled={true} />',
+                        '\n\t\t <DropdownElement label="Knapp 2" checkbox={true} checkboxChecked={true} />',
+                        '\n\t </DropdownHolder>',
+                        '\n</MainHolder>'
                         ]
                     }
                 </code>

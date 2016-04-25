@@ -4,77 +4,79 @@
  *
  */
 
-.bui-popup-parent
-
-  .popup-holder
-    position: fixed
-    z-index: 100
-    top: 0
-    left: 0
-    width: 100vw
-    height: 100vh
-    .popup-overlay
-      position: relative
-      width: 100%
-      height: 100%
-      background-color: rgba(black, .1)
-      @include transition(all .175s ease)
-      &.overlay-animation
-        background-color: rgba(black, .7)
-    .popup-center-class
-      position: absolute
+.bui-popup-holder
+  position: fixed
+  z-index: 100
+  top: 0
+  left: 0
+  width: 100vw
+  height: 100vh
+  .popup-overlay
+    position: relative
+    width: 100%
+    height: 100%
+    background-color: rgba(black, .1)
+    @include transition(all .175s ease)
+    &.overlay-animation
+      background-color: rgba(black, .7)
+  .popup-center-class
+    position: absolute
+    z-index: 1
+    display: table
+    height: 100%
+    width: 100%
+    .popup-center-wrapper
+      display: table-cell
+      vertical-align: middle
+      text-align: center
       z-index: 1
-      display: table
-      height: 100%
-      width: 100%
-      .popup-center-wrapper
-        display: table-cell
-        vertical-align: middle
-        text-align: center
-        z-index: 1
-        .popup-wrapper
-          display: inline-block
-          max-width: 80%
-          min-width: 400px
-          margin: 0 auto
-          margin-top: -100px
-          text-align: left
-          background-color: white
-          border-radius: 2px
-          box-shadow: 0 0px 0px rgba(black, .0)
-          opacity: 0
-          //@include transform(scale(.75))
-          @include transition( all .225s ease)
-          &.popup-animation
-            margin-top: 0px
-            opacity: 1
-            box-shadow: 0 4px 32px rgba(black, .4)
-            //@include transform(scale(1))
+      .popup-wrapper
+        display: inline-block
+        max-width: 80%
+        min-width: 400px
+        margin: 0 auto
+        
+        text-align: left
+        background-color: white
+        border-radius: 2px
+        /* Animation */
+        opacity: 0
+        box-shadow: 0 0px 0px rgba(black, .0)
+        @include transform(translate(0, -100px))
+        @include transition( all .225s ease)
+        &.popup-animation
+          opacity: 1
+          box-shadow: 0 4px 32px rgba(black, .4)
+          @include transform(translate(0, 0))
 
-          /*
-           * Actual Popup Style
-           */
+        /*
+         * Actual Popup Style
+         */
 
-          .popup-header
-            padding: 20px
-            font-size: 22px
-            color: black
-            font-weight: 500
+        .popup-header
+          padding: 20px
+          font-size: 22px
+          color: black
+          font-weight: 500
 
-          .popup-content
-            overflow: hidden
+        .popup-content
+          padding: 0 20px
+          color: $grey-600
+          overflow: hidden
+          &.is-max-height
             overflow-y: auto
-            padding: 0 20px
-            color: $grey-600
+            border-top:    1px solid $grey-200
+            border-bottom: 1px solid $grey-200
+            padding: 20px
+          &.full-width-enabled
+            padding: 0 0
             &.is-max-height
-              border-top:    1px solid $grey-200
-              border-bottom: 1px solid $grey-200
-              padding: 20px
+              padding: 20px 0
 
-          .popup-footer
+        .popup-footer
+          padding: 10px
+          text-align: right
+          .bui-action-button
             padding: 10px
-            text-align: right
-            .bui-action-button
-              padding: 10px
-              &:not(:first-of-type)
-                margin-left: 5px
+            &:not(:first-of-type)
+              margin-left: 5px

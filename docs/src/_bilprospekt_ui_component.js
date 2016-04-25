@@ -52,7 +52,6 @@ var BilprospektUiComponent = React.createClass({
                     <div className='nav-menu'>
                         <ul>
                             <NavElement label='App Example' target='App' className='active-nav-element' />
-                            <NavElement label='Snackbar' target='Snackbar' />
                             <NavElement label='Tabs' target='Tabs' />
                             <NavElement label='Date Picker' target='DatePicker' />
                             <NavElement label='Table' target='Table' />
@@ -66,15 +65,13 @@ var BilprospektUiComponent = React.createClass({
                             <NavElement label='Popup' target='Popup' />
                             <NavElement label='Action Button' target='ActionButton' />
                             <NavElement label='Searchable Select' target='SearchableSelect' />
-                            <NavElement label='Inline Edit' target='InlineEdit' />
                             <NavElement label='Input Field' target='InputField' />
                             <NavElement label='Form Elements' target='FormElements' />
                         </ul>
                     </div>
                 </div>
                 <div className='docs-content'>
-                    <BilprospektAppDoc />  
-                    <BilprospektSnackbarDoc />           
+                    <BilprospektAppDoc />         
                     <BilprospektTabsDoc />
                     <BilprospektDatePickerDoc />
                     <BilprospektTableDoc />
@@ -88,7 +85,6 @@ var BilprospektUiComponent = React.createClass({
                     <BilprospektPopupDoc />
                     <BilprospektActionButtonDoc />
                     <BilprospektSearchableSelectDoc />
-                    <BilprospektInlineEditDoc />
                     <BilprospektInputFieldDoc />
                     <BilprospektFormElementsDoc />
                 </div>

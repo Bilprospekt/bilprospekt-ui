@@ -122,6 +122,18 @@ const Tooltip = React.createClass({
     },
 
     render() {
+        // this.props.children
+        let tooltipChild;
+        if (!this.props.children) {
+            console.error('[BUI Tooltip] You have to add a child for this component to work correctly!');
+            tooltipChild = <p>Tooltip Child</p>;
+        } else if (this.props.children.length > 1) {
+            console.error('[BUI Tooltip] You can only have one child for this component to work correctly!');
+            tooltipChild = <p>Tooltip Child</p>;
+        } else {
+            tooltipChild = this.props.children;
+        }
+
         // this.props.string & this.props.rows
         let tooltipContent;
         if (this.props.string) {
@@ -136,7 +148,7 @@ const Tooltip = React.createClass({
             });
         } else {
             tooltipContent = null;
-            console.error('You have to declare this.props.string[string] or this.props.rows[array]');
+            console.error('[BUI Tooltip] You have to declare this.props.string[string] or this.props.rows[array]!');
         }
 
         // this.props.maxWidth
@@ -152,7 +164,7 @@ const Tooltip = React.createClass({
 
         return (
             <div className='bui-tooltip-parent' style={this.props.style}>
-                {React.cloneElement(this.props.children, {
+                {React.cloneElement(tooltipChild, {
                     onMouseOver: this._showTooltip,
                     onMouseOut: this._hideTooltip,
                     ref: 'cloneRef'
