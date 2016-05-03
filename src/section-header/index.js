@@ -53,7 +53,6 @@ const SectionHeader = React.createClass({
 		// this.props.link
 		let sectionLink = null;
 		if (_.isArray(this.props.link)) {
-			console.log(this.props.link)
 			sectionLink = (
 				<div className='section-link'>
 					<ActionButton flat primary label={this.props.link[0]} linkTo={this.props.link[1]} />

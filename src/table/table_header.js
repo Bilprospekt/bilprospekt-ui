@@ -203,7 +203,6 @@ const TableHeader = React.createClass({
         } else if (_.isArray(this.props.headerLabel)) {
             headerLabel = <SectionHeader icon={this.props.headerLabel[0]} label={this.props.headerLabel[1]} desc={this.props.headerLabel[2]} />
         } else {
-            console.error('props.headerLabel have to be either a string or an array');
             headerLabel = '';
         }
         
