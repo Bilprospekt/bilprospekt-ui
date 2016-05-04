@@ -31,6 +31,7 @@ const Navigation = React.createClass({
         activeLink: React.PropTypes.string,
         searchButton: React.PropTypes.bool,
         logos: React.PropTypes.object,
+        smallNav: React.PropTypes.bool,
 
         searchData: React.PropTypes.arrayOf(
             React.PropTypes.shape({
@@ -59,7 +60,7 @@ const Navigation = React.createClass({
 
     getInitialState() {
         return {
-            minimized: false,
+            minimized: this.props.smallNav,
             searching: false,
             searchValue: null,
             hidden: false,
@@ -71,6 +72,7 @@ const Navigation = React.createClass({
             searchButton: false,
             searchData: [],
             maxWidth: 'calc(100vw-220px)',
+            smallNav: false,
         }
     },
 
@@ -100,7 +102,7 @@ const Navigation = React.createClass({
     },
 
     _toggleMenuSize() {
-        this.setState({minimized: !this.state.minimized });
+        this.setState({ minimized: !this.state.minimized });
 
         setTimeout(() => {
             EventUtil.triggerEvent('resize');
@@ -166,6 +168,8 @@ const Navigation = React.createClass({
     },
 
     render() {
+
+        console.log('smallNav is', this.props.smallNav);
 
         /*
          * Navigation Links
@@ -293,7 +297,7 @@ const Navigation = React.createClass({
          */
 
         const parentClass = classNames('bui-navigation-holder', {
-            'nav-is-minimized': this.state.minimized,
+            'nav-is-minimized': this.props.smallNav,
             'nav-is-hidden': this.state.hidden,
         });
 
