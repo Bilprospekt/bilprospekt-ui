@@ -68,8 +68,8 @@ const Option = React.createClass({
         ]).isRequired,
         label: React.PropTypes.string.isRequired,
         //Provided by parent
-        onClick: React.PropTypes.func.isRequired,
-        selected: React.PropTypes.bool.isRequired,
+        onClick: React.PropTypes.func,
+        selected: React.PropTypes.bool,
     },
     _onClick() {
         if (typeof this.props.onClick === 'function') {
