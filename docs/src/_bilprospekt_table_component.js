@@ -62,6 +62,9 @@ const TableDocComponent = React.createClass({
                     {...this.state}
 
                     {...dataWrapper.triggers()}
+
+                    showNoResultsMessageComponent={true}
+                    noResultsMessage='string that tells you that there is no results!'
                 />
 
                 <pre>

@@ -71,7 +71,7 @@ var BilprospektUiComponent = React.createClass({
                     </div>
                 </div>
                 <div className='docs-content'>
-                    <BilprospektAppDoc />         
+        
                     <BilprospektTabsDoc />
                     <BilprospektDatePickerDoc />
                     <BilprospektTableDoc />
