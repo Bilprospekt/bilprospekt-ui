@@ -3,11 +3,15 @@ import React from 'react';
 import {ActionButton} from 'bilprospekt-ui';
 
 const ActionButtonDoc = React.createClass({
+    _onClick() {
+        console.log('working');
+    },
+    
     render() {
         return (
             <div id='ActionButtonDoc'>
                 <p className="table-header-label">Action Button</p>
-                <ActionButton primary={false} minor={true} label='Action Button'/>
+                <ActionButton primary={false} minor={true} label='Action Button' onClick={this._onClick}/>
 
                 <pre>
                 <code>

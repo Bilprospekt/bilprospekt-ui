@@ -25,6 +25,10 @@ const ActionButton = React.createClass({
         if (this.props.linkTo) {
             window.open(this.props.linkTo, '_self')
         }
+
+        if (typeof this.props.onClick === 'function') {
+            this.props.onClick();
+        }
     },
 
     render() {
