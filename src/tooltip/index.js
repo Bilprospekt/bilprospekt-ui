@@ -23,11 +23,14 @@ const Tooltip = React.createClass({
             position: 'top',
             space: 0,
             delay: 0,
+            hide: false,
         };
     },
 
     _showTooltip() {
-        this.refs.tooltipPortal.openPortal();
+        if (!this.props.hide) {
+            this.refs.tooltipPortal.openPortal();
+        }
 
         const $tParent = $(ReactDOM.findDOMNode(this.refs.cloneRef));
         const $tChild  = $(this.refs.childRef);
