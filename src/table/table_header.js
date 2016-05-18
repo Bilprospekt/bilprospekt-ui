@@ -26,7 +26,12 @@ const TableHeader = React.createClass({
         showJawboneFilter: React.PropTypes.func,
 
         justifyColumns: React.PropTypes.func,
-        headerLabel: React.PropTypes.node,
+
+        // Optional prop to add a BUI Section Header component to the table
+        headerLabel: React.PropTypes.oneOfType([
+            React.PropTypes.string,
+            React.PropTypes.object,
+        ]),
 
         makeRowsSelectable: React.PropTypes.bool,
         //If we have any selections that should be used when "showSelections" is triggered
@@ -200,8 +205,19 @@ const TableHeader = React.createClass({
             } else {
                 headerLabel = this.props.headerLabel;
             }
-        } else if (_.isArray(this.props.headerLabel)) {
-            headerLabel = <SectionHeader icon={this.props.headerLabel[0]} label={this.props.headerLabel[1]} desc={this.props.headerLabel[2]} />
+        } else if (_.isObject(this.props.headerLabel)) {
+            headerLabel = (
+                <SectionHeader
+                    icon={this.props.headerLabel.icon}
+                    label={this.props.headerLabel.label}
+                    desc={this.props.headerLabel.desc}
+                    descType={this.props.headerLabel.descType}
+                    link={this.props.headerLabel.link}
+                    onAction={this.props.headerLabel.onAction}
+                    style={this.props.headerLabel.style}
+                    highlighted={this.props.headerLabel.highlighted}
+                    />
+            );
         } else {
             headerLabel = '';
         }

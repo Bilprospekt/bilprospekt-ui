@@ -57,20 +57,26 @@ const TableDocComponent = React.createClass({
         if (typeof this.state.headerLabel != 'string') {
             this.setState({ headerLabel: "Now this is podracing!" });
         } else {
-            const labelArray = [
-                'fa-car',
-                'Table Label',
-                'Table description',
-            ];
-            this.setState({ headerLabel: labelArray});
+            const labelObj = {
+                icon: 'fa-car',
+                label: 'Table Label',
+                desc: 'Table description',
+                link: 'Link',
+                onAction: this._tableSectionHeaderAction,
+            };
+            this.setState({ headerLabel: labelObj});
         }
+    },
+
+    _tableSectionHeaderAction() {
+        console.log('Section Header Table Action');
     },
 
     render() {
         return (
             <div style={{width: '100%'}} id='TableDoc'>
                 <p className='table-header-label'>Table</p>
-                <p onClick={this._toggleHeaderLabel}>Toggla headerLabel</p>
+                <p onClick={this._toggleHeaderLabel}>Toggle headerLabel from string to Section Header component</p>
                 <Table
                     allColumnsThatCouldBeRendered={alphaObj}
                     makeRowsSelectable
@@ -100,7 +106,7 @@ const TableDocComponent = React.createClass({
                         '\n\t noResultsMessage="string"',
                         '\n\t rowHeight={number}',
                         '\n\t headerHeight={number}',
-                        '\n\t headerLabel={node}',
+                        '\n\t headerLabel="string"',
                         '\n\t rowClasses={object}',
                         '\n\t selectedRows=[array]',
                         '\n\t onSelection={function}',

@@ -15,7 +15,7 @@ const SectionHeader = React.createClass({
         ]),
         descType: React.PropTypes.string,
         highlighted: React.PropTypes.bool,
-        link: React.PropTypes.array,
+        link: React.PropTypes.string,
         style: React.PropTypes.func,
     },
 
@@ -23,6 +23,12 @@ const SectionHeader = React.createClass({
     	return {
     		descType: 'normal',
     	};
+    },
+
+    _actionClick(action) {
+    	if (typeof this.props.onAction === 'function') {
+    		this.props.onAction();
+    	}
     },
 
 	render() {
@@ -52,10 +58,11 @@ const SectionHeader = React.createClass({
 
 		// this.props.link
 		let sectionLink = null;
-		if (_.isArray(this.props.link)) {
+		if (this.props.onAction && typeof this.props.onAction === 'function') {
+			const actionLabel = (this.props.link) ? this.props.link : 'Missing Label'
 			sectionLink = (
 				<div className='section-link'>
-					<ActionButton flat primary label={this.props.link[0]} linkTo={this.props.link[1]} />
+					<ActionButton flat primary label={actionLabel} onClick={this._actionClick} />
 				</div>
 			);
 		}

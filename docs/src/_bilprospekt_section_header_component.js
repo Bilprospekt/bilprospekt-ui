@@ -3,18 +3,17 @@ import React from 'react';
 import {SectionHeader} from 'bilprospekt-ui';
 
 const SectionHeaderDoc = React.createClass({
-    render() {
-        const link = [
-            'Join the party!',
-            'http://www.google.se',
-        ];
+    _action() {
+        console.log('Party Joined!');
+    },
 
+    render() {
         return (
             <div id='SectionHeaderDoc'>
                 <p className="table-header-label">Section Header</p>
                 <SectionHeader highlighted icon='fa-user' label='User Profile' desc='This user is highlighted' style={{marginBottom: 20}} />
                 <SectionHeader icon='fa-comment' label='Comment Section' desc='This is where we comment on stuff' style={{marginBottom: 20}} />
-                <SectionHeader icon='fa-users' label='Party Section' desc={['Peter', 'Daniel', 'Alexander']} style={{marginBottom: 20}} link={link} />
+                <SectionHeader icon='fa-users' label='Party Section' desc={['Peter', 'Daniel', 'Alexander']} style={{marginBottom: 20}} link='Join the party!' onAction={this._action} />
                 <SectionHeader icon='fa-car' label='Car Section' desc='Something minor happened!' descType='minor' style={{marginBottom: 20}} />
                 <SectionHeader icon='fa-building' label='Company Section' desc='Something major happened!' descType='major' style={{marginBottom: 20}} />
 
