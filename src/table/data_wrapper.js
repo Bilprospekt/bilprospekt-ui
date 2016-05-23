@@ -83,17 +83,33 @@ class DataWrapper extends EventEmitter2 {
     this.emit(event, eventData, state);
   }
 
-  setData(data, skipEmit = false) {
-    this.data = _(data).map((val) => {
+  _formatData(data) {
+    return _(data).map((val) => {
       if (typeof val._id === 'undefined') {
         val._id = _.uniqueId('data-wrapper-row_');
       }
       return val;
     });
+  }
+
+  setData(data, skipEmit = false) {
+    this.data = this._formatData(data);
 
     if (skipEmit === false) {
       this._emit('data', this.data);
     }
+  }
+
+  addData(data, skipEmit = false) {
+    this.data = this.getRawData().concat(this._formatData(data));
+
+    if (skipEmit === false) {
+      this._emit('data', this.data);
+    }
+  }
+
+  getRawData() {
+    return this.data || [];
   }
 
   setColumns(columns, skipEmit = false) {
