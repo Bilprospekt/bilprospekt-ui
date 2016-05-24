@@ -162,6 +162,7 @@ class DataWrapper extends EventEmitter2 {
     if (this.search) {
       chain = chain.filter((row) => {
         return _(row).filter((cell) => {
+          if (!cell) return false;
           return cell.toString().toLowerCase().indexOf(this.search.toLowerCase()) !== -1;
         }).length;
       })
