@@ -79,8 +79,10 @@ class DataWrapper extends EventEmitter2 {
 
   _emit(event, eventData) {
     const state = this.getState();
-    this.emit('change', state);
-    this.emit(event, eventData, state);
+    this.emit('change', state); //Currently we always want to emot change here for legacy reasons.
+    if (event !== 'change') { //To avoid duplicate change emit
+      this.emit(event, eventData, state);
+    }
   }
 
   _formatData(data) {
