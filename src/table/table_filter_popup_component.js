@@ -59,8 +59,6 @@ const TableFilterPopupComponent = React.createClass({
         }
     },
 
-
-
     componentWillReceiveProps(nextProps) {
         let obj = {
             //Delete internal selections when we get new props, correct selections will be included there.

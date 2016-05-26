@@ -55,6 +55,7 @@ const TableDocComponent = React.createClass({
             <div style={{width: '100%'}} id='TableDoc'>
                 <p className='table-header-label'>Table</p>
                 <Table
+                    ref='table'
                     allColumnsThatCouldBeRendered={alphaObj}
                     makeRowsSelectable
                     headerLabel="Now this is podracing"
@@ -95,7 +96,8 @@ const TableDocComponent = React.createClass({
                         '\n\t onFilter={function}',
                         '\n\t onSort={function}',
                         '\n\t onReachedBottom={function}',
-                        '\n/>'
+                        '\n/>',
+                        '\n Method: closeDropdownsAndPopups()',
                         ]
                     }
                 </code>

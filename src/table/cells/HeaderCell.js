@@ -51,6 +51,12 @@ const HeaderCell = React.createClass({
             hover,
         });
     },
+    closeFilter() {
+      const el = document.getElementById('bui-table-popup-holder');
+      if (el) {
+        ReactDOM.unmountComponentAtNode(el);
+      }
+    },
     _showFilterPopup(e) {
         const {
             currentFilters,
@@ -72,12 +78,7 @@ const HeaderCell = React.createClass({
             left: pos.left - tablePos.left,
             val: this.props.val,
             columnLabel: this.props.label,
-            unmount: () => {
-                const el = document.getElementById('bui-table-popup-holder');
-                if (el) {
-                    ReactDOM.unmountComponentAtNode(el);
-                }
-            },
+            unmount: this.closeFilter,
         };
 
         ReactDOM.render(
