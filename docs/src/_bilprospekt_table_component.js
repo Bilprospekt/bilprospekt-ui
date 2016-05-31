@@ -61,15 +61,10 @@ const TableDocComponent = React.createClass({
                 icon: 'fa-car',
                 label: 'Table Label',
                 desc: 'Table description',
-                link: 'Link',
-                onAction: this._tableSectionHeaderAction,
+                actionLabel: 'Action Button',
             };
             this.setState({ headerLabel: labelObj});
         }
-    },
-
-    _tableSectionHeaderAction() {
-        console.log('Section Header Table Action');
     },
 
     render() {

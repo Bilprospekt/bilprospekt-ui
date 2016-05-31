@@ -28,10 +28,6 @@ const NavElement = React.createClass({
         const $el = $(e.target);
         const $target = $( '#' + this.props.target + 'Doc' );
 
-        // Set classes
-        $el.siblings().removeClass('active-nav-element');
-        $el.addClass('active-nav-element');
-
         // Scroll animation
         $('html, body').animate({
             scrollTop: $target.offset().top
@@ -39,7 +35,7 @@ const NavElement = React.createClass({
     },
     render() {
         return (
-            <li className={this.props.className} onClick={this._onClick}>{this.props.label}</li>
+            <li onClick={this._onClick}>{this.props.label}</li>
         );
     }
 });
@@ -52,7 +48,7 @@ var BilprospektUiComponent = React.createClass({
                     <div className='nav-logotype' />
                     <div className='nav-menu'>
                         <ul>
-                            <NavElement label='App Example' target='App' className='active-nav-element' />
+                            <NavElement label='App Example' target='App' />
                             <NavElement label='Section Header' target='SectionHeader' />
                             <NavElement label='Tabs' target='Tabs' />
                             <NavElement label='Date Picker' target='DatePicker' />
