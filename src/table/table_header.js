@@ -123,7 +123,7 @@ const TableHeader = React.createClass({
 
         const props = this.props;
         let columnChanger = null;
-        if (props.allColumnsThatCouldBeRendered && props.allColumnsThatCouldBeRendered.length && props.currentColumns && props.currentColumns.length) {
+        if (props.allColumnsThatCouldBeRendered && props.allColumnsThatCouldBeRendered.length && props.currentColumns) {
             const columns = _(props.allColumnsThatCouldBeRendered).map((column, key) => {
                 const checked = _(props.currentColumns).findWhere({val : column.val});
                 return <DropdownElement key={key} checkboxChecked={!!checked} checkbox label={column.label} onClick={this._onColumnChange.bind(this, column.val)} />
