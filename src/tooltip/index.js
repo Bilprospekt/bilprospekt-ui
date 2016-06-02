@@ -16,6 +16,7 @@ const Tooltip = React.createClass({
         space:    React.PropTypes.number,
         delay:    React.PropTypes.number,
         maxWidth: React.PropTypes.number,
+        hide:     React.PropTypes.bool,
     },
 
     getDefaultProps() {
