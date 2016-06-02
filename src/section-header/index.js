@@ -16,7 +16,7 @@ const SectionHeader = React.createClass({
         descType: React.PropTypes.string,
         highlighted: React.PropTypes.bool,
         actionLabel: React.PropTypes.string,
-        style: React.PropTypes.func,
+        style: React.PropTypes.obj,
     },
 
     getDefaultProps() {

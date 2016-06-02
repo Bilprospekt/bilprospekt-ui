@@ -9,7 +9,6 @@ const ActionButton = React.createClass({
         selected: React.PropTypes.bool,
         flat: React.PropTypes.bool,
         toggle: React.PropTypes.bool,
-        linkTo: React.PropTypes.string,
     },
 
     getDefaultProps() {
@@ -19,16 +18,6 @@ const ActionButton = React.createClass({
             flat: false,
             toggle: false,
         };
-    },
-
-    _onClick() {
-        if (this.props.linkTo) {
-            window.open(this.props.linkTo, '_self')
-        }
-
-        if (typeof this.props.onClick === 'function') {
-            this.props.onClick();
-        }
     },
 
     render() {
@@ -43,7 +32,7 @@ const ActionButton = React.createClass({
         const props = this.props;
 
         return (
-            <div {...props} className={buttonClass} onClick={this._onClick}>
+            <div {...props} className={buttonClass}>
                 {this.props.label}
             </div>
         );
