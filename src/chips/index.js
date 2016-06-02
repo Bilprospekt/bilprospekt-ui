@@ -7,8 +7,8 @@ const Chips = React.createClass({
     },
 
     _onClick() {
-        if (typeof this.props.onClick === 'function') {
-            this.props.onClick();
+        if (typeof this.props.onRemoveClick === 'function') {
+            this.props.onRemoveClick();
         }
     },
 
@@ -16,7 +16,7 @@ const Chips = React.createClass({
         return (
             <div className='bui-chips'>
                 <span className='chips-label'>{this.props.label}</span>
-                <i className='fa fa-times-circle chips-icon' onClick={this._onClick.bind(this, this.props.onClick)} />
+                <i className='fa fa-times-circle chips-icon' onClick={this._onClick.bind(this)} />
             </div>
         );
     }
