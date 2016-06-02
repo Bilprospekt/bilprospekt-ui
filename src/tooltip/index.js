@@ -16,6 +16,7 @@ const Tooltip = React.createClass({
         space:    React.PropTypes.number,
         delay:    React.PropTypes.number,
         maxWidth: React.PropTypes.number,
+        hide:     React.PropTypes.bool,
     },
 
     getDefaultProps() {
@@ -23,11 +24,14 @@ const Tooltip = React.createClass({
             position: 'top',
             space: 0,
             delay: 0,
+            hide: false,
         };
     },
 
     _showTooltip() {
-        this.refs.tooltipPortal.openPortal();
+        if (!this.props.hide) {
+            this.refs.tooltipPortal.openPortal();
+        }
 
         const $tParent = $(ReactDOM.findDOMNode(this.refs.cloneRef));
         const $tChild  = $(this.refs.childRef);
