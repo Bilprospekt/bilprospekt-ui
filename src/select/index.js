@@ -12,11 +12,13 @@ const Select = React.createClass({
       ]),
       onChange: React.PropTypes.func,
       disabled: React.PropTypes.bool,
+      orientation: React.PropTypes.string,
     },
     getDefaultProps() {
         return {
             defaultSelectedValue: null,
             disabled: false,
+            orientation: 'left',
         };
     },
     getInitialState() {
@@ -52,7 +54,7 @@ const Select = React.createClass({
 
         return (
             <div className={parentClass}>
-                <DropdownHolder disabled={this.props.disabled} label={selectedLabel}>
+                <DropdownHolder orientation={this.props.orientation} disabled={this.props.disabled} label={selectedLabel}>
                     {options}
                 </DropdownHolder>
             </div>
