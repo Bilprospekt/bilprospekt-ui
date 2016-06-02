@@ -65,6 +65,17 @@ const TableDocComponent = React.createClass({
                     {...dataWrapper.triggers()}
                 />
 
+                <Table
+                    ref='table'
+                    allColumnsThatCouldBeRendered={alphaObj}
+                    makeRowsSelectable
+                    headerLabel="Now this is podracing"
+                    searchHint="Now this is podracing"
+                    {...this.state}
+
+                    {...dataWrapper.triggers()}
+                />
+
                 <pre>
                 <code>
                     {
