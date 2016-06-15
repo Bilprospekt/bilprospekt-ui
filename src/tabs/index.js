@@ -17,11 +17,7 @@ const Tabs = React.createClass({
         return {
             selectedTab: this.props.selectedTab,
 
-            initialRun: true,
-            holderWidth: undefined,
-            extraSpace: 100,
-            showingTabs: [],
-            hiddenTabs: [],
+            hiddenLabels: [],
         };
     },
 
@@ -44,153 +40,71 @@ const Tabs = React.createClass({
     },
 
     componentDidMount() {
-        window.addEventListener('resize', this._handleResize);
+        window.addEventListener('resize', this._nestTabs);
 
         // Call for initial selection position
-        this._changeTab(this.state.selectedTab, 'showing');
+        this._changeTab(this.state.selectedTab);
 
         // Run _handleResize() for initial check
-        this._handleResize();
-    },
-
-    componentWillUnmount() {
-        window.removeEventListener('resize', this._handleResize);
-    },
-
-    _handleResize(e) {
         this._nestTabs();
     },
 
-    _nestTabs() {
+    componentWillUnmount() {
+        window.removeEventListener('resize', this._nestTabs);
+    },
+
+    _nestTabs(e) {
         // Variables
         const $holder = $(this.refs.tabsHolderRef);
-        const holderWidth = $holder.outerWidth() - 40;
-        const extraSpace = this.state.extraSpace;
-        let childrenWidth = 0;
-        let hiddenChildrenWidth = 0;
-        let childrenShowing = [];
-        let childrenHidden = this.state.hiddenTabs;
+        const holderWidth = $holder.outerWidth() - (40 + 100); // 40 is padding, 100 is dropdown button
+        let labelsWidth = 0;
+        let newHiddenLabels = [];
 
-        if (this.state.initialRun) {
-            _.each(this.props.labels, (label, index) => {
-                const $label = $(this.refs[`buttonRef${index}`]);
-                const labelData = [$label[0].innerHTML, index];
-                childrenWidth += $label.outerWidth(true);
+        _.map(this.props.labels, (button, i) => {
+          const buttonRef = $(this.refs[`buttonRef${i}`]);
+          labelsWidth += buttonRef.outerWidth(true);
 
-                if ((childrenWidth + extraSpace) > holderWidth) {
-                    childrenHidden.push(labelData);
-                    $label.css({ display: 'none' });
-                } else {
-                    childrenShowing.push(labelData);
-                    $label.css({ display: 'block' });
-                }
-            });
+          if (labelsWidth > holderWidth) {
+            buttonRef.hide();
+            newHiddenLabels.push([buttonRef[0].innerHTML, i]);
+
+            if (this.state.selectedTab >= i) {
+              this._highlightHiddenTabsHolder();
+            }
+          } else {
+            buttonRef.show();
+
+            if (this.state.selectedTab === i) {
+              this._animateTab(buttonRef.outerWidth(), buttonRef.position().left);
+            }
+          }
+        });
+        
+        this.setState({ hiddenLabels: newHiddenLabels });
+    },
+
+    _changeTab(index) {
+        // Call for animation
+        const $button = $(this.refs[`buttonRef${index}`]);
+
+        if ($button.css('display') === 'none') {
+          this._highlightHiddenTabsHolder();
         } else {
-            _.each(this.state.showingTabs, (tab, index) => {
-                const $tab = $(this.refs[`buttonRef${index}`]);
-                const tabData = [$tab[0].innerHTML, index];
-                childrenWidth += $tab.outerWidth(true);
-
-                if ((childrenWidth + extraSpace) > holderWidth) {
-                    $tab.css({ display: 'none' });
-                    childrenHidden.push(tabData);
-                } else {
-                    childrenShowing.push(tabData);
-                    $tab.css({ display: 'block' });
-                }
-            });
-
-            _.each(childrenHidden, (hiddenTab, dropdownIndex) => {
-                console.log('hiddenTab', hiddenTab);
-                const $hiddenTab = $(this.refs[`buttonRef${hiddenTab[1]}`]);
-
-                hiddenChildrenWidth += $hiddenTab.outerWidth(true);
-                console.log('hiddenChildrenWidth', hiddenChildrenWidth);
-                console.log('free space', (holderWidth - (childrenWidth + extraSpace)));
-
-                if (hiddenChildrenWidth < (holderWidth - (childrenWidth + extraSpace))) {
-                    console.log('!!!');
-                    console.log('dropdownIndex', dropdownIndex);
-                    
-                    const newShowingTab = childrenHidden.splice(dropdownIndex, 1);
-
-                    childrenShowing.push(hiddenTab);
-                    $hiddenTab.css({ display: 'block' });
-                }
-            });
+          this._animateTab($button.outerWidth(), $button.position().left);
         }
 
-        console.log('childrenShowing', childrenShowing);
-        console.log('childrenHidden', childrenHidden);
+        if (typeof this.props.onChange === 'function') {
+            this.props.onChange(index);
+        }
 
         this.setState({
-            showingTabs: childrenShowing,
-            hiddenTabs: childrenHidden,
-            holderWidth: holderWidth,
-            initialRun: false,
+          selectedTab: index,
         });
     },
 
-    _changeTab(index, labelStatus, dropdownIndex) {
-        if (labelStatus === 'showing') {
-            // Call for animation
-            const $button = $(this.refs[`buttonRef${index}`]);
-            this._animateTab($button.outerWidth(), $button.position().left);
-
-            if (typeof this.props.onChange === 'function') {
-                this.props.onChange(index);
-            }
-
-            this.setState({ selectedTab: index });
-        } else if (labelStatus === 'hidden') {
-            console.log('///////////////');
-            console.log('you selected tab nr', index);
-            const showingTabs = this.state.showingTabs.reverse();
-            const $selectedLabel = $(this.refs[`buttonRef${index}`]);
-            let labelsWidth = 0;
-            let labelsToSwitch = [];
-            let childrenShowing = this.state.showingTabs;
-            let childrenHidden = this.state.hiddenTabs;
-            let stopEach = false;
-
-            // for (var i = this.state.showingTabs.length - 1; i >= 0; i--) {
-            _.each(showingTabs, (tab, i) => {    
-                console.log(i, tab);
-                // Handle widths
-                const $label = $(this.refs[`buttonRef${tab[1]}`]);
-                labelsWidth += $label.outerWidth(true) + 1;
-
-                // Handle label data
-                const labelData = [$label[0].innerHTML, tab[1]];
-                labelsToSwitch.push(labelData);
-
-                if (labelsWidth >= $selectedLabel.outerWidth(true) && !stopEach) {
-                    stopEach = true;
-
-                    // Remove labels from state and hide them
-                    _.each(labelsToSwitch, (label) => {
-                        childrenShowing.pop();
-                        childrenHidden.push(label);
-                        $(this.refs[`buttonRef${label[1]}`]).css({ display: 'none' });
-                    });
-                    // Add the selected label to the correct state and show it
-                    childrenHidden.splice(dropdownIndex, 1);
-                    childrenShowing.push([$selectedLabel[0].innerHTML, index]);
-                    $selectedLabel.css({ display: 'block' });
-
-                    // Update selected tab
-                    this._changeTab(index, 'showing');
-                }
-            });
-
-            console.log('childrenShowing', childrenShowing);
-            console.log('childrenHidden', childrenHidden);
-
-            this.setState({
-                showingTabs: childrenShowing,
-                hiddenTabs: childrenHidden,
-            });
-        }
+    _highlightHiddenTabsHolder() {
+      const $tabsHolder = $(ReactDOM.findDOMNode(this.refs.holderRef));
+      this._animateTab($tabsHolder.outerWidth(), $tabsHolder.position().left);
     },
 
     _animateTab(width, left) {
@@ -208,23 +122,20 @@ const Tabs = React.createClass({
             });
 
             return (
-                <div key={index} className={buttonClass} onClick={this._changeTab.bind(this, index, 'showing')} ref={'buttonRef' + index}>
+                <div key={index} className={buttonClass} onClick={this._changeTab.bind(this, index)} ref={'buttonRef' + index}>
                     {label}
                 </div>
             );
         });
 
-        let hiddenTabs = null;
-        if (this.state.hiddenTabs.length > 0) {
-            const dropdownLabels = _(this.state.hiddenTabs).map((label, index) => {
-                return <DropdownElement key={index} label={label[0]} onClick={this._changeTab.bind(this, label[1], 'hidden', index)} />
-            });
-            hiddenTabs = (
-                <DropdownHolder label='Mer'>
-                    {dropdownLabels}
-                </DropdownHolder>
-            );
-        }
+
+        const hiddenElements = _(this.state.hiddenLabels).map((label, index) => {
+          return <DropdownElement key={'DropdownElementKey' + index} label={label[0]} onClick={this._changeTab.bind(this, label[1])} />
+        });
+
+        const hiddenTabs = (this.state.hiddenLabels.length > 0)
+          ? <DropdownHolder label='Mer' ref='holderRef'>{hiddenElements}</DropdownHolder>
+          : null ;
 
         return (
             <div className='bui-tabs-holder'>
