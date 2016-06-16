@@ -19,18 +19,23 @@ const DatePicker = React.createClass({
     minDate: React.PropTypes.object, //Moment date
   },
   getInitialState() {
+    // This may cause problems if we have multiple datepickers and multiple languages.
+    moment.locale(this.props.locale);
+
     return {
       range: {from: null, to: null},
       date: null,
       initialMonth: moment(this.props.maxDate).toDate(),
+
+      // We can't use this in defaultProps since we need locale from props before creating dates.
+      maxDate: this.props.maxDate || moment(),
+      minDate: this.props.minDate || moment().subtract(10, 'years').month(0).day(0),
     }
   },
   getDefaultProps() {
     return {
       useRange: true,
-      locale: 'en',
-      maxDate: moment(),
-      minDate: moment().subtract(10, 'years').month(0).day(0),
+      locale: 'sv',
     };
   },
   _onDayClick(e, day, modifiers) {
@@ -71,7 +76,14 @@ const DatePicker = React.createClass({
   getDate() {
     return (this.props.useRange) ? this.state.range : this.state.date;
   },
+  _getIntervalDates() {
+    return {
+      maxDate: this.state.maxDate,
+      minDate: this.state.minDate,
+    };
+  },
   render() {
+    const {maxDate, minDate} = this._getIntervalDates();
     const isSelected = (day) => {
       if (this.props.useRange) {
         return DateUtils.isDayInRange(day, this.state.range);
@@ -80,13 +92,13 @@ const DatePicker = React.createClass({
       }
     };
 
-    const fromMonth = moment("2005-01-01").toDate();
-    const toMonth = moment().toDate();
+    const fromMonth = minDate.toDate();
+    const toMonth = maxDate.toDate();
 
     const isDisabled = day => {
       return !DateUtils.isDayInRange(day, {
-        from: this.props.minDate.toDate(),
-        to: this.props.maxDate.toDate(),
+        from: minDate.toDate(),
+        to: maxDate.toDate(),
       });
     }
 
@@ -101,7 +113,11 @@ const DatePicker = React.createClass({
       locale={ this.props.locale }
       localeUtils={ LocaleUtils }
       captionElement={
-          <CaptionElement maxDate={this.props.maxDate} minDate={this.props.minDate} onChange={(initialMonth) => this.setState({initialMonth})} date={this.state.initialMonth} />
+          <CaptionElement
+            maxDate={maxDate} 
+            minDate={minDate} 
+            onChange={(initialMonth) => this.setState({initialMonth})} 
+            date={this.state.initialMonth} />
       }
           />
     );
@@ -186,12 +202,14 @@ const CaptionElement = React.createClass({
       return [i, x];
     }).object().value();
 
+    const cap = (x) => x[0].toUpperCase() + x.slice(1);
+
     return (
       <form className="DayPicker-Caption">
         <select name="month" onChange={ this._handleChange } value={ date.getMonth() }>
           { _(mappedMonths).map((month, i) =>
                       <option key={ i } value={ i }>
-                      { month }
+                      { cap(month) }
                       </option>)
           }
         </select>

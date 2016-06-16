@@ -45,13 +45,15 @@ const DatePickerDoc = React.createClass({
             <div id='DatePickerDoc'>
                 <p className="table-header-label">Datepicker</p>
                 <p style={{height: 60}}>Built upon <a target="_blank" href="https://github.com/gpbl/react-day-picker">react-day-picker</a></p>
+                <p>Datepicker defaults to sv lang. Make sure you have it, or change to something else. (locale=String)</p>
+                <div style={{clear: 'both', marginBottom: 15}} />
                 <div style={{float: 'left'}}>
                   <p style={{textAlign: 'center'}}>{dateStr}</p>
-                  <DatePicker maxDate={moment().add(0, 'years').month(3).date(15)} minDate={moment().subtract(1, 'year').month(5).date(14)} useRange onChange={this._onChange} />
+                  <DatePicker maxDate={moment().month(3).date(15)} minDate={moment().subtract(1, 'year').month(5).date(14)} useRange onChange={this._onChange} />
                 </div>
                 <div style={{float: 'left', marginLeft: 100}}>
                   <p style={{textAlign: 'center'}}>{dateSingleStr}</p>
-                  <DatePicker maxDate={moment().add(0, 'years').month(3).date(15)} minDate={moment().subtract(1, 'year').month(5).date(14)} useRange={false} onChange={this._onSingleChange} />
+                  <DatePicker maxDate={moment().month(3).date(15)} minDate={moment().subtract(1, 'year').month(5).date(14)} useRange={false} onChange={this._onSingleChange} />
                 </div>
                 <div style={{clear: 'both'}} />
                 <pre>
@@ -60,12 +62,12 @@ const DatePickerDoc = React.createClass({
                         [
                           "// Range (left)",
                           <br/>,
-                          "<DatePicker maxDate={moment().add(0, 'years').month(3).date(15)} minDate={moment().subtract(1, 'year').month(5).date(14)} useRange onChange={this._onChange} />",
+                          "<DatePicker maxDate={moment().month(3).date(15)} minDate={moment().subtract(1, 'year').month(5).date(14)} useRange onChange={this._onChange} />",
                           <br/>,
                           <br/>,
                           "// Single (right)",
                           <br/>,
-                          "<DatePicker maxDate={moment().add(0, 'years').month(3).date(15)} minDate={moment().subtract(1, 'year').month(5).date(14)} useRange={false} onChange={this._onSingleChange} />",
+                          "<DatePicker maxDate={moment().month(3).date(15)} minDate={moment().subtract(1, 'year').month(5).date(14)} useRange={false} onChange={this._onSingleChange} />",
                         ]
                     }
                 </code>
