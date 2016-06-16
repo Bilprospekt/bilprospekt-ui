@@ -45,6 +45,10 @@ const TooltipDoc = React.createClass({
                     <ActionButton secondary label='Tooltip Right' />
                 </Tooltip>
 
+                <Tooltip style={tooltipStyle} string='Hidden' position='right' space={10} delay={0} hide={true}>
+                    <ActionButton secondary label='Hidden Tooltip' />
+                </Tooltip>
+
                 <br />
 
                 <pre>
@@ -59,6 +63,7 @@ const TooltipDoc = React.createClass({
                         '\n\t maxWidth={number}',
                         '\n\t space={number}',
                         '\n\t delay={number}',
+                        '\n\t hide={bool} // default value is false',
                         '\n/>',
                         '\n\t<ActionButton />',
                         '\n</Tooltip>'
