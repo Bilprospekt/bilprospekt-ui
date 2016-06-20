@@ -16,7 +16,7 @@ const Chips = React.createClass({
         return (
             <div className='bui-chips'>
                 <span className='chips-label'>{this.props.label}</span>
-                <i className='fa fa-times-circle chips-icon' onClick={this._onClick.bind(this)} />
+                <i className='fa fa-times-circle chips-icon' onClick={this._onClick} />
             </div>
         );
     }

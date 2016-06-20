@@ -25,13 +25,13 @@ const SelectDoc = React.createClass({
                     {
                         [
                         '<Select disabled={bool} onChange={func} defaultSelectedValue="second">',
-                                <br />,
+                                <br key={1} />,
                             '\t<Option value="first" label="first option" />',
-                                <br />,
+                                <br key={3} />,
                             '\t<Option value="second" label="second option" />',
-                                <br />,
+                                <br key={5} />,
                             '\t<Option value="third" label="third option" />',
-                                <br />,
+                                <br key={7} />,
                         '</Select>',
                         ]
                     }
