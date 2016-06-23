@@ -73,6 +73,21 @@ const TableDocComponent = React.createClass({
                 <p className='table-header-label'>Table</p>
                 <p onClick={this._toggleHeaderLabel}>Toggle headerLabel from string to Section Header component</p>
                 <Table
+                    ref='table'
+                    allColumnsThatCouldBeRendered={alphaObj}
+                    makeRowsSelectable
+                    headerLabel="Now this is podracing"
+                    searchHint="Now this is podracing"
+                    {...this.state}
+
+                    {...dataWrapper.triggers()}
+
+                    showNoResultsMessageComponent={true}
+                    noResultsMessage='string that tells you that there is no results!'
+                />
+
+                <Table
+                    ref='table'
                     allColumnsThatCouldBeRendered={alphaObj}
                     makeRowsSelectable
                     headerLabel={this.state.headerLabel}
@@ -113,7 +128,8 @@ const TableDocComponent = React.createClass({
                         '\n\t onFilter={function}',
                         '\n\t onSort={function}',
                         '\n\t onReachedBottom={function}',
-                        '\n/>'
+                        '\n/>',
+                        '\n Method: closeDropdownsAndPopups()',
                         ]
                     }
                 </code>

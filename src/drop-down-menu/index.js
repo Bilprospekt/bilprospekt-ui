@@ -77,6 +77,27 @@ const DropdownHolder = React.createClass({
             autoSize: false,
         };
     },
+    _close() {
+      if (this.isMounted()) {
+          this.setState({ opened: false });
+      }
+
+      EventUtil.removeHandler(document, 'click', this._hideDrop);
+    },
+    _open() {
+      if (this.isMounted()) {
+        this.setState({
+          opened: true,
+        });
+      };
+    },
+    //Hide implementation of open/close logic
+    open() {
+      this._open();
+    },
+    close() {
+      this._close();
+    },
     componentDidUpdate() {
         if (this.state.opened) {
             EventUtil.addHandler(document, 'click', this._hideDrop);
@@ -90,9 +111,7 @@ const DropdownHolder = React.createClass({
     _handleClick() {
         if (!this.props.disabled) {
             this._triggerToggle(true);
-            if (this.isMounted()) {
-                this.setState({ opened: true });
-            }
+            this._open();
         }
     },
     _hideDrop(e) {
@@ -104,10 +123,7 @@ const DropdownHolder = React.createClass({
 
         if (this.state.opened) {
             this._triggerToggle(false);
-            if (this.isMounted()) {
-                this.setState({ opened: false });
-            }
-            EventUtil.removeHandler(document, 'click', this._hideDrop);
+            this._close();
         }
     },
     componentWillUnmount() {

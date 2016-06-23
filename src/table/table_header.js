@@ -110,6 +110,12 @@ const TableHeader = React.createClass({
         }
     },
 
+    closeColumnChanger() {
+      if (typeof this.refs.dropdownHolder !== 'undefined') {
+        this.refs.dropdownHolder.close();
+      }
+    },
+
     render() {
         // Tooltips for the header actions
         const tooltipProps = {
@@ -123,18 +129,20 @@ const TableHeader = React.createClass({
 
         const props = this.props;
         let columnChanger = null;
-        if (props.allColumnsThatCouldBeRendered && props.allColumnsThatCouldBeRendered.length && props.currentColumns && props.currentColumns.length) {
+        if (props.allColumnsThatCouldBeRendered && props.allColumnsThatCouldBeRendered.length && props.currentColumns) {
             const columns = _(props.allColumnsThatCouldBeRendered).map((column, key) => {
                 const checked = _(props.currentColumns).findWhere({val : column.val});
                 return <DropdownElement key={key} checkboxChecked={!!checked} checkbox label={column.label} onClick={this._onColumnChange.bind(this, column.val)} />
             });
+
             columnChanger = (
                 <div>
-                    <DropdownHolder noArrow orientation="right" icon="fa-ellipsis-h table-icon">
+                    <DropdownHolder ref='dropdownHolder' noArrow orientation="right" icon="fa-ellipsis-h table-icon">
                         {columns}
                     </DropdownHolder>
                 </div>
             );
+
             columnChanger = <Tooltip string='Välj kolumner att visa' {...tooltipProps}>{columnChanger}</Tooltip>;
         }
 

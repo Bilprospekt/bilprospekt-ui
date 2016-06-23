@@ -8,7 +8,13 @@ const SelectDoc = React.createClass({
         return (
             <div id='SelectDoc'>
                 <p className="table-header-label">Select</p>
-                <Select>
+                <Select disabled>
+                    <Option value="first" label="first option" />
+                    <Option value="second" label="second option" />
+                    <Option value="third" label="third option" />
+                </Select>
+
+                <Select defaultSelectedValue="second">
                     <Option value="first" label="first option" />
                     <Option value="second" label="second option" />
                     <Option value="third" label="third option" />
@@ -18,14 +24,14 @@ const SelectDoc = React.createClass({
                 <code>
                     {
                         [
-                        '<Select>',
-                                <br />,
+                        '<Select disabled={bool} onChange={func} defaultSelectedValue="second">',
+                                <br key={1} />,
                             '\t<Option value="first" label="first option" />',
-                                <br />,
+                                <br key={3} />,
                             '\t<Option value="second" label="second option" />',
-                                <br />,
+                                <br key={5} />,
                             '\t<Option value="third" label="third option" />',
-                                <br />,
+                                <br key={7} />,
                         '</Select>',
                         ]
                     }

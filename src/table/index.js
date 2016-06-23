@@ -1,5 +1,6 @@
 import _ from 'underscore';
 import React from 'react';
+import ReactDOM from 'react-dom';
 import FixedDataTable from 'fixed-data-table';
 import TableHeader from './table_header';
 import TableJawboneFilter from './table_jawbone_filter';
@@ -197,6 +198,18 @@ const TableHolderComponent = React.createClass({
             this.props.onRowClick(row);
         }
     },
+    //If we want to force close all dropdown and popups that are created by table.
+    closeDropdownsAndPopups() {
+      //Close popups
+      const el = $(ReactDOM.findDOMNode(this)).parents('.bui-table-holder').find('.bui-table-popup-holder');
+
+      if (el) {
+        ReactDOM.unmountComponentAtNode(el[0]);
+      }
+
+      //Close columnChanger
+      this.refs.tableHeader.closeColumnChanger();
+    },
     render() {
         const data = this.props.data;
         const columnsToRender = this.props.columns;
@@ -278,6 +291,7 @@ const TableHolderComponent = React.createClass({
         return (
             <div ref={(ref) => this._holder = ref} style={{position: 'relative'}} className='bui-table-holder'>
                 <TableHeader
+                    ref='tableHeader'
                     onColumnChange={this._onColumnChange}
                     onSearchChange={this._onSearchChange}
                     allColumnsThatCouldBeRendered={props.allColumnsThatCouldBeRendered}
@@ -292,7 +306,7 @@ const TableHolderComponent = React.createClass({
                     searchHint={this.props.searchHint}
                     useSearch={this.props.useSearch}
                 />
-                <TableJawboneFilter columns={this.props.allColumnsThatCouldBeRendered}
+                <TableJawboneFilter columns={props.allColumnsThatCouldBeRendered.length ? props.allColumnsThatCouldBeRendered : this.props.columns}
                     onChipRemove={this._onChipRemove}
                     currentFilters={this.props.currentFilters}
                     columnFilters={this.props.columnFilters}
@@ -314,7 +328,7 @@ const TableHolderComponent = React.createClass({
                 </Table>
                 {loadingComponent}
                 {noResultsMessageComponent}
-                <div id='bui-table-popup-holder' style={{position: 'absolute', top: 0, left: 0, }}/>
+                <div className='bui-table-popup-holder' style={{position: 'absolute', top: 0, left: 0, }}/>
             </div>
         );
     }

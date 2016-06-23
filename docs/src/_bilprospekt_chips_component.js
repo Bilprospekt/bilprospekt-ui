@@ -7,13 +7,13 @@ const ChipsDoc = React.createClass({
         return (
             <div id='ChipsDoc'>
                 <p className="table-header-label">Chips</p>
-                <Chips label='Estrella Chip' />
+                <Chips label='Estrella Chip' onClick={this._onClick} />
 
                 <pre>
                 <code>
                     {
                         [
-                        '<Chips label="Estrella Chip" />',
+                        '<Chips label="Estrella Chip" onClick={function} />',
                         ]
                     }
                 </code>
