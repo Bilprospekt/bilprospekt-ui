@@ -1,7 +1,7 @@
 import React from 'react';
 import _ from 'underscore';
 
-import {Table, TableDataWrapper} from 'bilprospekt-ui'
+import {Table, TableDataWrapper} from 'bilprospekt-ui';
 
 const alpha = "abcdefghijklmnopqrstuvxy".split("").slice(0, 8);
 const rowsCycle = 1000;
@@ -35,7 +35,10 @@ const dataWrapper = new TableDataWrapper(
 
 const TableDocComponent = React.createClass({
     getInitialState() {
-        return dataWrapper.getState();
+        return {
+            ...dataWrapper.getState(),
+            headerLabel: "Now this is podracing!",
+        };
     },
 
     componentWillMount() {
@@ -50,10 +53,25 @@ const TableDocComponent = React.createClass({
         dataWrapper.off('change');
     },
 
+    _toggleHeaderLabel() {
+        if (typeof this.state.headerLabel != 'string') {
+            this.setState({ headerLabel: "Now this is podracing!" });
+        } else {
+            const labelObj = {
+                icon: 'fa-car',
+                label: 'Table Label',
+                desc: 'Table description',
+                actionLabel: 'Action Button',
+            };
+            this.setState({ headerLabel: labelObj});
+        }
+    },
+
     render() {
         return (
             <div style={{width: '100%'}} id='TableDoc'>
                 <p className='table-header-label'>Table</p>
+                <p onClick={this._toggleHeaderLabel}>Toggle headerLabel from string to Section Header component</p>
                 <Table
                     ref='table'
                     allColumnsThatCouldBeRendered={alphaObj}
@@ -72,7 +90,7 @@ const TableDocComponent = React.createClass({
                     ref='table'
                     allColumnsThatCouldBeRendered={alphaObj}
                     makeRowsSelectable
-                    headerLabel="Now this is podracing"
+                    headerLabel={this.state.headerLabel}
                     searchHint="Now this is podracing"
                     {...this.state}
 
@@ -98,7 +116,7 @@ const TableDocComponent = React.createClass({
                         '\n\t noResultsMessage="string"',
                         '\n\t rowHeight={number}',
                         '\n\t headerHeight={number}',
-                        '\n\t headerLabel={node}',
+                        '\n\t headerLabel="string"',
                         '\n\t rowClasses={object}',
                         '\n\t selectedRows=[array]',
                         '\n\t onSelection={function}',

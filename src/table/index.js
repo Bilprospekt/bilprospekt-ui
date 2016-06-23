@@ -60,7 +60,10 @@ const TableHolderComponent = React.createClass({
 
         rowHeight: React.PropTypes.number,
         headerHeight: React.PropTypes.number,
-        headerLabel: React.PropTypes.node,
+        headerLabel: React.PropTypes.oneOfType([
+            React.PropTypes.string,
+            React.PropTypes.object,
+        ]),
 
         //If we want specific some specific class for a row. Should look like {_id: [string]}
         rowClasses: React.PropTypes.object,
