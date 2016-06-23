@@ -68,6 +68,17 @@ const TableDocComponent = React.createClass({
                     noResultsMessage='string that tells you that there is no results!'
                 />
 
+                <Table
+                    ref='table'
+                    allColumnsThatCouldBeRendered={alphaObj}
+                    makeRowsSelectable
+                    headerLabel="Now this is podracing"
+                    searchHint="Now this is podracing"
+                    {...this.state}
+
+                    {...dataWrapper.triggers()}
+                />
+
                 <pre>
                 <code>
                     {
