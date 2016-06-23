@@ -27,6 +27,7 @@ import Header from './header';
 import ViewWrapper from './view-wrapper';
 import BaseWrapper from './base-wrapper';
 import Snackbar from './snackbar';
+import SectionHeader from './section-header';
 
 import {Select, Option} from './select';
 
@@ -56,4 +57,5 @@ export {
   ViewWrapper,
   BaseWrapper,
   Snackbar,
+  SectionHeader,
 };

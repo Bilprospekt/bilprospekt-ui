@@ -93,17 +93,17 @@ const AppDoc = React.createClass({
                         {
                             [
                             '<div className="bui-app-base">',
-                                <br />,
+                                <br key={1} />,
                                 '\t<Navigation searchData={searchData} logos={object} links={navLinks} activeLink={number} onChange={function} searchButton={true} onClick={function} />',
-                                <br />,
+                                <br key={3} />,
                                 '\t<BaseWrapper bigView={bool}>',
-                                <br />,
+                                <br key={5} />,
                                 '\t\t<Header withTabs={true} withSearch={true} pathLabel="Inställningar" />',
-                                <br />,
+                                <br key={7} />,
                                 '\t\t<Tabs labels={tabLabels} />',
-                                <br />,
+                                <br key={9} />,
                                 '\t</BaseWrapper>',
-                                <br />,
+                                <br key={11} />,
                             '</div>',
                             ]
                         }

@@ -52,9 +52,10 @@ const HeaderCell = React.createClass({
         });
     },
     closeFilter() {
-      const el = document.getElementById('bui-table-popup-holder');
+      const el = $(ReactDOM.findDOMNode(this)).parents('.bui-table-holder').find('.bui-table-popup-holder');
+
       if (el) {
-        ReactDOM.unmountComponentAtNode(el);
+        ReactDOM.unmountComponentAtNode(el[0]);
       }
     },
     _showFilterPopup(e) {
@@ -67,6 +68,7 @@ const HeaderCell = React.createClass({
 
         let pos = $(e.target).offset();
         let tablePos = $(e.target).parents('.bui-table-holder').offset();
+        const child = $(e.target).parents('.bui-table-holder').find('.bui-table-popup-holder');
         const props = {
             availableFilters,
             currentFilters,
@@ -83,7 +85,7 @@ const HeaderCell = React.createClass({
 
         ReactDOM.render(
             <TableFilterPopupComponent {...props} />,
-            document.getElementById('bui-table-popup-holder')
+            child[0]
         );
         e.preventDefault();
         e.stopPropagation();

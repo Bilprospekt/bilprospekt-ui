@@ -21,15 +21,15 @@ const RadioDoc = React.createClass({
                     {
                         [
                             "<RadioButtonGroup name='radio-test'>",
-                                <br/>,
+                                <br key={1} />,
                             "\t<RadioButton value='first' label='First radio' />",
-                                <br/>,
+                                <br key={3} />,
                             "\t<RadioButton value='second' label='Second radio' />",
-                                <br/>,
+                                <br key={5} />,
                             "\t<RadioButton value='disabled' disabled label='Disabled radio' />",
-                                <br/>,
+                                <br key={7} />,
                             "\t<RadioButton value='third' label='Third radio' />",
-                                <br/>,
+                                <br key={9} />,
                             "</RadioButtonGroup>",
                         ]
                     }

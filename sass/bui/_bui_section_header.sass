@@ -1,0 +1,56 @@
+/*
+ *
+ * BUI: SECTION HEADER
+ *
+ */
+
+.bui-section-header
+  @extend .clear-after
+
+  .section-circle,
+  .section-text,
+  .section-link
+    float: left
+
+  .section-circle
+    width: 40px
+    height: 40px
+    margin-right: 20px
+    background-color: $grey-300
+    border-radius: 100%
+    text-align: center
+    line-height: 40px
+    .section-icon
+      font-size: 20px
+      line-height: 40px
+      color: $grey-600
+
+  .section-text
+    padding-top: 3px
+    .section-label
+      color: black
+      font-size: 15px
+      line-height: 18px
+      font-weight: 600
+    .section-desc
+      color: $grey-500
+      font-size: 13px
+      line-height: 15px
+      .desc-icon
+        margin-right: 5px
+      &.is-minor
+        color: $cyan-500
+      &.is-major
+        color: $red-400
+
+  .section-link
+    margin-left: 20px
+
+  &.is-highlighted
+    .section-circle
+      background-color: $cyan-100
+      .section-icon
+        color: $cyan-500
+    .section-label
+      font-size: 18px
+      font-weight: 400

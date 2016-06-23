@@ -136,7 +136,7 @@ const TableFilterPopupComponent = React.createClass({
                     let checked = _(this.state.internalSelections).find((current) => current[0] === this.props.val && current[1] === val.id);
 
                     return (
-                        <div className='dropdown-element'>
+                        <div key={index} className='dropdown-element'>
                             <Checkbox checked={!!checked}
                                 key={index}
                                 onChange={this._onFilter.bind(this, val.id)}

@@ -10,6 +10,7 @@ const ActionButton = React.createClass({
         flat: React.PropTypes.bool,
         toggle: React.PropTypes.bool,
     },
+
     getDefaultProps() {
         return {
             primary: false,
@@ -18,6 +19,7 @@ const ActionButton = React.createClass({
             toggle: false,
         };
     },
+
     render() {
         const buttonClass = classNames('bui-action-button', {
             'bui-is-primary': this.props.primary,
@@ -28,6 +30,7 @@ const ActionButton = React.createClass({
         });
 
         const props = this.props;
+
         return (
             <div {...props} className={buttonClass}>
                 {this.props.label}

@@ -28,7 +28,10 @@ const SearchItem = React.createClass({
 const Navigation = React.createClass({
     propTypes: {
         links: React.PropTypes.array.isRequired,
-        activeLink: React.PropTypes.string,
+        activeLink: React.PropTypes.oneOfType([
+          React.PropTypes.string,
+          React.PropTypes.number
+        ]),
         searchButton: React.PropTypes.bool,
         logos: React.PropTypes.object,
 
@@ -37,7 +40,7 @@ const Navigation = React.createClass({
                 val: React.PropTypes.oneOfType([
                     React.PropTypes.string,
                     React.PropTypes.number,
-                ]).isRequired,
+                ]),
                 name: React.PropTypes.oneOfType([
                     React.PropTypes.string,
                     React.PropTypes.number,

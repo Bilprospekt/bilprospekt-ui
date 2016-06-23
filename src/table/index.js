@@ -60,7 +60,10 @@ const TableHolderComponent = React.createClass({
 
         rowHeight: React.PropTypes.number,
         headerHeight: React.PropTypes.number,
-        headerLabel: React.PropTypes.node,
+        headerLabel: React.PropTypes.oneOfType([
+            React.PropTypes.string,
+            React.PropTypes.object,
+        ]),
 
         //If we want specific some specific class for a row. Should look like {_id: [string]}
         rowClasses: React.PropTypes.object,
@@ -198,9 +201,10 @@ const TableHolderComponent = React.createClass({
     //If we want to force close all dropdown and popups that are created by table.
     closeDropdownsAndPopups() {
       //Close popups
-      const el = document.getElementById('bui-table-popup-holder');
+      const el = $(ReactDOM.findDOMNode(this)).parents('.bui-table-holder').find('.bui-table-popup-holder');
+
       if (el) {
-        ReactDOM.unmountComponentAtNode(el);
+        ReactDOM.unmountComponentAtNode(el[0]);
       }
 
       //Close columnChanger
@@ -324,7 +328,7 @@ const TableHolderComponent = React.createClass({
                 </Table>
                 {loadingComponent}
                 {noResultsMessageComponent}
-                <div id='bui-table-popup-holder' style={{position: 'absolute', top: 0, left: 0, }}/>
+                <div className='bui-table-popup-holder' style={{position: 'absolute', top: 0, left: 0, }}/>
             </div>
         );
     }
