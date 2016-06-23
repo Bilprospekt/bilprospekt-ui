@@ -23,6 +23,8 @@ const TabsDoc = React.createClass({
             'Konto',
             'Förval',
             'Tid och Datum',
+            'Användarinformation',
+            'Lol',
         ];
 
         return (
@@ -33,6 +35,8 @@ const TabsDoc = React.createClass({
                 <p onClick={this._updateSelectedTab.bind(this, 1)}>Konto</p>
                 <p onClick={this._updateSelectedTab.bind(this, 2)}>Förval</p>
                 <p onClick={this._updateSelectedTab.bind(this, 3)}>Tid och Datum</p>
+                <p onClick={this._updateSelectedTab.bind(this, 4)}>Användarinformation</p>
+                <p onClick={this._updateSelectedTab.bind(this, 5)}>Lol</p>
 
                 <Tabs labels={tabLabels} selectedTab={this.state.index} onChange={this._onChange}>
                     <p>Tab {this.state.index} Content</p>
