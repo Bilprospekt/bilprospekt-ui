@@ -20,7 +20,7 @@ const InputFieldDoc = React.createClass({
 
                 <InputField icon='fa-comment' hint='Write a comment (multiLine)' multiLine={true} fastRemove={true} style={inputStyle} />
 
-                <InputField icon='fa-cogs' hint='Only numbers available' onlyNumbers={true} style={inputStyle} />
+                <InputField icon='fa-phone' hint='Only numbers (onlyNumbers)' onlyNumbers={true} style={inputStyle} />
 
                 <pre>
                 <code>
@@ -35,6 +35,7 @@ const InputFieldDoc = React.createClass({
                         '\n\t fastRemove={bool}',
                         '\n\t password={bool}',
                         '\n\t disabled={bool}',
+                        '\n\t onlyNumbers={bool}',
                         '\n/>'
                         ]
                     }
