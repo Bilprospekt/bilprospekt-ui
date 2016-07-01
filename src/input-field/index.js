@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import classNames           from 'classnames';
 import EventUtil            from '../helpers/EventUtil.js';
+import _                    from 'underscore';
 
 const BuiInputField = React.createClass({
     propTypes: {
@@ -11,7 +12,8 @@ const BuiInputField = React.createClass({
         disabled:     React.PropTypes.bool,
         floatingHint: React.PropTypes.bool,
         fastRemove:   React.PropTypes.bool,
-        multiLine:    React.PropTypes.bool, 
+        multiLine:    React.PropTypes.bool,
+        onlyNumbers:  React.PropTypes.bool, 
 
         onChange: React.PropTypes.func,
     },
@@ -119,6 +121,20 @@ const BuiInputField = React.createClass({
         this._checkTextareaHeightChange('clearValue');
     },
 
+    _onKeyPress(e) {
+        if (this.props.onlyNumbers) {
+            const val = String.fromCharCode(e.keyCode || e.which);
+
+            if (!_.isFinite(val)) {
+                e.preventDefault();
+            }
+        }
+
+        if (typeof this.props.onKeyPress === 'function') {
+            this.props.onKeyPress(e);
+        } 
+    },
+
     render() {
         const parentClass = classNames('bui-input-field', {
             'input-is-textarea': this.props.multiLine,
@@ -149,7 +165,6 @@ const BuiInputField = React.createClass({
             value: value,
             onKeyDown: this.props.onKeyDown,
             onKeyUp: this.props.onKeyUp,
-            onKeyPress: this.props.onKeyPress,
             onClick: this.props.onClick,
             id: this.props.id,
         };
@@ -158,7 +173,14 @@ const BuiInputField = React.createClass({
         if (this.props.multiLine) {
             renderField = (
                 <div className='input-text-value'>
-                    <textarea {...props} className='textarea-showing' ref={(ref) => this._field = ref} onChange={this._handleChange} onFocus={this._handleFocus} onBlur={this._handleBlur}>
+                    <textarea
+                        {...props}
+                        className='textarea-showing'
+                        ref={(ref) => this._field = ref}
+                        onChange={this._handleChange}
+                        onFocus={this._handleFocus}
+                        onBlur={this._handleBlur}
+                        >
                         {this.props.value}
                     </textarea>
                     <textarea className='textarea-hidden' ref='textareaHiddenRef'></textarea>
@@ -167,7 +189,14 @@ const BuiInputField = React.createClass({
         } else {
             renderField = (
                 <div className='input-text-value'>
-                    <input {...props} ref={(ref) => this._field = ref} onChange={this._handleChange} onFocus={this._handleFocus} onBlur={this._handleBlur} />
+                    <input
+                        {...props}
+                        ref={(ref) => this._field = ref}
+                        onChange={this._handleChange}
+                        onFocus={this._handleFocus}
+                        onBlur={this._handleBlur}
+                        onKeyPress={this._onKeyPress}
+                        />
                 </div>
             );
         }

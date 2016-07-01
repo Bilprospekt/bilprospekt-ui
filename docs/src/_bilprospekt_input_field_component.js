@@ -1,4 +1,5 @@
 import React from 'react';
+import _     from 'underscore';
 
 import {InputField} from 'bilprospekt-ui';
 
@@ -17,7 +18,9 @@ const InputFieldDoc = React.createClass({
 
                 <InputField icon='fa-search' hint='Search with remove input button' fastRemove={true} style={inputStyle} />
 
-                <InputField icon='fa-comment' hint='Skriv en kommentar (multiLine)' multiLine={true} fastRemove={true} style={inputStyle} />
+                <InputField icon='fa-comment' hint='Write a comment (multiLine)' multiLine={true} fastRemove={true} style={inputStyle} />
+
+                <InputField icon='fa-cogs' hint='Only numbers available' onlyNumbers={true} style={inputStyle} />
 
                 <pre>
                 <code>
