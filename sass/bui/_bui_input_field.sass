@@ -57,7 +57,6 @@ $BuiError:    $red-400
         visibility: hidden
         overflow: hidden
 
-
   .input-underlines
     position: absolute
     bottom: 2px
@@ -80,6 +79,20 @@ $BuiError:    $red-400
     .input-icon
       color: $BuiPassive
       line-height: 26px
+
+  .input-status-icon
+    position: absolute
+    z-index: 4
+    right: 0
+    line-height: 26px
+    .status-icon
+      &.status-default
+        display: none
+      &.status-loading
+        color: $grey-500
+      &.status-complete
+        color: $green-400
+
 
   .input-remove-button
     position: absolute
