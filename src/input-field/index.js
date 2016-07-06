@@ -102,11 +102,12 @@ const BuiInputField = React.createClass({
         }
 
         // this.props.multiLine
+        let oldHeight = this.state.textareaOldHeight;
         if (this.props.multiLine) {
             const $showing = $(this._field);
             const $hidden  = $(this.refs.textareaHiddenRef);
             const $parent  = $(this.refs.parentRef);
-            const oldHeight = $showing.height();
+            oldHeight = $showing.height();
 
             $hidden[0].value = $showing[0].value;
             $parent.css({ height: ($hidden[0].scrollHeight > 28) ? $hidden[0].scrollHeight + 5 + 2 : $hidden[0].scrollHeight + 2 });
@@ -115,7 +116,7 @@ const BuiInputField = React.createClass({
 
         this.setState({
             value: event.target.value,
-            textareaOldHeight: (this.props.multiLine) ? oldHeight : this.state.textareaOldHeight,
+            textareaOldHeight: oldHeight,
             status: (this.state.status === 'complete') ? 'default' : this.state.status,
         });
     },
