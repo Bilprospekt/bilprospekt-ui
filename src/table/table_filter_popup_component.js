@@ -130,9 +130,13 @@ const TableFilterPopupComponent = React.createClass({
                 });
         }
 
+        function compareValues(a, b) {
+            return a - b;
+        };
+
         let filters = availableFilters.slice(0, this.state.page * 30);
         filters = _(filters).chain()
-                  .sortBy('text').map((val, index) => {
+                  .sortBy(compareValues).map((val, index) => {
                     let checked = _(this.state.internalSelections).find((current) => current[0] === this.props.val && current[1] === val.id);
 
                     return (
