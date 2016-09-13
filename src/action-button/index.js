@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import classNames           from 'classnames';
+import _ from 'underscore';
 
 const ActionButton = React.createClass({
     propTypes: {
@@ -32,9 +33,9 @@ const ActionButton = React.createClass({
         const props = this.props;
 
         return (
-            <div {...props} className={buttonClass}>
+            <button {..._(props).omit(['label', 'primary', 'selected', 'toggle', 'flat'])} className={buttonClass}>
                 {this.props.label}
-            </div>
+            </button>
         );
     }
 });
