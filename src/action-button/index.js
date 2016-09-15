@@ -4,7 +4,7 @@ import _ from 'underscore';
 
 const ActionButton = React.createClass({
     propTypes: {
-        label: React.PropTypes.string.isRequired,
+        label: React.PropTypes.node.isRequired,
         primary: React.PropTypes.bool,
         style: React.PropTypes.object,
         selected: React.PropTypes.bool,
