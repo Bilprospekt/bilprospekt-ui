@@ -22,7 +22,7 @@ const ActionButton = React.createClass({
     },
 
     render() {
-        const buttonClass = classNames('bui-action-button', {
+        const buttonClass = classNames('bui-action-button', this.props.className, {
             'bui-is-primary': this.props.primary,
             'bui-is-secondary': (!this.props.primary && !this.props.toggle),
             'bui-is-selected': this.props.selected,
