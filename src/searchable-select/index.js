@@ -52,11 +52,13 @@ const BuiSearchableSelect = React.createClass({
     },
     clear() {
         this.refs.input.clear();
-        this.setState({
-            inputValue: null,
-        });
+        this.setState({inputValue: null});
     },
     onFocus(event) {
+        // Update checked item when component is in focus
+        let checked = this.props.checked || [];
+        this.setState({checked: checked});
+
         if (this.props.expandOnFocus === true && !this.state.expanded) {
             this.setState({
                 expanded: true,
@@ -90,15 +92,15 @@ const BuiSearchableSelect = React.createClass({
             this.setState({checked: all, toggle: 'Avmarkera alla'});
         }
     },
-    onAdd(id, event, isChecked) {
+    onAdd(id, label, event, isChecked) {
         let checked = this.state.checked;
 
-        //Allow 0 as id
+        // Allow 0 as id
         const validId = (id || id === 0);
         if (isChecked && validId) {
-            checked.push(id);
-        } else if(validId && checked.indexOf(id) !== -1) {
-            checked.splice(checked.indexOf(id), 1);
+            checked.push({label: label, id: id});
+        } else if(validId && _(checked).findIndex({id: id}) !== -1) {
+            checked.splice(_(checked).findIndex({id: id}), 1);
         }
 
         this.setState({checked: checked, toggle: 'Markera alla'});
@@ -110,7 +112,8 @@ const BuiSearchableSelect = React.createClass({
 
         this.setState({
             inputValue: null,
-            expanded: false
+            expanded: false,
+            checked: []
         });
     },
     onCancel() {
@@ -123,8 +126,9 @@ const BuiSearchableSelect = React.createClass({
         let dropdown = null;
         const options = _(this.props.data).map((option, index) => {
             const id = option.id;
-            const checked = this.state.checked.indexOf(id) !== -1;
-            return <BuiCheckbox key={index} label={option.label} id={'' + id} checked={checked} onChange={this.onAdd.bind(this, id)} />
+            const checked = _(this.state.checked).find({id: id});
+
+            return <BuiCheckbox key={index} label={option.label} id={'' + id} checked={checked} onChange={this.onAdd.bind(this, id, option.label)} />
         })
 
         const buttonProps = {
@@ -144,7 +148,7 @@ const BuiSearchableSelect = React.createClass({
                     <div className='search-adder-dropdown-body'>{options}</div>
                     <div className='search-adder-dropdown-footer'>
                         <BuiActionButton {...buttonProps} primary label='Avbryt' onClick={this.onCancel} />
-                        <BuiActionButton {...buttonProps} primary label={this.props.onSaveLabel} onClick={this.onSave} /> 
+                        <BuiActionButton {...buttonProps} primary label={this.props.onSaveLabel} onClick={this.onSave} />
                     </div>
                 </div>
             );

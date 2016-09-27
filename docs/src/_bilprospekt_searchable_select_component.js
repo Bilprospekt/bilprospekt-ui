@@ -1,11 +1,11 @@
 import React from 'react';
 import _ from 'underscore';
 
-import {SearchableSelect} from 'bilprospekt-ui';
+import {SearchableSelect, Chips} from 'bilprospekt-ui';
 
 const SearchableSelectDoc = React.createClass({
-    onSave(a) {
-        console.log('save', a);
+    onSave(objects) {
+      this.setState({selected: objects});
     },
 
     getInitialState() {
@@ -18,6 +18,15 @@ const SearchableSelectDoc = React.createClass({
         this.setState({
             search: value,
         });
+    },
+
+    _onRemove(id) {
+      let selected = JSON.parse(JSON.stringify(this.state.selected));
+      let updatedSelected = _(selected).chain().map((o) => {
+        return o.id === id ? null : o;
+      }).compact().value();
+
+      this.setState({selected: updatedSelected});
     },
 
     render() {
@@ -40,12 +49,17 @@ const SearchableSelectDoc = React.createClass({
             return val.label.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1;
         });
 
+        let selected = _(this.state.selected).map((selected, index) => {
+          return <Chips key={index} {...selected} onRemoveClick={this._onRemove}/>
+        });
+
         return (
             <div id='SearchableSelectDoc'>
                 <p className="table-header-label">Searchable Select</p>
 
-                <SearchableSelect style={{margin: 10}} fieldWidth={250} onChange={this._onChange} icon='fa-search' hint='Sök efter län/kommun' data={searchableSelectData} onSave={this.onSave} />
+                <SearchableSelect style={{margin: 10}} fieldWidth={250} onChange={this._onChange} icon='fa-search' hint='Sök efter län/kommun' data={searchableSelectData} onSave={this.onSave} checked={this.state.selected} />
 
+                {selected}
                 <pre>
                 <code>
                     {
