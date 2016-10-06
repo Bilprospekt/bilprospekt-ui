@@ -73,7 +73,6 @@ class ColumnWidthHelper {
         ? this.defaultWidthPercentages
         : null;
 
-      console.log(percentages, 'test2', this._columnWidths);
       this._columnWidths = _(this.identifiers).chain().map((val, k) => {
         if (percentages && percentages.length) {
           return [val, percentages[k] * this.totalWidth];
