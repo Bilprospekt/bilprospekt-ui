@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import classNames           from 'classnames';
+import _ from 'underscore';
 
 const ActionButton = React.createClass({
     propTypes: {
-        label: React.PropTypes.string.isRequired,
+        label: React.PropTypes.node.isRequired,
         primary: React.PropTypes.bool,
         style: React.PropTypes.object,
         selected: React.PropTypes.bool,
@@ -21,7 +22,7 @@ const ActionButton = React.createClass({
     },
 
     render() {
-        const buttonClass = classNames('bui-action-button', {
+        const buttonClass = classNames('bui-action-button', this.props.className, {
             'bui-is-primary': this.props.primary,
             'bui-is-secondary': (!this.props.primary && !this.props.toggle),
             'bui-is-selected': this.props.selected,
@@ -32,9 +33,9 @@ const ActionButton = React.createClass({
         const props = this.props;
 
         return (
-            <div {...props} className={buttonClass}>
+            <button {..._(props).omit(['label', 'primary', 'selected', 'toggle', 'flat'])} className={buttonClass}>
                 {this.props.label}
-            </div>
+            </button>
         );
     }
 });

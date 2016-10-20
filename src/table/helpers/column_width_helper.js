@@ -2,16 +2,17 @@ import _ from 'underscore';
 const debug = require('debug')('bilprospekt-ui:table:column_width_helper');
 
 class ColumnWidthHelper {
-    constructor(totalWidth = 0, identifiers = []) {
-        this.minWidth = 40;
-        this.totalWidth = totalWidth;
+    constructor(totalWidth = 0, identifiers = [], defaultWidthPercentages = null) {
+      this.minWidth = 40;
+      this.totalWidth = totalWidth;
+      this.defaultWidthPercentages = defaultWidthPercentages;
 
-        //Should be an array with unique identifiers. These needs to be ordered the same way as they are rendered.
-        //Otherwise really wierd buggs will appear.
-        this.setIdentifiers(identifiers);
-        this._setInitWidthForNewIdentifiers();
+      //Should be an array with unique identifiers. These needs to be ordered the same way as they are rendered.
+      //Otherwise really wierd buggs will appear.
+      this.setIdentifiers(identifiers);
+      this._setInitWidthForNewIdentifiers();
 
-        this.listeners = [];
+      this.listeners = [];
     }
 
     // Number -> Undefined
@@ -67,10 +68,18 @@ class ColumnWidthHelper {
     }
 
     _setInitWidthForNewIdentifiers() {
-        const avgWidth = this.totalWidth / this.identifiers.length;
-        this._columnWidths = _(this.identifiers).chain().map((val) => {
-            return [val, avgWidth];
-        }).object().value();
+      const avgWidth = this.totalWidth / this.identifiers.length;
+      const percentages = (this.defaultWidthPercentages && (!this._columnWidths || Object.keys(this._columnWidths).length == 0))
+        ? this.defaultWidthPercentages
+        : null;
+
+      this._columnWidths = _(this.identifiers).chain().map((val, k) => {
+        if (percentages && percentages.length) {
+          return [val, percentages[k] * this.totalWidth];
+        }
+
+        return [val, avgWidth];
+      }).object().value();
     }
 
     // String -> Number -> Undefined

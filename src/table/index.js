@@ -24,6 +24,11 @@ const TableHolderComponent = React.createClass({
         //The current columns that should be rendered.
         columns: React.PropTypes.array.isRequired,
 
+        //Default width percentages for columns.
+        //Needs to match exactly in length and order of columns.
+        //All values should be numbers in [0, 1] and needs to sum to 1, e.g 50% is 0.5
+        defaultWidthPercentages: React.PropTypes.array,
+
         //All the filters for the columns. Indexed by column key.
         columnFilters: React.PropTypes.object,
 
@@ -101,6 +106,7 @@ const TableHolderComponent = React.createClass({
             makeRowsSelectable: false,
             disableSortForColumns: [],
             rowClasses: {},
+            defaultWidthPercentages: [],
 
             //Change these to what we'll probably use in prod.
             width: 'auto',
@@ -142,7 +148,7 @@ const TableHolderComponent = React.createClass({
     },
 
     componentWillMount() {
-       this.columnWidthHelper = new ColumnWidthHelper(1, []);
+       this.columnWidthHelper = new ColumnWidthHelper(1, [], this.props.defaultWidthPercentages);
        this.columnWidthHelper.setIdentifiers(_(this.props.columns).pluck('val'));
     },
     componentWillReceiveProps(nextProps, nextState) {
