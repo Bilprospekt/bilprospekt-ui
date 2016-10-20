@@ -90,6 +90,7 @@ const TableDocComponent = React.createClass({
                         '<Table',
                         '\n\t data=[array]',
                         '\n\t columns=[array]',
+                        '\n\t defaultWidthPercentages=[number]',
                         '\n\t columnFilters={object}',
                         '\n\t currentFilters=[array]',
                         '\n\t allColumnsThatCouldBeRendered=[array]',
