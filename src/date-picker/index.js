@@ -21,15 +21,24 @@ const DatePicker = React.createClass({
   getInitialState() {
     // This may cause problems if we have multiple datepickers and multiple languages.
     moment.locale(this.props.locale);
+    
+    const maxDate = this.props.maxDate || moment();
+    const minDate = this.props.minDate || moment().subtract(10, 'years').month(0).day(0);
+
+    var initial = moment().toDate();
+
+    if (DateUtils.isDayBetween(initial, minDate.toDate(), maxDate.toDate()) === false) {
+      initial = maxDate.toDate();
+    }
 
     return {
       range: {from: null, to: null},
       date: null,
-      initialMonth: moment(this.props.maxDate).toDate(),
+      initialMonth: initial,
 
       // We can't use this in defaultProps since we need locale from props before creating dates.
-      maxDate: this.props.maxDate || moment(),
-      minDate: this.props.minDate || moment().subtract(10, 'years').month(0).day(0),
+      maxDate,
+      minDate, 
     }
   },
   getDefaultProps() {
