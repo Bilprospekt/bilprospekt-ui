@@ -49,7 +49,7 @@ const DatePickerDoc = React.createClass({
                 <div style={{clear: 'both', marginBottom: 15}} />
                 <div style={{float: 'left'}}>
                   <p style={{textAlign: 'center'}}>{dateStr}</p>
-                  <DatePicker maxDate={moment().month(3).date(15)} minDate={moment().subtract(1, 'year').month(5).date(14)} useRange onChange={this._onChange} />
+                  <DatePicker maxDate={moment().year(2020).month(3).date(15)} minDate={moment().subtract(1, 'year').month(5).date(14)} useRange onChange={this._onChange} />
                 </div>
                 <div style={{float: 'left', marginLeft: 100}}>
                   <p style={{textAlign: 'center'}}>{dateSingleStr}</p>
