@@ -3,6 +3,11 @@ export NVM_DIR="/Users/bror/.nvm"
 
 nvm use 0.12
 npm install
+cd node_modules/fixed-data-table
+npm run build-npm
+npm install
+cd ../../
+
 compass clean && compass compile
 npm run build
 cd docs
