@@ -62,7 +62,7 @@ const DatePickerDoc = React.createClass({
                         [
                           "// Range (left)",
                           <br key={1} />,
-                          "<DatePicker maxDate={moment().month(3).date(15)} minDate={moment().subtract(1, 'year').month(5).date(14)} useRange onChange={this._onChange} />",
+                          "<DatePicker maxDate={moment().year(2020).month(3).date(15)} minDate={moment().subtract(1, 'year').month(5).date(14)} useRange onChange={this._onChange} />",
                           <br key={3} />,
                           <br key={4} />,
                           "// Single (right)",
