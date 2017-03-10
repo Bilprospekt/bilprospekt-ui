@@ -3,12 +3,13 @@ import React from 'react';
 const Chips = React.createClass({
     propTypes: {
         label: React.PropTypes.node.isRequired,
+        id: React.PropTypes.node,
         onRemoveClick: React.PropTypes.func,
     },
 
     _onClick() {
         if (typeof this.props.onRemoveClick === 'function') {
-            this.props.onRemoveClick();
+            this.props.onRemoveClick(this.props.id || undefined);
         }
     },
 
