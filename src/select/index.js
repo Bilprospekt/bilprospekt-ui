@@ -13,6 +13,9 @@ const Select = React.createClass({
       onChange: React.PropTypes.func,
       disabled: React.PropTypes.bool,
       orientation: React.PropTypes.string,
+
+      //Force use this value as selected
+      selected: React.PropTypes.string,
     },
     getDefaultProps() {
         return {
@@ -37,10 +40,11 @@ const Select = React.createClass({
         });
     },
     render() {
+        const selected = typeof this.props.selected !== 'undefined' ? this.props.selected : this.state.selected;
         const options = React.Children.map(this.props.children, (child) => {
             return React.cloneElement(child, {
                 onClick: this._onChange,
-                selected: child.props.value === this.state.selected,
+                selected: child.props.value === selected,
             });
         });
 
@@ -49,7 +53,7 @@ const Select = React.createClass({
         });
 
         const children = React.Children.toArray(this.props.children);
-        const selectedChild = _(children).find((val) => val.props.value === this.state.selected);
+        const selectedChild = _(children).find((val) => val.props.value === selected);
         const selectedLabel = selectedChild && selectedChild.props.label || '';
 
         return (
