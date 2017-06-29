@@ -33,6 +33,8 @@ const TableHeader = React.createClass({
             React.PropTypes.object,
         ]),
 
+        actionHeaderButtons: React.PropTypes.array,
+
         makeRowsSelectable: React.PropTypes.bool,
         //If we have any selections that should be used when "showSelections" is triggered
         selections: React.PropTypes.array,
@@ -45,6 +47,7 @@ const TableHeader = React.createClass({
             currentFilters: [],
             selections: [],
             makeRowsSelectable: false,
+            actionHeaderButtons: [],
         };
     },
 
@@ -229,6 +232,18 @@ const TableHeader = React.createClass({
         } else {
             headerLabel = '';
         }
+
+      // Override headerLabel with actionHeaderButtons
+      if (this.props.actionHeaderButtons && this.props.actionHeaderButtons.length) {
+        let i = 0;
+        let buttons = [];
+        for (let i = 0; i < this.props.actionHeaderButtons.length; i += 1) {
+          let v = this.props.actionHeaderButtons[i];
+          let b = <p key={i}><i className={'fa fa-' + v.iconClass} />{v.label}</p>;
+          buttons.push(b);
+        }
+        headerLabel = <div className='bui-table-action-header-buttons'>{buttons}</div>;
+      }
         
 
         return (

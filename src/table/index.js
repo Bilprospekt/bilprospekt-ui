@@ -91,6 +91,8 @@ const TableHolderComponent = React.createClass({
         //If we want to disable sort for any column. Logic could perhaps be improved here.
         disableSortForColumns: React.PropTypes.array,
 
+        actionHeaderButtons: React.PropTypes.array,
+
         //Trigger functions that haven't already been listed.
         onSearch: React.PropTypes.func,
         onFilter: React.PropTypes.func,
@@ -107,6 +109,7 @@ const TableHolderComponent = React.createClass({
             disableSortForColumns: [],
             rowClasses: {},
             defaultWidthPercentages: [],
+            actionHeaderButtons: [],
 
             //Change these to what we'll probably use in prod.
             width: 'auto',
@@ -311,6 +314,7 @@ const TableHolderComponent = React.createClass({
                     onFilter={this.props.onFilter}
                     searchHint={this.props.searchHint}
                     useSearch={this.props.useSearch}
+                    actionHeaderButtons={this.props.actionHeaderButtons}
                 />
                 <TableJawboneFilter columns={props.allColumnsThatCouldBeRendered.length ? props.allColumnsThatCouldBeRendered : this.props.columns}
                     onChipRemove={this._onChipRemove}
