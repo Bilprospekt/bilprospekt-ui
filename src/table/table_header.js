@@ -239,7 +239,7 @@ const TableHeader = React.createClass({
         let buttons = [];
         for (let i = 0; i < this.props.actionHeaderButtons.length; i += 1) {
           let v = this.props.actionHeaderButtons[i];
-          let b = <p key={i}><i className={'fa fa-' + v.iconClass} />{v.label}</p>;
+          let b = <p key={i} onClick={v.onClick}><i className={'fa fa-' + v.iconClass} />{v.label}</p>;
           buttons.push(b);
         }
         headerLabel = <div className='bui-table-action-header-buttons'>{buttons}</div>;
