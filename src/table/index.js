@@ -172,9 +172,9 @@ const TableHolderComponent = React.createClass({
             this.props.onSort(payload);
         }
     },
-    _onColumnChange(newColumns) {
+    _onColumnChange(newColumns, columnVal) {
         if (typeof this.props.onColumnChange === 'function') {
-            this.props.onColumnChange(newColumns);
+            this.props.onColumnChange(newColumns, columnVal);
         }
     },
     _onScrollEnd(x, y) {
