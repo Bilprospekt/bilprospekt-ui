@@ -86,7 +86,7 @@ const TableHeader = React.createClass({
                 .map((j) => j[1]).value();
         }
 
-        onColumnChange(newColumns);
+        onColumnChange(newColumns, columnVal);
     },
 
     _displaySearch() {
