@@ -134,7 +134,7 @@ const TableHeader = React.createClass({
         let columnChanger = null;
         if (props.allColumnsThatCouldBeRendered && props.allColumnsThatCouldBeRendered.length && props.currentColumns) {
             const columns = _(props.allColumnsThatCouldBeRendered).map((column, key) => {
-                const checked = _(props.currentColumns).findWhere({val : column.val});
+                const checked = (typeof column.active !== undefined) ? column.active : _(props.currentColumns).findWhere({val : column.val});
                 return <DropdownElement key={key} checkboxChecked={!!checked} checkbox label={column.label} onClick={this._onColumnChange.bind(this, column.val)} />
             });
 
