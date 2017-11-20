@@ -5,16 +5,17 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
   devtool: 'eval',
   entry: [
-    'webpack-dev-server/client?http://localhost:3000',
+    'webpack-dev-server/client?http://localhost:3210',
     'webpack/hot/only-dev-server',
     path.join(__dirname, '/src/index')
   ],
   output: {
     path: path.join(__dirname, '/www'),
-    filename: 'bundle.js'
+    filename: 'bundle.js',
+    publicPath: '/',
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
+    // new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
     new HtmlWebpackPlugin({
       inject: false,
@@ -27,8 +28,8 @@ module.exports = {
       'bilprospekt-ui': path.resolve(__dirname, '../src')
     },
     modulesDirectories: [
-      "node_modules",
-      path.resolve(__dirname, "node_modules"),
+      'node_modules',
+      path.resolve(__dirname, 'node_modules'),
       path.resolve(__dirname, '../src'),
       path.resolve(__dirname, '../node_modules'),
     ],
@@ -38,7 +39,7 @@ module.exports = {
     devtool: 'eval',
     hot: true,
     inline: true,
-    port: 3000
+    port: 3210
   },
   module: {
     loaders: [{
@@ -48,8 +49,8 @@ module.exports = {
         path.join(__dirname, 'src'),
         path.join(__dirname, '../src'),
       ]
-    },
-   { test: /\.css$/, loader: "style-loader!css-loader" }
-	]
+    }, {
+      test: /\.css$/, loader: 'style-loader!css-loader'
+    }]
   }
 };

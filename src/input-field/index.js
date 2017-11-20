@@ -92,7 +92,7 @@ const BuiInputField = React.createClass({
             if (($hidden[0].scrollHeight + 2) != this.state.textareaOldHeight) {
                 EventUtil.triggerEvent('resize');
             }
-        } 
+        }
     },
 
     _handleChange(event) {
@@ -152,7 +152,7 @@ const BuiInputField = React.createClass({
 
         if (typeof this.props.onKeyPress === 'function') {
             this.props.onKeyPress(e);
-        } 
+        }
     },
 
     render() {
@@ -177,7 +177,7 @@ const BuiInputField = React.createClass({
         /**
          * this.props.status
          *
-         * This prop is for displaying a loading status 
+         * This prop is for displaying a loading status
          * while a value is being subtmitted. When the
          * value has been submitted the status changes
          * to 'complete' do notify the user.
