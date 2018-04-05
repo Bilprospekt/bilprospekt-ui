@@ -49,6 +49,10 @@ const Tabs = React.createClass({
         this._nestTabs();
     },
 
+    componentDidUpdate() {
+      this._nestTabs();
+    },
+
     componentWillUnmount() {
         window.removeEventListener('resize', this._nestTabs);
     },
@@ -139,8 +143,8 @@ const Tabs = React.createClass({
 
         return (
           <div className='bui-tabs-holder'>
-            <div className='tabs-holder__menu-labels' ref='tabsHolderRef'>
-              <div className='tabs-holder__menu-labels-holder'>
+            <div className='tabs-holder__menu-labels'>
+              <div className='tabs-holder__menu-labels-holder' ref='tabsHolderRef'>
                 {showingTabs}
                 {hiddenTabs}
                 <div className='menu-labels__tab' ref='tabRef' />
