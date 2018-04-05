@@ -29,9 +29,9 @@ const Tabs = React.createClass({
 
     componentWillReceiveProps(nextProps) {
 
-        // 
+        //
         // Fix so you can select something that is in the overflow dropdown!
-        // 
+        //
 
         if (nextProps.selectedTab != this.state.selectedTab) {
             this._changeTab(nextProps.selectedTab, 'showing');
@@ -79,7 +79,7 @@ const Tabs = React.createClass({
             }
           }
         });
-        
+
         this.setState({ hiddenLabels: newHiddenLabels });
     },
 
@@ -139,13 +139,15 @@ const Tabs = React.createClass({
 
         return (
             <div className='bui-tabs-holder'>
-                <div className='tabs-holder__menu-labels' ref='tabsHolderRef'>
-                    {showingTabs}
-                    {hiddenTabs}
-                    <div className='menu-labels__tab' ref='tabRef' />
-                </div>
-                <div className='tabs-holder__tab-content'>
-                    {this.props.children}
+                <div className='tabs-holder__menu-wrapper'>
+                    <div className='tabs-holder__menu-labels' ref='tabsHolderRef'>
+                        {showingTabs}
+                        {hiddenTabs}
+                        <div className='menu-labels__tab' ref='tabRef' />
+                    </div>
+                    <div className='tabs-holder__tab-content'>
+                        {this.props.children}
+                    </div>
                 </div>
             </div>
         );
