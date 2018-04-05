@@ -138,18 +138,18 @@ const Tabs = React.createClass({
           : null ;
 
         return (
-            <div className='bui-tabs-holder'>
-                <div className='tabs-holder__menu-wrapper'>
-                    <div className='tabs-holder__menu-labels' ref='tabsHolderRef'>
-                        {showingTabs}
-                        {hiddenTabs}
-                        <div className='menu-labels__tab' ref='tabRef' />
-                    </div>
-                    <div className='tabs-holder__tab-content'>
-                        {this.props.children}
-                    </div>
-                </div>
+          <div className='bui-tabs-holder'>
+            <div className='tabs-holder__menu-labels' ref='tabsHolderRef'>
+              <div className='tabs-holder__menu-labels-holder'>
+                {showingTabs}
+                {hiddenTabs}
+                <div className='menu-labels__tab' ref='tabRef' />
+              </div>
             </div>
+            <div className='tabs-holder__tab-content'>
+              {this.props.children}
+            </div>
+          </div>
         );
     }
 });
