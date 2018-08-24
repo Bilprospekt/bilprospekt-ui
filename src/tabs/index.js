@@ -50,7 +50,7 @@ const Tabs = React.createClass({
     },
 
     componentDidUpdate() {
-      this._nestTabs();
+        this._nestTabs();
     },
 
     componentWillUnmount() {
@@ -63,6 +63,7 @@ const Tabs = React.createClass({
         const holderWidth = $holder.outerWidth() - (40 + 100); // 40 is padding, 100 is dropdown button
         let labelsWidth = 0;
         let newHiddenLabels = [];
+
 
         _.map(this.props.labels, (button, i) => {
           const buttonRef = $(this.refs[`buttonRef${i}`]);
@@ -84,7 +85,10 @@ const Tabs = React.createClass({
           }
         });
 
-        this.setState({ hiddenLabels: newHiddenLabels });
+        if(!this.state.hiddenLabels || this.state.hiddenLabels.length !== newHiddenLabels.length){
+            this.setState({ hiddenLabels: newHiddenLabels });
+        }
+
     },
 
     _changeTab(index) {
