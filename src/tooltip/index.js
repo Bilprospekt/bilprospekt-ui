@@ -10,6 +10,7 @@ import Portal from 'react-portal';
 const Tooltip = React.createClass({
     propTypes: {
         string:   React.PropTypes.string,
+        classNameChild:   React.PropTypes.string,
         rows:     React.PropTypes.array,
         header:   React.PropTypes.string,
         position: React.PropTypes.string, 
@@ -174,7 +175,7 @@ const Tooltip = React.createClass({
                     ref: 'cloneRef'
                 })}
                 <Portal ref='tooltipPortal' closeOnEsc>
-                    <div className={childClass} style={childStyle} ref='childRef'>
+                    <div className={childClass + ' ' + this.props.classNameChild } style={childStyle} ref='childRef'>
                         <div className='tooltip-arrow' ref='arrowRef' />
                         {tooltipHeader}
                         {tooltipContent}
