@@ -26,6 +26,8 @@ Documentation will be available at http://localhost:3210
 * Increase version number in package.json
 * Run `npm publish`
 
+# Use nodeversion 6.4.0
+
 # Problems with fixed-data-table
 ```
 ERROR in ./~/fixed-data-table/main.js
