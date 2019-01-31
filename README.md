@@ -26,9 +26,9 @@ Documentation will be available at http://localhost:3210
 * Increase version number in package.json
 * Run `npm publish`
 
-# Use nodeversion 6.4.0
 
 # Problems with fixed-data-table
+## Use nodeversion 6.4.0
 ```
 ERROR in ./~/fixed-data-table/main.js
 Module not found: Error: Cannot resolve 'file' or 'directory' ./internal/FixedDataTableRoot in /bilprospekt-ui/node_modules/fixed-data-table
