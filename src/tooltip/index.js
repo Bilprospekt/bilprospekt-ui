@@ -18,6 +18,7 @@ const Tooltip = React.createClass({
         delay:    React.PropTypes.number,
         maxWidth: React.PropTypes.number,
         hide:     React.PropTypes.bool,
+        element: React.PropTypes.element,
     },
 
     getDefaultProps() {
@@ -151,6 +152,8 @@ const Tooltip = React.createClass({
                     <p key={index} className='tooltip-text'>{row}</p>
                 );
             });
+        } else if (this.props.element) {
+            tooltipContent = this.props.element;
         } else {
             tooltipContent = null;
             console.error('[BUI Tooltip] You have to declare this.props.string[string] or this.props.rows[array]!');

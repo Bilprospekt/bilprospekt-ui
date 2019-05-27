@@ -5,6 +5,7 @@ import $                    from 'jquery';
 import EventUtil from '../helpers/EventUtil.js';
 
 // Components
+import Tooltip from '../tooltip';
 import BuiInputField from '../input-field';
 import BuiActionButton from '../action-button';
 
@@ -34,7 +35,6 @@ const Navigation = React.createClass({
         ]),
         searchButton: React.PropTypes.bool,
         logos: React.PropTypes.object,
-
         searchData: React.PropTypes.arrayOf(
             React.PropTypes.shape({
                 val: React.PropTypes.oneOfType([
@@ -179,12 +179,27 @@ const Navigation = React.createClass({
                 'active-link': (this.props.activeLink && this.props.activeLink === val.link),
             });
 
-            return (
-                <div className={linkRowClass} onClick={this._onNavClick.bind(this, val.link)} key={index}>
-                    <i className={`link-icon fa ${val.icon}`} />
-                    <p className='link-label'>{val.label}</p>
-                </div>
-            );
+            // Display tooltip.
+            if (val.tooltipElement) {
+                return (
+                    <div className={linkRowClass} onClick={this._onNavClick.bind(this, val.link)} key={index}>
+                        <Tooltip element={val.tooltipElement} position='right' maxWidth={200} space={-44} delay={200} ref='tooltipRef'>
+                            <div>
+                                <i className={`link-icon fa ${val.icon}`} />
+                                <p className='link-label'>{val.label}</p>
+                            </div>
+                        </Tooltip>
+                    </div>
+                );
+
+            } else {
+                return (
+                    <div className={linkRowClass} onClick={this._onNavClick.bind(this, val.link)} key={index}>
+                        <i className={`link-icon fa ${val.icon}`} />
+                        <p className='link-label'>{val.label}</p>
+                    </div>
+                );
+            }
         });
 
         /*
