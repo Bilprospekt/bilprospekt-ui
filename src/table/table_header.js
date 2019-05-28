@@ -122,8 +122,8 @@ const TableHeader = React.createClass({
     render() {
         // Tooltips for the header actions
         const tooltipProps = {
-            position: 'top',
-            space: -10,
+            position: 'left',
+            space: 0,
             delay: 100,
             style: {
                 float: 'left',
