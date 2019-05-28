@@ -470,18 +470,19 @@ body[dir="rtl"] .fixedDataTableColumnResizerLineLayout_main {
   margin-top: -2px;
   right: 10px;
   padding: 2px;
-  background-color: #EEE;
+  background-color: #fff;
   width: 20px;
   text-align: center;
   border-radius: 4px;
-  color: #757575;
-  border: 1px solid #E0E0E0;
+  color: #e24e4e4;
+  border: 1px solid #fff;
   cursor: pointer;
 }
 
 .cellcontent_headerLabel_dropdownIcon:hover {
   background-color: #E0E0E0;
   border-color: #BDBDBD;
+  color: #757575;
 }
 
 /* Body Cell Content */

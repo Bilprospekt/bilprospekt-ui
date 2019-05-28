@@ -92,7 +92,7 @@ const HeaderCell = React.createClass({
     },
     render() {
         let filterIcon = null;
-        if (this.state.hover && this.props.availableFilters) {
+        if (this.props.availableFilters) {
             filterIcon = (
                 <i className='fa fa-caret-down cellcontent_headerLabel_dropdownIcon' onClick={this._showFilterPopup} />
             );
