@@ -58,6 +58,7 @@ const Navigation = React.createClass({
         onSearchChange: React.PropTypes.func,
         onShowAll: React.PropTypes.func,
         onNavClick: React.PropTypes.func,
+        tooltipElement: React.PropTypes.element,
     },
 
     getInitialState() {
