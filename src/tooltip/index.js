@@ -19,6 +19,9 @@ const Tooltip = React.createClass({
         maxWidth: React.PropTypes.number,
         hide:     React.PropTypes.bool,
         element: React.PropTypes.element,
+        style: React.PropTypes.object,
+        offsetTop: React.PropTypes.number,
+        offsetLeft: React.PropTypes.number,
     },
 
     getDefaultProps() {
@@ -113,6 +116,13 @@ const Tooltip = React.createClass({
                 newTop = (scrollFromTop + wHeight) - (cHeight + borderOffset);
                 $tArrow.css({top: pPos.top - (scrollFromTop + wHeight) + cHeight + (pHeight / 2) + (arrowSize / 2)});
             }
+        }
+
+        if (this.props.offsetTop) {
+            newTop = newTop + this.props.offsetTop;
+        }
+        if (this.props.offsetLeft) {
+            newLeft = newLeft + this.props.offsetLeft;
         }
 
         $tChild.css({

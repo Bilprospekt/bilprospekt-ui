@@ -184,7 +184,7 @@ const Navigation = React.createClass({
             if (val.tooltipElement) {
                 return (
                     <div className={linkRowClass} onClick={this._onNavClick.bind(this, val.link)} key={index}>
-                        <Tooltip element={val.tooltipElement} position='right' maxWidth={200} space={-44} delay={200} ref='tooltipRef'>
+                        <Tooltip element={val.tooltipElement} position='right' maxWidth={200} offsetTop={9} offsetLeft={(this.state.minimized) ? 0 : -30} delay={200} ref='tooltipRef'>
                             <div>
                                 <i className={`link-icon fa ${val.icon}`} />
                                 <p className='link-label'>{val.label}</p>
