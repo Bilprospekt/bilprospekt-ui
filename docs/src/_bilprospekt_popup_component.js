@@ -41,7 +41,7 @@ const PopupDoc = React.createClass({
 
 
                 <pre>
-                <a href='https://github.com/tajo/react-portal'>https://github.com/tajo/react-portal</a>
+                <a href='https://github.com/tajo/react-'>https://github.com/tajo/react-</a>
                 <code>
                     {
                         [
