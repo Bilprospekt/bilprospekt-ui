@@ -166,7 +166,7 @@ const Tooltip = React.createClass({
             tooltipContent = this.props.element;
         } else {
             tooltipContent = null;
-            console.error('[BUI Tooltip] You have to declare this.props.string[string] or this.props.rows[array]!');
+            console.error('[BUI Tooltip] You have to declare this.props.string[string], this.props.rows[array] or this.props.element[element]!');
         }
 
         // this.props.maxWidth
