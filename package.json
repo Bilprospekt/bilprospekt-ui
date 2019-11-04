@@ -1,6 +1,6 @@
 {
   "name": "bilprospekt-ui",
-  "version": "0.9.27",
+  "version": "0.9.28",
   "description": "Bilprospekt UI",
   "main": "./lib/index.js",
   "scripts": {
@@ -23,7 +23,7 @@
     "classnames": "^2.1.5",
     "debug": "^2.2.0",
     "eventemitter2": "^1.0.3",
-    "fixed-data-table": "git+https://github.com/br0r/fixed-data-table.git",
+    "fixed-data-table": "git+https://gitlab.com/bilp-public/fixed-data-table.git",
     "jquery": "^2.1.4",
     "moment": "^2.10.6",
     "react-day-picker": "1.2.0",
