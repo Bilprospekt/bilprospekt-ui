@@ -26,7 +26,8 @@ const BuiSearchableSelect = React.createClass({
             expanded: false,
             inputValue: null,
             checked: [],
-            toggle: 'Markera alla'
+            toggle: 'Markera alla',
+            reset: false
         };
     },
     getDefaultProps() {
@@ -74,6 +75,7 @@ const BuiSearchableSelect = React.createClass({
 
         let newState = {
             inputValue: value,
+            reset: false
         };
 
         if (!this.props.expandOnFocus) {
@@ -81,6 +83,7 @@ const BuiSearchableSelect = React.createClass({
         }
 
         this.setState(newState);
+        
     },
     onToggleAll() {
         if (this.state.checked.length === this.props.data.length) {
@@ -107,16 +110,18 @@ const BuiSearchableSelect = React.createClass({
         if (typeof this.props.onSave === 'function') {
             this.props.onSave(this.state.checked);
         }
-
         this.setState({
             inputValue: null,
-            expanded: false
+            expanded: false,
+            reset: false
         });
     },
     onCancel() {
         this.setState({
             expanded: false,
             inputValue: null,
+            checked: [],
+            reset: true
         });
     },
     render() {
@@ -164,10 +169,9 @@ const BuiSearchableSelect = React.createClass({
                 width: this.props.fieldWidth,
             });
         }
-
         return (
             <div className={classes} style={holderStyle}>
-                <BuiInputField ref='input' icon={this.props.icon} hint={this.props.hint} onChange={this.onSearch} onFocus={this.onFocus} value={this.state.inputValue} />
+                <BuiInputField ref='input' icon={this.props.icon} reset={this.state.reset} hint={this.props.hint} onChange={this.onSearch} onFocus={this.onFocus} value={this.state.inputValue} />
                 <i className='search-adder-dropdown-indicator-icon fa fa-caret-down' />
                 {dropdown}
             </div>

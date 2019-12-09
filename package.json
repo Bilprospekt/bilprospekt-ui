@@ -1,6 +1,6 @@
 {
   "name": "bilprospekt-ui",
-  "version": "0.9.28",
+  "version": "0.9.29",
   "description": "Bilprospekt UI",
   "main": "./lib/index.js",
   "scripts": {

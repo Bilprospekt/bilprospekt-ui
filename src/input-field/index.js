@@ -34,6 +34,7 @@ const BuiInputField = React.createClass({
             focus: false,
             textareaOldHeight: 28,
             status: this.props.status,
+            reset: this.props.reset
         };
     },
 
@@ -48,6 +49,16 @@ const BuiInputField = React.createClass({
     },
 
     componentWillReceiveProps(newProps) {
+        if(newProps.reset !== this.state.reset){
+            this.setState({ 
+                reset: newProps.reset
+            })
+        }
+        if(newProps.reset === true){
+            this.setState({
+                value: ''
+            })
+        }
         if (newProps.status === 'complete') {
             $(this.refs.statusIconRef).delay(2000).animate({
                 opacity: 0,
