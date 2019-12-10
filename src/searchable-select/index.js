@@ -4,12 +4,10 @@ import classNames from 'classnames';
 import _ from 'underscore';
 import $ from 'jquery';
 import EventUtil from '../helpers/EventUtil.js';
-
 // Components
 import BuiInputField from '../input-field';
 import BuiCheckbox from '../checkbox';
 import BuiActionButton from '../action-button';
-
 const BuiSearchableSelect = React.createClass({
     propTypes: {
         data: React.PropTypes.array.isRequired,
@@ -20,6 +18,8 @@ const BuiSearchableSelect = React.createClass({
         onChange: React.PropTypes.func,
         fieldWidth: React.PropTypes.number,
         expandOnFocus: React.PropTypes.bool,
+        reset: React.PropTypes.bool,
+        onCancel: React.PropTypes.func
     },
     getInitialState() {
         return {
@@ -62,7 +62,6 @@ const BuiSearchableSelect = React.createClass({
                 expanded: true,
             });
         }
-
         if (event.target.value !== '') {
             this.onSearch(event.target.value);
         }
@@ -71,16 +70,15 @@ const BuiSearchableSelect = React.createClass({
         if (typeof this.props.onChange === 'function') {
             this.props.onChange(value);
         }
-
         let newState = {
             inputValue: value,
+            reset: false
         };
-
         if (!this.props.expandOnFocus) {
             newState.expanded = (value === '') ? false : true;
         }
-
         this.setState(newState);
+        
     },
     onToggleAll() {
         if (this.state.checked.length === this.props.data.length) {
@@ -92,7 +90,6 @@ const BuiSearchableSelect = React.createClass({
     },
     onAdd(id, event, isChecked) {
         let checked = this.state.checked;
-
         //Allow 0 as id
         const validId = (id || id === 0);
         if (isChecked && validId) {
@@ -100,23 +97,24 @@ const BuiSearchableSelect = React.createClass({
         } else if(validId && checked.indexOf(id) !== -1) {
             checked.splice(checked.indexOf(id), 1);
         }
-
         this.setState({checked: checked, toggle: 'Markera alla'});
     },
     onSave() {
         if (typeof this.props.onSave === 'function') {
             this.props.onSave(this.state.checked);
         }
-
         this.setState({
             inputValue: null,
-            expanded: false
+            expanded: false,
+            reset: false
         });
     },
     onCancel() {
         this.setState({
             expanded: false,
             inputValue: null,
+            checked: [],
+            reset: true
         });
     },
     render() {
@@ -126,7 +124,6 @@ const BuiSearchableSelect = React.createClass({
             const checked = this.state.checked.indexOf(id) !== -1;
             return <BuiCheckbox key={index} label={option.label} id={'' + id} checked={checked} onChange={this.onAdd.bind(this, id)} />
         })
-
         const buttonProps = {
             style: {
                 margin: 5,
@@ -134,8 +131,12 @@ const BuiSearchableSelect = React.createClass({
             },
             flat: true,
         };
-
-        if (this.state.expanded) {
+        
+        if(this.state.reset === true){
+                console.log(this.state.reset)
+            }
+        
+            if (this.state.expanded) {
             dropdown = (
                 <div className='search-adder-dropdown-holder'>
                     <div className='search-adder-dropdown-head'>
@@ -149,11 +150,9 @@ const BuiSearchableSelect = React.createClass({
                 </div>
             );
         }
-
         const classes = classNames('bui-search-adder-holder', {
             'is-expanded' : this.state.expanded,
         });
-
         // this.props.fieldWidth & this.props.style
         let holderStyle = null;
         if (this.props.style) {
@@ -164,15 +163,13 @@ const BuiSearchableSelect = React.createClass({
                 width: this.props.fieldWidth,
             });
         }
-
         return (
             <div className={classes} style={holderStyle}>
-                <BuiInputField ref='input' icon={this.props.icon} hint={this.props.hint} onChange={this.onSearch} onFocus={this.onFocus} value={this.state.inputValue} />
+                <BuiInputField ref='input' icon={this.props.icon} reset={this.state.reset} hint={this.props.hint} onChange={this.onSearch} onFocus={this.onFocus} value={this.state.inputValue} />
                 <i className='search-adder-dropdown-indicator-icon fa fa-caret-down' />
                 {dropdown}
             </div>
         );
     }
 });
-
 module.exports = BuiSearchableSelect;
