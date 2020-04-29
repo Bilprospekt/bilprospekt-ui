@@ -24,7 +24,7 @@
     "debug": "2.2.0",
     "eventemitter2": "1.0.3",
     "fixed-data-table": "git+https://gitlab.com/bilp-public/fixed-data-table.git",
-    "jquery": "2.1.4",
+    "jquery": "3.5.0",
     "moment": "2.10.6",
     "react-day-picker": "1.2.0",
     "react-infinite": "0.7.1",
